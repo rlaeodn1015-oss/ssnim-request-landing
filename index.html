@@ -3,438 +3,484 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>스승님 - 맞춤 골프레슨 요청</title>
+  <title>스승님 - 맞춤 요청 골프레슨 매칭</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      font-family: Inter, "Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background: #fff;
+    :root{
+      --brand:#2563eb;
+      --brand2:#1d4ed8;
+      --ink:#0f172a;
     }
-    .glass {
-      background: rgba(255,255,255,.72);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+    html, body { height: 100%; }
+    body{
+      font-family: Inter, "Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      color: var(--ink);
+      background: #f8fafc;
     }
-    .shadow-soft { box-shadow: 0 20px 60px rgba(2, 6, 23, 0.10); }
-    .shadow-card { box-shadow: 0 12px 34px rgba(2, 6, 23, 0.08); }
-    .btn-press:active { transform: translateY(1px) scale(.995); }
-    .tap { transition: transform .16s ease, box-shadow .16s ease; }
-    .tap:hover { transform: translateY(-2px); box-shadow: 0 18px 42px rgba(2, 6, 23, 0.12); }
-    .fade-up { opacity: 0; transform: translateY(14px); transition: all .6s ease; }
-    .fade-up.show { opacity: 1; transform: translateY(0); }
-    .floaty { animation: floaty 4.8s ease-in-out infinite; }
-    @keyframes floaty { 0%,100% { transform: translateY(0);} 50% { transform: translateY(-10px);} }
-    .chip { transition: background .15s ease, transform .15s ease; }
-    .chip:hover { background: rgba(37, 99, 235, .10); transform: translateY(-1px); }
 
-    /* FAQ */
-    .faq-body { max-height: 0; overflow: hidden; transition: max-height .28s ease; }
-    .faq.open .faq-body { max-height: 220px; }
-    .faq.open .chev { transform: rotate(180deg); }
-    .chev { transition: transform .2s ease; }
-
-    /* Reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-      .fade-up { transition: none; opacity: 1; transform: none; }
-      .floaty { animation: none; }
-      .tap:hover { transform: none; box-shadow: none; }
+    /* soft background */
+    .bg-hero {
+      background:
+        radial-gradient(1200px 500px at 12% 10%, rgba(37,99,235,.16), transparent 60%),
+        radial-gradient(900px 500px at 75% 12%, rgba(59,130,246,.14), transparent 55%),
+        radial-gradient(700px 420px at 60% 55%, rgba(2,132,199,.10), transparent 60%),
+        linear-gradient(180deg, #f8fafc 0%, #ffffff 70%);
     }
+
+    /* subtle grid */
+    .grid-dots{
+      background-image:
+        radial-gradient(rgba(37,99,235,.12) 1px, transparent 1px);
+      background-size: 22px 22px;
+      mask-image: radial-gradient(ellipse at center, rgba(0,0,0,.9) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,0) 75%);
+      -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,.9) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,0) 75%);
+    }
+
+    /* reveal animation */
+    .reveal{ opacity:0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.show{ opacity:1; transform: translateY(0); }
+
+    /* floating chips */
+    @keyframes floaty {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0px); }
+    }
+    .floaty{ animation: floaty 3.8s ease-in-out infinite; }
+    .floaty2{ animation: floaty 4.6s ease-in-out infinite; }
+    .floaty3{ animation: floaty 5.2s ease-in-out infinite; }
+
+    /* card shadows */
+    .soft-shadow{
+      box-shadow: 0 40px 90px rgba(15, 23, 42, .10);
+    }
+    .soft-shadow2{
+      box-shadow: 0 18px 55px rgba(15, 23, 42, .10);
+    }
+
+    /* nice focus */
+    .focus-ring:focus{ outline: none; box-shadow: 0 0 0 4px rgba(37,99,235,.18); }
+
+    /* smooth scroll */
+    html{ scroll-behavior: smooth; }
   </style>
 </head>
 
-<body class="bg-white">
-
-  <!-- Background visual -->
-  <div class="absolute inset-0 -z-10 overflow-hidden">
-    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[900px] rounded-full blur-3xl opacity-30"
-         style="background: radial-gradient(circle at 30% 30%, #2563eb 0%, rgba(37,99,235,0) 55%),
-                radial-gradient(circle at 70% 60%, #22c55e 0%, rgba(34,197,94,0) 55%);">
+<body>
+  <!-- Top bar -->
+  <header class="sticky top-0 z-40 backdrop-blur bg-white/70 border-b border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-xl bg-blue-600 text-white font-black flex items-center justify-center">S</div>
+        <div class="font-extrabold tracking-tight">스승님</div>
+        <span class="text-xs px-2 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-100">맞춤 요청 레슨</span>
+      </div>
+      <a
+        class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 active:scale-[.98] transition"
+        href="https://forms.gle/izZ6MtLFZMiP6c9q9"
+        target="_blank" rel="noopener"
+      >
+        무료로 요청하기
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M7 17L17 7" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <path d="M9 7h8v8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </a>
     </div>
-    <div class="absolute bottom-[-260px] left-[-240px] w-[780px] h-[780px] rounded-full blur-3xl opacity-20"
-         style="background: radial-gradient(circle at 30% 30%, #0ea5e9 0%, rgba(14,165,233,0) 60%);">
-    </div>
-  </div>
+  </header>
 
-  <div class="min-h-screen flex justify-center">
-    <div class="w-full max-w-[820px]">
+  <!-- HERO -->
+  <section class="bg-hero relative overflow-hidden">
+    <div class="absolute inset-0 grid-dots opacity-70"></div>
 
-      <!-- Top bar -->
-      <header class="px-6 pt-6">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <div class="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-black">S</div>
-            <div class="font-extrabold text-slate-900">스승님</div>
+    <div class="max-w-6xl mx-auto px-4 pt-14 pb-14 relative">
+      <div class="grid lg:grid-cols-2 gap-10 items-center">
+        <!-- Left -->
+        <div class="reveal">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-slate-200 backdrop-blur">
+            <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+            <span class="text-sm font-bold text-blue-700">현재 강남 · 서초 · 송파 전담 운영 중</span>
           </div>
-          <div class="text-xs font-bold text-slate-500">
-            강남·서초·송파 전담 운영
+
+          <h1 class="mt-6 text-4xl sm:text-5xl font-black tracking-tight leading-[1.08]">
+            맞춤 요청 골프레슨<br/>
+            <span class="text-blue-600">매칭 서비스</span>
+          </h1>
+
+          <p class="mt-5 text-lg sm:text-xl text-slate-600 font-medium leading-relaxed">
+            레슨 조건을 먼저 정하고,<br class="hidden sm:block"/>
+            필요한 만큼 진행하세요
+          </p>
+
+          <div class="mt-7 inline-flex items-center gap-3 px-5 py-4 rounded-2xl bg-white border border-slate-200 soft-shadow2">
+            <span class="font-extrabold text-slate-900">무작위 제안 ❌</span>
+            <span class="text-slate-300">/</span>
+            <span class="font-extrabold text-blue-700">1:1 전담 매칭 ⭕</span>
+          </div>
+
+          <div class="mt-8 flex flex-col sm:flex-row gap-3">
+            <a
+              href="https://forms.gle/izZ6MtLFZMiP6c9q9"
+              target="_blank" rel="noopener"
+              class="inline-flex justify-center items-center gap-2 px-6 py-4 rounded-2xl bg-blue-600 text-white font-extrabold text-lg hover:bg-blue-700 active:scale-[.985] transition soft-shadow"
+            >
+              맞춤 레슨 요청하기
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M7 17L17 7" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                <path d="M9 7h8v8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </a>
+            <a href="#how" class="inline-flex justify-center items-center px-6 py-4 rounded-2xl bg-white border border-slate-200 font-bold text-slate-800 hover:bg-slate-50 transition">
+              어떻게 진행돼요?
+            </a>
+          </div>
+
+          <p class="mt-4 text-sm text-slate-500">
+            상담만 진행 / 아직 결제 아님 · 요청은 무료입니다
+          </p>
+        </div>
+
+        <!-- Right - Mock visual -->
+        <div class="reveal lg:justify-self-end">
+          <div class="relative w-full max-w-[520px] mx-auto">
+            <!-- Outer glow -->
+            <div class="absolute -inset-6 bg-blue-500/10 blur-2xl rounded-[48px]"></div>
+
+            <div class="relative rounded-[44px] bg-white border border-slate-200 soft-shadow overflow-hidden">
+              <!-- top area -->
+              <div class="p-6 sm:p-7">
+                <div class="flex items-center justify-between">
+                  <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-50 border border-slate-200">
+                    <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                    <span class="text-xs font-extrabold text-slate-700">강남구 매칭 중</span>
+                  </div>
+                  <div class="w-10 h-10 rounded-2xl bg-amber-100 border border-amber-200 flex items-center justify-center">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.9 6.5 20.2l1-6.2L3 9.6l6.2-.9L12 3z" fill="#f59e0b"/>
+                    </svg>
+                  </div>
+                </div>
+
+                <!-- background pattern -->
+                <div class="mt-5 relative rounded-[28px] overflow-hidden border border-slate-100 bg-gradient-to-br from-slate-50 to-white">
+                  <div class="absolute inset-0 grid-dots opacity-45"></div>
+
+                  <!-- center avatar -->
+                  <div class="relative p-8 sm:p-10 flex items-center justify-center">
+                    <div class="w-48 h-48 sm:w-56 sm:h-56 rounded-full bg-gradient-to-b from-blue-600 to-indigo-700 flex items-center justify-center ring-[10px] ring-white">
+                      <!-- simple golfer svg -->
+                      <svg class="w-28 h-28 sm:w-32 sm:h-32" viewBox="0 0 120 120" fill="none">
+                        <circle cx="60" cy="32" r="14" fill="#fcd34d"/>
+                        <path d="M46 48c4-6 24-6 28 0 5 8 7 18 6 28-1 12-6 22-10 22H50c-4 0-9-10-10-22-1-10 1-20 6-28z" fill="#60a5fa"/>
+                        <path d="M42 68c10-8 26-8 36 0" stroke="#1e3a8a" stroke-width="6" stroke-linecap="round"/>
+                        <path d="M25 55l35-20" stroke="#f8fafc" stroke-width="7" stroke-linecap="round"/>
+                        <path d="M60 35l30 20" stroke="#f8fafc" stroke-width="7" stroke-linecap="round"/>
+                        <path d="M86 26l18-10" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
+                      </svg>
+                    </div>
+
+                    <!-- floating chips -->
+                    <div class="absolute left-6 top-10 floaty">
+                      <div class="px-3 py-2 rounded-full bg-white/90 border border-slate-200 text-xs font-extrabold text-slate-700 backdrop-blur">
+                        ● 강남구
+                      </div>
+                    </div>
+                    <div class="absolute right-6 bottom-16 floaty2">
+                      <div class="px-3 py-2 rounded-full bg-white/90 border border-slate-200 text-xs font-extrabold text-slate-700 backdrop-blur">
+                        ● 서초구 전담팀
+                      </div>
+                    </div>
+                    <div class="absolute left-10 bottom-10 floaty3">
+                      <div class="px-3 py-2 rounded-full bg-white/90 border border-slate-200 text-xs font-extrabold text-slate-700 backdrop-blur">
+                        Expert
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- success banner -->
+                  <div class="relative px-6 pb-7">
+                    <div class="rounded-2xl bg-white border border-slate-200 px-5 py-4 flex items-center gap-3 soft-shadow2">
+                      <div class="w-10 h-10 rounded-xl bg-blue-600/10 border border-blue-100 flex items-center justify-center">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                          <path d="M20 6L9 17l-5-5" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+                      <div>
+                        <div class="text-xs font-black tracking-wider text-slate-500">MATCHED SUCCESSFULLY</div>
+                        <div class="text-base font-extrabold">내 진짜 고민 해결!</div>
+                      </div>
+                      <div class="ml-auto">
+                        <span class="text-xs font-extrabold px-3 py-2 rounded-full bg-blue-600 text-white">매칭</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <p class="mt-4 text-center text-sm text-slate-500">
+              “프로를 고르는 부담” 대신, 조건이 맞는 전문가만 연결합니다.
+            </p>
           </div>
         </div>
-      </header>
+      </div>
+    </div>
+  </section>
 
-      <!-- HERO -->
-      <section class="px-6 pt-12 pb-10">
-        <div class="grid md:grid-cols-2 gap-10 items-center">
+  <!-- HOW IT WORKS -->
+  <section id="how" class="bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-16">
+      <div class="reveal text-center">
+        <h2 class="text-3xl sm:text-4xl font-black tracking-tight">요청 후, 이렇게 진행됩니다</h2>
+        <p class="mt-3 text-slate-600 font-medium">요청서 → 전담 매니저 확인 → 조건 맞는 전문가 연결</p>
+      </div>
 
-          <div class="space-y-5">
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 text-blue-700 font-extrabold text-sm chip">
-              <span class="inline-block w-2 h-2 rounded-full bg-blue-600"></span>
-              골퍼가 조건을 정하는 레슨
+      <div class="mt-10 grid md:grid-cols-3 gap-5">
+        <!-- step 1 -->
+        <div class="reveal p-7 rounded-3xl bg-slate-50 border border-slate-200 hover:bg-white transition soft-shadow2">
+          <div class="w-14 h-14 rounded-2xl border-2 border-blue-600 text-blue-700 font-black flex items-center justify-center text-xl">1</div>
+          <h3 class="mt-5 text-xl font-extrabold">골퍼가 직접 요청서 작성</h3>
+          <p class="mt-3 text-slate-600 leading-relaxed">
+            고치고 싶은 문제, 원하는 횟수·금액, 지역과 일정 등<br/>
+            모든 조건을 직접 설정합니다.
+          </p>
+        </div>
+
+        <!-- step 2 -->
+        <div class="reveal p-7 rounded-3xl bg-slate-50 border border-slate-200 hover:bg-white transition soft-shadow2">
+          <div class="w-14 h-14 rounded-2xl border-2 border-blue-600 text-blue-700 font-black flex items-center justify-center text-xl">2</div>
+          <h3 class="mt-5 text-xl font-extrabold">스승님 전담 매니저 확인</h3>
+          <p class="mt-3 text-slate-600 leading-relaxed">
+            요청 내용을 확인 후<br/>
+            전담 매칭 서비스로 요청에 맞는 스승님을 선별합니다.
+          </p>
+        </div>
+
+        <!-- step 3 -->
+        <div class="reveal p-7 rounded-3xl bg-slate-50 border border-slate-200 hover:bg-white transition soft-shadow2">
+          <div class="w-14 h-14 rounded-2xl border-2 border-blue-600 text-blue-700 font-black flex items-center justify-center text-xl">3</div>
+          <h3 class="mt-5 text-xl font-extrabold">조건 맞는 전문가만 연결</h3>
+          <p class="mt-3 text-slate-600 leading-relaxed">
+            무분별한 제안/광고성 연락 없이<br/>
+            요청 조건에 맞는 스승님만 연결합니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARE -->
+  <section class="bg-slate-50">
+    <div class="max-w-6xl mx-auto px-4 py-16">
+      <div class="reveal text-center">
+        <h2 class="text-3xl sm:text-4xl font-black tracking-tight">비교해보세요</h2>
+      </div>
+
+      <div class="mt-10 grid lg:grid-cols-2 gap-6 items-stretch">
+        <div class="reveal p-8 rounded-3xl bg-white border border-slate-200 soft-shadow2">
+          <div class="text-sm font-extrabold text-slate-400">기존 레슨 앱</div>
+          <div class="mt-6 space-y-4">
+            <div class="flex items-start gap-3">
+              <div class="mt-1 w-6 h-6 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center">
+                <span class="text-rose-600 font-black">×</span>
+              </div>
+              <div class="font-bold text-slate-700">여러 명에게서 동시에 연락</div>
             </div>
-
-            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight text-slate-900">
-              맞춤 요청 골프레슨<br class="hidden md:block">
-              매칭 서비스
-            </h1>
-
-            <p class="text-lg text-slate-600 font-medium leading-relaxed">
-              레슨 조건을 먼저 정하고,<br>
-              필요한 만큼만 진행하세요.
-            </p>
-
-            <div class="flex flex-wrap gap-2 pt-1">
-              <span class="px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-700 text-sm font-bold">무작위 제안 ❌</span>
-              <span class="px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-700 text-sm font-bold">1:1 전담 매칭 ⭕</span>
-              <span class="px-3 py-1 rounded-full bg-white border border-slate-200 text-slate-700 text-sm font-bold">상담 후 결정</span>
+            <div class="flex items-start gap-3">
+              <div class="mt-1 w-6 h-6 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center">
+                <span class="text-rose-600 font-black">×</span>
+              </div>
+              <div class="font-bold text-slate-700">조건 설명 반복</div>
             </div>
-
-            <!-- Primary CTA -->
-            <div class="pt-3 flex gap-3">
-              <a href="#cta"
-                 class="btn-press tap inline-flex items-center justify-center px-5 py-4 rounded-2xl bg-blue-600 text-white font-extrabold shadow-card">
-                10초만에 요청하기
-                <span class="ml-2">→</span>
-              </a>
-              <button id="scrollToCases"
-                      class="btn-press tap inline-flex items-center justify-center px-5 py-4 rounded-2xl bg-white border border-slate-200 text-slate-900 font-extrabold shadow-sm">
-                실제 사례 보기
-              </button>
+            <div class="flex items-start gap-3">
+              <div class="mt-1 w-6 h-6 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center">
+                <span class="text-rose-600 font-black">×</span>
+              </div>
+              <div class="font-bold text-slate-700">장기 등록 압박</div>
             </div>
+            <div class="flex items-start gap-3">
+              <div class="mt-1 w-6 h-6 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center">
+                <span class="text-rose-600 font-black">×</span>
+              </div>
+              <div class="font-bold text-slate-700">선택 부담이 큼</div>
+            </div>
+          </div>
+        </div>
 
-            <p class="text-sm text-slate-500 font-medium">
+        <div class="reveal p-8 rounded-3xl bg-blue-600 text-white border border-blue-700/30 soft-shadow">
+          <div class="text-sm font-extrabold text-blue-100">스승님</div>
+          <div class="mt-6 space-y-4">
+            <div class="flex items-start gap-3">
+              <div class="mt-1 w-6 h-6 rounded-full bg-white/15 border border-white/20 flex items-center justify-center">
+                <span class="text-white font-black">✓</span>
+              </div>
+              <div class="font-extrabold">요청서 기반 매칭</div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="mt-1 w-6 h-6 rounded-full bg-white/15 border border-white/20 flex items-center justify-center">
+                <span class="text-white font-black">✓</span>
+              </div>
+              <div class="font-extrabold">담당자 1:1 관리</div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="mt-1 w-6 h-6 rounded-full bg-white/15 border border-white/20 flex items-center justify-center">
+                <span class="text-white font-black">✓</span>
+              </div>
+              <div class="font-extrabold">필요한 만큼 진행</div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="mt-1 w-6 h-6 rounded-full bg-white/15 border border-white/20 flex items-center justify-center">
+                <span class="text-white font-black">✓</span>
+              </div>
+              <div class="font-extrabold">상담 후 결정</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASES -->
+  <section class="bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-16">
+      <div class="reveal text-center">
+        <h2 class="text-3xl sm:text-4xl font-black tracking-tight">실제 회원 요청 사례</h2>
+      </div>
+
+      <div class="mt-10 grid md:grid-cols-3 gap-6">
+        <div class="reveal p-7 rounded-3xl bg-white border border-slate-200 soft-shadow2 hover:-translate-y-1 transition">
+          <div class="text-blue-600 font-black tracking-widest">★★★★★</div>
+          <p class="mt-4 text-slate-800 font-bold leading-relaxed">
+            “아이언만 치면 생크가 납니다. 장기 등록 말고 2~3번만 제대로 봐주실 분 있을까요?”
+          </p>
+          <div class="mt-6">
+            <div class="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-blue-50 border border-blue-100 font-extrabold text-blue-700">
+              → 레슨 3회 만에 문제 해결
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal p-7 rounded-3xl bg-white border border-slate-200 soft-shadow2 hover:-translate-y-1 transition">
+          <div class="text-blue-600 font-black tracking-widest">★★★★★</div>
+          <p class="mt-4 text-slate-800 font-bold leading-relaxed">
+            “드라이버 비거리 때문에 스트레스입니다. 딱 5번만 집중적으로 보고 싶어요.”
+          </p>
+          <div class="mt-6">
+            <div class="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-blue-50 border border-blue-100 font-extrabold text-blue-700">
+              → 5회 레슨 후 비거리 30m 증가
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal p-7 rounded-3xl bg-white border border-slate-200 soft-shadow2 hover:-translate-y-1 transition">
+          <div class="text-blue-600 font-black tracking-widest">★★★★★</div>
+          <p class="mt-4 text-slate-800 font-bold leading-relaxed">
+            “필드에서 우드를 제대로 쓰고 싶어요. 우드 레슨 전문 스승님을 찾고 있습니다.”
+          </p>
+          <div class="mt-6">
+            <div class="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-blue-50 border border-blue-100 font-extrabold text-blue-700">
+              → 필드 활용도 개선, 미스샷 감소
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUMMARY -->
+  <section class="bg-slate-50">
+    <div class="max-w-4xl mx-auto px-4 py-16">
+      <div class="reveal text-center">
+        <h2 class="text-3xl sm:text-4xl font-black tracking-tight">결과 요약</h2>
+      </div>
+
+      <div class="mt-10 space-y-4">
+        <div class="reveal p-5 rounded-2xl bg-white border border-slate-200 soft-shadow2 flex items-center gap-4">
+          <div class="w-11 h-11 rounded-xl bg-blue-600/10 border border-blue-100 flex items-center justify-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M20 6L9 17l-5-5" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="font-extrabold text-slate-800">맞춤 요청 후 단기 레슨으로 문제 해결</div>
+        </div>
+
+        <div class="reveal p-5 rounded-2xl bg-white border border-slate-200 soft-shadow2 flex items-center gap-4">
+          <div class="w-11 h-11 rounded-xl bg-blue-600/10 border border-blue-100 flex items-center justify-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M20 6L9 17l-5-5" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="font-extrabold text-slate-800">장기 등록 없이 필요한 부분만 교정</div>
+        </div>
+
+        <div class="reveal p-5 rounded-2xl bg-white border border-slate-200 soft-shadow2 flex items-center gap-4">
+          <div class="w-11 h-11 rounded-xl bg-blue-600/10 border border-blue-100 flex items-center justify-center">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M20 6L9 17l-5-5" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="font-extrabold text-slate-800">조건 맞는 전문가 매칭으로 시간 및 비용 절약</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="bg-white">
+    <div class="max-w-6xl mx-auto px-4 py-16">
+      <div class="reveal rounded-[32px] border border-slate-200 bg-gradient-to-br from-blue-50 to-white p-8 sm:p-10 soft-shadow2">
+        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-black tracking-tight">
+              내 요청으로 매칭 가능한지<br class="hidden sm:block"/>
+              먼저 사전에 확인해보세요
+            </h2>
+            <p class="mt-3 text-slate-600 font-medium">
               상담만 진행 / 아직 결제 아님 · 요청은 무료입니다
             </p>
           </div>
 
-          <!-- Phone mock -->
-          <div class="relative">
-            <div class="absolute -top-6 -right-4 w-24 h-24 rounded-3xl bg-blue-600/10 blur-xl"></div>
-            <div class="absolute -bottom-6 -left-4 w-28 h-28 rounded-3xl bg-emerald-500/10 blur-xl"></div>
-
-            <div class="mx-auto max-w-[360px] rounded-[36px] bg-slate-900 p-3 shadow-soft floaty">
-              <div class="rounded-[30px] bg-white overflow-hidden">
-                <div class="px-5 py-4 border-b border-slate-100 flex items-center justify-between">
-                  <div class="font-extrabold text-slate-900 text-sm">레슨 요청서</div>
-                  <span class="text-xs font-extrabold text-blue-700 bg-blue-50 px-2 py-1 rounded-full">프로 확인 중</span>
-                </div>
-
-                <div class="p-5 space-y-4">
-                  <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                    <div class="text-xs text-slate-500 font-bold">지역</div>
-                    <div class="mt-1 font-extrabold text-slate-900">서초구 · 방배동</div>
-                  </div>
-
-                  <div class="grid grid-cols-2 gap-3">
-                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                      <div class="text-xs text-slate-500 font-bold">레벨</div>
-                      <div class="mt-1 font-extrabold text-slate-900">90타대</div>
-                    </div>
-                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                      <div class="text-xs text-slate-500 font-bold">횟수</div>
-                      <div class="mt-1 font-extrabold text-slate-900">3회</div>
-                    </div>
-                  </div>
-
-                  <div class="p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                    <div class="text-xs text-slate-500 font-bold">고민</div>
-                    <div class="mt-1 font-extrabold text-slate-900">아이언 생크 · 컨택</div>
-                  </div>
-
-                  <div class="p-4 rounded-2xl bg-blue-600 text-white rounded-2xl">
-                    <div class="text-xs text-blue-100 font-bold">예산</div>
-                    <div class="mt-1 font-extrabold text-lg">40만원</div>
-                    <div class="mt-2 text-xs text-blue-100/90 font-semibold">조건 맞는 스승님만 연결됩니다</div>
-                  </div>
-                </div>
-
-                <div class="px-5 pb-5">
-                  <div class="h-3 rounded-full bg-slate-100 overflow-hidden">
-                    <div class="h-full w-2/3 bg-blue-600/60"></div>
-                  </div>
-                  <div class="mt-2 text-xs text-slate-500 font-bold">매칭 진행률</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="mt-6 text-center text-sm text-slate-600 font-semibold">
-              “앱 느낌” 그대로 랜딩에서 먼저 체험
-            </div>
-          </div>
+          <a
+            href="https://forms.gle/izZ6MtLFZMiP6c9q9"
+            target="_blank" rel="noopener"
+            class="inline-flex w-full lg:w-auto justify-center items-center gap-2 px-7 py-4 rounded-2xl bg-blue-600 text-white font-extrabold text-lg hover:bg-blue-700 active:scale-[.985] transition soft-shadow"
+          >
+            맞춤 레슨 요청하기
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M7 17L17 7" stroke="white" stroke-width="2" stroke-linecap="round"/>
+              <path d="M9 7h8v8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </a>
         </div>
-      </section>
+      </div>
 
-      <!-- TRUST STRIP -->
-      <section class="px-6 py-6">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm fade-up">
-            <div class="text-sm font-extrabold text-slate-900">요청서 기반</div>
-            <div class="mt-1 text-xs text-slate-500 font-semibold">조건 먼저, 제안 나중</div>
-          </div>
-          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm fade-up">
-            <div class="text-sm font-extrabold text-slate-900">전담 매칭</div>
-            <div class="mt-1 text-xs text-slate-500 font-semibold">담당자가 관리</div>
-          </div>
-          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm fade-up">
-            <div class="text-sm font-extrabold text-slate-900">필요한 만큼</div>
-            <div class="mt-1 text-xs text-slate-500 font-semibold">장기등록 강요 없음</div>
-          </div>
-          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm fade-up">
-            <div class="text-sm font-extrabold text-slate-900">상담 후 결정</div>
-            <div class="mt-1 text-xs text-slate-500 font-semibold">결제는 그 다음</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- EMPATHY -->
-      <section class="px-6 py-12">
-        <div class="rounded-[30px] bg-slate-50 border border-slate-100 p-7 shadow-sm">
-          <h2 class="text-2xl font-extrabold text-slate-900">혹시, 이런 경험 있으셨나요?</h2>
-
-          <div class="mt-6 space-y-3">
-            <div class="tap p-5 bg-white rounded-2xl border border-slate-100 shadow-sm fade-up">
-              <div class="text-slate-900 font-extrabold">레슨을 받는데 돈 아까운 경험</div>
-              <div class="mt-1 text-sm text-slate-600 font-semibold">실력은 안 느는데, 등록만 늘어남</div>
-            </div>
-            <div class="tap p-5 bg-white rounded-2xl border border-slate-100 shadow-sm fade-up">
-              <div class="text-slate-900 font-extrabold">10회 등록을 권유받아 부담됐던 경험</div>
-              <div class="mt-1 text-sm text-slate-600 font-semibold">필요한 건 2~3회인데, 패키지 압박</div>
-            </div>
-            <div class="tap p-5 bg-white rounded-2xl border border-slate-100 shadow-sm fade-up">
-              <div class="text-slate-900 font-extrabold">나한테 맞는 프로를 고르기 어려웠던 경험</div>
-              <div class="mt-1 text-sm text-slate-600 font-semibold">전문 분야/스타일을 알기 어려움</div>
-            </div>
-            <div class="tap p-5 bg-white rounded-2xl border border-slate-100 shadow-sm fade-up">
-              <div class="text-slate-900 font-extrabold">여러 명에게 동시에 연락 오는 게 불편했던 경험</div>
-              <div class="mt-1 text-sm text-slate-600 font-semibold">영업 메시지 폭탄, 선택 피로</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- WORKFLOW -->
-      <section class="px-6 py-12">
-        <div class="rounded-[34px] bg-blue-600 text-white p-8 shadow-soft">
-          <div class="flex items-start justify-between gap-6">
-            <div>
-              <h2 class="text-2xl font-extrabold">요청 후, 이렇게 진행됩니다</h2>
-              <p class="mt-2 text-blue-100 font-semibold">딱 3단계. 불필요한 과정은 빼버렸습니다.</p>
-            </div>
-            <div class="hidden md:block">
-              <span class="inline-flex px-4 py-2 rounded-full bg-white/10 font-extrabold text-blue-100">3 STEP</span>
-            </div>
-          </div>
-
-          <div class="mt-8 grid md:grid-cols-3 gap-4">
-            <div class="tap p-6 rounded-3xl bg-white/10 border border-white/10 fade-up">
-              <div class="text-blue-100 font-extrabold text-sm">STEP 01</div>
-              <div class="mt-1 text-xl font-extrabold">요청서 작성</div>
-              <p class="mt-2 text-blue-100/90 text-sm font-semibold leading-relaxed">
-                문제 · 횟수 · 예산 · 지역 · 일정<br>
-                내가 원하는 조건을 먼저 입력
-              </p>
-            </div>
-
-            <div class="tap p-6 rounded-3xl bg-white/10 border border-white/10 fade-up">
-              <div class="text-blue-100 font-extrabold text-sm">STEP 02</div>
-              <div class="mt-1 text-xl font-extrabold">전담 확인</div>
-              <p class="mt-2 text-blue-100/90 text-sm font-semibold leading-relaxed">
-                요청 내용을 검토 후<br>
-                조건에 맞는 스승님 후보 선별
-              </p>
-            </div>
-
-            <div class="tap p-6 rounded-3xl bg-white/10 border border-white/10 fade-up">
-              <div class="text-blue-100 font-extrabold text-sm">STEP 03</div>
-              <div class="mt-1 text-xl font-extrabold">선별 연결</div>
-              <p class="mt-2 text-blue-100/90 text-sm font-semibold leading-relaxed">
-                광고성 연락 없이<br>
-                조건 맞는 전문가만 연결
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- COMPARISON -->
-      <section class="px-6 py-12">
-        <h2 class="text-2xl font-extrabold text-slate-900 text-center">비교해보세요</h2>
-
-        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="tap p-7 bg-slate-50 rounded-3xl border border-slate-200 fade-up">
-            <div class="text-slate-400 font-extrabold text-sm">기존 레슨</div>
-            <ul class="mt-4 space-y-3 text-sm text-slate-600 font-semibold">
-              <li>• 여러 명에게서 동시에 연락</li>
-              <li>• 조건 설명 반복</li>
-              <li>• 장기 등록 압박</li>
-              <li>• 선택 부담이 큼</li>
-            </ul>
-          </div>
-
-          <div class="tap p-7 bg-blue-50 rounded-3xl border border-blue-200 ring-2 ring-blue-100 fade-up">
-            <div class="text-blue-700 font-extrabold text-sm">스승님</div>
-            <ul class="mt-4 space-y-3 text-sm text-blue-900 font-extrabold">
-              <li>• 요청서 기반 매칭</li>
-              <li>• 담당자 1:1 관리</li>
-              <li>• 필요한 만큼 진행</li>
-              <li>• 상담 후 결정</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <!-- CASES -->
-      <section id="cases" class="px-6 py-12">
-        <div class="rounded-[34px] bg-slate-900 text-white p-8 shadow-soft">
-          <div class="flex items-center justify-between">
-            <h2 class="text-xl font-extrabold">실제 회원 요청 사례</h2>
-            <span class="text-xs font-extrabold text-blue-300 bg-white/10 px-3 py-2 rounded-full">실제 요청 문장 기반</span>
-          </div>
-
-          <div class="mt-8 grid gap-4">
-            <div class="tap p-6 bg-white/10 rounded-3xl border border-white/10 fade-up">
-              <p class="text-base font-semibold leading-relaxed">
-                “아이언만 치면 생크가 납니다. 장기 등록 말고 2~3번만 제대로 봐주실 분 있을까요?”
-              </p>
-              <div class="mt-3 text-blue-300 font-extrabold">레슨 3회 만에 문제 해결</div>
-            </div>
-
-            <div class="tap p-6 bg-white/10 rounded-3xl border border-white/10 fade-up">
-              <p class="text-base font-semibold leading-relaxed">
-                “드라이버 비거리 때문에 스트레스입니다. 딱 5번만 집중적으로 보고 싶어요.”
-              </p>
-              <div class="mt-3 text-blue-300 font-extrabold">5회 레슨 후 비거리 30m 증가</div>
-            </div>
-
-            <div class="tap p-6 bg-white/10 rounded-3xl border border-white/10 fade-up">
-              <p class="text-base font-semibold leading-relaxed">
-                “필드에서 우드를 제대로 쓰고 싶어요. 우드 레슨 전문 스승님을 찾고 있습니다.”
-              </p>
-              <div class="mt-3 text-blue-300 font-extrabold">필드 활용도 개선, 미스샷 감소</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- FAQ -->
-      <section class="px-6 py-12">
-        <h2 class="text-2xl font-extrabold text-slate-900 text-center">자주 묻는 질문</h2>
-
-        <div class="mt-8 space-y-3">
-          <div class="faq tap bg-white border border-slate-200 rounded-3xl p-5 shadow-sm fade-up">
-            <button class="w-full flex items-center justify-between text-left font-extrabold text-slate-900" data-faq>
-              아직 결제인가요?
-              <span class="chev">⌄</span>
-            </button>
-            <div class="faq-body">
-              <div class="pt-3 text-sm text-slate-600 font-semibold leading-relaxed">
-                아닙니다. 지금은 “요청 접수 + 상담” 단계입니다. 조건이 맞는 스승님이 가능하다고 확인된 후 진행을 결정합니다.
-              </div>
-            </div>
-          </div>
-
-          <div class="faq tap bg-white border border-slate-200 rounded-3xl p-5 shadow-sm fade-up">
-            <button class="w-full flex items-center justify-between text-left font-extrabold text-slate-900" data-faq>
-              여러 명에게 연락이 오나요?
-              <span class="chev">⌄</span>
-            </button>
-            <div class="faq-body">
-              <div class="pt-3 text-sm text-slate-600 font-semibold leading-relaxed">
-                아니요. 무작위 제안/영업 연락 없이, 요청 조건에 맞는 스승님만 선별해서 안내합니다.
-              </div>
-            </div>
-          </div>
-
-          <div class="faq tap bg-white border border-slate-200 rounded-3xl p-5 shadow-sm fade-up">
-            <button class="w-full flex items-center justify-between text-left font-extrabold text-slate-900" data-faq>
-              어디 지역에서 가능한가요?
-              <span class="chev">⌄</span>
-            </button>
-            <div class="faq-body">
-              <div class="pt-3 text-sm text-slate-600 font-semibold leading-relaxed">
-                현재는 강남·서초·송파 중심으로 전담 운영 중입니다. 요청 내용에 따라 가능한 범위를 안내드립니다.
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- CTA -->
-      <section id="cta" class="px-6 pt-8 pb-28 text-center">
-        <div class="rounded-[34px] bg-slate-50 border border-slate-100 p-8 shadow-sm">
-          <h2 class="text-2xl font-extrabold text-slate-900 leading-snug">
-            내 요청으로 매칭 가능한지<br>먼저 확인해보세요
-          </h2>
-          <p class="mt-4 text-slate-600 font-semibold text-sm leading-relaxed">
-            상담만 진행 / 아직 결제 아님<br>
-            요청은 무료입니다
-          </p>
-
-          <div class="mt-6 flex items-center justify-center gap-2 text-xs text-slate-500 font-bold">
-            <span class="inline-block w-2 h-2 rounded-full bg-emerald-500"></span>
-            평균 10초 내 작성 가능
-          </div>
-        </div>
-      </section>
-
-      <!-- Footer -->
-      <footer class="px-6 py-10 border-t border-slate-100 text-center">
-        <p class="text-slate-400 text-sm font-semibold leading-relaxed">
-          스승님은 골퍼가 실패하지 않도록 요청부터 관리합니다.
-        </p>
-      </footer>
+      <p class="mt-10 text-center text-sm text-slate-500">
+        스승님은 골퍼가 실패하지 않도록 요청부터 관리합니다.
+      </p>
     </div>
-  </div>
+  </section>
 
-  <!-- Fixed CTA -->
-  <div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[820px] p-4 glass border-t border-slate-100">
-    <a
-      href="https://forms.gle/izZ6MtLFZMiP6c9q9"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="btn-press tap w-full block text-center py-5 bg-blue-600 text-white rounded-2xl font-extrabold text-lg shadow-card"
-    >
-      맞춤 레슨 요청하기
-    </a>
-  </div>
+  <footer class="py-10 text-center text-xs text-slate-400">
+    © <span id="year"></span> ssnim. All rights reserved.
+  </footer>
 
   <script>
-    // Fade-up on scroll
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // reveal on scroll
+    const els = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('show');
+      });
     }, { threshold: 0.12 });
-
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-    // FAQ toggle
-    document.querySelectorAll('[data-faq]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const root = btn.closest('.faq');
-        root.classList.toggle('open');
-      });
-    });
-
-    // Scroll to cases
-    const scrollBtn = document.getElementById('scrollToCases');
-    if (scrollBtn) {
-      scrollBtn.addEventListener('click', () => {
-        const el = document.getElementById('cases');
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    }
+    els.forEach(el => io.observe(el));
   </script>
 </body>
 </html>
