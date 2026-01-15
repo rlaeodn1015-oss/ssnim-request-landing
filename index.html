@@ -169,7 +169,7 @@
                 className:
                   "bg-brand-blue text-white px-5 py-2 rounded-full font-bold text-sm hover:scale-105 transition-transform active:scale-95",
               },
-              "상담하기"
+              "요청 레슨 상담하기"
             )
           )
         );
@@ -234,7 +234,7 @@
                 React.createElement(
                   "span",
                   { className: "text-brand-blue" },
-                  "강남 · 서초"
+                  "강남 · 서초· 송파파"
                 )
               ),
 
@@ -244,9 +244,9 @@
                   className:
                     "text-gray-500 text-lg md:text-2xl font-medium mb-7",
                 },
-                "레슨 조건을 먼저 정하고,",
+                "레슨 조건을 내가 먼저 설정하고,",
                 React.createElement("br", { className: "hidden md:block" }),
-                "필요한 만큼만 배우세요"
+                "필요한 만큼 요청하세요요"
               ),
 
               React.createElement(
@@ -283,7 +283,7 @@
                     className:
                       "inline-flex items-center gap-2 bg-brand-blue text-white px-8 py-4 rounded-2xl font-black text-xl shadow-xl hover:translate-y-[-4px] transition-all",
                   },
-                  "매칭 요청하기 →"
+                  "레슨 매칭 요청하기 →"
                 )
               )
             ),
@@ -352,7 +352,7 @@
                       React.createElement(
                         "span",
                         { className: "text-xs font-bold text-gray-400" },
-                        "강남·서초 전담"
+                        "강남·서초·송파파 전담"
                       )
                     ),
 
@@ -451,7 +451,7 @@
                         className:
                           "text-xs font-bold text-gray-500 leading-relaxed bg-white/60 rounded-xl p-3 border border-gray-100",
                       },
-                      "요청서 확인 후, 조건에 맞는 스승님만 연결합니다."
+                      "요청서 확인 후, 전문 분야 스승님만 연결합니다."
                     )
                   )
                 )
@@ -492,9 +492,9 @@
             React.createElement(
               "h2",
               { className: "text-3xl md:text-5xl font-black leading-[1.4]" },
-              "“레슨, 왜 늘",
+              "“골프 레슨, 왜 늘",
               React.createElement("br"),
-              "돈이 아까울까요?”"
+              "실패하고 실망할까요?”"
             )
           )
         );
@@ -504,8 +504,8 @@
        */
       const ChecklistSection = () => {
         const items = [
-          "레슨을 받는데 돈이 아깝다고 느꼈던 경험",
-          "10회 이상 장기 등록을 권유받아 부담됐던 경험",
+          "레슨을 받으면서 돈이 아깝다고 느꼈던 경험",
+          "10회 이상 등록을 권유받아 부담됐던 경험",
           "나한테 맞는 프로를 직접 고르기 어려웠던 경험",
           "여러 명에게 동시에 연락 오는 게 불편했던 경험",
         ];
@@ -592,9 +592,9 @@
                 className:
                   "text-blue-100 text-lg md:text-2xl font-medium leading-relaxed",
               },
-              "스승님은 프로를 나열하지 않습니다.",
+              "스승님은 아무 프로나 연결하지 않습니다.",
               React.createElement("br"),
-              "골퍼의 요청을 먼저 받고, 조건이 맞는 스승님만 연결합니다."
+              "골퍼의 요청을 먼저 받고, 요청에 맞는 전문 스승님만 연결합니다."
             )
           )
         );
@@ -616,7 +616,7 @@
                 {
                   step: "01",
                   title: "요청서 작성",
-                  desc: "고치고 싶은 문제와 예산을 설정",
+                  desc: "고치고 싶은 문제와 금액을 설정",
                   icon: React.createElement(PenLine, { size: 40 }),
                 },
                 {
@@ -628,7 +628,7 @@
                 {
                   step: "03",
                   title: "매칭 및 상담",
-                  desc: "조건 맞는 스승님만 연결",
+                  desc: "요청에 맞는 스승님만 연결",
                   icon: React.createElement(ArrowRight, { size: 40 }),
                 },
               ].map((item, idx) =>
@@ -712,9 +712,9 @@
                   "div",
                   { className: "space-y-6" },
                   [
-                    "여러 명에게서 동시에 연락 💣",
+                    "여러 명에게 동시에 연락 💣",
                     "내 상황을 매번 처음부터 설명 🔄",
-                    "장기 등록 압박이 심함 💸",
+                    "10회 등록 압박이 심함 💸",
                     "직접 프로를 비교하는 선택 부담 🤯",
                   ].map((v, i) =>
                     React.createElement(
@@ -747,10 +747,10 @@
                   "div",
                   { className: "space-y-6" },
                   [
-                    "요청서 기반으로 나에게 연락 ✅",
+                    "요청서 기반으로 매칭 연락 ✅",
                     "담당자가 1:1로 맞춤 관리 ✨",
-                    "필요한 횟수만큼만 수강 💎",
-                    "상담 후 만족할 때 결정 🤝",
+                    "원하는 횟수만큼만 수강 💎",
+                    "1회 레슨 후 만족 결정 🤝",
                   ].map((v, i) =>
                     React.createElement(
                       "div",
@@ -778,8 +778,8 @@
       const CaseStudySection = () => {
         const cases = [
           {
-            text: "“아이언만 치면 생크가 납니다. 장기 등록 말고 2~3번만 제대로 봐주실 분?”",
-            result: "레슨 3회 만에 문제 해결",
+            text: "“아이언만 치면 생크가 납니다. 10회 등록 말고 2~3번만 제대로 봐주실 분?”",
+            result: "맞춤 레슨 3회 만에 문제 해결",
             icon: React.createElement(Smartphone, {
               className: "text-brand-blue",
             }),
@@ -894,7 +894,7 @@
                   className:
                     "text-gray-500 text-xl font-bold leading-relaxed mb-10",
                 },
-                "스승님은 골퍼가 레슨 실패 리스크를",
+                "스승님은 골퍼들의 선택 실패 리스크를",
                 React.createElement("br"),
                 "혼자 감담하지 않도록 시스템으로 보호합니다."
               ),
@@ -926,8 +926,8 @@
                   desc: "충분한 협의 전에는 어떠한 결제도 발생하지 않습니다.",
                 },
                 {
-                  title: "장기 결제 강요 금지",
-                  desc: "1회, 3회 등 필요한 횟수만큼만 자유롭게 결제 가능합니다.",
+                  title: "10회 결제 강요 금지",
+                  desc: "1회, 3회 등 필요한만큼만 자유롭게 결제 가능합니다.",
                 },
                 {
                   title: "운영팀 직접 조율",
@@ -980,14 +980,14 @@
               { className: "text-4xl md:text-6xl font-black mb-8 leading-tight" },
               "지금 바로",
               React.createElement("br"),
-              "나만의 스승님을 찾으세요"
+              "나만의 전문 스승님을 찾으세요"
             ),
             React.createElement(
               "p",
               { className: "text-gray-400 text-xl font-bold mb-12 md:mb-16" },
               "원하는 레슨 요건을 알려주시면",
               React.createElement("br"),
-              "가장 적합한 프로님을 무료로 매칭해 드립니다."
+              "가장 적합한 전문문 프로님을 무료로 매칭해 드립니다."
             ),
             React.createElement(
               "div",
@@ -1162,3 +1162,4 @@
     </script>
   </body>
 </html>
+
