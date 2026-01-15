@@ -85,8 +85,7 @@
         TrendingUp,
         Award,
         ShieldCheck,
-        MessageCircle,
-        ChevronRight,
+        MessageCircle
       } from "lucide-react";
 
       const KAKAO_CHAT_URL = "http://pf.kakao.com/_kxawRn/chat";
@@ -97,27 +96,71 @@
       const Header = () =>
         React.createElement(
           "header",
-          { className: "fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100" },
+          {
+            className:
+              "fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100",
+          },
           React.createElement(
             "div",
-            { className: "max-w-screen-xl mx-auto px-6 h-16 flex items-center justify-between" },
+            {
+              className:
+                "max-w-screen-xl mx-auto px-6 h-16 flex items-center justify-between",
+            },
             React.createElement(
               "div",
               { className: "flex items-center gap-2" },
               React.createElement(
                 "div",
-                { className: "w-8 h-8 bg-brand-blue rounded-lg flex items-center justify-center text-white font-black italic text-sm" },
+                {
+                  className:
+                    "w-8 h-8 bg-brand-blue rounded-lg flex items-center justify-center text-white font-black italic text-sm",
+                },
                 "S"
               ),
-              React.createElement("span", { className: "text-xl font-black tracking-tighter" }, "스승님")
+              React.createElement(
+                "span",
+                { className: "text-xl font-black tracking-tighter" },
+                "스승님"
+              )
             ),
             React.createElement(
               "nav",
-              { className: "hidden md:flex items-center gap-8 text-sm font-bold text-gray-500" },
-              React.createElement("a", { href: "#features", className: "hover:text-brand-blue transition-colors" }, "매칭방식"),
-              React.createElement("a", { href: "#workflow", className: "hover:text-brand-blue transition-colors" }, "이용안내"),
-              React.createElement("a", { href: "#cases", className: "hover:text-brand-blue transition-colors" }, "사례보기"),
-              React.createElement("a", { href: "#trust", className: "hover:text-brand-blue transition-colors" }, "운영정책")
+              {
+                className:
+                  "hidden md:flex items-center gap-8 text-sm font-bold text-gray-500",
+              },
+              React.createElement(
+                "a",
+                {
+                  href: "#features",
+                  className: "hover:text-brand-blue transition-colors",
+                },
+                "매칭방식"
+              ),
+              React.createElement(
+                "a",
+                {
+                  href: "#workflow",
+                  className: "hover:text-brand-blue transition-colors",
+                },
+                "이용안내"
+              ),
+              React.createElement(
+                "a",
+                {
+                  href: "#cases",
+                  className: "hover:text-brand-blue transition-colors",
+                },
+                "사례보기"
+              ),
+              React.createElement(
+                "a",
+                {
+                  href: "#trust",
+                  className: "hover:text-brand-blue transition-colors",
+                },
+                "운영정책"
+              )
             ),
             React.createElement(
               "a",
@@ -133,20 +176,24 @@
 
       /**
        * Hero
-       * - (1) 빈 점선 박스 제거 → 실제 요청서 UI로 채움
-       * - (2) 모바일 카드 너무 큼 문제 해결 → 모바일 높이 고정 h-[420px]
-       * - (3) 강남·서초 문구를 제목 아래에도 한번 더 고정 노출
+       * FIX:
+       * - 모바일에서 안 잘리게: flex/items-center 제거
+       * - 카드 아래 강제 여백 추가 (h-24)
+       * - 초록 체크 뱃지는 모바일에서 카드 안쪽(top-2 right-2)으로 이동
        */
       const HeroSection = () =>
         React.createElement(
           "section",
           {
             className:
-              "relative px-6 pt-28 md:pt-32 pb-16 md:pb-20 bg-white overflow-hidden min-h-[90vh] flex items-center",
+              "relative px-6 pt-24 md:pt-32 pb-32 md:pb-20 bg-white overflow-hidden",
           },
           React.createElement(
             "div",
-            { className: "max-w-screen-xl mx-auto w-full grid md:grid-cols-2 gap-10 md:gap-12 items-center" },
+            {
+              className:
+                "max-w-screen-xl mx-auto w-full grid md:grid-cols-2 gap-10 md:gap-12 items-start",
+            },
 
             // Left (Text)
             React.createElement(
@@ -155,29 +202,48 @@
 
               React.createElement(
                 "div",
-                { className: "inline-block px-4 py-1 mb-5 bg-blue-50 text-brand-blue font-bold rounded-full text-sm" },
+                {
+                  className:
+                    "inline-block px-4 py-1 mb-5 bg-blue-50 text-brand-blue font-black rounded-full text-sm",
+                },
                 "📍 현재 강남·서초 전담 운영 중"
               ),
 
               React.createElement(
                 "h1",
-                { className: "text-4xl md:text-6xl font-black leading-[1.15] mb-3 tracking-tight" },
+                {
+                  className:
+                    "text-4xl md:text-6xl font-black leading-[1.15] mb-3 tracking-tight",
+                },
                 "맞춤 요청 골프레슨",
                 React.createElement("br"),
-                React.createElement("span", { className: "text-brand-blue" }, "매칭 서비스")
+                React.createElement(
+                  "span",
+                  { className: "text-brand-blue" },
+                  "매칭 서비스"
+                )
               ),
 
-              // (3) 추가 고정 노출 문구
               React.createElement(
                 "div",
-                { className: "mt-2 mb-6 text-sm md:text-base font-black text-gray-500" },
+                {
+                  className:
+                    "mt-2 mb-6 text-sm md:text-base font-black text-gray-500",
+                },
                 "현재 서비스 지역: ",
-                React.createElement("span", { className: "text-brand-blue" }, "강남 · 서초")
+                React.createElement(
+                  "span",
+                  { className: "text-brand-blue" },
+                  "강남 · 서초"
+                )
               ),
 
               React.createElement(
                 "p",
-                { className: "text-gray-500 text-lg md:text-2xl font-medium mb-7" },
+                {
+                  className:
+                    "text-gray-500 text-lg md:text-2xl font-medium mb-7",
+                },
                 "레슨 조건을 먼저 정하고,",
                 React.createElement("br", { className: "hidden md:block" }),
                 "필요한 만큼만 배우세요"
@@ -185,11 +251,24 @@
 
               React.createElement(
                 "div",
-                { className: "flex flex-col sm:flex-row gap-3 md:gap-4 mb-8 md:mb-12 justify-center md:justify-start" },
-                React.createElement("span", { className: "text-sm md:text-base font-bold bg-gray-100 px-4 py-2 rounded-full" }, "무작위 제안 ❌"),
+                {
+                  className:
+                    "flex flex-col sm:flex-row gap-3 md:gap-4 mb-8 md:mb-12 justify-center md:justify-start",
+                },
                 React.createElement(
                   "span",
-                  { className: "text-sm md:text-base font-bold bg-blue-100 text-brand-blue px-4 py-2 rounded-full" },
+                  {
+                    className:
+                      "text-sm md:text-base font-bold bg-gray-100 px-4 py-2 rounded-full",
+                  },
+                  "무작위 제안 ❌"
+                ),
+                React.createElement(
+                  "span",
+                  {
+                    className:
+                      "text-sm md:text-base font-bold bg-blue-100 text-brand-blue px-4 py-2 rounded-full",
+                  },
                   "1:1 전담 매칭 ⭕"
                 )
               ),
@@ -204,8 +283,7 @@
                     className:
                       "inline-flex items-center gap-2 bg-brand-blue text-white px-8 py-4 rounded-2xl font-black text-xl shadow-xl hover:translate-y-[-4px] transition-all",
                   },
-                  "매칭 요청하기 ",
-                  React.createElement(ChevronRight, null)
+                  "매칭 요청하기 →"
                 )
               )
             ),
@@ -215,7 +293,6 @@
               "div",
               { className: "relative order-1 md:order-2 flex justify-center" },
 
-              // (2) 모바일 높이 고정: h-[420px], md에서는 원래 비율 유지
               React.createElement(
                 "div",
                 {
@@ -226,8 +303,12 @@
                 React.createElement(
                   "div",
                   { className: "flex items-center justify-between mb-5 md:mb-8" },
-                  React.createElement(Smartphone, { className: "text-brand-blue w-7 h-7 md:w-8 md:h-8" }),
-                  React.createElement("div", { className: "h-2 w-20 bg-gray-200 rounded-full" })
+                  React.createElement(Smartphone, {
+                    className: "text-brand-blue w-7 h-7 md:w-8 md:h-8",
+                  }),
+                  React.createElement("div", {
+                    className: "h-2 w-20 bg-gray-200 rounded-full",
+                  })
                 ),
 
                 React.createElement(
@@ -236,58 +317,130 @@
 
                   React.createElement(
                     "div",
-                    { className: "h-14 md:h-16 w-full bg-blue-50 rounded-2xl flex items-center px-5 md:px-6" },
-                    React.createElement("span", { className: "text-sm md:text-base font-bold text-brand-blue" }, "요청서: 아이언 생크 교정")
+                    {
+                      className:
+                        "h-14 md:h-16 w-full bg-blue-50 rounded-2xl flex items-center px-5 md:px-6",
+                    },
+                    React.createElement(
+                      "span",
+                      {
+                        className:
+                          "text-sm md:text-base font-bold text-brand-blue",
+                      },
+                      "요청서: 아이언 생크 교정"
+                    )
                   ),
 
-                  // (1) 빈 점선 박스 제거 → 실제 요청서 UI
                   React.createElement(
                     "div",
-                    { className: "w-full bg-gray-50 rounded-2xl border border-gray-200 p-5 flex flex-col gap-4" },
+                    {
+                      className:
+                        "w-full bg-gray-50 rounded-2xl border border-gray-200 p-5 flex flex-col gap-4",
+                    },
 
                     React.createElement(
                       "div",
                       { className: "flex items-center justify-between" },
                       React.createElement(
                         "span",
-                        { className: "text-xs font-black text-brand-blue bg-blue-100 px-3 py-1 rounded-full" },
+                        {
+                          className:
+                            "text-xs font-black text-brand-blue bg-blue-100 px-3 py-1 rounded-full",
+                        },
                         "🔔 프로 확인 중"
                       ),
-                      React.createElement("span", { className: "text-xs font-bold text-gray-400" }, "강남·서초 전담")
+                      React.createElement(
+                        "span",
+                        { className: "text-xs font-bold text-gray-400" },
+                        "강남·서초 전담"
+                      )
                     ),
 
                     React.createElement(
                       "div",
-                      { className: "grid grid-cols-2 gap-3 text-sm font-bold text-gray-700" },
+                      {
+                        className:
+                          "grid grid-cols-2 gap-3 text-sm font-bold text-gray-700",
+                      },
 
                       React.createElement(
                         "div",
-                        { className: "bg-white rounded-xl p-3 border border-gray-100" },
-                        React.createElement("div", { className: "text-xs text-gray-400 font-black mb-1" }, "지역"),
+                        {
+                          className:
+                            "bg-white rounded-xl p-3 border border-gray-100",
+                        },
+                        React.createElement(
+                          "div",
+                          {
+                            className:
+                              "text-xs text-gray-400 font-black mb-1",
+                          },
+                          "지역"
+                        ),
                         "서초구 방배동"
                       ),
                       React.createElement(
                         "div",
-                        { className: "bg-white rounded-xl p-3 border border-gray-100" },
-                        React.createElement("div", { className: "text-xs text-gray-400 font-black mb-1" }, "레벨"),
+                        {
+                          className:
+                            "bg-white rounded-xl p-3 border border-gray-100",
+                        },
+                        React.createElement(
+                          "div",
+                          {
+                            className:
+                              "text-xs text-gray-400 font-black mb-1",
+                          },
+                          "레벨"
+                        ),
                         "90타대"
                       ),
                       React.createElement(
                         "div",
-                        { className: "bg-white rounded-xl p-3 border border-gray-100 col-span-2" },
-                        React.createElement("div", { className: "text-xs text-gray-400 font-black mb-1" }, "고민"),
+                        {
+                          className:
+                            "bg-white rounded-xl p-3 border border-gray-100 col-span-2",
+                        },
+                        React.createElement(
+                          "div",
+                          {
+                            className:
+                              "text-xs text-gray-400 font-black mb-1",
+                          },
+                          "고민"
+                        ),
                         "아이언 생크 / 방향성 불안"
                       ),
                       React.createElement(
                         "div",
-                        { className: "bg-white rounded-xl p-3 border border-gray-100" },
-                        React.createElement("div", { className: "text-xs text-gray-400 font-black mb-1" }, "횟수"),
+                        {
+                          className:
+                            "bg-white rounded-xl p-3 border border-gray-100",
+                        },
+                        React.createElement(
+                          "div",
+                          {
+                            className:
+                              "text-xs text-gray-400 font-black mb-1",
+                          },
+                          "횟수"
+                        ),
                         "3회"
                       ),
                       React.createElement(
                         "div",
-                        { className: "bg-white rounded-xl p-3 border border-gray-100" },
-                        React.createElement("div", { className: "text-xs text-gray-400 font-black mb-1" }, "예산"),
+                        {
+                          className:
+                            "bg-white rounded-xl p-3 border border-gray-100",
+                        },
+                        React.createElement(
+                          "div",
+                          {
+                            className:
+                              "text-xs text-gray-400 font-black mb-1",
+                          },
+                          "예산"
+                        ),
                         "30만원"
                       )
                     ),
@@ -304,13 +457,22 @@
                 )
               ),
 
+              // ✅ FIX: 모바일에서 카드 밖으로 나가지 않게 top/right 조정
               React.createElement(
                 "div",
-                { className: "absolute -top-10 -right-4 md:right-0 clay-icon w-20 h-20 md:w-28 md:h-28 flex items-center justify-center bg-white shadow-2xl rotate-[12deg] z-10" },
-                React.createElement(CheckCircle2, { className: "text-green-500 w-12 h-12" })
+                {
+                  className:
+                    "absolute top-2 right-2 md:-top-10 md:right-0 clay-icon w-16 h-16 md:w-28 md:h-28 flex items-center justify-center bg-white shadow-2xl md:rotate-[12deg] z-10",
+                },
+                React.createElement(CheckCircle2, {
+                  className: "text-green-500 w-9 h-9 md:w-12 md:h-12",
+                })
               )
             )
-          )
+          ),
+
+          // ✅ FIX: 모바일에서 아래 콘텐츠(타이틀/버튼) 안 잘리게 강제 여백
+          React.createElement("div", { className: "h-24 md:h-0" })
         );
 
       /**
@@ -323,7 +485,10 @@
           React.createElement(
             "div",
             { className: "max-w-screen-xl mx-auto" },
-            React.createElement(HelpCircle, { className: "w-16 h-16 md:w-20 md:h-20 text-brand-blue mx-auto mb-7 opacity-80" }),
+            React.createElement(HelpCircle, {
+              className:
+                "w-16 h-16 md:w-20 md:h-20 text-brand-blue mx-auto mb-7 opacity-80",
+            }),
             React.createElement(
               "h2",
               { className: "text-3xl md:text-5xl font-black leading-[1.4]" },
@@ -353,7 +518,10 @@
             { className: "max-w-screen-xl mx-auto" },
             React.createElement(
               "h3",
-              { className: "text-2xl md:text-4xl font-black mb-12 md:mb-16 text-center" },
+              {
+                className:
+                  "text-2xl md:text-4xl font-black mb-12 md:mb-16 text-center",
+              },
               "혹시, 이런 경험 있으셨나요?"
             ),
             React.createElement(
@@ -367,8 +535,18 @@
                     className:
                       "clay-card p-8 flex items-start gap-6 hover:translate-y-[-8px] transition-all hover:shadow-2xl",
                   },
-                  React.createElement(CheckCircle2, { className: "text-red-400 shrink-0 mt-1", size: 32 }),
-                  React.createElement("p", { className: "font-bold text-lg md:text-xl text-gray-700 leading-snug" }, item)
+                  React.createElement(CheckCircle2, {
+                    className: "text-red-400 shrink-0 mt-1",
+                    size: 32,
+                  }),
+                  React.createElement(
+                    "p",
+                    {
+                      className:
+                        "font-bold text-lg md:text-xl text-gray-700 leading-snug",
+                    },
+                    item
+                  )
                 )
               )
             )
@@ -382,10 +560,17 @@
       const DifferenceSection = () =>
         React.createElement(
           "section",
-          { id: "features", className: "px-6 py-24 md:py-32 bg-brand-blue text-white text-center overflow-hidden relative" },
+          {
+            id: "features",
+            className:
+              "px-6 py-24 md:py-32 bg-brand-blue text-white text-center overflow-hidden relative",
+          },
           React.createElement(
             "div",
-            { className: "absolute top-0 right-0 opacity-10 transform translate-x-1/4 translate-y-[-1/4] pointer-events-none" },
+            {
+              className:
+                "absolute top-0 right-0 opacity-10 transform translate-x-1/4 translate-y-[-1/4] pointer-events-none",
+            },
             React.createElement(Filter, { size: 600, strokeWidth: 1 })
           ),
           React.createElement(
@@ -393,14 +578,20 @@
             { className: "max-w-screen-md mx-auto relative z-10" },
             React.createElement(
               "h2",
-              { className: "text-3xl md:text-5xl font-black mb-7 md:mb-8 leading-tight" },
+              {
+                className:
+                  "text-3xl md:text-5xl font-black mb-7 md:mb-8 leading-tight",
+              },
               "“레슨이 아니라,",
               React.createElement("br"),
               "‘매칭 방식’이 문제였습니다.”"
             ),
             React.createElement(
               "p",
-              { className: "text-blue-100 text-lg md:text-2xl font-medium leading-relaxed" },
+              {
+                className:
+                  "text-blue-100 text-lg md:text-2xl font-medium leading-relaxed",
+              },
               "스승님은 프로를 나열하지 않습니다.",
               React.createElement("br"),
               "골퍼의 요청을 먼저 받고, 조건이 맞는 스승님만 연결합니다."
@@ -422,23 +613,60 @@
               "div",
               { className: "grid md:grid-cols-3 gap-12 relative" },
               [
-                { step: "01", title: "요청서 작성", desc: "고치고 싶은 문제와 예산을 설정", icon: React.createElement(PenLine, { size: 40 }) },
-                { step: "02", title: "전담 담당자 확인", desc: "요청서 분석 및 최적 스승님 선별", icon: React.createElement(BadgeCheck, { size: 40 }) },
-                { step: "03", title: "매칭 및 상담", desc: "조건 맞는 스승님만 연결", icon: React.createElement(ArrowRight, { size: 40 }) },
+                {
+                  step: "01",
+                  title: "요청서 작성",
+                  desc: "고치고 싶은 문제와 예산을 설정",
+                  icon: React.createElement(PenLine, { size: 40 }),
+                },
+                {
+                  step: "02",
+                  title: "전담 담당자 확인",
+                  desc: "요청서 분석 및 최적 스승님 선별",
+                  icon: React.createElement(BadgeCheck, { size: 40 }),
+                },
+                {
+                  step: "03",
+                  title: "매칭 및 상담",
+                  desc: "조건 맞는 스승님만 연결",
+                  icon: React.createElement(ArrowRight, { size: 40 }),
+                },
               ].map((item, idx) =>
                 React.createElement(
                   "div",
-                  { key: idx, className: "flex flex-col items-center text-center relative group" },
+                  {
+                    key: idx,
+                    className:
+                      "flex flex-col items-center text-center relative group",
+                  },
                   React.createElement(
                     "div",
-                    { className: "clay-icon w-28 h-28 md:w-32 md:h-32 flex items-center justify-center text-brand-blue bg-blue-50 mb-6 group-hover:scale-110 transition-transform" },
+                    {
+                      className:
+                        "clay-icon w-28 h-28 md:w-32 md:h-32 flex items-center justify-center text-brand-blue bg-blue-50 mb-6 group-hover:scale-110 transition-transform",
+                    },
                     item.icon
                   ),
-                  React.createElement("span", { className: "text-brand-blue font-black text-lg mb-2" }, item.step),
-                  React.createElement("h4", { className: "text-2xl font-black mb-3" }, item.title),
-                  React.createElement("p", { className: "text-gray-400 font-bold" }, item.desc),
+                  React.createElement(
+                    "span",
+                    { className: "text-brand-blue font-black text-lg mb-2" },
+                    item.step
+                  ),
+                  React.createElement(
+                    "h4",
+                    { className: "text-2xl font-black mb-3" },
+                    item.title
+                  ),
+                  React.createElement(
+                    "p",
+                    { className: "text-gray-400 font-bold" },
+                    item.desc
+                  ),
                   idx < 2
-                    ? React.createElement("div", { className: "hidden md:block absolute top-16 -right-6 w-12 h-0.5 bg-gray-100" })
+                    ? React.createElement("div", {
+                        className:
+                          "hidden md:block absolute top-16 -right-6 w-12 h-0.5 bg-gray-100",
+                      })
                     : null
                 )
               )
@@ -459,54 +687,84 @@
             React.createElement(
               "div",
               { className: "text-center mb-12 md:mb-16" },
-              React.createElement("h3", { className: "text-3xl md:text-4xl font-black" }, "무엇이 다른가요?")
+              React.createElement(
+                "h3",
+                { className: "text-3xl md:text-4xl font-black" },
+                "무엇이 다른가요?"
+              )
             ),
             React.createElement(
               "div",
               { className: "grid md:grid-cols-2 gap-8 lg:gap-16" },
+
               React.createElement(
                 "div",
                 { className: "clay-card p-10 bg-white/50 opacity-60" },
                 React.createElement(
                   "h4",
-                  { className: "text-center font-black text-gray-400 text-2xl mb-10 underline decoration-gray-200 underline-offset-8" },
+                  {
+                    className:
+                      "text-center font-black text-gray-400 text-2xl mb-10 underline decoration-gray-200 underline-offset-8",
+                  },
                   "기존 레슨 앱"
                 ),
                 React.createElement(
                   "div",
                   { className: "space-y-6" },
-                  ["여러 명에게서 동시에 연락 💣", "내 상황을 매번 처음부터 설명 🔄", "장기 등록 압박이 심함 💸", "직접 프로를 비교하는 선택 부담 🤯"].map(
-                    (v, i) =>
-                      React.createElement(
-                        "div",
-                        { key: i, className: "flex items-center gap-4 text-gray-400 font-bold text-lg" },
-                        React.createElement(X, { className: "shrink-0" }),
-                        " ",
-                        v
-                      )
+                  [
+                    "여러 명에게서 동시에 연락 💣",
+                    "내 상황을 매번 처음부터 설명 🔄",
+                    "장기 등록 압박이 심함 💸",
+                    "직접 프로를 비교하는 선택 부담 🤯",
+                  ].map((v, i) =>
+                    React.createElement(
+                      "div",
+                      {
+                        key: i,
+                        className:
+                          "flex items-center gap-4 text-gray-400 font-bold text-lg",
+                      },
+                      React.createElement(X, { className: "shrink-0" }),
+                      " ",
+                      v
+                    )
                   )
                 )
               ),
+
               React.createElement(
                 "div",
                 { className: "clay-card p-10 border-4 border-brand-blue/10 bg-white" },
                 React.createElement(
                   "h4",
-                  { className: "text-center font-black text-brand-blue text-2xl mb-10 underline decoration-blue-100 underline-offset-8" },
+                  {
+                    className:
+                      "text-center font-black text-brand-blue text-2xl mb-10 underline decoration-blue-100 underline-offset-8",
+                  },
                   "스승님"
                 ),
                 React.createElement(
                   "div",
                   { className: "space-y-6" },
-                  ["요청서 기반으로 나에게 연락 ✅", "담당자가 1:1로 맞춤 관리 ✨", "필요한 횟수만큼만 수강 💎", "상담 후 만족할 때 결정 🤝"].map(
-                    (v, i) =>
-                      React.createElement(
-                        "div",
-                        { key: i, className: "flex items-center gap-4 text-gray-800 font-bold text-lg" },
-                        React.createElement(CheckCircle2, { className: "text-brand-blue shrink-0" }),
-                        " ",
-                        v
-                      )
+                  [
+                    "요청서 기반으로 나에게 연락 ✅",
+                    "담당자가 1:1로 맞춤 관리 ✨",
+                    "필요한 횟수만큼만 수강 💎",
+                    "상담 후 만족할 때 결정 🤝",
+                  ].map((v, i) =>
+                    React.createElement(
+                      "div",
+                      {
+                        key: i,
+                        className:
+                          "flex items-center gap-4 text-gray-800 font-bold text-lg",
+                      },
+                      React.createElement(CheckCircle2, {
+                        className: "text-brand-blue shrink-0",
+                      }),
+                      " ",
+                      v
+                    )
                   )
                 )
               )
@@ -522,12 +780,16 @@
           {
             text: "“아이언만 치면 생크가 납니다. 장기 등록 말고 2~3번만 제대로 봐주실 분?”",
             result: "레슨 3회 만에 문제 해결",
-            icon: React.createElement(Smartphone, { className: "text-brand-blue" }),
+            icon: React.createElement(Smartphone, {
+              className: "text-brand-blue",
+            }),
           },
           {
             text: "“드라이버 비거리 때문에 스트레스입니다. 딱 5번만 집중적으로 보고 싶어요.”",
             result: "5회 레슨 후 비거리 30m 증가",
-            icon: React.createElement(TrendingUp, { className: "text-green-500" }),
+            icon: React.createElement(TrendingUp, {
+              className: "text-green-500",
+            }),
           },
           {
             text: "“필드에서 우드를 제대로 쓰고 싶어요. 우드 레슨 전문 스승님을 찾고 있습니다.”",
@@ -544,7 +806,10 @@
             { className: "max-w-screen-xl mx-auto" },
             React.createElement(
               "h3",
-              { className: "text-3xl md:text-4xl font-black mb-12 md:mb-16 text-center" },
+              {
+                className:
+                  "text-3xl md:text-4xl font-black mb-12 md:mb-16 text-center",
+              },
               "성공적인 매칭 사례"
             ),
             React.createElement(
@@ -553,17 +818,39 @@
               cases.map((c, i) =>
                 React.createElement(
                   "div",
-                  { key: i, className: "clay-card p-10 hover:translate-y-[-10px] transition-all group" },
+                  {
+                    key: i,
+                    className:
+                      "clay-card p-10 hover:translate-y-[-10px] transition-all group",
+                  },
                   React.createElement(
                     "div",
-                    { className: "clay-icon w-16 h-16 flex items-center justify-center bg-blue-50 mb-8 group-hover:rotate-12 transition-transform" },
+                    {
+                      className:
+                        "clay-icon w-16 h-16 flex items-center justify-center bg-blue-50 mb-8 group-hover:rotate-12 transition-transform",
+                    },
                     c.icon
                   ),
-                  React.createElement("p", { className: "text-gray-700 font-bold text-xl leading-relaxed mb-8" }, c.text),
+                  React.createElement(
+                    "p",
+                    {
+                      className:
+                        "text-gray-700 font-bold text-xl leading-relaxed mb-8",
+                    },
+                    c.text
+                  ),
                   React.createElement(
                     "div",
                     { className: "pt-6 border-t border-gray-100" },
-                    React.createElement("span", { className: "text-brand-blue font-black text-lg tracking-tight" }, "→ ", c.result)
+                    React.createElement(
+                      "span",
+                      {
+                        className:
+                          "text-brand-blue font-black text-lg tracking-tight",
+                      },
+                      "→ ",
+                      c.result
+                    )
                   )
                 )
               )
@@ -581,21 +868,32 @@
           { id: "trust", className: "px-6 py-24 md:py-32 bg-gray-50" },
           React.createElement(
             "div",
-            { className: "max-w-screen-xl mx-auto grid lg:grid-cols-2 gap-16 items-center" },
+            {
+              className:
+                "max-w-screen-xl mx-auto grid lg:grid-cols-2 gap-16 items-center",
+            },
             React.createElement(
               "div",
               null,
-              React.createElement(ShieldCheck, { className: "w-24 h-24 text-brand-blue mb-8" }),
+              React.createElement(ShieldCheck, {
+                className: "w-24 h-24 text-brand-blue mb-8",
+              }),
               React.createElement(
                 "h3",
-                { className: "text-3xl md:text-5xl font-black mb-8 leading-tight" },
+                {
+                  className:
+                    "text-3xl md:text-5xl font-black mb-8 leading-tight",
+                },
                 "투명한 운영 정책으로",
                 React.createElement("br"),
                 "신뢰를 더합니다"
               ),
               React.createElement(
                 "p",
-                { className: "text-gray-500 text-xl font-bold leading-relaxed mb-10" },
+                {
+                  className:
+                    "text-gray-500 text-xl font-bold leading-relaxed mb-10",
+                },
                 "스승님은 골퍼가 레슨 실패 리스크를",
                 React.createElement("br"),
                 "혼자 감담하지 않도록 시스템으로 보호합니다."
@@ -609,7 +907,10 @@
                   "“결제 및 환불 구조를 ",
                   React.createElement(
                     "span",
-                    { className: "text-brand-blue font-black underline decoration-blue-200" },
+                    {
+                      className:
+                        "text-brand-blue font-black underline decoration-blue-200",
+                    },
                     "법무법인 로투스"
                   ),
                   "와 파트너 관계로 법률 기준에 맞게 엄격하게 관리합니다.”"
@@ -620,23 +921,43 @@
               "div",
               { className: "space-y-6" },
               [
-                { title: "상담 선진행", desc: "충분한 협의 전에는 어떠한 결제도 발생하지 않습니다." },
-                { title: "장기 결제 강요 금지", desc: "1회, 3회 등 필요한 횟수만큼만 자유롭게 결제 가능합니다." },
-                { title: "운영팀 직접 조율", desc: "불편함이 생기면 운영팀이 중간에서 신속하게 해결해 드립니다." },
+                {
+                  title: "상담 선진행",
+                  desc: "충분한 협의 전에는 어떠한 결제도 발생하지 않습니다.",
+                },
+                {
+                  title: "장기 결제 강요 금지",
+                  desc: "1회, 3회 등 필요한 횟수만큼만 자유롭게 결제 가능합니다.",
+                },
+                {
+                  title: "운영팀 직접 조율",
+                  desc: "불편함이 생기면 운영팀이 중간에서 신속하게 해결해 드립니다.",
+                },
               ].map((v, i) =>
                 React.createElement(
                   "div",
                   { key: i, className: "flex gap-6 items-start" },
                   React.createElement(
                     "div",
-                    { className: "w-10 h-10 rounded-2xl bg-brand-blue flex items-center justify-center text-white shrink-0 mt-1" },
+                    {
+                      className:
+                        "w-10 h-10 rounded-2xl bg-brand-blue flex items-center justify-center text-white shrink-0 mt-1",
+                    },
                     React.createElement(CheckCircle2, { size: 24 })
                   ),
                   React.createElement(
                     "div",
                     null,
-                    React.createElement("h5", { className: "text-xl font-black mb-2" }, v.title),
-                    React.createElement("p", { className: "text-gray-500 font-bold" }, v.desc)
+                    React.createElement(
+                      "h5",
+                      { className: "text-xl font-black mb-2" },
+                      v.title
+                    ),
+                    React.createElement(
+                      "p",
+                      { className: "text-gray-500 font-bold" },
+                      v.desc
+                    )
                   )
                 )
               )
@@ -706,10 +1027,17 @@
                   { className: "flex items-center gap-3 mb-7 md:mb-8" },
                   React.createElement(
                     "div",
-                    { className: "w-12 h-12 bg-brand-blue rounded-xl flex items-center justify-center text-white font-black italic text-xl" },
+                    {
+                      className:
+                        "w-12 h-12 bg-brand-blue rounded-xl flex items-center justify-center text-white font-black italic text-xl",
+                    },
                     "S"
                   ),
-                  React.createElement("span", { className: "text-3xl font-black tracking-tighter" }, "스승님")
+                  React.createElement(
+                    "span",
+                    { className: "text-3xl font-black tracking-tighter" },
+                    "스승님"
+                  )
                 ),
                 React.createElement(
                   "p",
@@ -725,7 +1053,11 @@
                 React.createElement(
                   "div",
                   null,
-                  React.createElement("h6", { className: "text-white font-black mb-6" }, "서비스"),
+                  React.createElement(
+                    "h6",
+                    { className: "text-white font-black mb-6" },
+                    "서비스"
+                  ),
                   React.createElement(
                     "ul",
                     { className: "space-y-4 font-bold" },
@@ -737,7 +1069,11 @@
                 React.createElement(
                   "div",
                   null,
-                  React.createElement("h6", { className: "text-white font-black mb-6" }, "문의"),
+                  React.createElement(
+                    "h6",
+                    { className: "text-white font-black mb-6" },
+                    "문의"
+                  ),
                   React.createElement(
                     "ul",
                     { className: "space-y-4 font-bold" },
@@ -757,13 +1093,21 @@
                   "div",
                   { className: "flex gap-4" },
                   React.createElement("span", null, "상호명"),
-                  React.createElement("span", { className: "text-gray-400 font-black" }, "스승님 (Suseungnim)")
+                  React.createElement(
+                    "span",
+                    { className: "text-gray-400 font-black" },
+                    "스승님 (Suseungnim)"
+                  )
                 ),
                 React.createElement(
                   "div",
                   { className: "flex gap-4" },
                   React.createElement("span", null, "법률 파트너"),
-                  React.createElement("span", { className: "text-gray-400 font-black" }, "법무법인 로투스")
+                  React.createElement(
+                    "span",
+                    { className: "text-gray-400 font-black" },
+                    "법무법인 로투스"
+                  )
                 )
               ),
               React.createElement("p", null, "© 2024 Suseungnim Corp. All rights reserved.")
@@ -813,7 +1157,6 @@
       // Mount
       const rootElement = document.getElementById("root");
       if (!rootElement) throw new Error("Could not find root element to mount to");
-
       const root = createRoot(rootElement);
       root.render(React.createElement(React.StrictMode, null, React.createElement(App, null)));
     </script>
