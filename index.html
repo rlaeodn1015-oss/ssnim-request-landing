@@ -53,6 +53,11 @@
         background: rgba(0, 102, 255, 0.1);
         color: #0066ff;
       }
+
+      /* ✅ 핵심: iOS 노치 safe-area 반영 (상단 잘림 방지) */
+      :root {
+        --safe-top: env(safe-area-inset-top, 0px);
+      }
     </style>
 
     <!-- ESM import map -->
@@ -91,7 +96,16 @@
       const KAKAO_CHAT_URL = "http://pf.kakao.com/_kxawRn/chat";
 
       /**
-       * Header
+       * ✅ 전역 상수: 헤더 높이(고정) + 여유
+       * - 헤더 실제 높이: h-16 = 64px
+       * - 상단 safe-area + 24~32px 여유를 더해 Hero 상단이 절대 안 가려지게 함
+       */
+      const HEADER_HEIGHT = 64; // px
+      const HERO_TOP_PADDING_BASE = 112; // px (안전값)
+
+      /**
+       * Header (fixed)
+       * ✅ 노치(safe-area) 때문에 header가 위로 먹히지 않게 padding-top 반영
        */
       const Header = () =>
         React.createElement(
@@ -99,6 +113,9 @@
           {
             className:
               "fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100",
+            style: {
+              paddingTop: "var(--safe-top)",
+            },
           },
           React.createElement(
             "div",
@@ -176,17 +193,18 @@
 
       /**
        * Hero
-       * FIX:
-       * - 모바일에서 안 잘리게: flex/items-center 제거
-       * - 카드 아래 강제 여백 추가 (h-24)
-       * - 초록 체크 뱃지는 모바일에서 카드 안쪽(top-2 right-2)으로 이동
+       * ✅ 최종 해결 포인트:
+       * 1) section에 "헤더 높이 + safe-area" 만큼을 inline-style로 강제 padding-top
+       * 2) pt-24 같은 tailwind 값에 의존하지 않음 (기기/인앱에서 안짤리게)
        */
       const HeroSection = () =>
         React.createElement(
           "section",
           {
-            className:
-              "relative px-6 pt-24 md:pt-32 pb-32 md:pb-20 bg-white overflow-hidden",
+            className: "relative px-6 pb-32 md:pb-20 bg-white overflow-hidden",
+            style: {
+              paddingTop: `calc(${HERO_TOP_PADDING_BASE}px + var(--safe-top))`,
+            },
           },
           React.createElement(
             "div",
@@ -457,7 +475,6 @@
                 )
               ),
 
-              // ✅ FIX: 모바일에서 카드 밖으로 나가지 않게 top/right 조정
               React.createElement(
                 "div",
                 {
@@ -471,13 +488,10 @@
             )
           ),
 
-          // ✅ FIX: 모바일에서 아래 콘텐츠(타이틀/버튼) 안 잘리게 강제 여백
+          // 모바일에서 아래 CTA/섹션과 겹침 방지 여백
           React.createElement("div", { className: "h-24 md:h-0" })
         );
 
-      /**
-       * Empathy
-       */
       const EmpathySection = () =>
         React.createElement(
           "section",
@@ -499,9 +513,6 @@
           )
         );
 
-      /**
-       * Checklist
-       */
       const ChecklistSection = () => {
         const items = [
           "레슨을 받는데 돈이 아깝다고 느꼈던 경험",
@@ -554,9 +565,6 @@
         );
       };
 
-      /**
-       * Difference
-       */
       const DifferenceSection = () =>
         React.createElement(
           "section",
@@ -599,9 +607,6 @@
           )
         );
 
-      /**
-       * Summary
-       */
       const SummarySection = () =>
         React.createElement(
           "section",
@@ -674,9 +679,6 @@
           )
         );
 
-      /**
-       * Comparison
-       */
       const ComparisonSection = () =>
         React.createElement(
           "section",
@@ -772,9 +774,6 @@
           )
         );
 
-      /**
-       * Case Study
-       */
       const CaseStudySection = () => {
         const cases = [
           {
@@ -859,9 +858,6 @@
         );
       };
 
-      /**
-       * Trust
-       */
       const TrustSection = () =>
         React.createElement(
           "section",
@@ -965,9 +961,6 @@
           )
         );
 
-      /**
-       * CTA
-       */
       const CTASection = () =>
         React.createElement(
           "section",
@@ -1006,9 +999,6 @@
           )
         );
 
-      /**
-       * Footer
-       */
       const FooterSection = () =>
         React.createElement(
           "footer",
@@ -1115,9 +1105,6 @@
           )
         );
 
-      /**
-       * App
-       */
       const App = () =>
         React.createElement(
           "div",
@@ -1134,7 +1121,6 @@
           React.createElement(CTASection, null),
           React.createElement(FooterSection, null),
 
-          // Mobile bottom CTA bar
           React.createElement(
             "div",
             {
@@ -1154,7 +1140,6 @@
           )
         );
 
-      // Mount
       const rootElement = document.getElementById("root");
       if (!rootElement) throw new Error("Could not find root element to mount to");
       const root = createRoot(rootElement);
