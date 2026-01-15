@@ -3,21 +3,195 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>스승님 - 맞춤 골프레슨</title>
+  <title>스승님 - 맞춤 골프레슨 요청</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
-    body { background:#fff; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    @keyframes fadeIn { from {opacity:0; transform:translateY(16px)} to {opacity:1; transform:translateY(0)} }
+    .animate-fade-in { animation: fadeIn .8s ease-out forwards; }
   </style>
 </head>
+<body class="bg-white">
+  <div class="flex flex-col items-center bg-white min-h-screen pb-24">
 
-<body>
-  <div id="root"></div>
+    <!-- SECTION 1 : 히어로 -->
+    <section class="w-full max-w-[720px] pt-20 pb-16 px-6 bg-white flex flex-col items-center text-center animate-fade-in">
+      <span class="inline-block px-3 py-1 bg-blue-50 text-blue-600 text-xs font-bold rounded-full mb-4">
+        현재 강남·서초 전담 매칭 진행 중
+      </span>
 
-  <script type="module" src="./app.js"></script>
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight leading-tight mb-6">
+        맞춤 골프레슨<br />요청 서비스
+      </h1>
+
+      <p class="text-lg text-slate-500 font-medium leading-relaxed">
+        레슨 조건을 먼저 정하고,<br />
+        필요한 만큼만 배우세요
+      </p>
+
+      <div class="mt-12 w-full max-w-xs bg-blue-600 h-1 rounded-full opacity-20"></div>
+    </section>
+
+    <!-- SECTION 2 : 공감 질문 -->
+    <section class="py-16 px-6 max-w-[720px] mx-auto w-full overflow-hidden bg-slate-50">
+      <h2 class="text-2xl font-bold mb-10 text-center">
+        혹시, 이런 고민<br />해보신 적 있나요?
+      </h2>
+
+      <div class="space-y-4">
+        <div class="flex items-start p-5 bg-white rounded-2xl shadow-sm border border-slate-100">
+          <div class="w-5 h-5 mt-1 mr-4 shrink-0 text-slate-400">!</div>
+          <p class="text-slate-700 font-medium">레슨 몇 번 받아도 실력이 안 느는 느낌</p>
+        </div>
+        <div class="flex items-start p-5 bg-white rounded-2xl shadow-sm border border-slate-100">
+          <div class="w-5 h-5 mt-1 mr-4 shrink-0 text-slate-400">!</div>
+          <p class="text-slate-700 font-medium">장기 등록 권유가 부담스러웠던 경험</p>
+        </div>
+        <div class="flex items-start p-5 bg-white rounded-2xl shadow-sm border border-slate-100">
+          <div class="w-5 h-5 mt-1 mr-4 shrink-0 text-slate-400">!</div>
+          <p class="text-slate-700 font-medium">나한테 맞는 프로를 고르기 어려웠던 경험</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3 : 핵심 요약 -->
+    <section class="py-16 px-6 max-w-[720px] mx-auto w-full overflow-hidden text-center">
+      <h2 class="text-2xl font-bold mb-6 leading-snug">
+        고민의 핵심만 남기고,<br />
+        <span class="text-blue-600">불필요한 레슨은 줄였습니다.</span>
+      </h2>
+      <p class="text-slate-500 leading-relaxed font-medium">
+        스승님은 프로를 나열하지 않습니다.<br />
+        요청을 먼저 받고,<br />
+        조건이 맞는 전문가만 연결합니다.
+      </p>
+    </section>
+
+    <!-- SECTION 4 : 3 STEP -->
+    <section class="py-16 px-6 max-w-[720px] mx-auto w-full overflow-hidden bg-blue-600 text-white rounded-[40px] my-4">
+      <h2 class="text-2xl font-bold mb-12 text-center">서비스 진행 방식</h2>
+
+      <div class="space-y-12">
+        <div class="flex gap-6 items-center">
+          <div class="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center shrink-0 text-2xl font-black">01</div>
+          <div>
+            <div class="text-blue-200 text-sm font-bold mb-1">STEP 01</div>
+            <div class="text-xl font-bold mb-1">직접 작성</div>
+            <div class="text-blue-100/80 font-medium text-sm leading-relaxed">고치고 싶은 문제와 횟수·예산을 직접 작성</div>
+          </div>
+        </div>
+
+        <div class="flex gap-6 items-center">
+          <div class="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center shrink-0 text-2xl font-black">02</div>
+          <div>
+            <div class="text-blue-200 text-sm font-bold mb-1">STEP 02</div>
+            <div class="text-xl font-bold mb-1">내용 확인</div>
+            <div class="text-blue-100/80 font-medium text-sm leading-relaxed">담당자가 요청 내용을 꼼꼼히 확인</div>
+          </div>
+        </div>
+
+        <div class="flex gap-6 items-center">
+          <div class="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center shrink-0 text-2xl font-black">03</div>
+          <div>
+            <div class="text-blue-200 text-sm font-bold mb-1">STEP 03</div>
+            <div class="text-xl font-bold mb-1">전문가 연결</div>
+            <div class="text-blue-100/80 font-medium text-sm leading-relaxed">조건이 딱 맞는 전문가만 선별하여 연결</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5 : 비교 -->
+    <section class="py-16 px-6 max-w-[720px] mx-auto w-full overflow-hidden">
+      <h2 class="text-2xl font-bold mb-10 text-center">무엇이 다른가요?</h2>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="p-6 bg-slate-50 rounded-3xl border border-slate-200">
+          <div class="text-slate-400 font-bold mb-4 text-sm">기존 레슨</div>
+          <ul class="space-y-3 text-sm text-slate-500 font-medium">
+            <li>• 견적 비교 스트레스</li>
+            <li>• 장기 등록 압박</li>
+            <li>• 잦은 영업 전화</li>
+          </ul>
+        </div>
+
+        <div class="p-6 bg-blue-50 rounded-3xl border border-blue-200 ring-2 ring-blue-100">
+          <div class="text-blue-600 font-bold mb-4 text-sm">스승님</div>
+          <ul class="space-y-3 text-sm text-blue-700 font-bold">
+            <li>• 요청서 기반 매칭</li>
+            <li>• 필요한 만큼만</li>
+            <li>• 상담 후 결정</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6 : 사례 -->
+    <section class="py-16 px-6 max-w-[720px] mx-auto w-full overflow-hidden bg-slate-900 text-white rounded-[40px] my-4">
+      <h2 class="text-xl font-bold mb-8">실제 요청 사례</h2>
+
+      <div class="bg-white/10 p-6 rounded-2xl border border-white/5 mb-6">
+        <p class="text-lg font-medium leading-relaxed italic">
+          "아이언만 치면 생크가 납니다. <br />
+          장기 등록 말고, <br />
+          <span class="text-blue-400">2~3번만 제대로</span> 봐주실 분 있을까요?"
+        </p>
+      </div>
+
+      <div class="flex items-center gap-3 justify-end text-blue-400 font-bold text-lg">
+        ↔ 레슨 3번 만에 문제 해결
+      </div>
+    </section>
+
+    <!-- SECTION 7 : 결과 -->
+    <section class="py-16 px-6 max-w-[720px] mx-auto w-full overflow-hidden">
+      <div class="space-y-4">
+        <div class="flex items-center gap-3 p-4 bg-white border-b border-slate-100">
+          <div class="w-5 h-5 text-blue-500 font-black">✓</div>
+          <span class="font-medium text-slate-700">맞춤 요청 후 레슨 3회로 슬라이스 탈출</span>
+        </div>
+        <div class="flex items-center gap-3 p-4 bg-white border-b border-slate-100">
+          <div class="w-5 h-5 text-blue-500 font-black">✓</div>
+          <span class="font-medium text-slate-700">장기 등록 없이 필요한 부분만 교정</span>
+        </div>
+        <div class="flex items-center gap-3 p-4 bg-white border-b border-slate-100">
+          <div class="w-5 h-5 text-blue-500 font-black">✓</div>
+          <span class="font-medium text-slate-700">조건 맞는 전문가만 연결돼 시간 절약</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 8 : CTA -->
+    <section class="py-16 px-6 max-w-[720px] mx-auto w-full overflow-hidden text-center pb-10">
+      <h2 class="text-2xl font-bold mb-4">
+        내 요청 가능한지<br />먼저 확인해보세요
+      </h2>
+      <p class="text-slate-500 font-medium mb-10 text-sm">
+        상담만 진행 / 아직 결제 아님<br />
+        요청은 무료입니다
+      </p>
+      <div class="w-full h-16"></div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="w-full max-w-[720px] py-12 px-6 border-t border-slate-100 text-center">
+      <p class="text-slate-400 text-sm font-medium leading-relaxed">
+        스승님은<br />
+        필요 없는 레슨을 줄이는 데 집중합니다.
+      </p>
+    </footer>
+
+    <!-- FIXED CTA -->
+    <div class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[720px] p-4 bg-white/80 backdrop-blur-lg border-t border-slate-100 z-50">
+      <a
+        href="https://ssnim.com" 
+        class="w-full block text-center py-5 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 active:scale-[0.98] transition-all shadow-xl shadow-blue-200"
+      >
+        맞춤 레슨 요청하기 →
+      </a>
+    </div>
+
+  </div>
 </body>
 </html>
