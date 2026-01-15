@@ -1,488 +1,746 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>스승님 - 맞춤 요청 골프레슨 매칭</title>
+<html lang="ko" style="scroll-behavior: smooth;">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>스승님 - 맞춤 골프레슨 매칭 서비스</title>
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-  <style>
-    :root{
-      --brand:#2563eb;
-      --brand2:#1d4ed8;
-      --ink:#0f172a;
-    }
-    html, body { height: 100%; }
-    body{
-      font-family: Inter, "Noto Sans KR", system-ui, -apple-system, Segoe UI, Roboto, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-      color: var(--ink);
-      background: #f8fafc;
-    }
+    <!-- Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pretendard:wght@100;400;700;900&display=swap"
+      rel="stylesheet"
+    />
 
-    /* soft background */
-    .bg-hero {
-      background:
-        radial-gradient(1200px 500px at 12% 10%, rgba(37,99,235,.16), transparent 60%),
-        radial-gradient(900px 500px at 75% 12%, rgba(59,130,246,.14), transparent 55%),
-        radial-gradient(700px 420px at 60% 55%, rgba(2,132,199,.10), transparent 60%),
-        linear-gradient(180deg, #f8fafc 0%, #ffffff 70%);
-    }
+    <!-- Tailwind Config (brand color 확정) -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "brand-blue": "#0066FF",
+            },
+          },
+        },
+      };
+    </script>
 
-    /* subtle grid */
-    .grid-dots{
-      background-image:
-        radial-gradient(rgba(37,99,235,.12) 1px, transparent 1px);
-      background-size: 22px 22px;
-      mask-image: radial-gradient(ellipse at center, rgba(0,0,0,.9) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,0) 75%);
-      -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,.9) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,0) 75%);
-    }
+    <style>
+      body {
+        font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+          "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic",
+          "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+        background-color: #ffffff;
+        color: #1a1a1a;
+        -webkit-font-smoothing: antialiased;
+      }
 
-    /* reveal animation */
-    .reveal{ opacity:0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
-    .reveal.show{ opacity:1; transform: translateY(0); }
+      .clay-card {
+        background: #ffffff;
+        border-radius: 2rem;
+        box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
+      }
 
-    /* floating chips */
-    @keyframes floaty {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-8px); }
-      100% { transform: translateY(0px); }
-    }
-    .floaty{ animation: floaty 3.8s ease-in-out infinite; }
-    .floaty2{ animation: floaty 4.6s ease-in-out infinite; }
-    .floaty3{ animation: floaty 5.2s ease-in-out infinite; }
+      .clay-icon {
+        background: #f0f4ff;
+        box-shadow: inset 5px 5px 10px #e0e7ff, inset -5px -5px 10px #ffffff;
+        border-radius: 1.5rem;
+      }
 
-    /* card shadows */
-    .soft-shadow{
-      box-shadow: 0 40px 90px rgba(15, 23, 42, .10);
-    }
-    .soft-shadow2{
-      box-shadow: 0 18px 55px rgba(15, 23, 42, .10);
-    }
+      .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .hide-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
 
-    /* nice focus */
-    .focus-ring:focus{ outline: none; box-shadow: 0 0 0 4px rgba(37,99,235,.18); }
+      ::selection {
+        background: rgba(0, 102, 255, 0.1);
+        color: #0066ff;
+      }
+    </style>
 
-    /* smooth scroll */
-    html{ scroll-behavior: smooth; }
-  </style>
-</head>
+    <!-- ESM import map -->
+    <script type="importmap">
+      {
+        "imports": {
+          "react": "https://esm.sh/react@19.2.3",
+          "react-dom/client": "https://esm.sh/react-dom@19.2.3/client",
+          "lucide-react": "https://esm.sh/lucide-react@0.562.0"
+        }
+      }
+    </script>
+  </head>
 
-<body>
-  <!-- Top bar -->
-  <header class="sticky top-0 z-40 backdrop-blur bg-white/70 border-b border-slate-200">
-    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <div class="w-9 h-9 rounded-xl bg-blue-600 text-white font-black flex items-center justify-center">S</div>
-        <div class="font-extrabold tracking-tight">스승님</div>
-        <span class="text-xs px-2 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-100">맞춤 요청 레슨</span>
-      </div>
-      <a
-        class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 active:scale-[.98] transition"
-        href="http://pf.kakao.com/_kxawRn/chat"
-        target="_blank" rel="noopener"
-      >
-        매칭 매니저 무료 상담
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-          <path d="M7 17L17 7" stroke="white" stroke-width="2" stroke-linecap="round"/>
-          <path d="M9 7h8v8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </a>
-    </div>
-  </header>
+  <body class="overflow-x-hidden">
+    <div id="root"></div>
 
-  <!-- HERO -->
-  <section class="bg-hero relative overflow-hidden">
-    <div class="absolute inset-0 grid-dots opacity-70"></div>
+    <script type="module">
+      import React, { useState, useEffect } from "react";
+      import { createRoot } from "react-dom/client";
+      import {
+        Smartphone,
+        HelpCircle,
+        CheckCircle2,
+        Filter,
+        ArrowRight,
+        PenLine,
+        BadgeCheck,
+        X,
+        TrendingUp,
+        Award,
+        ShieldCheck,
+        MessageCircle,
+        ChevronRight,
+      } from "lucide-react";
 
-    <div class="max-w-6xl mx-auto px-4 pt-14 pb-14 relative">
-      <div class="grid lg:grid-cols-2 gap-10 items-center">
-        <!-- Left -->
-        <div class="reveal">
-          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-slate-200 backdrop-blur">
-            <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
-            <span class="text-sm font-bold text-blue-700">현재 강남 · 서초 · 송파 전담 운영 중</span>
-          </div>
+      const KAKAO_CHAT_URL = "http://pf.kakao.com/_kxawRn/chat";
 
-          <h1 class="mt-6 text-4xl sm:text-5xl font-black tracking-tight leading-[1.08]">
-            맞춤 요청 골프레슨<br/>
-            <span class="text-blue-600">매칭 서비스</span>
-          </h1>
+      /**
+       * Common Header Component
+       */
+      const Header = () =>
+        React.createElement(
+          "header",
+          { className: "fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100" },
+          React.createElement(
+            "div",
+            { className: "max-w-screen-xl mx-auto px-6 h-16 flex items-center justify-between" },
+            React.createElement(
+              "div",
+              { className: "flex items-center gap-2" },
+              React.createElement(
+                "div",
+                { className: "w-8 h-8 bg-brand-blue rounded-lg flex items-center justify-center text-white font-black italic text-sm" },
+                "S"
+              ),
+              React.createElement("span", { className: "text-xl font-black tracking-tighter" }, "스승님")
+            ),
+            React.createElement(
+              "nav",
+              { className: "hidden md:flex items-center gap-8 text-sm font-bold text-gray-500" },
+              React.createElement("a", { href: "#features", className: "hover:text-brand-blue transition-colors" }, "매칭방식"),
+              React.createElement("a", { href: "#workflow", className: "hover:text-brand-blue transition-colors" }, "이용안내"),
+              React.createElement("a", { href: "#cases", className: "hover:text-brand-blue transition-colors" }, "사례보기"),
+              React.createElement("a", { href: "#trust", className: "hover:text-brand-blue transition-colors" }, "운영정책")
+            ),
+            React.createElement(
+              "a",
+              {
+                href: KAKAO_CHAT_URL,
+                className:
+                  "bg-brand-blue text-white px-5 py-2 rounded-full font-bold text-sm hover:scale-105 transition-transform active:scale-95",
+              },
+              "상담하기"
+            )
+          )
+        );
 
-          <p class="mt-5 text-lg sm:text-xl text-slate-600 font-medium leading-relaxed">
-            레슨 조건을 먼저 정하고,<br class="hidden sm:block"/>
-            필요한 만큼 진행하세요
-          </p>
+      /**
+       * Hero Section
+       */
+      const HeroSection = () =>
+        React.createElement(
+          "section",
+          {
+            className:
+              "relative px-6 pt-32 pb-20 bg-white overflow-hidden min-h-[90vh] flex items-center",
+          },
+          React.createElement(
+            "div",
+            { className: "max-w-screen-xl mx-auto w-full grid md:grid-cols-2 gap-12 items-center" },
+            React.createElement(
+              "div",
+              { className: "text-center md:text-left order-2 md:order-1" },
+              React.createElement(
+                "div",
+                { className: "inline-block px-4 py-1 mb-6 bg-blue-50 text-brand-blue font-bold rounded-full text-sm animate-bounce" },
+                "📍 현재 강남·서초 전담 운영 중"
+              ),
+              React.createElement(
+                "h1",
+                { className: "text-4xl md:text-6xl font-black leading-[1.2] mb-6 tracking-tight" },
+                "맞춤 요청 골프레슨",
+                React.createElement("br"),
+                React.createElement("span", { className: "text-brand-blue" }, "매칭 서비스")
+              ),
+              React.createElement(
+                "p",
+                { className: "text-gray-500 text-lg md:text-2xl font-medium mb-8" },
+                "레슨 조건을 먼저 정하고,",
+                React.createElement("br", { className: "hidden md:block" }),
+                "필요한 만큼만 배우세요"
+              ),
+              React.createElement(
+                "div",
+                { className: "flex flex-col sm:flex-row gap-4 mb-12 justify-center md:justify-start" },
+                React.createElement("span", { className: "text-sm md:text-base font-bold bg-gray-100 px-4 py-2 rounded-full" }, "무작위 제안 ❌"),
+                React.createElement(
+                  "span",
+                  { className: "text-sm md:text-base font-bold bg-blue-100 text-brand-blue px-4 py-2 rounded-full" },
+                  "1:1 전담 매칭 ⭕"
+                )
+              ),
+              React.createElement(
+                "div",
+                { className: "hidden md:block" },
+                React.createElement(
+                  "a",
+                  {
+                    href: KAKAO_CHAT_URL,
+                    className:
+                      "inline-flex items-center gap-2 bg-brand-blue text-white px-8 py-4 rounded-2xl font-black text-xl shadow-xl hover:translate-y-[-4px] transition-all",
+                  },
+                  "매칭 요청하기 ",
+                  React.createElement(ChevronRight, null)
+                )
+              )
+            ),
 
-          <div class="mt-7 inline-flex items-center gap-3 px-5 py-4 rounded-2xl bg-white border border-slate-200 soft-shadow2">
-            <span class="font-extrabold text-slate-900">무작위 제안 ❌</span>
-            <span class="text-slate-300">/</span>
-            <span class="font-extrabold text-blue-700">1:1 전담 매칭 ⭕</span>
-          </div>
+            React.createElement(
+              "div",
+              { className: "relative order-1 md:order-2 flex justify-center" },
+              React.createElement(
+                "div",
+                { className: "clay-card p-6 md:p-10 border-8 border-brand-blue/5 transform rotate-[-3deg] w-full max-w-sm aspect-[4/5] flex flex-col" },
+                React.createElement(
+                  "div",
+                  { className: "flex items-center justify-between mb-8" },
+                  React.createElement(Smartphone, { className: "text-brand-blue w-8 h-8" }),
+                  React.createElement("div", { className: "h-2 w-20 bg-gray-200 rounded-full" })
+                ),
+                React.createElement(
+                  "div",
+                  { className: "space-y-6 flex-grow" },
+                  React.createElement(
+                    "div",
+                    { className: "h-16 w-full bg-blue-50 rounded-2xl flex items-center px-6" },
+                    React.createElement("span", { className: "text-sm md:text-base font-bold text-brand-blue" }, "요청서: 아이언 생크 교정")
+                  ),
+                  React.createElement(
+                    "div",
+                    { className: "h-full w-full bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200 p-4 flex flex-col gap-3" },
+                    React.createElement("div", { className: "h-3 w-3/4 bg-gray-100 rounded-full" }),
+                    React.createElement("div", { className: "h-3 w-1/2 bg-gray-100 rounded-full" }),
+                    React.createElement("div", { className: "h-3 w-2/3 bg-gray-100 rounded-full" })
+                  )
+                )
+              ),
+              React.createElement(
+                "div",
+                { className: "absolute -top-10 -right-4 md:right-0 clay-icon w-20 h-20 md:w-28 md:h-28 flex items-center justify-center bg-white shadow-2xl rotate-[12deg] z-10" },
+                React.createElement(CheckCircle2, { className: "text-green-500 w-12 h-12" })
+              )
+            )
+          )
+        );
 
-          <div class="mt-8 flex flex-col sm:flex-row gap-3">
-            <a
-              href="http://pf.kakao.com/_kxawRn/chat"
-              target="_blank" rel="noopener"
-              class="inline-flex justify-center items-center gap-2 px-6 py-4 rounded-2xl bg-blue-600 text-white font-extrabold text-lg hover:bg-blue-700 active:scale-[.985] transition soft-shadow"
-            >
-              맞춤 레슨 요청하기
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-                <path d="M7 17L17 7" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                <path d="M9 7h8v8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </a>
-            <a href="#how" class="inline-flex justify-center items-center px-6 py-4 rounded-2xl bg-white border border-slate-200 font-bold text-slate-800 hover:bg-slate-50 transition">
-              어떻게 진행돼요?
-            </a>
-          </div>
+      /**
+       * Empathy Section
+       */
+      const EmpathySection = () =>
+        React.createElement(
+          "section",
+          { className: "px-6 py-24 bg-gray-50 text-center" },
+          React.createElement(
+            "div",
+            { className: "max-w-screen-xl mx-auto" },
+            React.createElement(HelpCircle, { className: "w-20 h-20 text-brand-blue mx-auto mb-8 opacity-80" }),
+            React.createElement(
+              "h2",
+              { className: "text-3xl md:text-5xl font-black leading-[1.4]" },
+              "“레슨, 왜 늘",
+              React.createElement("br"),
+              "돈이 아까울까요?”"
+            )
+          )
+        );
 
-          <p class="mt-4 text-sm text-slate-500">
-            상담만 진행 / 아직 결제 아님 · 요청은 무료입니다
-          </p>
-        </div>
+      /**
+       * Checklist Section
+       */
+      const ChecklistSection = () => {
+        const items = [
+          "레슨을 받는데 돈이 아깝다고 느꼈던 경험",
+          "10회 이상 장기 등록을 권유받아 부담됐던 경험",
+          "나한테 맞는 프로를 직접 고르기 어려웠던 경험",
+          "여러 명에게 동시에 연락 오는 게 불편했던 경험",
+        ];
 
-        <!-- Right - Mock visual -->
-        <div class="reveal lg:justify-self-end">
-          <div class="relative w-full max-w-[520px] mx-auto">
-            <!-- Outer glow -->
-            <div class="absolute -inset-6 bg-blue-500/10 blur-2xl rounded-[48px]"></div>
+        return React.createElement(
+          "section",
+          { className: "px-6 py-24 bg-white" },
+          React.createElement(
+            "div",
+            { className: "max-w-screen-xl mx-auto" },
+            React.createElement(
+              "h3",
+              { className: "text-2xl md:text-4xl font-black mb-16 text-center" },
+              "혹시, 이런 경험 있으셨나요?"
+            ),
+            React.createElement(
+              "div",
+              { className: "grid md:grid-cols-2 gap-6" },
+              items.map((item, idx) =>
+                React.createElement(
+                  "div",
+                  {
+                    key: idx,
+                    className:
+                      "clay-card p-8 flex items-start gap-6 hover:translate-y-[-8px] transition-all hover:shadow-2xl",
+                  },
+                  React.createElement(CheckCircle2, { className: "text-red-400 shrink-0 mt-1", size: 32 }),
+                  React.createElement("p", { className: "font-bold text-lg md:text-xl text-gray-700 leading-snug" }, item)
+                )
+              )
+            )
+          )
+        );
+      };
 
-            <div class="relative rounded-[44px] bg-white border border-slate-200 soft-shadow overflow-hidden">
-              <!-- top area -->
-              <div class="p-6 sm:p-7">
-                <div class="flex items-center justify-between">
-                  <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-50 border border-slate-200">
-                    <span class="w-2 h-2 rounded-full bg-blue-600"></span>
-                    <span class="text-xs font-extrabold text-slate-700">강남구 매칭 중</span>
-                  </div>
-                  <div class="w-10 h-10 rounded-2xl bg-amber-100 border border-amber-200 flex items-center justify-center">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                      <path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.9 6.5 20.2l1-6.2L3 9.6l6.2-.9L12 3z" fill="#f59e0b"/>
-                    </svg>
-                  </div>
-                </div>
+      /**
+       * Difference Section
+       */
+      const DifferenceSection = () =>
+        React.createElement(
+          "section",
+          { id: "features", className: "px-6 py-32 bg-brand-blue text-white text-center overflow-hidden relative" },
+          React.createElement(
+            "div",
+            { className: "absolute top-0 right-0 opacity-10 transform translate-x-1/4 translate-y-[-1/4] pointer-events-none" },
+            React.createElement(Filter, { size: 600, strokeWidth: 1 })
+          ),
+          React.createElement(
+            "div",
+            { className: "max-w-screen-md mx-auto relative z-10" },
+            React.createElement(
+              "h2",
+              { className: "text-3xl md:text-5xl font-black mb-8 leading-tight" },
+              "“레슨이 아니라,",
+              React.createElement("br"),
+              "‘매칭 방식’이 문제였습니다.”"
+            ),
+            React.createElement(
+              "p",
+              { className: "text-blue-100 text-lg md:text-2xl font-medium leading-relaxed" },
+              "스승님은 프로를 나열하지 않습니다.",
+              React.createElement("br"),
+              "골퍼의 요청을 먼저 받고, 조건이 맞는 스승님만 연결합니다."
+            )
+          )
+        );
 
-                <!-- background pattern -->
-                <div class="mt-5 relative rounded-[28px] overflow-hidden border border-slate-100 bg-gradient-to-br from-slate-50 to-white">
-                  <div class="absolute inset-0 grid-dots opacity-45"></div>
+      /**
+       * Summary Section
+       */
+      const SummarySection = () =>
+        React.createElement(
+          "section",
+          { id: "workflow", className: "px-6 py-32 bg-white" },
+          React.createElement(
+            "div",
+            { className: "max-w-screen-xl mx-auto" },
+            React.createElement(
+              "div",
+              { className: "grid md:grid-cols-3 gap-12 relative" },
+              [
+                { step: "01", title: "요청서 작성", desc: "고치고 싶은 문제와 예산을 설정", icon: React.createElement(PenLine, { size: 40 }) },
+                { step: "02", title: "전담 담당자 확인", desc: "요청서 분석 및 최적 스승님 선별", icon: React.createElement(BadgeCheck, { size: 40 }) },
+                { step: "03", title: "매칭 및 상담", desc: "조건 맞는 스승님만 연결", icon: React.createElement(ArrowRight, { size: 40 }) },
+              ].map((item, idx) =>
+                React.createElement(
+                  "div",
+                  { key: idx, className: "flex flex-col items-center text-center relative group" },
+                  React.createElement(
+                    "div",
+                    { className: "clay-icon w-32 h-32 flex items-center justify-center text-brand-blue bg-blue-50 mb-6 group-hover:scale-110 transition-transform" },
+                    item.icon
+                  ),
+                  React.createElement("span", { className: "text-brand-blue font-black text-lg mb-2" }, item.step),
+                  React.createElement("h4", { className: "text-2xl font-black mb-3" }, item.title),
+                  React.createElement("p", { className: "text-gray-400 font-bold" }, item.desc),
+                  idx < 2
+                    ? React.createElement("div", { className: "hidden md:block absolute top-16 -right-6 w-12 h-0.5 bg-gray-100" })
+                    : null
+                )
+              )
+            )
+          )
+        );
 
-                  <!-- center avatar -->
-                  <div class="relative p-8 sm:p-10 flex items-center justify-center">
-                    <div class="w-48 h-48 sm:w-56 sm:h-56 rounded-full bg-gradient-to-b from-blue-600 to-indigo-700 flex items-center justify-center ring-[10px] ring-white">
-                      <!-- simple golfer svg -->
-                      <svg class="w-28 h-28 sm:w-32 sm:h-32" viewBox="0 0 120 120" fill="none">
-                        <circle cx="60" cy="32" r="14" fill="#fcd34d"/>
-                        <path d="M46 48c4-6 24-6 28 0 5 8 7 18 6 28-1 12-6 22-10 22H50c-4 0-9-10-10-22-1-10 1-20 6-28z" fill="#60a5fa"/>
-                        <path d="M42 68c10-8 26-8 36 0" stroke="#1e3a8a" stroke-width="6" stroke-linecap="round"/>
-                        <path d="M25 55l35-20" stroke="#f8fafc" stroke-width="7" stroke-linecap="round"/>
-                        <path d="M60 35l30 20" stroke="#f8fafc" stroke-width="7" stroke-linecap="round"/>
-                        <path d="M86 26l18-10" stroke="#94a3b8" stroke-width="6" stroke-linecap="round"/>
-                      </svg>
-                    </div>
+      /**
+       * Comparison Section
+       */
+      const ComparisonSection = () =>
+        React.createElement(
+          "section",
+          { className: "px-6 py-32 bg-gray-50" },
+          React.createElement(
+            "div",
+            { className: "max-w-screen-xl mx-auto" },
+            React.createElement(
+              "div",
+              { className: "text-center mb-16" },
+              React.createElement("h3", { className: "text-3xl md:text-4xl font-black" }, "무엇이 다른가요?")
+            ),
+            React.createElement(
+              "div",
+              { className: "grid md:grid-cols-2 gap-8 lg:gap-16" },
+              React.createElement(
+                "div",
+                { className: "clay-card p-10 bg-white/50 opacity-60" },
+                React.createElement(
+                  "h4",
+                  { className: "text-center font-black text-gray-400 text-2xl mb-10 underline decoration-gray-200 underline-offset-8" },
+                  "기존 레슨 앱"
+                ),
+                React.createElement(
+                  "div",
+                  { className: "space-y-6" },
+                  ["여러 명에게서 동시에 연락 💣", "내 상황을 매번 처음부터 설명 🔄", "장기 등록 압박이 심함 💸", "직접 프로를 비교하는 선택 부담 🤯"].map(
+                    (v, i) =>
+                      React.createElement(
+                        "div",
+                        { key: i, className: "flex items-center gap-4 text-gray-400 font-bold text-lg" },
+                        React.createElement(X, { className: "shrink-0" }),
+                        " ",
+                        v
+                      )
+                  )
+                )
+              ),
+              React.createElement(
+                "div",
+                { className: "clay-card p-10 border-4 border-brand-blue/10 bg-white" },
+                React.createElement(
+                  "h4",
+                  { className: "text-center font-black text-brand-blue text-2xl mb-10 underline decoration-blue-100 underline-offset-8" },
+                  "스승님"
+                ),
+                React.createElement(
+                  "div",
+                  { className: "space-y-6" },
+                  ["요청서 기반으로 나에게 연락 ✅", "담당자가 1:1로 맞춤 관리 ✨", "필요한 횟수만큼만 수강 💎", "상담 후 만족할 때 결정 🤝"].map(
+                    (v, i) =>
+                      React.createElement(
+                        "div",
+                        { key: i, className: "flex items-center gap-4 text-gray-800 font-bold text-lg" },
+                        React.createElement(CheckCircle2, { className: "text-brand-blue shrink-0" }),
+                        " ",
+                        v
+                      )
+                  )
+                )
+              )
+            )
+          )
+        );
 
-                    <!-- floating chips -->
-                    <div class="absolute left-6 top-10 floaty">
-                      <div class="px-3 py-2 rounded-full bg-white/90 border border-slate-200 text-xs font-extrabold text-slate-700 backdrop-blur">
-                        ● 강남구
-                      </div>
-                    </div>
-                    <div class="absolute right-6 bottom-16 floaty2">
-                      <div class="px-3 py-2 rounded-full bg-white/90 border border-slate-200 text-xs font-extrabold text-slate-700 backdrop-blur">
-                        ● 서초구 전담팀
-                      </div>
-                    </div>
-                    <div class="absolute left-10 bottom-10 floaty3">
-                      <div class="px-3 py-2 rounded-full bg-white/90 border border-slate-200 text-xs font-extrabold text-slate-700 backdrop-blur">
-                        Expert
-                      </div>
-                    </div>
-                  </div>
+      /**
+       * Case Study Section
+       */
+      const CaseStudySection = () => {
+        const cases = [
+          {
+            text: "“아이언만 치면 생크가 납니다. 장기 등록 말고 2~3번만 제대로 봐주실 분?”",
+            result: "레슨 3회 만에 문제 해결",
+            icon: React.createElement(Smartphone, { className: "text-brand-blue" }),
+          },
+          {
+            text: "“드라이버 비거리 때문에 스트레스입니다. 딱 5번만 집중적으로 보고 싶어요.”",
+            result: "5회 레슨 후 비거리 30m 증가",
+            icon: React.createElement(TrendingUp, { className: "text-green-500" }),
+          },
+          {
+            text: "“필드에서 우드를 제대로 쓰고 싶어요. 우드 레슨 전문 스승님을 찾고 있습니다.”",
+            result: "필드 활용도 개선, 미스샷 감소",
+            icon: React.createElement(Award, { className: "text-orange-500" }),
+          },
+        ];
 
-                  <!-- success banner -->
-                  <div class="relative px-6 pb-7">
-                    <div class="rounded-2xl bg-white border border-slate-200 px-5 py-4 flex items-center gap-3 soft-shadow2">
-                      <div class="w-10 h-10 rounded-xl bg-blue-600/10 border border-blue-100 flex items-center justify-center">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                          <path d="M20 6L9 17l-5-5" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                      </div>
-                      <div>
-                        <div class="text-xs font-black tracking-wider text-slate-500">MATCHED SUCCESSFULLY</div>
-                        <div class="text-base font-extrabold">내 진짜 고민 해결!</div>
-                      </div>
-                      <div class="ml-auto">
-                        <span class="text-xs font-extrabold px-3 py-2 rounded-full bg-blue-600 text-white">매칭</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        return React.createElement(
+          "section",
+          { id: "cases", className: "px-6 py-32 bg-white" },
+          React.createElement(
+            "div",
+            { className: "max-w-screen-xl mx-auto" },
+            React.createElement(
+              "h3",
+              { className: "text-3xl md:text-4xl font-black mb-16 text-center" },
+              "성공적인 매칭 사례"
+            ),
+            React.createElement(
+              "div",
+              { className: "grid md:grid-cols-3 gap-8" },
+              cases.map((c, i) =>
+                React.createElement(
+                  "div",
+                  { key: i, className: "clay-card p-10 hover:translate-y-[-10px] transition-all group" },
+                  React.createElement(
+                    "div",
+                    { className: "clay-icon w-16 h-16 flex items-center justify-center bg-blue-50 mb-8 group-hover:rotate-12 transition-transform" },
+                    c.icon
+                  ),
+                  React.createElement("p", { className: "text-gray-700 font-bold text-xl leading-relaxed mb-8" }, c.text),
+                  React.createElement(
+                    "div",
+                    { className: "pt-6 border-t border-gray-100" },
+                    React.createElement("span", { className: "text-brand-blue font-black text-lg tracking-tight" }, "→ ", c.result)
+                  )
+                )
+              )
+            )
+          )
+        );
+      };
 
-            <p class="mt-4 text-center text-sm text-slate-500">
-              “프로를 고르는 부담” 대신, 조건이 맞는 전문가만 연결합니다.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      /**
+       * Trust Section
+       */
+      const TrustSection = () =>
+        React.createElement(
+          "section",
+          { id: "trust", className: "px-6 py-32 bg-gray-50" },
+          React.createElement(
+            "div",
+            { className: "max-w-screen-xl mx-auto grid lg:grid-cols-2 gap-16 items-center" },
+            React.createElement(
+              "div",
+              null,
+              React.createElement(ShieldCheck, { className: "w-24 h-24 text-brand-blue mb-8" }),
+              React.createElement(
+                "h3",
+                { className: "text-3xl md:text-5xl font-black mb-8 leading-tight" },
+                "투명한 운영 정책으로",
+                React.createElement("br"),
+                "신뢰를 더합니다"
+              ),
+              React.createElement(
+                "p",
+                { className: "text-gray-500 text-xl font-bold leading-relaxed mb-10" },
+                "스승님은 골퍼가 레슨 실패 리스크를",
+                React.createElement("br"),
+                "혼자 감담하지 않도록 시스템으로 보호합니다."
+              ),
+              React.createElement(
+                "div",
+                { className: "clay-card p-8 border-4 border-brand-blue/5 bg-white" },
+                React.createElement(
+                  "p",
+                  { className: "font-bold text-xl leading-relaxed text-gray-800" },
+                  "“결제 및 환불 구조를 ",
+                  React.createElement(
+                    "span",
+                    { className: "text-brand-blue font-black underline decoration-blue-200" },
+                    "법무법인 로투스"
+                  ),
+                  "와 파트너 관계로 법률 기준에 맞게 엄격하게 관리합니다.”"
+                )
+              )
+            ),
+            React.createElement(
+              "div",
+              { className: "space-y-6" },
+              [
+                { title: "상담 선진행", desc: "충분한 협의 전에는 어떠한 결제도 발생하지 않습니다." },
+                { title: "장기 결제 강요 금지", desc: "1회, 3회 등 필요한 횟수만큼만 자유롭게 결제 가능합니다." },
+                { title: "운영팀 직접 조율", desc: "불편함이 생기면 운영팀이 중간에서 신속하게 해결해 드립니다." },
+              ].map((v, i) =>
+                React.createElement(
+                  "div",
+                  { key: i, className: "flex gap-6 items-start" },
+                  React.createElement(
+                    "div",
+                    { className: "w-10 h-10 rounded-2xl bg-brand-blue flex items-center justify-center text-white shrink-0 mt-1" },
+                    React.createElement(CheckCircle2, { size: 24 })
+                  ),
+                  React.createElement(
+                    "div",
+                    null,
+                    React.createElement("h5", { className: "text-xl font-black mb-2" }, v.title),
+                    React.createElement("p", { className: "text-gray-500 font-bold" }, v.desc)
+                  )
+                )
+              )
+            )
+          )
+        );
 
-  <!-- HOW IT WORKS -->
-  <section id="how" class="bg-white">
-    <div class="max-w-6xl mx-auto px-4 py-16">
-      <div class="reveal text-center">
-        <h2 class="text-3xl sm:text-4xl font-black tracking-tight">요청 후, 이렇게 진행됩니다</h2>
-        <p class="mt-3 text-slate-600 font-medium">요청서 → 전담 매니저 확인 → 조건 맞는 전문가 연결</p>
-      </div>
+      /**
+       * CTA Section
+       */
+      const CTASection = () =>
+        React.createElement(
+          "section",
+          { className: "px-6 py-40 bg-white text-center" },
+          React.createElement(
+            "div",
+            { className: "max-w-screen-md mx-auto" },
+            React.createElement(
+              "h2",
+              { className: "text-4xl md:text-6xl font-black mb-8 leading-tight" },
+              "지금 바로",
+              React.createElement("br"),
+              "나만의 스승님을 찾으세요"
+            ),
+            React.createElement(
+              "p",
+              { className: "text-gray-400 text-xl font-bold mb-16" },
+              "원하는 레슨 요건을 알려주시면",
+              React.createElement("br"),
+              "가장 적합한 프로님을 무료로 매칭해 드립니다."
+            ),
+            React.createElement(
+              "div",
+              { className: "flex flex-col md:flex-row items-center justify-center gap-6" },
+              React.createElement(
+                "a",
+                {
+                  href: KAKAO_CHAT_URL,
+                  className:
+                    "w-full md:w-auto min-w-[320px] clay-card bg-brand-blue py-8 px-10 text-white font-black text-2xl hover:scale-105 transition-all shadow-2xl flex items-center justify-center gap-3",
+                },
+                React.createElement(MessageCircle, { size: 32, fill: "currentColor" }),
+                "무료 매칭 요청하기"
+              )
+            )
+          )
+        );
 
-      <div class="mt-10 grid md:grid-cols-3 gap-5">
-        <!-- step 1 -->
-        <div class="reveal p-7 rounded-3xl bg-slate-50 border border-slate-200 hover:bg-white transition soft-shadow2">
-          <div class="w-14 h-14 rounded-2xl border-2 border-blue-600 text-blue-700 font-black flex items-center justify-center text-xl">1</div>
-          <h3 class="mt-5 text-xl font-extrabold">골퍼가 직접 요청서 작성</h3>
-          <p class="mt-3 text-slate-600 leading-relaxed">
-            고치고 싶은 문제, 원하는 횟수·금액, 지역과 일정 등<br/>
-            모든 조건을 직접 설정합니다.
-          </p>
-        </div>
+      /**
+       * Footer Section
+       */
+      const FooterSection = () =>
+        React.createElement(
+          "footer",
+          { className: "px-6 py-32 bg-gray-900 text-white" },
+          React.createElement(
+            "div",
+            { className: "max-w-screen-xl mx-auto" },
+            React.createElement(
+              "div",
+              { className: "grid md:grid-cols-2 gap-16 mb-20" },
+              React.createElement(
+                "div",
+                null,
+                React.createElement(
+                  "div",
+                  { className: "flex items-center gap-3 mb-8" },
+                  React.createElement(
+                    "div",
+                    { className: "w-12 h-12 bg-brand-blue rounded-xl flex items-center justify-center text-white font-black italic text-xl" },
+                    "S"
+                  ),
+                  React.createElement("span", { className: "text-3xl font-black tracking-tighter" }, "스승님")
+                ),
+                React.createElement(
+                  "p",
+                  { className: "text-gray-400 font-bold text-xl leading-relaxed mb-8" },
+                  "골퍼와 프로가 만나는 가장 정직한 방식.",
+                  React.createElement("br"),
+                  "실패 없는 레슨 경험을 선사합니다."
+                )
+              ),
+              React.createElement(
+                "div",
+                { className: "grid grid-cols-2 gap-8 text-gray-400" },
+                React.createElement(
+                  "div",
+                  null,
+                  React.createElement("h6", { className: "text-white font-black mb-6" }, "서비스"),
+                  React.createElement(
+                    "ul",
+                    { className: "space-y-4 font-bold" },
+                    React.createElement("li", null, "매칭 신청"),
+                    React.createElement("li", null, "이용 약관"),
+                    React.createElement("li", null, "개인정보처리방침")
+                  )
+                ),
+                React.createElement(
+                  "div",
+                  null,
+                  React.createElement("h6", { className: "text-white font-black mb-6" }, "문의"),
+                  React.createElement(
+                    "ul",
+                    { className: "space-y-4 font-bold" },
+                    React.createElement("li", null, "카카오채널"),
+                    React.createElement("li", null, "파트너십")
+                  )
+                )
+              )
+            ),
+            React.createElement(
+              "div",
+              { className: "pt-12 border-t border-gray-800 space-y-4 text-sm font-bold text-gray-500" },
+              React.createElement(
+                "div",
+                { className: "flex flex-wrap gap-x-12 gap-y-4" },
+                React.createElement(
+                  "div",
+                  { className: "flex gap-4" },
+                  React.createElement("span", null, "상호명"),
+                  React.createElement("span", { className: "text-gray-400 font-black" }, "스승님 (Suseungnim)")
+                ),
+                React.createElement(
+                  "div",
+                  { className: "flex gap-4" },
+                  React.createElement("span", null, "법률 파트너"),
+                  React.createElement("span", { className: "text-gray-400 font-black" }, "법무법인 로투스")
+                )
+              ),
+              React.createElement("p", null, "© 2024 Suseungnim Corp. All rights reserved.")
+            )
+          )
+        );
 
-        <!-- step 2 -->
-        <div class="reveal p-7 rounded-3xl bg-slate-50 border border-slate-200 hover:bg-white transition soft-shadow2">
-          <div class="w-14 h-14 rounded-2xl border-2 border-blue-600 text-blue-700 font-black flex items-center justify-center text-xl">2</div>
-          <h3 class="mt-5 text-xl font-extrabold">스승님 전담 매니저 확인</h3>
-          <p class="mt-3 text-slate-600 leading-relaxed">
-            요청 내용을 확인 후<br/>
-            전담 매칭 서비스로 요청에 맞는 스승님을 선별합니다.
-          </p>
-        </div>
+      /**
+       * App Root
+       */
+      const App = () =>
+        React.createElement(
+          "div",
+          { className: "min-h-screen bg-white selection:bg-brand-blue/10" },
+          React.createElement(Header, null),
+          React.createElement(HeroSection, null),
+          React.createElement(EmpathySection, null),
+          React.createElement(ChecklistSection, null),
+          React.createElement(DifferenceSection, null),
+          React.createElement(SummarySection, null),
+          React.createElement(ComparisonSection, null),
+          React.createElement(CaseStudySection, null),
+          React.createElement(TrustSection, null),
+          React.createElement(CTASection, null),
+          React.createElement(FooterSection, null),
 
-        <!-- step 3 -->
-        <div class="reveal p-7 rounded-3xl bg-slate-50 border border-slate-200 hover:bg-white transition soft-shadow2">
-          <div class="w-14 h-14 rounded-2xl border-2 border-blue-600 text-blue-700 font-black flex items-center justify-center text-xl">3</div>
-          <h3 class="mt-5 text-xl font-extrabold">조건 맞는 전문가만 연결</h3>
-          <p class="mt-3 text-slate-600 leading-relaxed">
-            무분별한 제안/광고성 연락 없이<br/>
-            요청 조건에 맞는 스승님만 연결합니다.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
+          // Mobile-only Bottom CTA Bar
+          React.createElement(
+            "div",
+            {
+              className:
+                "md:hidden fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white via-white/90 to-transparent z-40 pointer-events-none",
+            },
+            React.createElement(
+              "a",
+              {
+                href: KAKAO_CHAT_URL,
+                className:
+                  "pointer-events-auto block w-full bg-brand-blue py-5 rounded-2xl text-white font-black text-center shadow-2xl transform active:scale-95 transition-transform flex items-center justify-center gap-2 text-lg",
+              },
+              React.createElement(MessageCircle, { size: 24, fill: "currentColor" }),
+              "매칭 요청하기"
+            )
+          )
+        );
 
-  <!-- COMPARE -->
-  <section class="bg-slate-50">
-    <div class="max-w-6xl mx-auto px-4 py-16">
-      <div class="reveal text-center">
-        <h2 class="text-3xl sm:text-4xl font-black tracking-tight">비교해보세요</h2>
-      </div>
+      // Mount
+      const rootElement = document.getElementById("root");
+      if (!rootElement) throw new Error("Could not find root element to mount to");
 
-      <div class="mt-10 grid lg:grid-cols-2 gap-6 items-stretch">
-        <div class="reveal p-8 rounded-3xl bg-white border border-slate-200 soft-shadow2">
-          <div class="text-sm font-extrabold text-slate-400">기존 레슨 앱</div>
-          <div class="mt-6 space-y-4">
-            <div class="flex items-start gap-3">
-              <div class="mt-1 w-6 h-6 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center">
-                <span class="text-rose-600 font-black">×</span>
-              </div>
-              <div class="font-bold text-slate-700">여러 명에게서 동시에 연락</div>
-            </div>
-            <div class="flex items-start gap-3">
-              <div class="mt-1 w-6 h-6 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center">
-                <span class="text-rose-600 font-black">×</span>
-              </div>
-              <div class="font-bold text-slate-700">조건 설명 반복</div>
-            </div>
-            <div class="flex items-start gap-3">
-              <div class="mt-1 w-6 h-6 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center">
-                <span class="text-rose-600 font-black">×</span>
-              </div>
-              <div class="font-bold text-slate-700">장기 등록 압박</div>
-            </div>
-            <div class="flex items-start gap-3">
-              <div class="mt-1 w-6 h-6 rounded-full bg-rose-50 border border-rose-100 flex items-center justify-center">
-                <span class="text-rose-600 font-black">×</span>
-              </div>
-              <div class="font-bold text-slate-700">선택 부담이 큼</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="reveal p-8 rounded-3xl bg-blue-600 text-white border border-blue-700/30 soft-shadow">
-          <div class="text-sm font-extrabold text-blue-100">스승님</div>
-          <div class="mt-6 space-y-4">
-            <div class="flex items-start gap-3">
-              <div class="mt-1 w-6 h-6 rounded-full bg-white/15 border border-white/20 flex items-center justify-center">
-                <span class="text-white font-black">✓</span>
-              </div>
-              <div class="font-extrabold">요청서 기반 매칭</div>
-            </div>
-            <div class="flex items-start gap-3">
-              <div class="mt-1 w-6 h-6 rounded-full bg-white/15 border border-white/20 flex items-center justify-center">
-                <span class="text-white font-black">✓</span>
-              </div>
-              <div class="font-extrabold">담당자 1:1 관리</div>
-            </div>
-            <div class="flex items-start gap-3">
-              <div class="mt-1 w-6 h-6 rounded-full bg-white/15 border border-white/20 flex items-center justify-center">
-                <span class="text-white font-black">✓</span>
-              </div>
-              <div class="font-extrabold">필요한 만큼 진행</div>
-            </div>
-            <div class="flex items-start gap-3">
-              <div class="mt-1 w-6 h-6 rounded-full bg-white/15 border border-white/20 flex items-center justify-center">
-                <span class="text-white font-black">✓</span>
-              </div>
-              <div class="font-extrabold">상담 후 결정</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CASES -->
-  <section class="bg-white">
-    <div class="max-w-6xl mx-auto px-4 py-16">
-      <div class="reveal text-center">
-        <h2 class="text-3xl sm:text-4xl font-black tracking-tight">실제 회원 요청 사례</h2>
-      </div>
-
-      <div class="mt-10 grid md:grid-cols-3 gap-6">
-        <div class="reveal p-7 rounded-3xl bg-white border border-slate-200 soft-shadow2 hover:-translate-y-1 transition">
-          <div class="text-blue-600 font-black tracking-widest">★★★★★</div>
-          <p class="mt-4 text-slate-800 font-bold leading-relaxed">
-            “아이언만 치면 생크가 납니다. 장기 등록 말고 2~3번만 제대로 봐주실 분 있을까요?”
-          </p>
-          <div class="mt-6">
-            <div class="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-blue-50 border border-blue-100 font-extrabold text-blue-700">
-              → 레슨 3회 만에 문제 해결
-            </div>
-          </div>
-        </div>
-
-        <div class="reveal p-7 rounded-3xl bg-white border border-slate-200 soft-shadow2 hover:-translate-y-1 transition">
-          <div class="text-blue-600 font-black tracking-widest">★★★★★</div>
-          <p class="mt-4 text-slate-800 font-bold leading-relaxed">
-            “드라이버 비거리 때문에 스트레스입니다. 딱 5번만 집중적으로 보고 싶어요.”
-          </p>
-          <div class="mt-6">
-            <div class="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-blue-50 border border-blue-100 font-extrabold text-blue-700">
-              → 5회 레슨 후 비거리 30m 증가
-            </div>
-          </div>
-        </div>
-
-        <div class="reveal p-7 rounded-3xl bg-white border border-slate-200 soft-shadow2 hover:-translate-y-1 transition">
-          <div class="text-blue-600 font-black tracking-widest">★★★★★</div>
-          <p class="mt-4 text-slate-800 font-bold leading-relaxed">
-            “필드에서 우드를 제대로 쓰고 싶어요. 우드 레슨 전문 스승님을 찾고 있습니다.”
-          </p>
-          <div class="mt-6">
-            <div class="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-blue-50 border border-blue-100 font-extrabold text-blue-700">
-              → 필드 활용도 개선, 미스샷 감소
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SUMMARY -->
-  <section class="bg-slate-50">
-    <div class="max-w-4xl mx-auto px-4 py-16">
-      <div class="reveal text-center">
-        <h2 class="text-3xl sm:text-4xl font-black tracking-tight">결과 요약</h2>
-      </div>
-
-      <div class="mt-10 space-y-4">
-        <div class="reveal p-5 rounded-2xl bg-white border border-slate-200 soft-shadow2 flex items-center gap-4">
-          <div class="w-11 h-11 rounded-xl bg-blue-600/10 border border-blue-100 flex items-center justify-center">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path d="M20 6L9 17l-5-5" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="font-extrabold text-slate-800">맞춤 요청 후 단기 레슨으로 문제 해결</div>
-        </div>
-
-        <div class="reveal p-5 rounded-2xl bg-white border border-slate-200 soft-shadow2 flex items-center gap-4">
-          <div class="w-11 h-11 rounded-xl bg-blue-600/10 border border-blue-100 flex items-center justify-center">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path d="M20 6L9 17l-5-5" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="font-extrabold text-slate-800">장기 등록 없이 필요한 부분만 교정</div>
-        </div>
-
-        <div class="reveal p-5 rounded-2xl bg-white border border-slate-200 soft-shadow2 flex items-center gap-4">
-          <div class="w-11 h-11 rounded-xl bg-blue-600/10 border border-blue-100 flex items-center justify-center">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path d="M20 6L9 17l-5-5" stroke="#2563eb" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="font-extrabold text-slate-800">조건 맞는 전문가 매칭으로 시간 및 비용 절약</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FINAL CTA -->
-  <section class="bg-white">
-    <div class="max-w-6xl mx-auto px-4 py-16">
-      <div class="reveal rounded-[32px] border border-slate-200 bg-gradient-to-br from-blue-50 to-white p-8 sm:p-10 soft-shadow2">
-        <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-          <div>
-            <h2 class="text-2xl sm:text-3xl font-black tracking-tight">
-              내 요청으로 매칭 가능한지<br class="hidden sm:block"/>
-              먼저 사전에 확인해보세요
-            </h2>
-            <p class="mt-3 text-slate-600 font-medium">
-              상담만 진행 / 아직 결제 아님 · 요청은 무료입니다
-            </p>
-          </div>
-
-          <a
-            href="http://pf.kakao.com/_kxawRn/chat"
-            target="_blank" rel="noopener"
-            class="inline-flex w-full lg:w-auto justify-center items-center gap-2 px-7 py-4 rounded-2xl bg-blue-600 text-white font-extrabold text-lg hover:bg-blue-700 active:scale-[.985] transition soft-shadow"
-          >
-            맞춤 요청 레슨 상담받기
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M7 17L17 7" stroke="white" stroke-width="2" stroke-linecap="round"/>
-              <path d="M9 7h8v8" stroke="white" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </a>
-        </div>
-      </div>
-
-      <p class="mt-10 text-center text-sm text-slate-500">
-        스승님은 골퍼가 실패하지 않도록 요청부터 관리합니다.
-      </p>
-    </div>
-  </section>
-
-  <footer class="py-10 text-center text-xs text-slate-400">
-    © <span id="year"></span> ssnim. All rights reserved.
-  </footer>
-
-  <script>
-    // year
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // reveal on scroll
-    const els = document.querySelectorAll('.reveal');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('show');
-      });
-    }, { threshold: 0.12 });
-    els.forEach(el => io.observe(el));
-  </script>
-</body>
+      const root = createRoot(rootElement);
+      root.render(React.createElement(React.StrictMode, null, React.createElement(App, null)));
+    </script>
+  </body>
 </html>
-
-
