@@ -7,6 +7,7 @@
     "https://apps.apple.com/kr/app/스승님/id6743513759";
 
   const cta = document.createElement("div");
+  cta.setAttribute("data-app-cta", "1");
   cta.style.cssText = `
     position: fixed;
     bottom: 0;
@@ -50,14 +51,43 @@
 
   document.body.appendChild(cta);
 
-  // 🔥 실제 스크롤되는 컨테이너를 잡아서 padding 보정
+  // ✅ 1) 스크롤 컨테이너 padding 보정 (일반 콘텐츠용)
   const target =
     document.querySelector("main") ||
     document.querySelector("#root") ||
     document.querySelector(".container") ||
     document.body;
 
+  // ✅ 2) 하단 fixed 요소(요청하기 버튼/상태바 등)까지 위로 밀기
+  function bumpFixedBottomElements(offsetPx) {
+    const nodes = Array.from(document.body.querySelectorAll("*"));
+
+    for (const el of nodes) {
+      if (el === cta) continue;
+      if (el.closest('[data-app-cta="1"]')) continue;
+
+      const style = window.getComputedStyle(el);
+      if (style.position !== "fixed") continue;
+
+      // 화면 하단에 붙어있는 요소만 대상으로 (bottom이 0이거나 아주 작음)
+      const bottomVal = parseFloat(style.bottom || "0");
+      if (isNaN(bottomVal) || bottomVal > 40) continue;
+
+      const rect = el.getBoundingClientRect();
+      // 현재 CTA 영역과 겹칠 가능성이 있는 요소만
+      if (rect.bottom > window.innerHeight - offsetPx) {
+        el.style.bottom = `${offsetPx + 8}px`; // 여유 8px
+      }
+    }
+  }
+
   requestAnimationFrame(() => {
-    target.style.paddingBottom = `calc(${cta.offsetHeight + 16}px + env(safe-area-inset-bottom))`;
+    const offset = cta.offsetHeight;
+
+    // 스크롤 콘텐츠 여백
+    target.style.paddingBottom = `calc(${offset + 16}px + env(safe-area-inset-bottom))`;
+
+    // fixed CTA/바 겹침 방지
+    bumpFixedBottomElements(offset);
   });
 })();
