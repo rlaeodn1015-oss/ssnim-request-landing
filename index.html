@@ -133,11 +133,21 @@
       const KAKAO_CHAT_URL = "https://pf.kakao.com/_kxawRn/chat";
       const HERO_TOP_PADDING_BASE = 112; // 헤더+여유(모바일 상단 절대 안잘리게)
 
-      /**
+            /**
        * Header
        */
-      const Header = () =>
-        React.createElement(
+      const Header = () => {
+        const PLAY_URL =
+          "https://play.google.com/store/apps/details?id=com.ssnim.lesson&pcampaignid=web_share";
+        const APPSTORE_URL =
+          "https://apps.apple.com/kr/app/스승님/id6743513759";
+
+        const ua = navigator.userAgent || "";
+        const isAndroid = /android/i.test(ua);
+        const isIOS = /iphone|ipad|ipod/i.test(ua);
+        const STORE_URL = isAndroid ? PLAY_URL : isIOS ? APPSTORE_URL : APPSTORE_URL;
+
+        return React.createElement(
           "header",
           {
             className:
@@ -204,18 +214,35 @@
                 "유의사항"
               )
             ),
+
+            // ✅ 여기만 "앱 다운로드 + 레슨 조건 적어보기" 2개 버튼으로 변경
             React.createElement(
-              "a",
-              {
-                href: KAKAO_CHAT_URL,
-                className:
-                  "bg-brand-blue text-white px-5 py-2 rounded-full font-bold text-sm hover:scale-105 transition-transform active:scale-95 no-overflow-wrap",
-                "aria-label": "레슨 조건 적어보기",
-              },
-              "레슨 조건 적어보기"
+              "div",
+              { className: "flex items-center gap-2" },
+              React.createElement(
+                "a",
+                {
+                  href: STORE_URL,
+                  className:
+                    "bg-white border border-gray-200 text-gray-900 px-4 py-2 rounded-full font-bold text-sm hover:scale-105 transition-transform active:scale-95 no-overflow-wrap",
+                  "aria-label": "앱 다운로드",
+                },
+                "앱 다운로드"
+              ),
+              React.createElement(
+                "a",
+                {
+                  href: KAKAO_CHAT_URL,
+                  className:
+                    "bg-brand-blue text-white px-5 py-2 rounded-full font-bold text-sm hover:scale-105 transition-transform active:scale-95 no-overflow-wrap",
+                  "aria-label": "레슨 조건 적어보기",
+                },
+                "레슨 조건 적어보기"
+              )
             )
           )
         );
+      };
 
       /**
        * Hero (요청서 카드 최종 안정)
@@ -1398,16 +1425,17 @@
         );
 
       // Mount
-            const rootElement = document.getElementById("root");
+                  const rootElement = document.getElementById("root");
       if (!rootElement) throw new Error("Could not find root element to mount to");
       const root = createRoot(rootElement);
-      root.render(React.createElement(React.StrictMode, null, React.createElement(App, null)));
+      root.render(
+        React.createElement(React.StrictMode, null, React.createElement(App, null))
+      );
     </script>
-
-    <!-- app-cta.js는 module 스크립트가 끝난 다음, body 끝나기 직전에 로드 -->
-    <script src="./app-cta.js"></script>
   </body>
 </html>
+
+
 
 
 
