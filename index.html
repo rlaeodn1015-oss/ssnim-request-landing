@@ -80,6 +80,15 @@
           padding-bottom: calc(var(--mobile-cta-h) + var(--safe-bottom));
         }
       }
+
+      /* ✅ (추가) Live bar subtle float (brand / premium) */
+      @keyframes ssnimFloat {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-4px); }
+      }
+      .ssn-live-float {
+        animation: ssnimFloat 3.2s ease-in-out infinite;
+      }
     </style>
 
     <!-- ESM import map -->
@@ -1312,6 +1321,33 @@
         );
 
       /**
+       * ✅ (추가) Live Floating Bar (Premium / Subtle)
+       */
+      const LiveFloatingBar = () => {
+        const text = "현재 12명 신규 신청 / 15명 매칭 상담 중 / 43명 보는중";
+        return React.createElement(
+          "div",
+          {
+            className: "fixed left-0 right-0 z-50 md:hidden pointer-events-none",
+            style: { bottom: "calc(var(--safe-bottom) + 92px)" }, // 하단 CTA 버튼 위
+            "aria-hidden": true,
+          },
+          React.createElement(
+            "div",
+            { className: "px-4" },
+            React.createElement(
+              "div",
+              {
+                className:
+                  "mx-auto max-w-md pointer-events-auto bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-2xl px-4 py-2 text-xs font-bold text-gray-700 ssn-live-float no-overflow-wrap",
+              },
+              text
+            )
+          )
+        );
+      };
+
+      /**
        * App
        */
       const App = () =>
@@ -1332,6 +1368,9 @@
           React.createElement(NoticeSection, null),
           React.createElement(CTASection, null),
           React.createElement(FooterSection, null),
+
+          /* ✅ (추가) 고정 플로팅 바 */
+          React.createElement(LiveFloatingBar, null),
 
           // ✅ Mobile bottom CTA bar (safe-area + 줄바꿈 안정화)
           React.createElement(
@@ -1366,4 +1405,3 @@
     </script>
   </body>
 </html>
-
