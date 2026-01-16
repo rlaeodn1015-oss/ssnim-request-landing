@@ -8,20 +8,20 @@
 
   const cta = document.createElement("div");
   cta.style.cssText = `
-    position:fixed;
-    bottom:0;
-    left:50%;
-    transform:translateX(-50%);
-    width:100%;
-    max-width:720px;
-    background:#fff;
-    border-top:1px solid #e5e5e5;
-    padding:12px 16px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    z-index:9999;
-    font-family:system-ui;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 720px;
+    background: #fff;
+    border-top: 1px solid #e5e5e5;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 9999;
+    font-family: system-ui;
   `;
 
   cta.innerHTML = `
@@ -47,5 +47,11 @@
     else alert("모바일에서 앱 설치가 가능합니다.");
   };
 
+  // 하단 고정 CTA 삽입
   document.body.appendChild(cta);
+
+  // 하단 CTA 높이만큼 body 여백 확보 (겹침 방지)
+  requestAnimationFrame(() => {
+    document.body.style.paddingBottom = cta.offsetHeight + "px";
+  });
 })();
