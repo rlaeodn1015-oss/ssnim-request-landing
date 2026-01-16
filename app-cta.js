@@ -17,6 +17,7 @@
     background: #fff;
     border-top: 1px solid #e5e5e5;
     padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -47,11 +48,16 @@
     else alert("모바일에서 앱 설치가 가능합니다.");
   };
 
-  // 하단 고정 CTA 삽입
   document.body.appendChild(cta);
 
-  // 하단 CTA 높이만큼 body 여백 확보 (겹침 방지)
+  // 🔥 실제 스크롤되는 컨테이너를 잡아서 padding 보정
+  const target =
+    document.querySelector("main") ||
+    document.querySelector("#root") ||
+    document.querySelector(".container") ||
+    document.body;
+
   requestAnimationFrame(() => {
-    document.body.style.paddingBottom = cta.offsetHeight + "px";
+    target.style.paddingBottom = `calc(${cta.offsetHeight + 16}px + env(safe-area-inset-bottom))`;
   });
 })();
