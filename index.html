@@ -130,7 +130,7 @@
         Info
       } from "lucide-react";
 
-      const KAKAO_CHAT_URL = "http://pf.kakao.com/_kxawRn/chat";
+      const KAKAO_CHAT_URL = "https://pf.kakao.com/_kxawRn/chat";
       const HERO_TOP_PADDING_BASE = 112; // 헤더+여유(모바일 상단 절대 안잘리게)
 
       /**
@@ -1398,13 +1398,17 @@
         );
 
       // Mount
-      const rootElement = document.getElementById("root");
+            const rootElement = document.getElementById("root");
       if (!rootElement) throw new Error("Could not find root element to mount to");
       const root = createRoot(rootElement);
       root.render(React.createElement(React.StrictMode, null, React.createElement(App, null)));
+    </script>
+
+    <!-- app-cta.js는 module 스크립트가 끝난 다음, body 끝나기 직전에 로드 -->
     <script src="./app-cta.js"></script>
   </body>
 </html>
+
 
 
 
