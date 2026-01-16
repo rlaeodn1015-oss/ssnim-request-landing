@@ -161,22 +161,25 @@
                 "max-w-screen-xl mx-auto px-6 h-16 flex items-center justify-between",
             },
             React.createElement(
-              "div",
-              { className: "flex items-center gap-2" },
               React.createElement(
-                "div",
-                {
-                  className:
-                    "w-8 h-8 bg-brand-blue rounded-lg flex items-center justify-center text-white font-black italic text-sm",
-                },
-                "S"
-              ),
-              React.createElement(
-                "span",
-                { className: "text-xl font-black tracking-tighter" },
-                "스승님"
-              )
-            ),
+  "div",
+  { className: "flex items-center gap-2" },
+  React.createElement(
+    "img",
+    {
+      src: "./logo.png",
+      alt: "스승님 로고",
+      className: "w-8 h-8 object-contain",
+      loading: "eager",
+      decoding: "async",
+    }
+  ),
+  React.createElement(
+    "span",
+    { className: "text-xl font-black tracking-tighter" },
+    "스승님"
+  )
+),
             React.createElement(
               "nav",
               {
@@ -1434,6 +1437,7 @@
     </script>
   </body>
 </html>
+
 
 
 
