@@ -7,13 +7,12 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@100;400;700;900&display=swap" rel="stylesheet" />
+
     <script>
       tailwind.config = {
         theme: {
           extend: {
-            colors: {
-              "brand-blue": "#0066FF",
-            },
+            colors: { "brand-blue": "#0066FF" },
           },
         },
       };
@@ -24,13 +23,13 @@
         font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
           "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji",
           "Segoe UI Symbol", sans-serif;
-        background-color: #ffffff;
+        background: #fff;
         color: #1a1a1a;
         -webkit-font-smoothing: antialiased;
         text-rendering: optimizeLegibility;
       }
       .clay-card {
-        background: #ffffff;
+        background: #fff;
         border-radius: 2rem;
         box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
       }
@@ -124,12 +123,12 @@
 
       const KAKAO_CHAT_URL = "https://pf.kakao.com/_kxawRn/chat";
       const PLAY_URL = "https://play.google.com/store/apps/details?id=com.ssnim.lesson&pcampaignid=web_share";
-      const APPSTORE_URL = "https://apps.apple.com/kr/app/스승님/id6743513759";
+      const APPSTORE_URL = "https://apps.apple.com/kr/app/%EC%8A%A4%EC%8A%B9%EB%8B%98/id6743513759";
+      const MOBILE_CTA_URL = "https://naver.me/GDLucdxV";
       const HERO_TOP_PADDING_BASE = 112;
 
       const Header = () => {
         const [storeUrl, setStoreUrl] = React.useState(APPSTORE_URL);
-
         React.useEffect(() => {
           const ua = navigator.userAgent || "";
           if (/android/i.test(ua)) setStoreUrl(PLAY_URL);
@@ -143,11 +142,7 @@
           >
             <div className="max-w-screen-xl mx-auto px-6 h-16 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div
-                  className="w-8 h-8 bg-brand-blue rounded-lg flex items-center justify-center text-white font-black italic text-sm"
-                >
-                  S
-                </div>
+                <div className="w-8 h-8 bg-brand-blue rounded-lg flex items-center justify-center text-white font-black italic text-sm">S</div>
                 <span className="text-xl font-black tracking-tighter">스승님</span>
               </div>
 
@@ -187,7 +182,7 @@
           <div className="max-w-screen-xl mx-auto w-full grid md:grid-cols-2 gap-10 md:gap-12 items-start">
             <div className="text-center md:text-left order-2 md:order-1">
               <div className="inline-block px-4 py-1 mb-5 bg-blue-50 text-brand-blue font-black rounded-full text-sm">
-                📍 현재 강남·서초·송파 전담 운영 중
+                현재 강남·서초·송파 전담 운영 중
               </div>
               <h1 className="text-4xl md:text-6xl font-black leading-[1.15] mb-3 tracking-tight no-overflow-wrap">
                 맞춤 요청 골프레슨<br />
@@ -200,14 +195,12 @@
                 레슨 조건을 먼저 정하고,<br className="block md:hidden" /><br className="hidden md:block" />
                 1회로 먼저 검증한 뒤 이어서 진행하세요
               </p>
+
               <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-8 md:mb-12 justify-center md:justify-start">
-                <span className="text-sm md:text-base font-bold bg-gray-100 px-4 py-2 rounded-full no-overflow-wrap">
-                  무작위 제안 ❌
-                </span>
-                <span className="text-sm md:text-base font-bold bg-blue-100 text-brand-blue px-4 py-2 rounded-full no-overflow-wrap">
-                  1:1 전담 매칭 ⭕
-                </span>
+                <span className="text-sm md:text-base font-bold bg-gray-100 px-4 py-2 rounded-full no-overflow-wrap">무작위 제안 ❌</span>
+                <span className="text-sm md:text-base font-bold bg-blue-100 text-brand-blue px-4 py-2 rounded-full no-overflow-wrap">1:1 전담 매칭 ⭕</span>
               </div>
+
               <div className="hidden md:block">
                 <a
                   href=${KAKAO_CHAT_URL}
@@ -219,9 +212,7 @@
             </div>
 
             <div className="relative order-1 md:order-2 flex justify-center">
-              <div
-                className="clay-card p-5 md:p-9 border-8 border-brand-blue/5 transform rotate-[-3deg] w-full max-w-sm flex flex-col"
-              >
+              <div className="clay-card p-5 md:p-9 border-8 border-brand-blue/5 transform rotate-[-3deg] w-full max-w-sm flex flex-col">
                 <div className="flex items-center justify-between mb-5 md:mb-7">
                   <${Smartphone} className="text-brand-blue w-7 h-7 md:w-8 md:h-8" />
                   <div className="h-2 w-20 bg-gray-200 rounded-full"></div>
@@ -229,19 +220,13 @@
 
                 <div className="space-y-5 md:space-y-6">
                   <div className="h-14 md:h-16 w-full bg-blue-50 rounded-2xl flex items-center px-5 md:px-6">
-                    <span className="text-sm md:text-base font-bold text-brand-blue no-overflow-wrap">
-                      요청서: 아이언 생크 교정
-                    </span>
+                    <span className="text-sm md:text-base font-bold text-brand-blue no-overflow-wrap">요청서: 아이언 생크 교정</span>
                   </div>
 
                   <div className="w-full bg-gray-50 rounded-2xl border border-gray-200 p-5 md:p-6 flex flex-col gap-5 md:gap-6">
                     <div className="flex items-center justify-between gap-3">
-                      <span className="text-xs font-black text-brand-blue bg-blue-100 px-3 py-1.5 rounded-full">
-                        🔔 프로 확인 중
-                      </span>
-                      <span className="text-xs font-bold text-gray-400 text-right no-overflow-wrap">
-                        강남·서초·송파 매칭중
-                      </span>
+                      <span className="text-xs font-black text-brand-blue bg-blue-100 px-3 py-1.5 rounded-full">프로 확인 중</span>
+                      <span className="text-xs font-bold text-gray-400 text-right no-overflow-wrap">강남·서초·송파 매칭중</span>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4 text-sm font-bold text-gray-700">
@@ -267,18 +252,14 @@
                       </div>
                     </div>
 
-                    <div
-                      className="bg-white/80 border border-gray-100 rounded-2xl px-4 py-3 text-center font-black text-sm text-brand-blue no-overflow-wrap"
-                    >
-                      스승 매칭중 ✨️
+                    <div className="bg-white/80 border border-gray-100 rounded-2xl px-4 py-3 text-center font-black text-sm text-brand-blue no-overflow-wrap">
+                      스승 매칭중
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div
-                className="absolute top-2 right-2 md:-top-10 md:right-0 clay-icon w-16 h-16 md:w-28 md:h-28 flex items-center justify-center bg-white shadow-2xl md:rotate-[12deg] z-10"
-              >
+              <div className="absolute top-2 right-2 md:-top-10 md:right-0 clay-icon w-16 h-16 md:w-28 md:h-28 flex items-center justify-center bg-white shadow-2xl md:rotate-[12deg] z-10">
                 <${CheckCircle2} className="text-green-500 w-9 h-9 md:w-12 md:h-12" />
               </div>
             </div>
@@ -288,23 +269,10 @@
 
       const EventSection = () => {
         const blocks = [
-          {
-            icon: html`<${ClipboardList} size=${26} className="text-brand-blue" />`,
-            title: "매칭 완료",
-            desc: "요청서 기준으로 스승님 확정",
-          },
-          {
-            icon: html`<${CheckCircle2} size=${26} className="text-brand-blue" />`,
-            title: "1회 레슨 진행",
-            desc: "1회 레슨으로 방향·태도·성향 확인",
-          },
-          {
-            icon: html`<${CreditCard} size=${26} className="text-brand-blue" />`,
-            title: "추가 결제 완료",
-            desc: "추가 진행 고객 중 10명 추첨",
-          },
+          { icon: html`<${ClipboardList} size=${26} className="text-brand-blue" />`, title: "매칭 완료", desc: "요청서 기준으로 스승님 확정" },
+          { icon: html`<${CheckCircle2} size=${26} className="text-brand-blue" />`, title: "1회 레슨 진행", desc: "1회로 방향·태도·성향 확인" },
+          { icon: html`<${CreditCard} size=${26} className="text-brand-blue" />`, title: "추가 결제 완료", desc: "추가 진행 고객 중 10명 추첨" },
         ];
-
         return html`
           <section id="event" className="px-6 py-24 md:py-28 bg-gray-50">
             <div className="max-w-screen-xl mx-auto">
@@ -312,11 +280,11 @@
                 <div className="flex items-start justify-between gap-6 flex-wrap">
                   <div>
                     <div className="inline-flex items-center gap-2 px-4 py-1 bg-blue-50 text-brand-blue font-black rounded-full text-sm mb-4">
-                      <${Gift} size=${18} /> 오픈 기념 이벤트💕
+                      <${Gift} size=${18} /> 오픈 기념 이벤트
                     </div>
                     <h3 className="text-2xl md:text-4xl font-black leading-tight no-overflow-wrap">
                       요청 레슨 완료 후,<br />
-                      10명 추첨 10% 포인트 페이백💵
+                      10명 추첨 10% 포인트 페이백
                     </h3>
                     <p className="text-gray-500 font-bold text-base md:text-lg mt-4 leading-relaxed no-overflow-wrap">
                       내 요청대로 레슨 받고, 혜택은 보너스로<br />
@@ -345,12 +313,8 @@
                 <div className="mt-7 bg-blue-50 border border-blue-100 rounded-2xl p-5 flex items-start gap-3">
                   <${Info} size=${18} className="text-brand-blue mt-0.5 shrink-0" />
                   <p className="text-sm md:text-base font-bold text-gray-700 leading-relaxed no-overflow-wrap">
-                    이벤트 대상:
-                    <span className="text-brand-blue font-black"
-                      >매칭 후 1회 진행 + 추가 진행 + 맞춤 레슨 최종 완료</span
-                    >
-                    한 고객 중 10명 추첨하여 포인트는 스승님 내 결제 시 사용 가능하며(현금화/양도 불가), 현장 개인결제는
-                    이벤트 대상에서 제외됩니다.
+                    이벤트 대상: <span className="text-brand-blue font-black">매칭 후 1회 진행 + 추가 진행 + 맞춤 레슨 최종 완료</span>
+                    고객 중 10명 추첨. 포인트는 스승님 내 결제에 사용 가능(현금화/양도 불가). 현장 개인결제는 제외됩니다.
                   </p>
                 </div>
               </div>
@@ -381,16 +345,11 @@
         return html`
           <section className="px-6 py-24 md:py-28 bg-gray-50">
             <div className="max-w-screen-xl mx-auto">
-              <h3 className="text-2xl md:text-4xl font-black mb-12 md:mb-16 text-center no-overflow-wrap">
-                혹시, 이런 경험 있으셨나요?
-              </h3>
+              <h3 className="text-2xl md:text-4xl font-black mb-12 md:mb-16 text-center no-overflow-wrap">혹시, 이런 경험 있으셨나요?</h3>
               <div className="grid md:grid-cols-2 gap-6">
                 ${items.map(
                   (item, idx) => html`
-                    <div
-                      key=${idx}
-                      className="clay-card p-8 flex items-start gap-6 hover:translate-y-[-8px] transition-all hover:shadow-2xl"
-                    >
+                    <div key=${idx} className="clay-card p-8 flex items-start gap-6 hover:translate-y-[-8px] transition-all hover:shadow-2xl">
                       <${CheckCircle2} className="text-red-400 shrink-0 mt-1" size=${32} />
                       <p className="font-bold text-lg md:text-xl text-gray-700 leading-snug no-overflow-wrap">${item}</p>
                     </div>
@@ -405,7 +364,7 @@
       const DifferenceSection = () => html`
         <section id="features" className="px-6 py-28 md:py-32 bg-brand-blue text-white text-center overflow-hidden relative">
           <div className="absolute top-0 right-0 opacity-10 transform translate-x-1/4 translate-y-[-1/4] pointer-events-none">
-            <${Filter} size=${600} strokeWidth=${1} />
+            <${Filter} size=${520} strokeWidth=${1} />
           </div>
           <div className="max-w-screen-md mx-auto relative z-10">
             <h2 className="text-3xl md:text-5xl font-black mb-7 md:mb-8 leading-tight no-overflow-wrap">
@@ -413,7 +372,7 @@
               ‘매칭 방법’의 문제였습니다.”
             </h2>
             <p className="text-blue-100 text-lg md:text-2xl font-medium leading-relaxed no-overflow-wrap">
-              스승님은 아무 프로나 매칭하지 않아요.<br />
+              스승님은 아무 프로나 매칭하지 않습니다.<br />
               골퍼의 요청을 먼저 받고, 요청에 맞는 전문 스승님만 연결합니다.
             </p>
           </div>
@@ -422,9 +381,9 @@
 
       const SummarySection = () => {
         const steps = [
-          { step: "01", title: "요청서 작성", desc: "골프 고민 문제와 금액, 횟수를 설정", icon: html`<${PenLine} size=${40} />` },
-          { step: "02", title: "스승님 담당자 확인", desc: "요청서 분석 및 최적 스승님 선별", icon: html`<${BadgeCheck} size=${40} />` },
-          { step: "03", title: "상담 및 매칭", desc: "요청에 맞는 스승님 연결", icon: html`<${ArrowRight} size=${40} />` },
+          { step: "01", title: "요청서 작성", desc: "고민·금액·횟수·지역을 먼저 설정", icon: html`<${PenLine} size=${40} />` },
+          { step: "02", title: "담당자 확인", desc: "요청서 분석 후 스승님 선별", icon: html`<${BadgeCheck} size=${40} />` },
+          { step: "03", title: "상담 및 매칭", desc: "조건 맞는 스승님으로 연결", icon: html`<${ArrowRight} size=${40} />` },
         ];
         return html`
           <section id="workflow" className="px-6 py-28 md:py-32 bg-white">
@@ -433,9 +392,7 @@
                 ${steps.map(
                   (item, idx) => html`
                     <div key=${idx} className="flex flex-col items-center text-center relative group">
-                      <div
-                        className="clay-icon w-28 h-28 md:w-32 md:h-32 flex items-center justify-center text-brand-blue bg-blue-50 mb-6 group-hover:scale-110 transition-transform"
-                      >
+                      <div className="clay-icon w-28 h-28 md:w-32 md:h-32 flex items-center justify-center text-brand-blue bg-blue-50 mb-6 group-hover:scale-110 transition-transform">
                         ${item.icon}
                       </div>
                       <span className="text-brand-blue font-black text-lg mb-2 no-overflow-wrap">${item.step}</span>
@@ -453,9 +410,9 @@
 
       const AfterFirstLessonSection = () => {
         const cards = [
-          { icon: html`<${ClipboardList} size=${34} className="text-brand-blue" />`, title: "요청서 기준으로 매칭", desc: "횟수·금액·지역·고민을 먼저 설정합니다." },
-          { icon: html`<${CheckCircle2} size=${34} className="text-brand-blue" />`, title: "1회 우선 진행", desc: "스승님이 나와 잘 맞는지 확인하세요." },
-          { icon: html`<${RefreshCcw} size=${34} className="text-brand-blue" />`, title: "만족하면 추가 결제", desc: "추가 결제는 스승님을 통해 진행해야 요청서 금액으로 가능합니다." },
+          { icon: html`<${ClipboardList} size=${34} className="text-brand-blue" />`, title: "요청서 기준 매칭", desc: "횟수·금액·지역·고민을 먼저 설정합니다." },
+          { icon: html`<${CheckCircle2} size=${34} className="text-brand-blue" />`, title: "1회 우선 진행", desc: "스승님이 나와 맞는지 확인하세요." },
+          { icon: html`<${RefreshCcw} size=${34} className="text-brand-blue" />`, title: "만족하면 추가 결제", desc: "요청 금액 유지하려면 스승님을 통해 진행." },
         ];
         return html`
           <section className="px-6 py-24 md:py-28 bg-gray-50">
@@ -466,8 +423,8 @@
                   추가 진행 여부도 직접 결정하세요
                 </h3>
                 <p className="text-gray-500 text-lg md:text-xl font-bold mt-5 leading-relaxed no-overflow-wrap">
-                  처음부터 다 결제하지 않아도 돼요!<br />
-                  1회로 ‘방향·태도·성향’을 확인하고, 만족하시면 이어서 진행하세요.
+                  처음부터 다 결제하지 않아도 됩니다.<br />
+                  1회로 ‘방향·태도·성향’을 확인하고 만족하면 이어서 진행하세요.
                 </p>
               </div>
 
@@ -485,9 +442,8 @@
 
               <div className="mt-10 bg-white border border-gray-200 rounded-2xl p-7">
                 <p className="font-black text-gray-800 text-base md:text-lg leading-relaxed no-overflow-wrap">
-                  예시) <span className="text-brand-blue">5회 / 총 30만원</span> 요청 및 스승님 매칭 →
-                  <span className="text-brand-blue">1회 10만원</span> 1회 진행 → 만족 시
-                  <span className="text-brand-blue">나머지 4회 20만원</span>을 추가 결제로 이어서 진행
+                  예시) <span className="text-brand-blue">5회 / 총 30만원</span> 요청 → <span className="text-brand-blue">1회 10만원</span> 진행 →
+                  만족 시 <span className="text-brand-blue">나머지 4회 20만원</span>을 추가 결제로 이어서 진행
                 </p>
               </div>
             </div>
@@ -496,8 +452,8 @@
       };
 
       const ComparisonSection = () => {
-        const left = ["여러 명에게서 동시에 연락 💣", "상황을 매번 처음부터 설명 🔄", "다회 결제의 부담이 심함 💸", "레슨 프로 선택에 대한 불안 🤯"];
-        const right = ["요청서 기준으로 상담 진행 ✅", "스승님이 1:1로 맞춤 관리 ✨", "1회 먼저 검증 후 레슨 결정 💎", "추가 결제는 요청 금액으로 진행 🤝"];
+        const left = ["여러 명에게서 동시에 연락", "상황을 매번 처음부터 설명", "다회 결제 부담", "프로 선택 불안"];
+        const right = ["요청서 기준 상담", "담당자 1:1 관리", "1회 먼저 검증", "추가 결제도 요청 금액 유지"];
         return html`
           <section className="px-6 py-28 md:py-32 bg-white">
             <div className="max-w-screen-xl mx-auto">
@@ -507,9 +463,7 @@
 
               <div className="grid md:grid-cols-2 gap-8 lg:gap-16">
                 <div className="clay-card p-10 bg-gray-50 opacity-70">
-                  <h4 className="text-center font-black text-gray-400 text-2xl mb-10 underline decoration-gray-200 underline-offset-8 no-overflow-wrap">
-                    기존 플랫폼
-                  </h4>
+                  <h4 className="text-center font-black text-gray-400 text-2xl mb-10 underline decoration-gray-200 underline-offset-8 no-overflow-wrap">기존 플랫폼</h4>
                   <div className="space-y-6">
                     ${left.map(
                       (v, i) => html`
@@ -522,9 +476,7 @@
                 </div>
 
                 <div className="clay-card p-10 border-4 border-brand-blue/10 bg-white">
-                  <h4 className="text-center font-black text-brand-blue text-2xl mb-10 underline decoration-blue-100 underline-offset-8 no-overflow-wrap">
-                    스승님
-                  </h4>
+                  <h4 className="text-center font-black text-brand-blue text-2xl mb-10 underline decoration-blue-100 underline-offset-8 no-overflow-wrap">스승님</h4>
                   <div className="space-y-6">
                     ${right.map(
                       (v, i) => html`
@@ -543,23 +495,10 @@
 
       const CaseStudySection = () => {
         const cases = [
-          {
-            text: "“아이언만 치면 생크가 납니다. 장기 등록 말고 2~3번만 제대로 봐주실 분?”",
-            result: "레슨 3회 만에 생크 해결",
-            icon: html`<${Smartphone} className="text-brand-blue" />`,
-          },
-          {
-            text: "“드라이버 비거리 때문에 스트레스입니다. 5번만 집중적으로 받고 싶어요.”",
-            result: "5회 맞춤 레슨 후 비거리 30m 증가",
-            icon: html`<${TrendingUp} className="text-green-500" />`,
-          },
-          {
-            text: "“필드에서 우드를 제대로 쓰고 싶어요. 우드 레슨 전문 스승님을 찾고 있습니다.”",
-            result: "파5 우드로 2온 성공, 미스샷 감소",
-            icon: html`<${Award} className="text-orange-500" />`,
-          },
+          { text: "“아이언만 치면 생크가 납니다. 2~3번만 제대로 봐주실 분?”", result: "레슨 3회 만에 생크 개선", icon: html`<${Smartphone} className="text-brand-blue" />` },
+          { text: "“드라이버 비거리 때문에 스트레스. 5번만 집중적으로 받고 싶어요.”", result: "5회 맞춤 레슨 후 비거리 향상", icon: html`<${TrendingUp} className="text-green-500" />` },
+          { text: "“필드에서 우드를 제대로 쓰고 싶어요. 우드 전문 스승님 찾습니다.”", result: "파5 우드 활용도 상승", icon: html`<${Award} className="text-orange-500" />` },
         ];
-
         return html`
           <section id="cases" className="px-6 py-28 md:py-32 bg-gray-50">
             <div className="max-w-screen-xl mx-auto">
@@ -568,9 +507,7 @@
                 ${cases.map(
                   (c, i) => html`
                     <div key=${i} className="clay-card p-10 hover:translate-y-[-10px] transition-all group bg-white">
-                      <div className="clay-icon w-16 h-16 flex items-center justify-center bg-blue-50 mb-8 group-hover:rotate-12 transition-transform">
-                        ${c.icon}
-                      </div>
+                      <div className="clay-icon w-16 h-16 flex items-center justify-center bg-blue-50 mb-8 group-hover:rotate-12 transition-transform">${c.icon}</div>
                       <p className="text-gray-700 font-bold text-xl leading-relaxed mb-8 no-overflow-wrap">${c.text}</p>
                       <div className="pt-6 border-t border-gray-100">
                         <span className="text-brand-blue font-black text-lg tracking-tight no-overflow-wrap">→ ${c.result}</span>
@@ -586,11 +523,10 @@
 
       const TrustSection = () => {
         const points = [
-          { title: "상담 선진행", desc: "상담 과정에서는 어떠한 결제 요구도 하지 않습니다." },
-          { title: "요청서 내용 상담", desc: "1회, 3회 등 요청서 내용대로 자유롭게 진행 가능합니다." },
-          { title: "운영팀 직접 조율", desc: "불편함이 생기면 운영팀이 중간에서 신속하게 조율합니다." },
+          { title: "상담 선진행", desc: "상담 과정에서 결제 요구를 하지 않습니다." },
+          { title: "요청서 기준 진행", desc: "1회·3회 등 요청서대로 유연하게 진행됩니다." },
+          { title: "운영팀 직접 조율", desc: "불편이 생기면 운영팀이 중간에서 조율합니다." },
         ];
-
         return html`
           <section id="trust" className="px-6 py-28 md:py-32 bg-white">
             <div className="max-w-screen-xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
@@ -606,9 +542,8 @@
                 </p>
                 <div className="clay-card p-8 border-4 border-brand-blue/5 bg-gray-50">
                   <p className="font-bold text-xl leading-relaxed text-gray-800 no-overflow-wrap">
-                    “결제 및 환불 구조를
-                    <span className="text-brand-blue font-black underline decoration-blue-200">법무법인 로투스</span>와 파트너 관계로 법률
-                    기준에 맞게 엄격하게 관리합니다.”
+                    “결제 및 환불 구조를 <span className="text-brand-blue font-black underline decoration-blue-200">법무법인 로투스</span>와
+                    파트너 관계로 법률 기준에 맞게 엄격하게 관리합니다.”
                   </p>
                 </div>
               </div>
@@ -633,14 +568,12 @@
         `;
       };
 
-            const NoticeSection = () => html`
+      const NoticeSection = () => html`
         <section id="notice" className="px-6 py-28 md:py-32 bg-gray-50">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-12 md:mb-16">
               <h3 className="text-3xl md:text-4xl font-black no-overflow-wrap">운영 및 유의사항</h3>
-              <p className="text-gray-500 font-bold mt-4 leading-relaxed no-overflow-wrap">
-                서비스 오해/분쟁을 막기 위해 아래 내용을 꼭 확인해주세요.
-              </p>
+              <p className="text-gray-500 font-bold mt-4 leading-relaxed no-overflow-wrap">서비스 오해/분쟁을 막기 위해 아래 내용을 꼭 확인해주세요.</p>
             </div>
 
             <div className="clay-card p-8 md:p-10 bg-white border-4 border-brand-blue/5">
@@ -651,8 +584,8 @@
                     <h4 className="text-xl font-black no-overflow-wrap">결제 원칙</h4>
                   </div>
                   <ul className="space-y-3 text-gray-700 font-bold leading-relaxed">
-                    <li className="no-overflow-wrap">• 결제는 스승님 운영팀이 전달하는 공식 PG 결제 링크로만 진행됩니다.</li>
-                    <li className="no-overflow-wrap">• 1회 레슨 이후 추가 결제도 스승님을 통해 진행해야 요청 금액으로 가능합니다.</li>
+                    <li className="no-overflow-wrap">• 결제는 운영팀이 전달하는 공식 PG 결제 링크로만 진행됩니다.</li>
+                    <li className="no-overflow-wrap">• 1회 이후 추가 결제도 스승님을 통해 진행해야 요청 금액을 유지할 수 있습니다.</li>
                   </ul>
                 </div>
 
@@ -662,8 +595,8 @@
                     <h4 className="text-xl font-black no-overflow-wrap">현장 개인결제 유의</h4>
                   </div>
                   <ul className="space-y-3 text-gray-700 font-bold leading-relaxed">
-                    <li className="no-overflow-wrap">• 스승님 외 현장(개인) 결제 시 환불/분쟁 조율은 스승님이 개입할 수 없습니다.</li>
-                    <li className="no-overflow-wrap">• 현장 결제는 이벤트 대상에서 제외되며, 레슨 진행 과정은 개인 책임입니다.</li>
+                    <li className="no-overflow-wrap">• 스승님 외 현장(개인) 결제 시 환불/분쟁 조율에 개입할 수 없습니다.</li>
+                    <li className="no-overflow-wrap">• 현장 결제는 이벤트 대상에서 제외되며, 진행 과정은 개인 책임입니다.</li>
                   </ul>
                 </div>
 
@@ -674,7 +607,7 @@
                   </div>
                   <ul className="space-y-3 text-gray-700 font-bold leading-relaxed">
                     <li className="no-overflow-wrap">• 본 서비스는 스승님 앱 이용을 기본 원칙으로 합니다.</li>
-                    <li className="no-overflow-wrap">• 매칭 완료 후 레슨권 발급/예약/후기 등은 스승님 앱을 통해 진행됩니다.</li>
+                    <li className="no-overflow-wrap">• 매칭 후 레슨권/예약/후기 등은 스승님 앱을 통해 진행됩니다.</li>
                   </ul>
                 </div>
 
@@ -684,10 +617,8 @@
                     <h4 className="text-xl font-black no-overflow-wrap">이벤트 유의</h4>
                   </div>
                   <ul className="space-y-3 text-gray-700 font-bold leading-relaxed">
-                    <li className="no-overflow-wrap">
-                      • 이벤트는 매칭 완료 후 1회 레슨 진행 + 추가 결제까지 정상 완료한 고객 대상입니다.
-                    </li>
-                    <li className="no-overflow-wrap">• 포인트 지급(현금화/양도 불가)이며, 1인 1회 적용됩니다.</li>
+                    <li className="no-overflow-wrap">• 이벤트는 매칭 완료 후 1회 레슨 + 추가 결제까지 정상 완료한 고객 대상입니다.</li>
+                    <li className="no-overflow-wrap">• 포인트 지급(현금화/양도 불가), 1인 1회 적용됩니다.</li>
                   </ul>
                 </div>
               </div>
@@ -695,8 +626,7 @@
               <div className="mt-7 bg-blue-50 border border-blue-100 rounded-2xl p-6 flex items-start gap-3">
                 <${Info} size=${18} className="text-brand-blue mt-0.5 shrink-0" />
                 <p className="text-sm md:text-base font-bold text-gray-700 leading-relaxed no-overflow-wrap">
-                  허위 요청, 서비스 악용(반복적인 환불 요구/분쟁 유발 등)이 확인될 경우 향후 매칭이 제한될 수 있습니다.
-                  운영 정책은 서비스 개선을 위해 사전 고지 후 변경될 수 있습니다.
+                  허위 요청, 서비스 악용(반복 환불 요구/분쟁 유발 등)이 확인될 경우 향후 매칭이 제한될 수 있습니다. 운영 정책은 개선을 위해 사전 고지 후 변경될 수 있습니다.
                 </p>
               </div>
             </div>
@@ -704,13 +634,10 @@
         </section>
       `;
 
-
       const CTASection = () => html`
         <section className="px-6 py-28 md:py-40 bg-white text-center">
           <div className="max-w-screen-md mx-auto">
-            <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight no-overflow-wrap">
-              내 마음대로 요청하고,<br />1회로 먼저 확인하세요
-            </h2>
+            <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight no-overflow-wrap">내 마음대로 요청하고,<br />1회로 먼저 확인하세요</h2>
             <p className="text-gray-500 text-lg md:text-xl font-bold mb-10 md:mb-12 leading-relaxed no-overflow-wrap">
               매칭은 무료로 진행됩니다.<br />첫 1회 레슨 이후, 진행여부는 직접 선택하세요.
             </p>
@@ -724,7 +651,7 @@
               </a>
             </div>
             <div className="mt-8 text-sm font-bold text-gray-400 leading-relaxed no-overflow-wrap">
-              ※ 오픈 기념 이벤트: 매칭 완료 + 요청 레슨 완료 고객 중 10명 추첨, 10% 포인트 페이백
+              오픈 기념 이벤트: 매칭 완료 + 요청 레슨 완료 고객 중 10명 추첨, 10% 포인트 페이백
             </div>
           </div>
         </section>
@@ -736,14 +663,11 @@
             <div className="grid md:grid-cols-2 gap-12 md:gap-16 mb-14 md:mb-20">
               <div>
                 <div className="flex items-center gap-3 mb-7 md:mb-8">
-                  <div className="w-12 h-12 bg-brand-blue rounded-xl flex items-center justify-center text-white font-black italic text-xl">
-                    S
-                  </div>
+                  <div className="w-12 h-12 bg-brand-blue rounded-xl flex items-center justify-center text-white font-black italic text-xl">S</div>
                   <span className="text-3xl font-black tracking-tighter">스승님</span>
                 </div>
                 <p className="text-gray-400 font-bold text-xl leading-relaxed mb-2 no-overflow-wrap">
-                  골퍼와 프로가 만나는 가장 정직한 방식.<br />
-                  실패 없는 레슨 경험을 선사합니다.
+                  골퍼와 프로가 만나는 가장 정직한 방식.<br />실패 없는 레슨 경험을 선사합니다.
                 </p>
               </div>
 
@@ -784,16 +708,30 @@
       `;
 
       const LiveFloatingBar = () => html`
-        <div
-          className="fixed left-0 right-0 z-50 md:hidden pointer-events-none"
-          style=${{ bottom: "calc(var(--safe-bottom) + 92px)" }}
-        >
+        <div className="fixed left-0 right-0 z-50 md:hidden pointer-events-none" style=${{ bottom: "calc(var(--safe-bottom) + 92px)" }}>
           <div className="px-4">
-            <div
-              className="mx-auto max-w-md pointer-events-auto bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-2xl px-4 py-2 text-xs font-bold text-gray-700 ssn-live-float no-overflow-wrap"
-            >
+            <div className="mx-auto max-w-md pointer-events-auto bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-2xl px-4 py-2 text-xs font-bold text-gray-700 ssn-live-float no-overflow-wrap">
               현재 56명 신규 신청 / 34명 매칭 상담 중 / 293명 보는중
             </div>
+          </div>
+        </div>
+      `;
+
+      const MobileFixedCTA = () => html`
+        <div
+          className="md:hidden fixed bottom-0 left-0 right-0 bg-gradient-to-t from-white via-white/95 to-transparent z-40 pointer-events-none"
+          style=${{ paddingBottom: "calc(12px + var(--safe-bottom))" }}
+        >
+          <div className="p-4">
+            <a
+              href=${MOBILE_CTA_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="pointer-events-auto block w-full bg-brand-blue py-5 rounded-2xl text-white font-black text-center shadow-2xl transform active:scale-95 transition-transform flex items-center justify-center gap-2 text-lg no-overflow-wrap"
+            >
+              <${MessageCircle} size=${24} fill="currentColor" />
+              맞춤 요청서 작성하기
+            </a>
           </div>
         </div>
       `;
@@ -814,33 +752,14 @@
           <${NoticeSection} />
           <${CTASection} />
           <${FooterSection} />
-
           <${LiveFloatingBar} />
-
-          <div
-            className="md:hidden fixed bottom-0 left-0 right-0 bg-gradient-to-t from-white via-white/95 to-transparent z-40 pointer-events-none"
-            style=${{ paddingBottom: "calc(12px + var(--safe-bottom))" }}
-          >
-            <div className="p-4">
-              <a
-                href="https://naver.me/GDLucdxV"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="pointer-events-auto block w-full bg-brand-blue py-5 rounded-2xl text-white font-black text-center shadow-2xl transform active:scale-95 transition-transform flex items-center justify-center gap-2 text-lg no-overflow-wrap"
-              >
-                <${MessageCircle} size=${24} fill="currentColor" />
-                맞춤 요청서 작성하기
-              </a>
-            </div>
-          </div>
+          <${MobileFixedCTA} />
         </div>
       `;
 
-      // ===== Mount =====
-      const rootElement = document.getElementById("root");
-      if (!rootElement) throw new Error("Could not find root element to mount to");
-      const root = createRoot(rootElement);
-      root.render(html`<${React.StrictMode}><${App} /></${React.StrictMode}>`);
+      const rootEl = document.getElementById("root");
+      if (!rootEl) throw new Error("root element not found");
+      createRoot(rootEl).render(html`<${React.StrictMode}><${App} /></${React.StrictMode}>`);
     </script>
   </body>
 </html>
