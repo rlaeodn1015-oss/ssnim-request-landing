@@ -97,6 +97,22 @@
   animation: ssnimShimmer 7.5s ease-in-out infinite;
   pointer-events: none;
 }
+      @keyframes ssnimHeroFloat {
+  0% {
+    transform: translateY(0) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(-3deg);
+  }
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+}
+
+.ssn-hero-float {
+  animation: ssnimHeroFloat 4.2s ease-in-out infinite;
+  will-change: transform;
+}
     </style>
 
     <script type="importmap">
@@ -239,7 +255,7 @@
             </div>
 
             <div className="relative order-1 md:order-2 flex justify-center">
-              <div className="clay-card p-5 md:p-9 border-8 border-brand-blue/5 transform rotate-[-3deg] w-full max-w-sm flex flex-col">
+              <div className="clay-card p-5 md:p-9 border-8 border-brand-blue/5 transform rotate-[-3deg] ssn-hero-float w-full max-w-sm flex flex-col">
                 <div className="flex items-center justify-between mb-5 md:mb-7">
                   <${Smartphone} className="text-brand-blue w-7 h-7 md:w-8 md:h-8" />
                   <div className="h-2 w-20 bg-gray-200 rounded-full"></div>
@@ -800,6 +816,7 @@
     </script>
   </body>
 </html>
+
 
 
 
