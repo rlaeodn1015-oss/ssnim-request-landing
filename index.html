@@ -633,7 +633,7 @@
         `;
       };
 
-      const NoticeSection = () => html`
+            const NoticeSection = () => html`
         <section id="notice" className="px-6 py-28 md:py-32 bg-gray-50">
           <div className="max-w-screen-xl mx-auto">
             <div className="text-center mb-12 md:mb-16">
@@ -678,8 +678,6 @@
                   </ul>
                 </div>
 
-                                </div>
-
                 <div className="bg-gray-50 rounded-2xl border border-gray-200 p-7">
                   <div className="flex items-center gap-3 mb-4">
                     <${Gift} size=${22} className="text-brand-blue" />
@@ -705,6 +703,7 @@
           </div>
         </section>
       `;
+
 
       const CTASection = () => html`
         <section className="px-6 py-28 md:py-40 bg-white text-center">
@@ -842,3 +841,6 @@
       if (!rootElement) throw new Error("Could not find root element to mount to");
       const root = createRoot(rootElement);
       root.render(html`<${React.StrictMode}><${App} /></${React.StrictMode}>`);
+    </script>
+  </body>
+</html>
