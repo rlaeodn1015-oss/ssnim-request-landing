@@ -635,27 +635,36 @@
       `;
 
       const CTASection = () => html`
-        <section className="px-6 py-28 md:py-40 bg-white text-center">
-          <div className="max-w-screen-md mx-auto">
-            <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight no-overflow-wrap">내 마음대로 요청하고,<br />1회로 먼저 확인하세요</h2>
-            <p className="text-gray-500 text-lg md:text-xl font-bold mb-10 md:mb-12 leading-relaxed no-overflow-wrap">
-              매칭은 무료로 진행됩니다.<br />첫 1회 레슨 이후, 진행여부는 직접 선택하세요.
-            </p>
-            <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-              <a
-                href=${KAKAO_CHAT_URL}
-                className="w-full md:w-auto min-w-[320px] clay-card bg-brand-blue py-7 md:py-8 px-10 text-white font-black text-2xl hover:scale-105 transition-all shadow-2xl flex items-center justify-center gap-3 no-overflow-wrap"
-              >
-                <${MessageCircle} size=${32} fill="currentColor" />
-                맞춤 레슨 요청하기
-              </a>
-            </div>
-            <div className="mt-8 text-sm font-bold text-gray-400 leading-relaxed no-overflow-wrap">
-              오픈 기념 이벤트: 매칭 완료 + 요청 레슨 완료 고객 중 10명 추첨, 10% 포인트 페이백
-            </div>
-          </div>
-        </section>
-      `;
+  <section className="px-6 py-28 md:py-40 bg-white text-center">
+    <div className="max-w-screen-md mx-auto">
+      <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight no-overflow-wrap">
+        내 마음대로 요청하고,<br />1회로 먼저 확인하세요
+      </h2>
+
+      <p className="text-gray-500 text-lg md:text-xl font-bold mb-10 md:mb-12 leading-relaxed no-overflow-wrap">
+        매칭은 무료로 진행됩니다.<br />
+        첫 1회 레슨 이후, 진행여부는 직접 선택하세요.
+      </p>
+
+      <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+        <a
+          href="https://naver.me/GDLucdxV"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full md:w-auto min-w-[320px] clay-card bg-brand-blue py-7 md:py-8 px-10 text-white font-black text-2xl hover:scale-105 transition-all shadow-2xl flex items-center justify-center gap-3 no-overflow-wrap"
+        >
+          <${MessageCircle} size=${32} fill="currentColor" />
+          맞춤 레슨 요청하기
+        </a>
+      </div>
+
+      <div className="mt-8 text-sm font-bold text-gray-400 leading-relaxed no-overflow-wrap">
+        오픈 기념 이벤트: 매칭 완료 + 요청 레슨 완료 고객 중 10명 추첨, 10% 포인트 페이백
+      </div>
+    </div>
+  </section>
+`;
+
 
       const FooterSection = () => html`
         <footer className="px-6 py-24 md:py-28 bg-gray-900 text-white">
@@ -763,3 +772,4 @@
     </script>
   </body>
 </html>
+
