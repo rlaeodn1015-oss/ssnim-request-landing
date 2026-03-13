@@ -677,7 +677,7 @@
         </section>
       `;
 
-      const CTASection = () => html`
+      const CTASection = ({ setFormOpen }) => html`
   <section className="px-6 py-28 md:py-40 bg-white text-center">
     <div className="max-w-screen-md mx-auto">
       <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight no-overflow-wrap">
@@ -690,17 +690,14 @@
       </p>
 
       <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-        <a
-          href="https://naver.me/GDLucdxV"
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick=${() => console.log("CTASection 클릭됨:", "https://naver.me/GDLucdxV")}
-          className="w-full md:w-auto min-w-[320px] clay-card bg-brand-blue py-7 md:py-8 px-10 text-white font-black text-2xl hover:scale-105 transition-all shadow-2xl flex items-center justify-center gap-3 no-overflow-wrap"
-        >
-          <${MessageCircle} size=${32} fill="currentColor" />
-          맞춤 레슨 요청하기
-        </a>
-      </div>
+  <button
+    onClick=${() => setFormOpen(true)}
+    className="w-full md:w-auto min-w-[320px] clay-card bg-brand-blue py-7 md:py-8 px-10 text-white font-black text-2xl hover:scale-105 transition-all shadow-2xl flex items-center justify-center gap-3 no-overflow-wrap"
+  >
+    <${MessageCircle} size=${32} fill="currentColor" />
+    맞춤 레슨 요청하기
+  </button>
+</div>
 
       <div className="mt-8 text-sm font-bold text-gray-400 leading-relaxed no-overflow-wrap">
         오픈 기념 이벤트: 매칭 완료 + 요청 레슨 완료 고객 중 10명 추첨, 10% 포인트 페이백
@@ -760,6 +757,91 @@
         </footer>
       `;
 
+      const RequestFormModal = ({ formOpen, setFormOpen }) => {
+  if (!formOpen) return null;
+
+  return html`
+    <div className="fixed inset-0 bg-black/40 z-[100] flex items-center justify-center p-6">
+
+      <div className="bg-white rounded-3xl max-w-lg w-full p-8 relative max-h-[90vh] overflow-y-auto">
+
+        <button
+          onClick=${() => setFormOpen(false)}
+          className="absolute top-4 right-4 text-gray-400 text-xl font-bold">
+          ×
+        </button>
+
+        <h3 className="text-2xl font-black mb-6">
+          맞춤 골프 레슨 요청
+        </h3>
+
+        <form action="https://formspree.io/f/mbdakbon" method="POST" className="space-y-4">
+        <input type="hidden" name="_redirect" value="https://rlaeodn1015-oss.github.io/ssnim/" />
+
+          <input
+            name="name"
+            placeholder="이름"
+            required
+            className="w-full border rounded-xl p-3"
+          />
+
+          <input
+            name="phone"
+            placeholder="연락처"
+            required
+            className="w-full border rounded-xl p-3"
+          />
+
+          <input
+            name="region"
+            placeholder="희망 지역 (예: 강남)"
+            className="w-full border rounded-xl p-3"
+          />
+
+          <select
+            name="experience"
+            required
+            className="w-full border rounded-xl p-3"
+          >
+            <option value="">골프 구력 선택</option>
+            <option>입문</option>
+            <option>100타</option>
+            <option>90타</option>
+            <option>80타</option>
+            <option>싱글</option>
+          </select>
+
+          <select
+            name="lesson_count"
+            className="w-full border rounded-xl p-3"
+          >
+            <option value="">희망 레슨 횟수</option>
+            <option>1회 체험</option>
+            <option>3회</option>
+            <option>5회</option>
+            <option>10회</option>
+          </select>
+
+          <textarea
+            name="request"
+            placeholder="레슨 고민 / 요청사항 (예: 아이언 생크, 드라이버 슬라이스)"
+            className="w-full border rounded-xl p-3 h-24"
+          ></textarea>
+
+          <button
+            type="submit"
+            className="w-full bg-brand-blue text-white py-4 rounded-xl font-black text-lg">
+            요청 보내기
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+  `;
+};
+
       const LiveFloatingBar = () => html`
         <div className="fixed left-0 right-0 z-50 md:hidden pointer-events-none" style=${{ bottom: "calc(var(--safe-bottom) + 92px)" }}>
           <div className="px-4">
@@ -770,45 +852,56 @@
         </div>
       `;
 
-      const MobileFixedCTA = () => html`
-        <div
-          className="md:hidden fixed bottom-0 left-0 right-0 bg-gradient-to-t from-white via-white/95 to-transparent z-40 pointer-events-none"
-          style=${{ paddingBottom: "calc(12px + var(--safe-bottom))" }}
-        >
-          <div className="p-4">
-            <a
-              href=${MOBILE_CTA_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="pointer-events-auto block w-full bg-brand-blue py-5 rounded-2xl text-white font-black text-center shadow-2xl transform active:scale-95 transition-transform flex items-center justify-center gap-2 text-lg no-overflow-wrap"
-            >
-              <${MessageCircle} size=${24} fill="currentColor" />
-              맞춤 요청서 작성하기
-            </a>
-          </div>
-        </div>
-      `;
+      const MobileFixedCTA = ({ setFormOpen }) => html`
+<div
+className="md:hidden fixed bottom-0 left-0 right-0 bg-gradient-to-t from-white via-white/95 to-transparent z-40 pointer-events-none"
+style=${{ paddingBottom: "calc(12px + var(--safe-bottom))" }}
+>
+<div className="p-4">
+<button
+onClick=${() => setFormOpen(true)}
+className="pointer-events-auto block w-full bg-brand-blue py-5 rounded-2xl text-white font-black text-center shadow-2xl transform active:scale-95 transition-transform flex items-center justify-center gap-2 text-lg"
+>
+<${MessageCircle} size=${24} fill="currentColor" />
+맞춤 요청서 작성하기
+</button>
+</div>
+</div>
+`;
 
-      const App = () => html`
-        <div className="min-h-screen bg-white selection:bg-brand-blue/10">
-          <${Header} />
-          <${HeroSection} />
-          <${EventSection} />
-          <${EmpathySection} />
-          <${ChecklistSection} />
-          <${DifferenceSection} />
-          <${SummarySection} />
-          <${AfterFirstLessonSection} />
-          <${ComparisonSection} />
-          <${CaseStudySection} />
-          <${TrustSection} />
-          <${NoticeSection} />
-          <${CTASection} />
-          <${FooterSection} />
-          <${LiveFloatingBar} />
-          <${MobileFixedCTA} />
-        </div>
-      `;
+      const App = () => {
+const [formOpen, setFormOpen] = React.useState(false);
+
+return html`
+<div className="min-h-screen bg-white selection:bg-brand-blue/10">
+
+  <${Header} />
+
+  <${HeroSection} />
+  <${EventSection} />
+  <${EmpathySection} />
+  <${ChecklistSection} />
+  <${DifferenceSection} />
+  <${SummarySection} />
+  <${AfterFirstLessonSection} />
+  <${ComparisonSection} />
+  <${CaseStudySection} />
+  <${TrustSection} />
+  <${NoticeSection} />
+
+  <${CTASection} setFormOpen=${setFormOpen} />
+
+  <${FooterSection} />
+
+  <${LiveFloatingBar} />
+
+  <${MobileFixedCTA} setFormOpen=${setFormOpen} />
+
+  <${RequestFormModal} formOpen=${formOpen} setFormOpen=${setFormOpen} />
+
+</div>
+`;
+};
 
       const rootEl = document.getElementById("root");
       if (!rootEl) throw new Error("root element not found");
@@ -816,6 +909,7 @@
     </script>
   </body>
 </html>
+
 
 
 
