@@ -163,6 +163,20 @@
       const html = htm.bind(React.createElement);
 
       const KAKAO_CHAT_URL = "https://pf.kakao.com/_kxawRn/chat";
+      function sharePage() {
+  const shareData = {
+    title: "스승님 맞춤 골프레슨 매칭",
+    text: "요청서 기반 골프레슨 매칭 서비스",
+    url: window.location.href
+  };
+
+  if (navigator.share) {
+    navigator.share(shareData);
+  } else {
+    navigator.clipboard.writeText(window.location.href);
+    alert("링크가 복사되었습니다.");
+  }
+}
       const PLAY_URL = "https://play.google.com/store/apps/details?id=com.ssnim.lesson&pcampaignid=web_share";
       const APPSTORE_URL = "https://apps.apple.com/kr/app/%EC%8A%A4%EC%8A%B9%EB%8B%98/id6743513759";
       const MOBILE_CTA_URL = "https://naver.me/GDLucdxV";
@@ -857,14 +871,24 @@
 className="md:hidden fixed bottom-0 left-0 right-0 bg-gradient-to-t from-white via-white/95 to-transparent z-40 pointer-events-none"
 style=${{ paddingBottom: "calc(12px + var(--safe-bottom))" }}
 >
-<div className="p-4">
+
+<div className="p-4 flex gap-3">
+
+<button
+onClick=${sharePage}
+className="pointer-events-auto min-w-[70px] bg-white border border-gray-200 px-5 py-5 rounded-2xl font-black text-sm shadow-md flex items-center justify-center"
+>
+친구에게 공유하기
+</button>
+
 <button
 onClick=${() => setFormOpen(true)}
-className="pointer-events-auto block w-full bg-brand-blue py-5 rounded-2xl text-white font-black text-center shadow-2xl transform active:scale-95 transition-transform flex items-center justify-center gap-2 text-lg"
+className="pointer-events-auto flex-1 bg-brand-blue py-5 rounded-2xl text-white font-black text-center shadow-2xl transform active:scale-95 transition-transform flex items-center justify-center gap-2 text-lg"
 >
 <${MessageCircle} size=${24} fill="currentColor" />
 맞춤 요청서 작성하기
 </button>
+
 </div>
 </div>
 `;
@@ -909,6 +933,7 @@ return html`
     </script>
   </body>
 </html>
+
 
 
 
