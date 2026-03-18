@@ -575,6 +575,8 @@
           { text: "“드라이버 비거리 때문에 스트레스. 5번만 집중적으로 받고 싶어요.”", result: "5회 맞춤 레슨 후 비거리 향상", icon: html`<${TrendingUp} className="text-green-500" />` },
           { text: "“필드에서 우드를 제대로 쓰고 싶어요. 우드 전문 스승님 찾습니다.”", result: "파5 우드 활용도 상승", icon: html`<${Award} className="text-orange-500" />` },
           { text: "“저렴하게 9홀 레슨 받고 싶어요. 슬라이스 OB때문에 스트레스 받네요.”", result: "9홀 레슨 후 OB 10개 감소"}
+          { text: "“2온을 못하고 그린 주변에서 너무 허덕이는데.. 숏게임 레슨 받고 싶어요.”", result: "숏게임레슨 후 평균 -9타 감소"}
+          { text: "“100M이내 거리에서 방향성이 좋지 않아요.”", result: "파3레슨 후 온그린확률 80% 상승"}
         ];
         return html`
           <section id="cases" className="px-6 py-28 md:py-32 bg-gray-50">
@@ -867,7 +869,7 @@
             className="w-full border rounded-xl p-3"
           >
             <option value="">희망 레슨 횟수</option>
-            <option>1회 체험</option>
+            <option>1회</option>
             <option>3회</option>
             <option>5회</option>
             <option>10회</option>
@@ -897,7 +899,7 @@
         <div className="fixed left-0 right-0 z-50 md:hidden pointer-events-none" style=${{ bottom: "calc(var(--safe-bottom) + 92px)" }}>
           <div className="px-4">
             <div className="mx-auto max-w-md pointer-events-auto bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-2xl px-4 py-2 text-xs font-bold text-gray-700 ssn-live-float ssn-shimmer no-overflow-wrap">
-              현재 56명 신규 신청 / 34명 매칭 상담 중 / 293명 보는중
+              현재 29명 신규 신청 / 34명 상담 요청 / 165명 보는중
             </div>
           </div>
         </div>
