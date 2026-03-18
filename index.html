@@ -257,8 +257,11 @@
               <div className="inline-block px-4 py-1 mb-5 bg-blue-50 text-brand-blue font-black rounded-full text-sm">
                 현재 강남·서초·송파 전담 운영 중
               </div>
+              <div className="text-sm font-bold text-gray-400">
+  실내 레슨 · 실전 레슨 모두 매칭 가능
+</div>
               <h1 className="text-4xl md:text-6xl font-black leading-[1.15] mb-3 tracking-tight no-overflow-wrap">
-                맞춤 요청 골프레슨<br />
+                맞춤 골프레슨 · 실전레슨<br />
                 <span className="text-brand-blue">매칭 서비스</span>
               </h1>
               <div className="mt-2 mb-6 text-sm md:text-base font-black text-gray-500 no-overflow-wrap">
@@ -266,7 +269,7 @@
               </div>
               <p className="text-gray-500 text-lg md:text-2xl font-medium mb-7 no-overflow-wrap">
                 레슨 조건을 먼저 정하고,<br className="block md:hidden" /><br className="hidden md:block" />
-                1회로 먼저 검증한 뒤 이어서 진행하세요
+                실내 레슨 또는 실전 레슨까지 직접 선택하세요
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-8 md:mb-12 justify-center md:justify-start">
@@ -293,7 +296,7 @@
 
                 <div className="space-y-5 md:space-y-6">
                   <div className="h-14 md:h-16 w-full bg-blue-50 rounded-2xl flex items-center px-5 md:px-6">
-                    <span className="text-sm md:text-base font-bold text-brand-blue no-overflow-wrap">요청서: 아이언 생크 교정</span>
+                    <span className="text-sm md:text-base font-bold text-brand-blue no-overflow-wrap">요청서: 실전 레슨 / 어프로치 거리감 교정</span>
                   </div>
 
                   <div className="w-full bg-gray-50 rounded-2xl border border-gray-200 p-5 md:p-6 flex flex-col gap-5 md:gap-6">
@@ -441,12 +444,12 @@
           </div>
           <div className="max-w-screen-md mx-auto relative z-10">
             <h2 className="text-3xl md:text-5xl font-black mb-7 md:mb-8 leading-tight no-overflow-wrap">
-              “레슨이 아니라,<br />
-              ‘매칭 방법’의 문제였습니다.”
+              “레슨 선택이 아니라,,<br />
+              ‘레슨 방식 + 매칭’의 문제였습니다.”
             </h2>
             <p className="text-blue-100 text-lg md:text-2xl font-medium leading-relaxed no-overflow-wrap">
               스승님은 아무 프로나 매칭하지 않습니다.<br />
-              골퍼의 요청을 먼저 받고, 요청에 맞는 전문 스승님만 연결합니다.
+              실내 레슨부터 필드 실전 레슨까지,, 요청에 맞는 스승님만 연결합니다.
             </p>
           </div>
         </section>
@@ -571,6 +574,7 @@
           { text: "“아이언만 치면 생크가 납니다. 2~3번만 제대로 봐주실 분?”", result: "레슨 3회 만에 생크 개선", icon: html`<${Smartphone} className="text-brand-blue" />` },
           { text: "“드라이버 비거리 때문에 스트레스. 5번만 집중적으로 받고 싶어요.”", result: "5회 맞춤 레슨 후 비거리 향상", icon: html`<${TrendingUp} className="text-green-500" />` },
           { text: "“필드에서 우드를 제대로 쓰고 싶어요. 우드 전문 스승님 찾습니다.”", result: "파5 우드 활용도 상승", icon: html`<${Award} className="text-orange-500" />` },
+          { text: "“저렴하게 9홀 레슨 받고 싶어요. 슬라이스 OB때문에 스트레스 받네요.”", result: "9홀 레슨 후 OB 10개 감소"}
         ];
         return html`
           <section id="cases" className="px-6 py-28 md:py-32 bg-gray-50">
@@ -711,11 +715,11 @@
   <section id="request" className="px-6 py-28 md:py-40 bg-white text-center">
     <div className="max-w-screen-md mx-auto">
       <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight no-overflow-wrap">
-        내 마음대로 요청하고,<br />1회로 먼저 확인하세요
+        실내부터 실전까지,<br />내 방식대로 요청하세요
       </h2>
 
       <p className="text-gray-500 text-lg md:text-xl font-bold mb-10 md:mb-12 leading-relaxed no-overflow-wrap">
-        매칭은 무료로 진행됩니다.<br />
+        실내 레슨 / 실전 레슨 모두 요청 가능합니다.<br />
         첫 1회 레슨 이후, 진행여부는 직접 선택하세요.
       </p>
 
@@ -828,6 +832,13 @@
             className="w-full border rounded-xl p-3"
           />
 
+<input
+  name="price"
+  placeholder="희망 금액 (예: 10만원 / 15만원)"
+  required
+  className="w-full border rounded-xl p-3"
+/>
+
           <select
             name="experience"
             required
@@ -840,6 +851,16 @@
             <option>80타</option>
             <option>싱글</option>
           </select>
+
+<select
+  name="lesson_type"
+  required
+  className="w-full border rounded-xl p-3"
+>
+  <option value="">레슨 종류 선택</option>
+  <option>1:1 실내 레슨</option>
+  <option>실전 레슨 (필드)</option>
+</select>
 
           <select
             name="lesson_count"
