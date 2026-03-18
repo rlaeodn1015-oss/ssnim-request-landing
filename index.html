@@ -247,100 +247,125 @@
         `;
       };
 
-      const HeroSection = () => html`
-        <section
-          className="relative px-6 pb-28 md:pb-24 bg-white overflow-hidden"
-          style=${{ paddingTop: `calc(${HERO_TOP_PADDING_BASE}px + var(--safe-top))` }}
-        >
-          <div className="max-w-screen-xl mx-auto w-full grid md:grid-cols-2 gap-10 md:gap-12 items-start">
-            <div className="text-center md:text-left order-2 md:order-1">
-              <div className="inline-block px-4 py-1 mb-5 bg-blue-50 text-brand-blue font-black rounded-full text-sm">
-                현재 강남·서초·송파 전담 운영 중
-              </div>
-              <h1 className="text-4xl md:text-6xl font-black leading-[1.15] mb-3 tracking-tight no-overflow-wrap">
-                맞춤 요청 골프레슨<br />
-                <span className="text-brand-blue">매칭 서비스</span>
-              </h1>
-              <div className="mt-2 mb-6 text-sm md:text-base font-black text-gray-500 no-overflow-wrap">
-                현재 서비스 지역: <span className="text-brand-blue">강남 · 서초 · 송파</span>
-              </div>
-              <p className="text-gray-500 text-lg md:text-2xl font-medium mb-7 no-overflow-wrap">
-                레슨 조건을 먼저 정하고,<br className="block md:hidden" /><br className="hidden md:block" />
-                1회로 먼저 검증한 뒤 이어서 진행하세요
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-8 md:mb-12 justify-center md:justify-start">
-                <span className="text-sm md:text-base font-bold bg-gray-100 px-4 py-2 rounded-full no-overflow-wrap">무작위 제안 ❌</span>
-                <span className="text-sm md:text-base font-bold bg-blue-100 text-brand-blue px-4 py-2 rounded-full no-overflow-wrap">1:1 전담 매칭 ⭕</span>
-              </div>
-
-             <div className="hidden md:block">
-  <a
-    href="#request"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="inline-flex items-center gap-2 bg-brand-blue text-white px-8 py-4 rounded-2xl font-black text-xl shadow-xl hover:translate-y-[-4px] transition-all no-overflow-wrap"
+        const HeroSection = ({ setFormOpen }) => html`
+  <section
+    className="relative px-6 pb-28 md:pb-24 bg-white overflow-hidden"
+    style=${{ paddingTop: \`calc(${HERO_TOP_PADDING_BASE}px + var(--safe-top))\` }}
   >
-    내 요청서 적어보기 →
-  </a>
-</div>
+    <div className="max-w-screen-xl mx-auto w-full grid md:grid-cols-2 gap-10 md:gap-12 items-start">
+
+      <div className="text-center md:text-left order-2 md:order-1">
+
+        <div className="inline-block px-4 py-1 mb-5 bg-blue-50 text-brand-blue font-black rounded-full text-sm">
+          현재 강남·서초·송파 전담 운영 중
+        </div>
+
+        <h1 className="text-4xl md:text-6xl font-black leading-[1.15] mb-3 tracking-tight no-overflow-wrap">
+          맞춤 요청 골프레슨<br />
+          <span className="text-brand-blue">매칭 서비스</span>
+        </h1>
+
+        <div className="mt-2 mb-6 text-sm md:text-base font-black text-gray-500 no-overflow-wrap">
+          현재 서비스 지역: <span className="text-brand-blue">강남 · 서초 · 송파</span>
+        </div>
+
+        <p className="text-gray-500 text-lg md:text-2xl font-medium mb-7 no-overflow-wrap">
+          레슨 조건을 먼저 정하고,<br className="block md:hidden" />
+          <br className="hidden md:block" />
+          1회로 먼저 검증한 뒤 이어서 진행하세요
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-8 md:mb-12 justify-center md:justify-start">
+          <span className="text-sm md:text-base font-bold bg-gray-100 px-4 py-2 rounded-full">무작위 제안 ❌</span>
+          <span className="text-sm md:text-base font-bold bg-blue-100 text-brand-blue px-4 py-2 rounded-full">1:1 전담 매칭 ⭕</span>
+        </div>
+
+        <!-- 🔥 이거 핵심 (모달 버튼) -->
+        <div className="hidden md:block">
+          <button
+            onClick=${() => setFormOpen(true)}
+            className="inline-flex items-center gap-2 bg-brand-blue text-white px-8 py-4 rounded-2xl font-black text-xl shadow-xl hover:translate-y-[-4px] transition-all"
+          >
+            내 요청서 적어보기 →
+          </button>
+        </div>
+
+      </div>
+
+      <!-- 오른쪽 UI -->
+      <div className="relative order-1 md:order-2 flex justify-center">
+        <div className="clay-card p-5 md:p-9 border-8 border-brand-blue/5 transform rotate-[-3deg] ssn-hero-float w-full max-w-sm flex flex-col">
+
+          <div className="flex items-center justify-between mb-5 md:mb-7">
+            <${Smartphone} className="text-brand-blue w-7 h-7 md:w-8 md:h-8" />
+            <div className="h-2 w-20 bg-gray-200 rounded-full"></div>
+          </div>
+
+          <div className="space-y-5 md:space-y-6">
+
+            <div className="h-14 md:h-16 w-full bg-blue-50 rounded-2xl flex items-center px-5 md:px-6">
+              <span className="text-sm md:text-base font-bold text-brand-blue">
+                요청서: 아이언 생크 교정
+              </span>
             </div>
 
-            <div className="relative order-1 md:order-2 flex justify-center">
-              <div className="clay-card p-5 md:p-9 border-8 border-brand-blue/5 transform rotate-[-3deg] ssn-hero-float w-full max-w-sm flex flex-col">
-                <div className="flex items-center justify-between mb-5 md:mb-7">
-                  <${Smartphone} className="text-brand-blue w-7 h-7 md:w-8 md:h-8" />
-                  <div className="h-2 w-20 bg-gray-200 rounded-full"></div>
-                </div>
+            <div className="w-full bg-gray-50 rounded-2xl border border-gray-200 p-5 md:p-6 flex flex-col gap-5 md:gap-6">
 
-                <div className="space-y-5 md:space-y-6">
-                  <div className="h-14 md:h-16 w-full bg-blue-50 rounded-2xl flex items-center px-5 md:px-6">
-                    <span className="text-sm md:text-base font-bold text-brand-blue no-overflow-wrap">요청서: 아이언 생크 교정</span>
-                  </div>
-
-                  <div className="w-full bg-gray-50 rounded-2xl border border-gray-200 p-5 md:p-6 flex flex-col gap-5 md:gap-6">
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="text-xs font-black text-brand-blue bg-blue-100 px-3 py-1.5 rounded-full">프로 확인 중</span>
-                      <span className="text-xs font-bold text-gray-400 text-right no-overflow-wrap">강남·서초·송파 매칭중</span>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4 text-sm font-bold text-gray-700">
-                      <div className="bg-white rounded-2xl p-4 border border-gray-100">
-                        <div className="text-xs text-gray-400 font-black mb-1.5">지역</div>
-                        <div className="no-overflow-wrap">서초구 방배동</div>
-                      </div>
-                      <div className="bg-white rounded-2xl p-4 border border-gray-100">
-                        <div className="text-xs text-gray-400 font-black mb-1.5">레벨</div>
-                        <div className="no-overflow-wrap">90타대</div>
-                      </div>
-                      <div className="bg-white rounded-2xl p-4 border border-gray-100 col-span-2">
-                        <div className="text-xs text-gray-400 font-black mb-1.5">고민</div>
-                        <div className="no-overflow-wrap">아이언 생크 / 방향성 불안</div>
-                      </div>
-                      <div className="bg-white rounded-2xl p-4 border border-gray-100">
-                        <div className="text-xs text-gray-400 font-black mb-1.5">횟수</div>
-                        <div className="no-overflow-wrap">3회</div>
-                      </div>
-                      <div className="bg-white rounded-2xl p-4 border border-gray-100">
-                        <div className="text-xs text-gray-400 font-black mb-1.5">금액</div>
-                        <div className="no-overflow-wrap">30만원</div>
-                      </div>
-                    </div>
-
-                    <div className="bg-white/80 border border-gray-100 rounded-2xl px-4 py-3 text-center font-black text-sm text-brand-blue no-overflow-wrap">
-                      스승 매칭중
-                    </div>
-                  </div>
-                </div>
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-xs font-black text-brand-blue bg-blue-100 px-3 py-1.5 rounded-full">
+                  프로 확인 중
+                </span>
+                <span className="text-xs font-bold text-gray-400">
+                  강남·서초·송파 매칭중
+                </span>
               </div>
 
-              <div className="absolute top-2 right-2 md:-top-10 md:right-0 clay-icon w-16 h-16 md:w-28 md:h-28 flex items-center justify-center bg-white shadow-2xl md:rotate-[12deg] z-10">
-                <${CheckCircle2} className="text-green-500 w-9 h-9 md:w-12 md:h-12" />
+              <div className="grid grid-cols-2 gap-4 text-sm font-bold text-gray-700">
+
+                <div className="bg-white rounded-2xl p-4 border border-gray-100">
+                  <div className="text-xs text-gray-400 font-black mb-1.5">지역</div>
+                  <div>서초구 방배동</div>
+                </div>
+
+                <div className="bg-white rounded-2xl p-4 border border-gray-100">
+                  <div className="text-xs text-gray-400 font-black mb-1.5">레벨</div>
+                  <div>90타대</div>
+                </div>
+
+                <div className="bg-white rounded-2xl p-4 border border-gray-100 col-span-2">
+                  <div className="text-xs text-gray-400 font-black mb-1.5">고민</div>
+                  <div>아이언 생크 / 방향성 불안</div>
+                </div>
+
+                <div className="bg-white rounded-2xl p-4 border border-gray-100">
+                  <div className="text-xs text-gray-400 font-black mb-1.5">횟수</div>
+                  <div>3회</div>
+                </div>
+
+                <div className="bg-white rounded-2xl p-4 border border-gray-100">
+                  <div className="text-xs text-gray-400 font-black mb-1.5">금액</div>
+                  <div>30만원</div>
+                </div>
+
               </div>
+
+              <div className="bg-white/80 border border-gray-100 rounded-2xl px-4 py-3 text-center font-black text-sm text-brand-blue">
+                스승 매칭중
+              </div>
+
             </div>
           </div>
-        </section>
-      `;
+        </div>
+
+        <div className="absolute top-2 right-2 md:-top-10 md:right-0 clay-icon w-16 h-16 md:w-28 md:h-28 flex items-center justify-center bg-white shadow-2xl md:rotate-[12deg] z-10">
+          <${CheckCircle2} className="text-green-500 w-9 h-9 md:w-12 md:h-12" />
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+`;
 
       const EventSection = () => {
         const blocks = [
@@ -722,14 +747,13 @@
       </p>
 
       <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-  <button
-    onClick=${() => setFormOpen(true)}
-    className="w-full md:w-auto min-w-[320px] clay-card bg-brand-blue py-7 md:py-8 px-10 text-white font-black text-2xl hover:scale-105 transition-all shadow-2xl flex items-center justify-center gap-3 no-overflow-wrap"
-  >
-    <${MessageCircle} size=${32} fill="currentColor" />
-    맞춤 레슨 요청하기
-  </button>
-</div>
+  <a
+  href="#request"
+  className="w-full md:w-auto min-w-[320px] clay-card bg-brand-blue py-7 md:py-8 px-10 text-white font-black text-2xl hover:scale-105 transition-all shadow-2xl flex items-center justify-center gap-3 no-overflow-wrap"
+>
+  <${MessageCircle} size=${32} fill="currentColor" />
+  맞춤 레슨 요청하기
+</a>
 
       <div className="mt-8 text-sm font-bold text-gray-400 leading-relaxed no-overflow-wrap">
         오픈 기념 이벤트: 매칭 완료 + 요청 레슨 완료 고객 중 10명 추첨, 10% 포인트 페이백
@@ -911,38 +935,39 @@ className="pointer-events-auto flex-1 bg-brand-blue py-5 rounded-2xl text-white 
 </div>
 `;
 
-      const App = () => {
-const [formOpen, setFormOpen] = React.useState(false);
+const App = () => {
+  const [formOpen, setFormOpen] = React.useState(false);
 
-return html`
-<div className="min-h-screen bg-white selection:bg-brand-blue/10">
+  return html`
+    <div>
 
-  <${Header} />
+      <${Header} />
 
-  <${HeroSection} />
-  <${EventSection} />
-  <${EmpathySection} />
-  <${ChecklistSection} />
-  <${DifferenceSection} />
-  <${SummarySection} />
-  <${AfterFirstLessonSection} />
-  <${ComparisonSection} />
-  <${CaseStudySection} />
-  <${TrustSection} />
-  <${NoticeSection} />
+      <${HeroSection} setFormOpen=${setFormOpen} />
 
-  <${CTASection} setFormOpen=${setFormOpen} />
+      <${EventSection} />
+      <${EmpathySection} />
+      <${ChecklistSection} />
+      <${DifferenceSection} />
+      <${SummarySection} />
+      <${AfterFirstLessonSection} />
+      <${ComparisonSection} />
+      <${CaseStudySection} />
+      <${TrustSection} />
+      <${NoticeSection} />
 
-  <${FooterSection} />
+      <${CTASection} setFormOpen=${setFormOpen} />
 
-  <${LiveFloatingBar} />
+      <${FooterSection} />
 
-  <${MobileFixedCTA} setFormOpen=${setFormOpen} />
+      <${LiveFloatingBar} />
 
-  <${RequestFormModal} formOpen=${formOpen} setFormOpen=${setFormOpen} />
+      <${MobileFixedCTA} setFormOpen=${setFormOpen} />
 
-</div>
-`;
+      <${RequestFormModal} formOpen=${formOpen} setFormOpen=${setFormOpen} />
+
+    </div>
+  `;
 };
 
       const rootEl = document.getElementById("root");
