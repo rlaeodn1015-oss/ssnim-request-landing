@@ -672,7 +672,7 @@
                         <div>
                             <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">레슨 형태</p>
                             <div className="grid grid-cols-2 gap-3">
-                                ${['18홀 필드레슨', '9홀 필드레슨', '숏게임레슨', '파3 레슨', '1:1 레슨'].map(t => html`
+                                ${['18홀 필드레슨', '9홀 레슨', '숏게임레슨', '파3 레슨', '1:1 레슨', '캠프 레슨'].map(t => html`
                                     <button key=${t} onClick=${() => updateData('lessonType', t)} className=${`py-4 rounded-2xl border-2 font-bold transition-all ${formData.lessonType === t ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}>${t}</button>
                                 `)}
                             </div>
@@ -688,7 +688,7 @@
                     <div className="flex justify-between items-center mb-8">
                         <div>
                             <h3 className="text-2xl font-black text-slate-800 tracking-tight">STEP 2 / 3</h3>
-                            <p className="text-brand-blue font-black text-sm mt-1">🏌️ 스윙 문제</p>
+                            <p className="text-brand-blue font-black text-sm mt-1">🏌️ 골프 문제</p>
                         </div>
                     </div>
                     <div className="space-y-8">
@@ -703,7 +703,7 @@
                         <div>
                             <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">주요 증상</p>
                             <div className="flex flex-wrap gap-2">
-                                ${['슬라이스 교정', '훅 교정', '비거리', '생크', '뒤땅/탑볼', '스윙교정', '퍼터레슨', '초보레슨', '키즈골프'].map(con => html`
+                                ${['슬라이스 교정', '훅 교정', '비거리/탄도', '생크', '뒤땅/탑볼', '스윙 궤도', '자세 교정', '퍼터 레슨', '초보 레슨', '키즈 골프'].map(con => html`
                                     <button key=${con} onClick=${() => updateData('concern', con)} className=${`py-3 px-6 rounded-full border-2 font-bold text-xs ${formData.concern === con ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400'}`}># ${con}</button>
                                 `)}
                             </div>
