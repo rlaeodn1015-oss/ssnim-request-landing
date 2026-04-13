@@ -176,9 +176,10 @@
         import htm from "htm";
         import {
             Smartphone, HelpCircle, CheckCircle2, Filter, ArrowRight, PenLine, BadgeCheck, X,
-            TrendingUp, Award, ShieldCheck, MessageCircle, Gift, Sparkles, ClipboardList,
-            CreditCard, RefreshCcw, Info, Star, Check, Search, CalendarDays, MessageSquareText, ThumbsUp,
-            MapPin, Flag, Target, Clock, ChevronRight, UserCheck, ShieldAlert, Zap
+    TrendingUp, Award, ShieldCheck, MessageCircle, Gift, Sparkles, ClipboardList,
+    CreditCard, RefreshCcw, Info, Star, Check, Search, CalendarDays, MessageSquareText, ThumbsUp,
+    MapPin, Flag, Target, Clock, ChevronRight, UserCheck, ShieldAlert, Zap,
+    User
         } from "lucide-react";
 
         const html = htm.bind(React.createElement);
@@ -464,14 +465,14 @@
     
     <div className="flex -space-x-2">
         <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center border border-gray-200 shadow-sm">
-            <${User} size=${16} className="text-gray-700" />
-        </div>
+    <${User} size=${16} className="text-gray-700" />
+</div>
         <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center border border-gray-200 shadow-sm">
-            <${User} size=${16} className="text-gray-700" />
-        </div>
+    <${User} size=${16} className="text-gray-700" />
+</div>
         <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center border border-gray-200 shadow-sm">
-            <${UserPlus} size=${16} className="text-gray-700" />
-        </div>
+    <${User} size=${16} className="text-gray-700" />
+</div>
     </div>
 
     <span className="text-sm">5일간 122명 매칭 완료</span>
