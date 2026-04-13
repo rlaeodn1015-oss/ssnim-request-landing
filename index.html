@@ -1,982 +1,705 @@
 <!DOCTYPE html>
 <html lang="ko" style="scroll-behavior: smooth">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>스승님 - 맞춤 골프레슨 매칭 서비스</title>
+    <title>스승님 - 맞춤 골프레슨 매칭 & 결제</title>
 
     <meta name="description" content="조건을 먼저 정하고 1회 레슨으로 확인하는 골프레슨 매칭 서비스">
-
-<meta property="og:type" content="website">
-<meta property="og:title" content="스승님 - 맞춤 골프레슨 매칭">
-<meta property="og:description" content="요청서 기반 맞춤 골프레슨 매칭 서비스">
-<meta property="og:image" content="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/request1.jpg">
-<meta property="og:url" content="https://rlaeodn1015-oss.github.io/ssnim-request-landing/">
-
-<meta name="twitter:card" content="summary_large_image">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="스승님 - 맞춤 골프레슨 매칭">
+    <meta property="og:description" content="요청서 기반 맞춤 골프레슨 매칭 서비스">
+    <meta property="og:image" content="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/request1.jpg">
+    <meta property="og:url" content="https://rlaeodn1015-oss.github.io/ssnim-request-landing/">
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@100;400;700;900&display=swap" rel="stylesheet" />
 
     <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: { "brand-blue": "#0066FF" },
-          },
-        },
-      };
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { "brand-blue": "#0066FF", "brand-emerald": "#10b981" },
+                },
+            },
+        };
     </script>
 
     <style>
-      body {
-        font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
-          "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji",
-          "Segoe UI Symbol", sans-serif;
-        background: #fff;
-        color: #1a1a1a;
-        -webkit-font-smoothing: antialiased;
-        text-rendering: optimizeLegibility;
-      }
-      .clay-card {
-        background: #fff;
-        border-radius: 2rem;
-        box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
-      }
-      .clay-icon {
-        background: #f0f4ff;
-        box-shadow: inset 5px 5px 10px #e0e7ff, inset -5px -5px 10px #ffffff;
-        border-radius: 1.5rem;
-      }
-      ::selection {
-        background: rgba(0, 102, 255, 0.1);
-        color: #0066ff;
-      }
-      :root {
-        --safe-top: env(safe-area-inset-top, 0px);
-        --safe-bottom: env(safe-area-inset-bottom, 0px);
-        --header-h: 64px;
-        --mobile-cta-h: 92px;
-      }
-      section[id] {
-        scroll-margin-top: calc(var(--header-h) + var(--safe-top) + 16px);
-      }
-      .no-overflow-wrap {
-        overflow-wrap: anywhere;
-        word-break: keep-all;
-      }
-      @media (max-width: 767px) {
         body {
-          padding-bottom: calc(var(--mobile-cta-h) + var(--safe-bottom));
+            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+              "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji",
+              "Segoe UI Symbol", sans-serif;
+            background: #fff;
+            color: #1a1a1a;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
         }
-      }
-      @keyframes ssnimFloat {
-        0%,
-        100% {
-          transform: translateY(0);
+        .clay-card {
+            background: #fff;
+            border-radius: 2rem;
+            box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
         }
-        50% {
-          transform: translateY(-4px);
+        .clay-icon {
+            background: #f0f4ff;
+            box-shadow: inset 5px 5px 10px #e0e7ff, inset -5px -5px 10px #ffffff;
+            border-radius: 1.5rem;
         }
-      }
-      .ssn-live-float {
-        animation: ssnimFloat 3.2s ease-in-out infinite;
-      }
-      @keyframes ssnimShimmer {
-  0% { transform: translateX(-120%); opacity: 0; }
-  10% { opacity: 0.25; }
-  50% { opacity: 0.25; }
-  60% { opacity: 0; }
-  100% { transform: translateX(120%); opacity: 0; }
-}
+        .pro-card.selected { border: 3px solid #0066FF; background-color: #f0f7ff; }
+        .gradient-blue { background: linear-gradient(135deg, #0066FF 0%, #004dc2 100%); }
+        
+        .option-btn {
+            border: 2px solid #f1f5f9;
+            transition: all 0.2s ease;
+        }
+        .option-btn.active {
+            border-color: #0066FF;
+            background-color: #f0f7ff;
+            color: #0066FF;
+        }
+        
+        @keyframes ssnimHeroFloat {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50% { transform: translateY(-10px) rotate(-3deg); }
+        }
+        .ssn-hero-float { animation: ssnimHeroFloat 4.2s ease-in-out infinite; }
+        
+        @keyframes ssnimFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+        .ssn-live-float { animation: ssnimFloat 3.2s ease-in-out infinite; }
 
-.ssn-shimmer {
-  position: relative;
-  overflow: hidden;
-}
+        @keyframes ssnimShimmer {
+            0% { transform: translateX(-120%); opacity: 0; }
+            10% { opacity: 0.25; }
+            50% { opacity: 0.25; }
+            60% { opacity: 0; }
+            100% { transform: translateX(120%); opacity: 0; }
+        }
+        .ssn-shimmer { position: relative; overflow: hidden; }
+        .ssn-shimmer::after {
+            content: ""; position: absolute; top: -40%; left: -60%; width: 60%; height: 180%;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.06), transparent);
+            transform: skewX(-18deg); animation: ssnimShimmer 7.5s ease-in-out infinite; pointer-events: none;
+        }
 
-.ssn-shimmer::after {
-  content: "";
-  position: absolute;
-  top: -40%;
-  left: -60%;
-  width: 60%;
-  height: 180%;
-  background: linear-gradient(90deg, transparent, rgba(0,0,0,0.06), transparent);
-  transform: skewX(-18deg);
-  animation: ssnimShimmer 7.5s ease-in-out infinite;
-  pointer-events: none;
-}
-      @keyframes ssnimHeroFloat {
-  0% {
-    transform: translateY(0) rotate(-3deg);
-  }
-  50% {
-    transform: translateY(-10px) rotate(-3deg);
-  }
-  100% {
-    transform: translateY(0) rotate(-3deg);
-  }
-}
+        @keyframes slide-up { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .animate-slide-up { animation: slide-up 0.4s cubic-bezier(0, 0, 0.2, 1); }
+        
+        @keyframes pop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .animate-pop { animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
-.ssn-hero-float {
-  animation: ssnimHeroFloat 4.2s ease-in-out infinite;
-  will-change: transform;
-}
+        section[id] { scroll-margin-top: 80px; }
+        .no-overflow-wrap { overflow-wrap: anywhere; word-break: keep-all; }
     </style>
 
     <script type="importmap">
-      {
-        "imports": {
-          "react": "https://esm.sh/react@19.2.0",
-          "react-dom/client": "https://esm.sh/react-dom@19.2.0/client",
-          "lucide-react": "https://esm.sh/lucide-react@0.562.0",
-          "htm": "https://esm.sh/htm@3.1.1"
+        {
+            "imports": {
+                "react": "https://esm.sh/react@19.2.0",
+                "react-dom/client": "https://esm.sh/react-dom@19.2.0/client",
+                "lucide-react": "https://esm.sh/lucide-react@0.562.0",
+                "htm": "https://esm.sh/htm@3.1.1"
+            }
         }
-      }
     </script>
+</head>
 
-    <meta
-      name="description"
-      content="강남, 서초, 송파 지역 전문 맞춤 골프레슨 매칭 서비스 '스승님'의 랜딩 페이지입니다. 조건에 맞는 프로를 매칭하고 1회 시범 레슨 후 결정을 돕습니다."
-    />
-  </head>
-
-  <body class="overflow-x-hidden">
+<body class="overflow-x-hidden">
     <div id="root"></div>
 
     <script type="module">
-      import React from "react";
-      import { createRoot } from "react-dom/client";
-      import htm from "htm";
-      import {
-        Smartphone,
-        HelpCircle,
-        CheckCircle2,
-        Filter,
-        ArrowRight,
-        PenLine,
-        BadgeCheck,
-        X,
-        TrendingUp,
-        Award,
-        ShieldCheck,
-        MessageCircle,
-        Gift,
-        Sparkles,
-        ClipboardList,
-        CreditCard,
-        RefreshCcw,
-        Info,
-      } from "lucide-react";
+        import React from "react";
+        import { createRoot } from "react-dom/client";
+        import htm from "htm";
+        import {
+            Smartphone, HelpCircle, CheckCircle2, Filter, ArrowRight, PenLine, BadgeCheck, X,
+            TrendingUp, Award, ShieldCheck, MessageCircle, Gift, Sparkles, ClipboardList,
+            CreditCard, RefreshCcw, Info, Star, Check, Search, CalendarDays, MessageSquareText, ThumbsUp,
+            MapPin, Flag, Target, Clock, ChevronRight
+        } from "lucide-react";
 
-      const html = htm.bind(React.createElement);
+        const html = htm.bind(React.createElement);
+        const KAKAO_CHAT_URL = "https://pf.kakao.com/_kxawRn/chat";
+        const APPSTORE_URL = "https://apps.apple.com/kr/app/%EC%8A%A4%EC%8A%B9%EB%8B%98/id6743513759";
+        const PLAY_URL = "https://play.google.com/store/apps/details?id=com.ssnim.lesson";
 
-      const KAKAO_CHAT_URL = "https://pf.kakao.com/_kxawRn/chat";
-      function sharePage() {
-  const shareData = {
-    title: "스승님 맞춤 골프레슨 매칭",
-    text: "요청서 기반 골프레슨 매칭 서비스",
-    url: window.location.href
-  };
-
-  if (navigator.share) {
-    navigator.share(shareData);
-  } else {
-    navigator.clipboard.writeText(window.location.href);
-    alert("링크가 복사되었습니다.");
-  }
-}
-      const PLAY_URL = "https://play.google.com/store/apps/details?id=com.ssnim.lesson&pcampaignid=web_share";
-      const APPSTORE_URL = "https://apps.apple.com/kr/app/%EC%8A%A4%EC%8A%B9%EB%8B%98/id6743513759";
-      const MOBILE_CTA_URL = "https://naver.me/GDLucdxV";
-      const HERO_TOP_PADDING_BASE = 112;
-
-      const Header = () => {
-        const [storeUrl, setStoreUrl] = React.useState(APPSTORE_URL);
-        React.useEffect(() => {
-          const ua = navigator.userAgent || "";
-          if (/android/i.test(ua)) setStoreUrl(PLAY_URL);
-          else setStoreUrl(APPSTORE_URL);
-        }, []);
-
-        return html`
-          <header
-            className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100"
-            style=${{ paddingTop: "var(--safe-top)" }}
-          >
-            <div className="max-w-screen-xl mx-auto px-6 h-16 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-
-  <img
-    src="./images/ssnim.jpg"
-    className="h-8 w-auto"
-  />
-
-  <span className="text-xl font-black tracking-tighter">
-    스승님
-  </span>
-
-</div>
-
-              <nav className="hidden md:flex items-center gap-8 text-sm font-bold text-gray-500">
-                <a href="#event" className="hover:text-brand-blue transition-colors">이벤트</a>
-                <a href="#features" className="hover:text-brand-blue transition-colors">매칭방식</a>
-                <a href="#workflow" className="hover:text-brand-blue transition-colors">이용안내</a>
-                <a href="#cases" className="hover:text-brand-blue transition-colors">사례보기</a>
-                <a href="#trust" className="hover:text-brand-blue transition-colors">운영정책</a>
-                <a href="#notice" className="hover:text-brand-blue transition-colors">유의사항</a>
-              </nav>
-
-              <div className="flex items-center gap-2">
-                <a
-                  href=${storeUrl}
-                  className="bg-white border border-gray-200 text-gray-900 px-4 py-2 rounded-full font-bold text-sm hover:scale-105 transition-transform active:scale-95 no-overflow-wrap"
-                >
-                  앱 다운로드
-                </a>
-                <a
-                  href=${KAKAO_CHAT_URL}
-                  className="bg-brand-blue text-white px-5 py-2 rounded-full font-bold text-sm hover:scale-105 transition-transform active:scale-95 no-overflow-wrap"
-                >
-                  스승님 담당자 호출
-                </a>
-              </div>
-            </div>
-          </header>
-        `;
-      };
-
-      const HeroSection = () => html`
-        <section
-          className="relative px-6 pb-28 md:pb-24 bg-white overflow-hidden"
-          style=${{ paddingTop: `calc(${HERO_TOP_PADDING_BASE}px + var(--safe-top))` }}
-        >
-          <div className="max-w-screen-xl mx-auto w-full grid md:grid-cols-2 gap-10 md:gap-12 items-start">
-            <div className="text-center md:text-left order-2 md:order-1">
-              <div className="inline-block px-4 py-1 mb-5 bg-blue-50 text-brand-blue font-black rounded-full text-sm">
-                현재 강남·서초·송파 전담 운영 중
-              </div>
-              <div className="text-sm font-bold text-gray-400">
-  실내 레슨 · 실전 레슨 모두 매칭 가능
-</div>
-              <h1 className="text-4xl md:text-6xl font-black leading-[1.15] mb-3 tracking-tight no-overflow-wrap">
-                맞춤 골프레슨 · 실전레슨<br />
-                <span className="text-brand-blue">매칭 서비스</span>
-              </h1>
-              <div className="mt-2 mb-6 text-sm md:text-base font-black text-gray-500 no-overflow-wrap">
-                현재 서비스 지역: <span className="text-brand-blue">강남 · 서초 · 송파</span>
-              </div>
-              <p className="text-gray-500 text-lg md:text-2xl font-medium mb-7 no-overflow-wrap">
-                레슨 조건을 먼저 정하고,<br className="block md:hidden" /><br className="hidden md:block" />
-                실내 레슨 또는 실전 레슨까지 직접 선택하세요
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mb-8 md:mb-12 justify-center md:justify-start">
-                <span className="text-sm md:text-base font-bold bg-gray-100 px-4 py-2 rounded-full no-overflow-wrap">무작위 제안 ❌</span>
-                <span className="text-sm md:text-base font-bold bg-blue-100 text-brand-blue px-4 py-2 rounded-full no-overflow-wrap">1:1 전담 매칭 ⭕</span>
-              </div>
-
-              <div className="hidden md:block">
-                <a
-  href="#request"
-  className="inline-flex items-center gap-2 bg-brand-blue text-white px-8 py-4 rounded-2xl font-black text-xl shadow-xl hover:translate-y-[-4px] transition-all no-overflow-wrap"
->
-  내 요청서 적어보기 →
-</a>
-              </div>
-            </div>
-
-            <div className="relative order-1 md:order-2 flex justify-center">
-              <div className="clay-card p-5 md:p-9 border-8 border-brand-blue/5 transform rotate-[-3deg] ssn-hero-float w-full max-w-sm flex flex-col">
-                <div className="flex items-center justify-between mb-5 md:mb-7">
-                  <${Smartphone} className="text-brand-blue w-7 h-7 md:w-8 md:h-8" />
-                  <div className="h-2 w-20 bg-gray-200 rounded-full"></div>
-                </div>
-
-                <div className="space-y-5 md:space-y-6">
-                  <div className="h-14 md:h-16 w-full bg-blue-50 rounded-2xl flex items-center px-5 md:px-6">
-                    <span className="text-sm md:text-base font-bold text-brand-blue no-overflow-wrap">요청서: 실전 레슨 / 어프로치 거리감 교정</span>
-                  </div>
-
-                  <div className="w-full bg-gray-50 rounded-2xl border border-gray-200 p-5 md:p-6 flex flex-col gap-5 md:gap-6">
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="text-xs font-black text-brand-blue bg-blue-100 px-3 py-1.5 rounded-full">프로 확인 중</span>
-                      <span className="text-xs font-bold text-gray-400 text-right no-overflow-wrap">강남·서초·송파 매칭중</span>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4 text-sm font-bold text-gray-700">
-                      <div className="bg-white rounded-2xl p-4 border border-gray-100">
-                        <div className="text-xs text-gray-400 font-black mb-1.5">지역</div>
-                        <div className="no-overflow-wrap">서초구 방배동</div>
-                      </div>
-                      <div className="bg-white rounded-2xl p-4 border border-gray-100">
-                        <div className="text-xs text-gray-400 font-black mb-1.5">레벨</div>
-                        <div className="no-overflow-wrap">90타대</div>
-                      </div>
-                      <div className="bg-white rounded-2xl p-4 border border-gray-100 col-span-2">
-                        <div className="text-xs text-gray-400 font-black mb-1.5">고민</div>
-                        <div className="no-overflow-wrap">아이언 생크 / 방향성 불안</div>
-                      </div>
-                      <div className="bg-white rounded-2xl p-4 border border-gray-100">
-                        <div className="text-xs text-gray-400 font-black mb-1.5">횟수</div>
-                        <div className="no-overflow-wrap">3회</div>
-                      </div>
-                      <div className="bg-white rounded-2xl p-4 border border-gray-100">
-                        <div className="text-xs text-gray-400 font-black mb-1.5">금액</div>
-                        <div className="no-overflow-wrap">30만원</div>
-                      </div>
-                    </div>
-
-                    <div className="bg-white/80 border border-gray-100 rounded-2xl px-4 py-3 text-center font-black text-sm text-brand-blue no-overflow-wrap">
-                      스승 매칭중
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="absolute top-2 right-2 md:-top-10 md:right-0 clay-icon w-16 h-16 md:w-28 md:h-28 flex items-center justify-center bg-white shadow-2xl md:rotate-[12deg] z-10">
-                <${CheckCircle2} className="text-green-500 w-9 h-9 md:w-12 md:h-12" />
-              </div>
-            </div>
-          </div>
-        </section>
-      `;
-
-      const EventSection = () => {
-        const blocks = [
-          { icon: html`<${ClipboardList} size=${26} className="text-brand-blue" />`, title: "매칭 완료", desc: "요청서 기준으로 스승님 확정" },
-          { icon: html`<${CheckCircle2} size=${26} className="text-brand-blue" />`, title: "1회 레슨 진행", desc: "1회로 방향·태도·성향 확인" },
-          { icon: html`<${CreditCard} size=${26} className="text-brand-blue" />`, title: "추가 결제 완료", desc: "추가 진행 고객 중 10명 추첨" },
+        // --- 데이터셋 ---
+        const pros = [
+            { id: 1, name: "곽시랑 프로", style: "필드", price: 150000, location: "강남", rating: 4.9, review: 128, img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&h=120&fit=crop", intro: "실전 필드 레슨 및 드라이버 교정 전문가", tags: ["필드레슨", "드라이버"] },
+            { id: 2, name: "조이현 프로", style: "아이언", price: 120000, location: "강남", rating: 4.8, review: 95, img: "https://images.unsplash.com/photo-1552058544-f2b08422138a?w=120&h=120&fit=crop", intro: "아이언 일관성 및 생크 교정 특화", tags: ["아이언", "생크교정"] },
+            { id: 3, name: "김프로", style: "비거리", price: 100000, location: "분당", rating: 4.7, review: 210, img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&h=120&fit=crop", intro: "비거리 30m 증대 솔루션 전문", tags: ["비거리", "드라이버"] },
+            { id: 4, name: "이마스터", style: "퍼팅", price: 130000, location: "용인", rating: 5.0, review: 56, img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&h=120&fit=crop", intro: "숏게임 및 퍼팅 스트로크 마스터", tags: ["퍼팅", "숏게임"] },
+            { id: 5, name: "박레슨", style: "9홀", price: 180000, location: "분당", rating: 4.9, review: 142, img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop", intro: "KPGA 투어 프로의 정밀한 필드 매니지먼트", tags: ["9홀레슨", "어프로치"] },
+            { id: 6, name: "최정밀 프로", style: "1:1", price: 110000, location: "영등포", rating: 4.6, review: 88, img: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=120&h=120&fit=crop", intro: "트랙맨 분석 기반의 실내 집중 교정", tags: ["1:1레슨", "스윙교정"] }
         ];
-        return html`
-          <section id="event" className="px-6 py-24 md:py-28 bg-gray-50">
-            <div className="max-w-screen-xl mx-auto">
-              <div className="clay-card p-8 md:p-10 border-4 border-brand-blue/10 bg-white">
-                <div className="flex items-start justify-between gap-6 flex-wrap">
-                  <div>
-                    <div className="inline-flex items-center gap-2 px-4 py-1 bg-blue-50 text-brand-blue font-black rounded-full text-sm mb-4">
-                      <${Gift} size=${18} /> 오픈 기념 이벤트
+
+        // --- 컴포넌트: 헤더 ---
+        const Header = () => html`
+            <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+                <div className="max-w-screen-xl mx-auto px-6 h-16 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-brand-blue rounded-lg flex items-center justify-center text-white font-black italic text-sm">S</div>
+                        <span className="text-xl font-black tracking-tighter">스승님</span>
                     </div>
-                    <h3 className="text-2xl md:text-4xl font-black leading-tight no-overflow-wrap">
-                      요청 레슨 완료 후,<br />
-                      10명 추첨 10% 포인트 페이백
-                    </h3>
-                    <p className="text-gray-500 font-bold text-base md:text-lg mt-4 leading-relaxed no-overflow-wrap">
-                      내 요청대로 레슨 받고, 혜택은 보너스로<br />
-                      레슨을 ‘시작할 이유’를 만들어드립니다.
+                    <nav className="hidden md:flex items-center gap-8 text-sm font-bold text-gray-500">
+                        <a href="#event" className="hover:text-brand-blue transition-colors">이벤트</a>
+                        <a href="#workflow" className="hover:text-brand-blue transition-colors">이용안내</a>
+                        <a href="#cases" className="hover:text-brand-blue transition-colors">사례보기</a>
+                        <a href="#trust" className="hover:text-brand-blue transition-colors">운영정책</a>
+                    </nav>
+                    <a href=${KAKAO_CHAT_URL} className="bg-brand-blue text-white px-5 py-2 rounded-full font-bold text-sm">상담원 호출</a>
+                </div>
+            </header>
+        `;
+
+        // --- 컴포넌트: 메인 히어로 ---
+        const HeroSection = ({ setFormOpen }) => html`
+            <section className="relative px-6 pt-32 pb-24 md:pt-48 md:pb-40 bg-white overflow-hidden">
+                <div className="max-w-screen-xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+                    <div className="text-center md:text-left">
+                        <div className="inline-block px-4 py-1 mb-5 bg-blue-50 text-brand-blue font-black rounded-full text-sm">
+                            현재 강남·서초·송파 전담 운영 중
+                        </div>
+                        <h1 className="text-4xl md:text-6xl font-black leading-[1.15] mb-6 tracking-tight no-overflow-wrap">
+                            나에게 딱 맞는 스승님<br />
+                            <span className="text-brand-blue text-3xl md:text-5xl">요청서 한 장으로 찾기</span>
+                        </h1>
+                        <p className="text-gray-500 text-lg md:text-2xl font-medium mb-10 no-overflow-wrap">
+                            지역, 레슨 종류, 고민 클럽까지 선택하면<br />
+                            AI가 분석하여 최적의 프로 3인을 연결합니다.
+                        </p>
+                        <button onClick=${() => setFormOpen(true)} className="gradient-blue text-white px-10 py-5 rounded-2xl font-black text-xl shadow-2xl hover:translate-y-[-4px] transition-all">
+                            AI 매칭 요청 시작하기 →
+                        </button>
+                    </div>
+
+                    <div className="relative flex justify-center">
+                        <div className="clay-card p-6 md:p-10 border-8 border-brand-blue/5 transform rotate-[-3deg] ssn-hero-float w-full max-w-sm">
+                            <div className="flex items-center justify-between mb-6">
+                                <${Smartphone} className="text-brand-blue w-8 h-8" />
+                                <div className="h-2 w-20 bg-gray-200 rounded-full"></div>
+                            </div>
+                            <div className="space-y-4">
+                                <div className="bg-blue-50 rounded-2xl p-4 font-bold text-brand-blue text-sm">
+                                    🏌️ 실시간 요청: 강남 / 1:1 레슨
+                                </div>
+                                <div className="bg-gray-50 rounded-2xl border border-gray-200 p-5 space-y-4">
+                                    <div className="flex justify-between items-center text-xs">
+                                        <span className="font-black text-brand-blue">AI 분석중</span>
+                                        <span className="text-gray-400">데이터 기반 매칭</span>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <div className="h-2 bg-white rounded-full w-full"></div>
+                                        <div className="h-2 bg-white rounded-full w-3/4"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        `;
+
+        // --- 컴포넌트: 이벤트 섹션 (복구 완료) ---
+        const EventSection = () => {
+            const blocks = [
+                { icon: html`<${ClipboardList} size=${26} className="text-brand-blue" />`, title: "매칭 완료", desc: "요청서 기준으로 스승님 확정" },
+                { icon: html`<${CheckCircle2} size=${26} className="text-brand-blue" />`, title: "1회 레슨 진행", desc: "1회로 방향·태도·성향 확인" },
+                { icon: html`<${CreditCard} size=${26} className="text-brand-blue" />`, title: "추가 결제 완료", desc: "추가 진행 고객 중 10명 추첨" },
+            ];
+            return html`
+                <section id="event" className="px-6 py-24 md:py-28 bg-gray-50">
+                    <div className="max-w-screen-xl mx-auto">
+                        <div className="clay-card p-8 md:p-12 border-4 border-brand-blue/10 bg-white ssn-shimmer">
+                            <div className="flex items-start justify-between gap-6 flex-wrap">
+                                <div>
+                                    <div className="inline-flex items-center gap-2 px-4 py-1 bg-blue-50 text-brand-blue font-black rounded-full text-sm mb-4">
+                                        <${Gift} size=${18} /> 오픈 기념 이벤트
+                                    </div>
+                                    <h3 className="text-2xl md:text-4xl font-black leading-tight no-overflow-wrap">
+                                        요청 레슨 완료 후,<br />
+                                        10명 추첨 10% 포인트 페이백
+                                    </h3>
+                                    <p className="text-gray-500 font-bold text-base md:text-lg mt-4 leading-relaxed no-overflow-wrap">
+                                        내 요청대로 레슨 받고, 혜택은 보너스로<br />
+                                        레슨을 ‘시작할 이유’를 만들어드립니다.
+                                    </p>
+                                </div>
+                                <div className="clay-icon w-20 h-20 md:w-28 md:h-28 flex items-center justify-center bg-blue-50 shrink-0">
+                                    <${Sparkles} size=${40} className="text-brand-blue" />
+                                </div>
+                            </div>
+
+                            <div className="mt-12 grid md:grid-cols-3 gap-6">
+                                ${blocks.map((b, i) => html`
+                                    <div key=${i} className="bg-gray-50 rounded-2xl p-6 border border-gray-200">
+                                        <div className="flex items-center gap-3 mb-3">
+                                            ${b.icon}
+                                            <div className="font-black text-lg no-overflow-wrap">${b.title}</div>
+                                        </div>
+                                        <p className="text-gray-500 font-bold leading-relaxed no-overflow-wrap">${b.desc}</p>
+                                    </div>
+                                `)}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            `;
+        };
+
+        // --- 컴포넌트: 공감 및 체크리스트 ---
+        const EmpathySection = () => html`
+            <section className="px-6 py-24 md:py-32 bg-white text-center">
+                <div className="max-w-screen-xl mx-auto">
+                    <${HelpCircle} className="w-16 h-16 md:w-20 md:h-20 text-brand-blue mx-auto mb-7 opacity-80" />
+                    <h2 className="text-3xl md:text-5xl font-black leading-[1.4] no-overflow-wrap">
+                        “골프 레슨, 왜 늘<br />고민하고 실패할까요?”
+                    </h2>
+                </div>
+            </section>
+        `;
+
+        const ChecklistSection = () => html`
+            <section className="px-6 py-24 md:py-28 bg-gray-50 text-center">
+                <div className="max-w-screen-xl mx-auto">
+                    <h3 className="text-2xl md:text-4xl font-black mb-12">혹시, 이런 경험 있으셨나요?</h3>
+                    <div className="grid md:grid-cols-2 gap-6">
+                        ${[
+                            "골프 레슨에 돈이 아깝다고 느꼈던 경험", "10회 이상 레슨 등록 권유로 부담됐던 경험",
+                            "나한테 맞는 프로를 직접 고르기 어려웠던 경험", "여러 명에게 많이 연락 오는 게 불편했던 경험"
+                        ].map((item, idx) => html`
+                            <div key=${idx} className="clay-card p-8 flex items-start gap-6 hover:translate-y-[-8px] transition-all text-left">
+                                <${CheckCircle2} className="text-red-400 shrink-0 mt-1" size=${32} />
+                                <p className="font-bold text-lg md:text-xl text-gray-700 leading-snug no-overflow-wrap">${item}</p>
+                            </div>
+                        `)}
+                    </div>
+                </div>
+            </section>
+        `;
+
+        const DifferenceSection = () => html`
+            <section id="features" className="px-6 py-32 bg-brand-blue text-white text-center relative overflow-hidden">
+                <div className="absolute top-0 right-0 opacity-10 transform translate-x-1/4 translate-y-[-1/4]">
+                    <${Filter} size=${500} strokeWidth=${1} />
+                </div>
+                <div className="max-w-screen-md mx-auto relative z-10">
+                    <h2 className="text-3xl md:text-5xl font-black mb-8 leading-tight">
+                        “레슨 선택이 아니라,<br />‘레슨 방식 + 매칭’의 문제였습니다.”
+                    </h2>
+                    <p className="text-blue-100 text-lg md:text-2xl font-medium leading-relaxed">
+                        스승님은 아무 프로나 매칭하지 않습니다.<br />
+                        실내부터 실전 레슨까지, 요청에 맞는 스승님만 연결합니다.
                     </p>
-                  </div>
-                  <div className="clay-icon w-20 h-20 md:w-28 md:h-28 flex items-center justify-center bg-blue-50 shrink-0">
-                    <${Sparkles} size=${40} className="text-brand-blue" />
-                  </div>
                 </div>
+            </section>
+        `;
 
-                <div className="mt-8 grid md:grid-cols-3 gap-5">
-                  ${blocks.map(
-                    (b, i) => html`
-                      <div key=${i} className="bg-gray-50 rounded-2xl p-6 border border-gray-200">
-                        <div className="flex items-center gap-3 mb-3">
-                          ${b.icon}
-                          <div className="font-black text-lg no-overflow-wrap">${b.title}</div>
+        // --- 컴포넌트: 이용 안내 (SummarySection 복구) ---
+        const SummarySection = () => {
+            const steps = [
+                { step: "01", title: "요청서 작성", desc: "지역·종류·클럽·고민을 한 번에 작성", icon: html`<${PenLine} size=${40} />` },
+                { step: "02", title: "AI 매칭 및 선택", desc: "분석된 Top 3 스승님 중 직접 선택", icon: html`<${ThumbsUp} size=${40} />` },
+                { step: "03", title: "상담 및 연결", desc: "담당자 조율 후 프로님과 직접 소통", icon: html`<${MessageSquareText} size=${40} />` },
+            ];
+            return html`
+                <section id="workflow" className="px-6 py-32 bg-white text-center">
+                    <div className="max-w-screen-xl mx-auto">
+                        <h3 className="text-3xl font-black mb-16 text-slate-800">이용 안내</h3>
+                        <div className="grid md:grid-cols-3 gap-12 relative">
+                            ${steps.map((item, idx) => html`
+                                <div key=${idx} className="flex flex-col items-center group relative">
+                                    <div className="clay-icon w-28 h-28 md:w-32 md:h-32 flex items-center justify-center text-brand-blue bg-blue-50 mb-6 group-hover:scale-110 transition-transform">
+                                        ${item.icon}
+                                    </div>
+                                    <span className="text-brand-blue font-black text-lg mb-2">${item.step}</span>
+                                    <h4 className="text-2xl font-black mb-3">${item.title}</h4>
+                                    <p className="text-gray-400 font-bold">${item.desc}</p>
+                                    ${idx < 2 && html`<div className="hidden md:block absolute top-16 -right-6 w-12 h-0.5 bg-gray-100"></div>`}
+                                </div>
+                            `)}
                         </div>
-                        <p className="text-gray-500 font-bold leading-relaxed no-overflow-wrap">${b.desc}</p>
-                      </div>
-                    `
-                  )}
-                </div>
-
-                <div className="mt-7 bg-blue-50 border border-blue-100 rounded-2xl p-5 flex items-start gap-3">
-                  <${Info} size=${18} className="text-brand-blue mt-0.5 shrink-0" />
-                  <p className="text-sm md:text-base font-bold text-gray-700 leading-relaxed no-overflow-wrap">
-                    이벤트 대상: <span className="text-brand-blue font-black">매칭 후 1회 진행 + 추가 진행 + 맞춤 레슨 최종 완료</span>
-                    고객 중 10명 추첨. 포인트는 스승님 내 결제에 사용 가능(현금화/양도 불가). 현장 개인결제는 제외됩니다.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-        `;
-      };
-
-      const EmpathySection = () => html`
-        <section className="px-6 py-24 md:py-28 bg-white text-center">
-          <div className="max-w-screen-xl mx-auto">
-            <${HelpCircle} className="w-16 h-16 md:w-20 md:h-20 text-brand-blue mx-auto mb-7 opacity-80" />
-            <h2 className="text-3xl md:text-5xl font-black leading-[1.4] no-overflow-wrap">
-              “골프 레슨, 왜 늘<br />
-              고민하고 실패할까요?”
-            </h2>
-          </div>
-        </section>
-      `;
-
-      const ChecklistSection = () => {
-        const items = [
-          "골프 레슨에 돈이 아깝다고 느꼈던 경험",
-          "10회 이상 레슨 등록 권유로 부담됐던 경험",
-          "나한테 맞는 프로를 직접 고르기 어려웠던 경험",
-          "여러 명에게 많이 연락 오는 게 불편했던 경험",
-        ];
-        return html`
-          <section className="px-6 py-24 md:py-28 bg-gray-50">
-            <div className="max-w-screen-xl mx-auto">
-              <h3 className="text-2xl md:text-4xl font-black mb-12 md:mb-16 text-center no-overflow-wrap">혹시, 이런 경험 있으셨나요?</h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                ${items.map(
-                  (item, idx) => html`
-                    <div key=${idx} className="clay-card p-8 flex items-start gap-6 hover:translate-y-[-8px] transition-all hover:shadow-2xl">
-                      <${CheckCircle2} className="text-red-400 shrink-0 mt-1" size=${32} />
-                      <p className="font-bold text-lg md:text-xl text-gray-700 leading-snug no-overflow-wrap">${item}</p>
                     </div>
-                  `
-                )}
-              </div>
-            </div>
-          </section>
-        `;
-      };
+                </section>
+            `;
+        };
 
-      const DifferenceSection = () => html`
-        <section id="features" className="px-6 py-28 md:py-32 bg-brand-blue text-white text-center overflow-hidden relative">
-          <div className="absolute top-0 right-0 opacity-10 transform translate-x-1/4 translate-y-[-1/4] pointer-events-none">
-            <${Filter} size=${520} strokeWidth=${1} />
-          </div>
-          <div className="max-w-screen-md mx-auto relative z-10">
-            <h2 className="text-3xl md:text-5xl font-black mb-7 md:mb-8 leading-tight no-overflow-wrap">
-              “레슨 선택이 아니라,<br />
-              ‘레슨 방식 + 매칭’의 문제였습니다.”
-            </h2>
-            <p className="text-blue-100 text-lg md:text-2xl font-medium leading-relaxed no-overflow-wrap">
-              스승님은 아무 프로나 매칭하지 않습니다.<br />
-              실내 레슨부터 필드 실전 레슨까지, 요청에 맞는 스승님만 연결합니다.
-            </p>
-          </div>
-        </section>
-      `;
-
-      const SummarySection = () => {
-        const steps = [
-          { step: "01", title: "요청서 작성", desc: "고민·금액·횟수·지역을 먼저 설정", icon: html`<${PenLine} size=${40} />` },
-          { step: "02", title: "담당자 확인", desc: "요청서 분석 후 스승님 선별", icon: html`<${BadgeCheck} size=${40} />` },
-          { step: "03", title: "상담 및 매칭", desc: "조건 맞는 스승님으로 연결", icon: html`<${ArrowRight} size=${40} />` },
-        ];
-        return html`
-          <section id="workflow" className="px-6 py-28 md:py-32 bg-white">
-            <div className="max-w-screen-xl mx-auto">
-              <div className="grid md:grid-cols-3 gap-12 relative">
-                ${steps.map(
-                  (item, idx) => html`
-                    <div key=${idx} className="flex flex-col items-center text-center relative group">
-                      <div className="clay-icon w-28 h-28 md:w-32 md:h-32 flex items-center justify-center text-brand-blue bg-blue-50 mb-6 group-hover:scale-110 transition-transform">
-                        ${item.icon}
-                      </div>
-                      <span className="text-brand-blue font-black text-lg mb-2 no-overflow-wrap">${item.step}</span>
-                      <h4 className="text-2xl font-black mb-3 no-overflow-wrap">${item.title}</h4>
-                      <p className="text-gray-400 font-bold no-overflow-wrap">${item.desc}</p>
-                      ${idx < 2 ? html`<div className="hidden md:block absolute top-16 -right-6 w-12 h-0.5 bg-gray-100"></div>` : null}
-                    </div>
-                  `
-                )}
-              </div>
-            </div>
-          </section>
-        `;
-      };
-
-      const AfterFirstLessonSection = () => {
-        const cards = [
-          { icon: html`<${ClipboardList} size=${34} className="text-brand-blue" />`, title: "요청서 기준 매칭", desc: "횟수·금액·지역·고민을 먼저 설정합니다." },
-          { icon: html`<${CheckCircle2} size=${34} className="text-brand-blue" />`, title: "1회 우선 진행", desc: "스승님이 나와 맞는지 확인하세요." },
-          { icon: html`<${RefreshCcw} size=${34} className="text-brand-blue" />`, title: "만족하면 추가 결제", desc: "요청 금액 유지하려면 스승님을 통해 진행." },
-        ];
-        return html`
-          <section className="px-6 py-24 md:py-28 bg-gray-50">
-            <div className="max-w-screen-xl mx-auto">
-              <div className="text-center mb-12 md:mb-16">
-                <h3 className="text-3xl md:text-5xl font-black leading-tight no-overflow-wrap">
-                  첫 1회 레슨 이후,<br />
-                  추가 진행 여부도 직접 결정하세요
-                </h3>
-                <p className="text-gray-500 text-lg md:text-xl font-bold mt-5 leading-relaxed no-overflow-wrap">
-                  처음부터 다 결제하지 않아도 됩니다.<br />
-                  1회로 ‘방향·태도·성향’을 확인하고 만족하면 이어서 진행하세요.
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-3 gap-8">
-                ${cards.map(
-                  (c, i) => html`
-                    <div key=${i} className="clay-card p-9 border-4 border-brand-blue/5 bg-white">
-                      <div className="clay-icon w-16 h-16 flex items-center justify-center bg-blue-50 mb-7">${c.icon}</div>
-                      <h4 className="text-2xl font-black mb-3 no-overflow-wrap">${c.title}</h4>
-                      <p className="text-gray-500 font-bold leading-relaxed no-overflow-wrap">${c.desc}</p>
-                    </div>
-                  `
-                )}
-              </div>
-
-              <div className="mt-10 bg-white border border-gray-200 rounded-2xl p-7">
-                <p className="font-black text-gray-800 text-base md:text-lg leading-relaxed no-overflow-wrap">
-                  예시) <span className="text-brand-blue">5회 / 총 30만원</span> 요청 → <span className="text-brand-blue">1회 10만원</span> 진행 →
-                  만족 시 <span className="text-brand-blue">나머지 4회 20만원</span>을 추가 결제로 이어서 진행
-                </p>
-              </div>
-            </div>
-          </section>
-        `;
-      };
-
-      const ComparisonSection = () => {
-        const left = ["여러 명에게서 동시에 연락", "상황을 매번 처음부터 설명", "다회 결제 부담", "프로 선택 불안"];
-        const right = ["요청서 기준 상담", "담당자 1:1 관리", "1회 먼저 검증", "추가 결제도 요청 금액 유지"];
-        return html`
-          <section className="px-6 py-28 md:py-32 bg-white">
-            <div className="max-w-screen-xl mx-auto">
-              <div className="text-center mb-12 md:mb-16">
-                <h3 className="text-3xl md:text-4xl font-black no-overflow-wrap">무엇이 다른가요?</h3>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-8 lg:gap-16">
-                <div className="clay-card p-10 bg-gray-50 opacity-70">
-                  <h4 className="text-center font-black text-gray-400 text-2xl mb-10 underline decoration-gray-200 underline-offset-8 no-overflow-wrap">기존 플랫폼</h4>
-                  <div className="space-y-6">
-                    ${left.map(
-                      (v, i) => html`
-                        <div key=${i} className="flex items-center gap-4 text-gray-400 font-bold text-lg no-overflow-wrap">
-                          <${X} className="shrink-0" /> ${v}
+        // --- 컴포넌트: 1회 레슨 후 결정 (복구) ---
+        const AfterFirstLessonSection = () => html`
+            <section className="px-6 py-28 bg-gray-50 text-center">
+                <div className="max-w-screen-xl mx-auto">
+                    <h3 className="text-3xl md:text-5xl font-black leading-tight mb-6">
+                        첫 1회 레슨 이후,<br />추가 진행 여부도 직접 결정하세요
+                    </h3>
+                    <p className="text-gray-500 text-lg md:text-xl font-bold mb-12">
+                        상담은 무료, 결제는 모든 조건이 확정된 뒤에 진행하세요.
+                    </p>
+                    <div className="grid md:grid-cols-3 gap-8">
+                        <div className="clay-card p-10 bg-white">
+                            <${ClipboardList} size=${34} className="text-brand-blue mb-6 mx-auto" />
+                            <h4 className="text-2xl font-black mb-3">요청서 상담</h4>
+                            <p className="text-gray-500 font-bold">원하는 조건으로 먼저 대화</p>
                         </div>
-                      `
-                    )}
-                  </div>
-                </div>
-
-                <div className="clay-card p-10 border-4 border-brand-blue/10 bg-white">
-                  <h4 className="text-center font-black text-brand-blue text-2xl mb-10 underline decoration-blue-100 underline-offset-8 no-overflow-wrap">스승님</h4>
-                  <div className="space-y-6">
-                    ${right.map(
-                      (v, i) => html`
-                        <div key=${i} className="flex items-center gap-4 text-gray-800 font-bold text-lg no-overflow-wrap">
-                          <${CheckCircle2} className="text-brand-blue shrink-0" /> ${v}
+                        <div className="clay-card p-10 bg-white">
+                            <${CheckCircle2} size=${34} className="text-brand-blue mb-6 mx-auto" />
+                            <h4 className="text-2xl font-black mb-3">1회 우선 진행</h4>
+                            <p className="text-gray-500 font-bold">직접 확인하고 만족하면 결제</p>
                         </div>
-                      `
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        `;
-      };
-
-      const CaseStudySection = () => {
-        const cases = [
-          { text: "“아이언만 치면 생크가 납니다. 2~3번만 제대로 봐주실 분?”", result: "레슨 3회 만에 생크 개선", icon: html`<${Smartphone} className="text-brand-blue" />` },
-          { text: "“드라이버 비거리 때문에 스트레스. 5번만 집중적으로 받고 싶어요.”", result: "5회 맞춤 레슨 후 비거리 향상", icon: html`<${TrendingUp} className="text-green-500" />` },
-          { text: "“필드에서 우드를 제대로 쓰고 싶어요. 우드 전문 스승님 찾습니다.”", result: "파5 우드 활용도 상승", icon: html`<${Award} className="text-orange-500" />` },
-          { text: "저렴하게 9홀 레슨 받고 싶어요. 슬라이스 OB때문에 스트레스 받네요.", result: "9홀 레슨 후 OB 10개 감소" },
-{ text: "2온을 못하고 그린 주변에서 너무 허덕이는데.. 숏게임 레슨 받고 싶어요.", result: "숏게임레슨 후 평균 -9타 감소" },
-{ text: "100M이내 거리에서 방향성이 좋지 않아요.", result: "파3레슨 후 온그린확률 80% 상승" }
-        ];
-        return html`
-          <section id="cases" className="px-6 py-28 md:py-32 bg-gray-50">
-            <div className="max-w-screen-xl mx-auto">
-              <h3 className="text-3xl md:text-4xl font-black mb-12 md:mb-16 text-center no-overflow-wrap">성공적인 매칭 사례</h3>
-              <div className="grid md:grid-cols-3 gap-8">
-                ${cases.map(
-                  (c, i) => html`
-                    <div key=${i} className="clay-card p-10 hover:translate-y-[-10px] transition-all group bg-white">
-                      <div className="clay-icon w-16 h-16 flex items-center justify-center bg-blue-50 mb-8 group-hover:rotate-12 transition-transform">${c.icon}</div>
-                      <p className="text-gray-700 font-bold text-xl leading-relaxed mb-8 no-overflow-wrap">${c.text}</p>
-                      <div className="pt-6 border-t border-gray-100">
-                        <span className="text-brand-blue font-black text-lg tracking-tight no-overflow-wrap">→ ${c.result}</span>
-                      </div>
+                        <div className="clay-card p-10 bg-white">
+                            <${RefreshCcw} size=${34} className="text-brand-blue mb-6 mx-auto" />
+                            <h4 className="text-2xl font-black mb-3">자유로운 선택</h4>
+                            <p className="text-gray-500 font-bold">만족할 때만 이어서 진행</p>
+                        </div>
                     </div>
-                  `
-                )}
-              </div>
-            </div>
-          </section>
-        `;
-      };
-
-      const TrustSection = () => {
-        const points = [
-          { title: "상담 선진행", desc: "상담 과정에서 결제 요구를 하지 않습니다." },
-          { title: "요청서 기준 진행", desc: "1회·3회 등 요청서대로 유연하게 진행됩니다." },
-          { title: "운영팀 직접 조율", desc: "불편이 생기면 운영팀이 중간에서 조율합니다." },
-        ];
-        return html`
-          <section id="trust" className="px-6 py-28 md:py-32 bg-white">
-            <div className="max-w-screen-xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-              <div>
-                <${ShieldCheck} className="w-24 h-24 text-brand-blue mb-8" />
-                <h3 className="text-3xl md:text-5xl font-black mb-8 leading-tight no-overflow-wrap">
-                  투명한 운영 정책으로<br />
-                  신뢰를 더합니다
-                </h3>
-                <p className="text-gray-500 text-xl font-bold leading-relaxed mb-10 no-overflow-wrap">
-                  스승님은 레슨 선택 실패 리스크를<br />
-                  혼자 감당하지 않도록 시스템으로 보호합니다.
-                </p>
-                <div className="clay-card p-8 border-4 border-brand-blue/5 bg-gray-50">
-                  <p className="font-bold text-xl leading-relaxed text-gray-800 no-overflow-wrap">
-                    “결제 및 환불 구조를 <span className="text-brand-blue font-black underline decoration-blue-200">법무법인 로투스</span>와
-                    파트너 관계로 법률 기준에 맞게 엄격하게 관리합니다.”
-                  </p>
                 </div>
-              </div>
+            </section>
+        `;
 
-              <div className="space-y-6">
-                ${points.map(
-                  (v, i) => html`
-                    <div key=${i} className="flex gap-6 items-start">
-                      <div className="w-10 h-10 rounded-2xl bg-brand-blue flex items-center justify-center text-white shrink-0 mt-1">
-                        <${CheckCircle2} size=${24} />
-                      </div>
-                      <div>
-                        <h5 className="text-xl font-black mb-2 no-overflow-wrap">${v.title}</h5>
-                        <p className="text-gray-500 font-bold no-overflow-wrap">${v.desc}</p>
-                      </div>
+        // --- 컴포넌트: 비교 섹션 (복구) ---
+        const ComparisonSection = () => html`
+            <section className="px-6 py-32 bg-white text-center">
+                <div className="max-w-screen-xl mx-auto">
+                    <h3 className="text-3xl font-black mb-16">무엇이 다른가요?</h3>
+                    <div className="grid md:grid-cols-2 gap-8">
+                        <div className="clay-card p-10 bg-gray-50 opacity-70">
+                            <h4 className="font-black text-gray-400 text-2xl mb-10">기존 플랫폼</h4>
+                            <div className="space-y-6 text-left">
+                                <div className="flex items-center gap-4 text-gray-400 font-bold text-lg"><${X} /> 신뢰 전 무리한 결제 요구</div>
+                                <div className="flex items-center gap-4 text-gray-400 font-bold text-lg"><${X} /> 여러 명에게 동시 연락</div>
+                                <div className="flex items-center gap-4 text-gray-400 font-bold text-lg"><${X} /> 프로 선택 실패 리스크</div>
+                            </div>
+                        </div>
+                        <div className="clay-card p-10 border-4 border-brand-blue/10 bg-white">
+                            <h4 className="font-black text-brand-blue text-2xl mb-10">스승님</h4>
+                            <div className="space-y-6 text-left">
+                                <div className="flex items-center gap-4 text-gray-800 font-bold text-lg"><${CheckCircle2} className="text-brand-blue" /> 상담 및 확정 후 결제</div>
+                                <div className="flex items-center gap-4 text-gray-800 font-bold text-lg"><${CheckCircle2} className="text-brand-blue" /> 1:1 전담 매칭 관리</div>
+                                <div className="flex items-center gap-4 text-gray-800 font-bold text-lg"><${CheckCircle2} className="text-brand-blue" /> 1회 먼저 검증 후 결정</div>
+                            </div>
+                        </div>
                     </div>
-                  `
-                )}
-              </div>
-            </div>
-          </section>
+                </div>
+            </section>
         `;
-      };
 
-      const NoticeSection = () => html`
-        <section id="notice" className="px-6 py-28 md:py-32 bg-gray-50">
-          <div className="max-w-screen-xl mx-auto">
-            <div className="text-center mb-12 md:mb-16">
-              <h3 className="text-3xl md:text-4xl font-black no-overflow-wrap">운영 및 유의사항</h3>
-              <p className="text-gray-500 font-bold mt-4 leading-relaxed no-overflow-wrap">서비스 오해/분쟁을 막기 위해 아래 내용을 꼭 확인해주세요.</p>
-            </div>
-
-            <div className="clay-card p-8 md:p-10 bg-white border-4 border-brand-blue/5">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="bg-gray-50 rounded-2xl border border-gray-200 p-7">
-                  <div className="flex items-center gap-3 mb-4">
-                    <${CreditCard} size=${22} className="text-brand-blue" />
-                    <h4 className="text-xl font-black no-overflow-wrap">결제 원칙</h4>
-                  </div>
-                  <ul className="space-y-3 text-gray-700 font-bold leading-relaxed">
-                    <li className="no-overflow-wrap">• 결제는 운영팀이 전달하는 공식 PG 결제 링크로만 진행됩니다.</li>
-                    <li className="no-overflow-wrap">• 1회 이후 추가 결제도 스승님을 통해 진행해야 요청 금액을 유지할 수 있습니다.</li>
-                  </ul>
+        const CaseStudySection = () => html`
+            <section id="cases" className="px-6 py-32 bg-gray-50 text-center">
+                <div className="max-w-screen-xl mx-auto">
+                    <h3 className="text-3xl font-black mb-16">성공적인 매칭 사례</h3>
+                    <div className="grid md:grid-cols-3 gap-8 text-left">
+                        ${[
+                            {t: "“아이언 생크가 납니다. 2~3번만 제대로 봐주실 분?”", r: "레슨 3회 만에 생크 개선", i: html`<${Flag} />`},
+                            {t: "“드라이버 비거리 스트레스. 5번만 집중적으로 받고 싶어요.”", r: "비거리 30m 향상", i: html`<${TrendingUp} />`},
+                            {t: "“필드에서 우드를 제대로 쓰고 싶어요. 우드 전문 스승님 찾습니다.”", r: "파5 우드 활용도 상승", i: html`<${Award} />`}
+                        ].map((c, i) => html`
+                            <div key=${i} className="clay-card p-10 bg-white hover:translate-y-[-10px] transition-all">
+                                <div className="clay-icon w-16 h-16 flex items-center justify-center bg-blue-50 mb-8 text-brand-blue">${c.i}</div>
+                                <p className="text-gray-700 font-bold text-xl leading-relaxed mb-8 no-overflow-wrap">${c.t}</p>
+                                <div className="pt-6 border-t border-gray-100 font-black text-brand-blue text-lg">→ ${c.r}</div>
+                            </div>
+                        `)}
+                    </div>
                 </div>
+            </section>
+        `;
 
-                <div className="bg-gray-50 rounded-2xl border border-gray-200 p-7">
-                  <div className="flex items-center gap-3 mb-4">
-                    <${Info} size=${22} className="text-brand-blue" />
-                    <h4 className="text-xl font-black no-overflow-wrap">현장 개인결제 유의</h4>
-                  </div>
-                  <ul className="space-y-3 text-gray-700 font-bold leading-relaxed">
-                    <li className="no-overflow-wrap">• 스승님 외 현장(개인) 결제 시 환불/분쟁 조율에 개입할 수 없습니다.</li>
-                    <li className="no-overflow-wrap">• 현장 결제는 이벤트 대상에서 제외되며, 진행 과정은 개인 책임입니다.</li>
-                  </ul>
+        const TrustSection = () => html`
+            <section id="trust" className="px-6 py-32 bg-white text-center md:text-left">
+                <div className="max-w-screen-xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <${ShieldCheck} className="w-24 h-24 text-brand-blue mb-8 mx-auto md:mx-0" />
+                        <h3 className="text-3xl md:text-5xl font-black mb-8 leading-tight">투명한 운영 정책</h3>
+                        <p className="text-gray-500 text-xl font-bold mb-10 leading-relaxed">스승님은 결제 및 환불 구조를 법무법인 로투스와 파트너 관계로 엄격하게 관리합니다.</p>
+                        <div className="clay-card p-8 bg-gray-50 font-bold text-xl text-gray-800">
+                            “법적 기준에 맞춘 보호 시스템으로 골퍼의 권익을 최우선합니다.”
+                        </div>
+                    </div>
+                    <div className="space-y-8">
+                        <div className="flex gap-6 items-start text-left">
+                            <div className="w-10 h-10 rounded-2xl bg-brand-blue flex items-center justify-center text-white shrink-0 mt-1"><${CheckCircle2} /></div>
+                            <div><h5 className="text-xl font-black mb-2 text-slate-800">상담 선진행</h5><p className="text-gray-500 font-bold">결제 요구 전 충분한 상담을 먼저 마칩니다.</p></div>
+                        </div>
+                        <div className="flex gap-6 items-start text-left">
+                            <div className="w-10 h-10 rounded-2xl bg-brand-blue flex items-center justify-center text-white shrink-0 mt-1"><${CheckCircle2} /></div>
+                            <div><h5 className="text-xl font-black mb-2 text-slate-800">운영팀 직접 조율</h5><p className="text-gray-500 font-bold">불편이 생기면 운영팀이 중간에서 조율합니다.</p></div>
+                        </div>
+                    </div>
                 </div>
+            </section>
+        `;
 
-                <div className="bg-gray-50 rounded-2xl border border-gray-200 p-7">
-                  <div className="flex items-center gap-3 mb-4">
-                    <${Smartphone} size=${22} className="text-brand-blue" />
-                    <h4 className="text-xl font-black no-overflow-wrap">앱 이용 원칙</h4>
-                  </div>
-                  <ul className="space-y-3 text-gray-700 font-bold leading-relaxed">
-                    <li className="no-overflow-wrap">• 본 서비스는 스승님 앱 이용을 기본 원칙으로 합니다.</li>
-                    <li className="no-overflow-wrap">• 매칭 후 레슨권/예약/후기 등은 스승님 앱을 통해 진행됩니다.</li>
-                  </ul>
+        const NoticeSection = () => html`
+            <section id="notice" className="px-6 py-32 bg-gray-50 text-center">
+                <div className="max-w-screen-xl mx-auto">
+                    <h3 className="text-3xl font-black mb-16 text-slate-800">운영 및 유의사항</h3>
+                    <div className="clay-card p-8 md:p-12 bg-white grid md:grid-cols-2 gap-8 text-left">
+                        <div className="bg-white rounded-2xl p-7 border border-slate-100">
+                            <h4 className="text-xl font-black mb-4 flex items-center gap-3 text-slate-800"><${CreditCard} className="text-brand-blue" /> 결제 원칙</h4>
+                            <ul className="space-y-3 font-bold text-gray-600 text-sm">
+                                <li>• 상담 및 일정 확정 후 결제 링크가 전송됩니다.</li>
+                                <li>• 공식 채널 외 개인 결제 시 보호가 불가합니다.</li>
+                            </ul>
+                        </div>
+                        <div className="bg-white rounded-2xl p-7 border border-slate-100">
+                            <h4 className="text-xl font-black mb-4 flex items-center gap-3 text-slate-800"><${Info} className="text-brand-blue" /> 앱 이용 원칙</h4>
+                            <ul className="space-y-3 font-bold text-gray-600 text-sm">
+                                <li>• 스승님 앱 설치 및 이용을 기본 원칙으로 합니다.</li>
+                                <li>• 예약 및 후기 관리는 앱에서 진행됩니다.</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
+            </section>
+        `;
 
-                <div className="bg-gray-50 rounded-2xl border border-gray-200 p-7">
-                  <div className="flex items-center gap-3 mb-4">
-                    <${Gift} size=${22} className="text-brand-blue" />
-                    <h4 className="text-xl font-black no-overflow-wrap">이벤트 유의</h4>
-                  </div>
-                  <ul className="space-y-3 text-gray-700 font-bold leading-relaxed">
-                    <li className="no-overflow-wrap">• 이벤트는 매칭 완료 후 1회 레슨 + 추가 결제까지 정상 완료한 고객 대상입니다.</li>
-                    <li className="no-overflow-wrap">• 포인트 지급(현금화/양도 불가), 1인 1회 적용됩니다.</li>
-                  </ul>
+        const FinalCTASection = ({ setFormOpen }) => html`
+            <section className="px-6 py-32 bg-white text-center">
+                <div className="max-w-screen-md mx-auto">
+                    <h2 className="text-4xl md:text-6xl font-black mb-12 leading-tight">실내부터 실전까지,<br />내 방식대로 요청하세요</h2>
+                    <button onClick=${() => setFormOpen(true)} className="gradient-blue text-white px-12 py-7 rounded-[2.5rem] font-black text-2xl shadow-2xl hover:scale-105 transition-all">
+                        지금 바로 요청서 작성
+                    </button>
+                    <p className="mt-8 text-gray-400 font-bold">일정 확정 전까지 결제 없이 진행됩니다.</p>
                 </div>
-              </div>
+            </section>
+        `;
 
-              <div className="mt-7 bg-blue-50 border border-blue-100 rounded-2xl p-6 flex items-start gap-3">
-                <${Info} size=${18} className="text-brand-blue mt-0.5 shrink-0" />
-                <p className="text-sm md:text-base font-bold text-gray-700 leading-relaxed no-overflow-wrap">
-                  허위 요청, 서비스 악용(반복 환불 요구/분쟁 유발 등)이 확인될 경우 향후 매칭이 제한될 수 있습니다. 운영 정책은 개선을 위해 사전 고지 후 변경될 수 있습니다.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-      `;
+        // --- 인터랙티브 분석 모달 로직 ---
+        const InteractiveFlow = ({ setModalOpen }) => {
+            const [step, setStep] = React.useState(1);
+            const [formData, setFormData] = React.useState({
+                location: '', lessonType: '', club: '', concern: '', schedule: '', price: ''
+            });
+            const [results, setResults] = React.useState([]);
+            const [selectedPro, setSelectedPro] = React.useState(null);
 
-      const CTASection = ({ setFormOpen }) => html`
-  <section id="request" className="px-6 py-28 md:py-40 bg-white text-center">
-    <div className="max-w-screen-md mx-auto">
-      <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight no-overflow-wrap">
-        실내부터 실전까지,<br />내 방식대로 요청하세요
-      </h2>
+            const updateData = (key, val) => { setFormData(prev => ({ ...prev, [key]: val })); };
+            const nextStep = () => setStep(prev => prev + 1);
+            const prevStep = () => setStep(prev => prev - 1);
 
-      <p className="text-gray-500 text-lg md:text-xl font-bold mb-10 md:mb-12 leading-relaxed no-overflow-wrap">
-        실내 레슨 / 실전 레슨 모두 요청 가능합니다.<br />
-        첫 1회 레슨 이후, 진행여부는 직접 선택하세요.
-      </p>
+            const startAnalysis = () => {
+                setStep(5);
+                setTimeout(() => {
+                    const scored = pros.map(p => {
+                        let score = 0;
+                        if (p.location.includes(formData.location)) score += 2;
+                        if (p.style.includes(formData.lessonType)) score += 3;
+                        if (p.tags.some(t => t.includes(formData.club) || t.includes(formData.concern))) score += 2;
+                        return { ...p, score };
+                    }).sort((a, b) => b.score - a.score).slice(0, 3);
+                    setResults(scored);
+                    setStep(6);
+                }, 2000);
+            };
 
-      <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-  <button
-    onClick=${() => setFormOpen(true)}
-    className="w-full md:w-auto min-w-[320px] clay-card bg-brand-blue py-7 md:py-8 px-10 text-white font-black text-2xl hover:scale-105 transition-all shadow-2xl flex items-center justify-center gap-3 no-overflow-wrap"
-  >
-    <${MessageCircle} size=${32} fill="currentColor" />
-    맞춤 레슨 요청하기
-  </button>
-</div>
-
-      <div className="mt-8 text-sm font-bold text-gray-400 leading-relaxed no-overflow-wrap">
-        오픈 기념 이벤트: 매칭 완료 + 요청 레슨 완료 고객 중 10명 추첨, 10% 포인트 페이백
-      </div>
-    </div>
-  </section>
-`;
-
-
-      const FooterSection = () => html`
-        <footer className="px-6 py-24 md:py-28 bg-gray-900 text-white">
-          <div className="max-w-screen-xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-12 md:gap-16 mb-14 md:mb-20">
-              <div>
-                <div className="flex items-center gap-3 mb-7 md:mb-8">
-                  <div className="w-12 h-12 bg-brand-blue rounded-xl flex items-center justify-center text-white font-black italic text-xl">S</div>
-                  <span className="text-3xl font-black tracking-tighter">스승님</span>
+            if (step === 1) return html`
+                <div className="animate-pop text-left">
+                    <h3 className="text-xl font-black text-slate-800 mb-6">STEP 1 / 3</h3>
+                    <div className="space-y-8">
+                        <div>
+                            <h4 className="font-bold text-slate-500 mb-3 text-sm flex items-center gap-2"><${MapPin} size=${16} /> 레슨 지역</h4>
+                            <div className="grid grid-cols-2 gap-3">
+                                ${['강남', '분당', '용인', '영등포'].map(l => html`
+                                    <button key=${l} onClick=${() => updateData('location', l)} className=${`py-3 px-4 rounded-xl border-2 font-bold text-sm ${formData.location === l ? 'border-brand-blue bg-blue-50 text-brand-blue' : 'border-slate-50 text-slate-600'}`}>${l}</button>
+                                `)}
+                            </div>
+                        </div>
+                        <div>
+                            <h4 className="font-bold text-slate-500 mb-3 text-sm flex items-center gap-2"><${Flag} size=${16} /> 레슨 종류</h4>
+                            <div className="grid grid-cols-3 gap-3">
+                                ${[
+                                    {v:'필드', l:'필드레슨', i:'⛳'}, {v:'9홀', l:'9홀레슨', i:'🚶'}, {v:'파3', l:'파3레슨', i:'🎯'},
+                                    {v:'숏게임', l:'숏게임', i:'🏌️'}, {v:'1:1', l:'1:1레슨', i:'👤'}
+                                ].map(opt => html`
+                                    <button key=${opt.v} onClick=${() => updateData('lessonType', opt.v)} className=${`flex flex-col items-center justify-center p-4 rounded-2xl bg-white border-2 hover:border-brand-blue ${formData.lessonType === opt.v ? 'border-brand-blue bg-blue-50 text-brand-blue' : 'border-slate-50'}`}>
+                                        <span className="text-2xl mb-2">${opt.i}</span>
+                                        <span className="text-sm font-bold">${opt.l}</span>
+                                    </button>
+                                `)}
+                            </div>
+                        </div>
+                    </div>
+                    <button disabled=${!formData.location || !formData.lessonType} onClick=${nextStep} className="w-full mt-10 gradient-blue text-white font-black py-5 rounded-2xl shadow-xl disabled:opacity-50 flex items-center justify-center gap-2">다음 단계로 <${ChevronRight} size=${20} /></button>
                 </div>
-                <p className="text-gray-400 font-bold text-xl leading-relaxed mb-2 no-overflow-wrap">
-                  골퍼와 프로가 만나는 가장 정직한 방식.<br />실패 없는 레슨 경험을 선사합니다.
-                </p>
-              </div>
+            `;
 
-              <div className="grid grid-cols-2 gap-8 text-gray-400">
-                <div>
-                  <h6 className="text-white font-black mb-6">서비스</h6>
-                  <ul className="space-y-4 font-bold">
-                    <li className="no-overflow-wrap">매칭 신청</li>
-                    <li className="no-overflow-wrap">이용 약관</li>
-                    <li className="no-overflow-wrap">개인정보처리방침</li>
-                  </ul>
+            if (step === 2) return html`
+                <div className="animate-pop text-left">
+                    <h3 className="text-xl font-black text-slate-800 mb-6">STEP 2 / 3</h3>
+                    <div className="space-y-8">
+                        <div>
+                            <h4 className="font-bold text-slate-500 mb-3 text-sm flex items-center gap-2"><${Target} size=${16} /> 집중 클럽</h4>
+                            <div className="grid grid-cols-3 gap-3 text-xs">
+                                ${['드라이버', '우드/유틸', '롱아이언', '미들아이언', '숏아이언'].map(c => html`
+                                    <button key=${c} onClick=${() => updateData('club', c)} className=${`py-3 px-2 rounded-xl border-2 font-bold ${formData.club === c ? 'border-brand-blue bg-blue-50 text-brand-blue' : 'border-slate-50 text-slate-600'}`}>${c}</button>
+                                `)}
+                            </div>
+                        </div>
+                        <div>
+                            <h4 className="font-bold text-slate-500 mb-3 text-sm text-slate-800">해결하고 싶은 고민</h4>
+                            <div className="flex flex-wrap gap-2">
+                                ${['탑핑', '슬라이스', '훅', '생크', '거리증가', '스윙교정'].map(con => html`
+                                    <button key=${con} onClick=${() => updateData('concern', con)} className=${`py-2 px-4 rounded-full border-2 font-bold text-xs ${formData.concern === con ? 'border-brand-blue bg-blue-50 text-brand-blue' : 'border-slate-50 text-slate-600'}`}># ${con}</button>
+                                `)}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex gap-3 mt-10">
+                        <button onClick=${prevStep} className="flex-1 bg-slate-100 text-slate-600 font-bold py-5 rounded-2xl">이전</button>
+                        <button disabled=${!formData.club || !formData.concern} onClick=${nextStep} className="flex-[2] gradient-blue text-white font-black py-5 rounded-2xl shadow-xl disabled:opacity-50">다음 단계로</button>
+                    </div>
                 </div>
-                <div>
-                  <h6 className="text-white font-black mb-6">문의</h6>
-                  <ul className="space-y-4 font-bold">
-                    <li className="no-overflow-wrap">카카오채널</li>
-                    <li className="no-overflow-wrap">파트너십</li>
-                  </ul>
+            `;
+
+            if (step === 3) return html`
+                <div className="animate-pop text-left">
+                    <h3 className="text-xl font-black text-slate-800 mb-6">STEP 3 / 3</h3>
+                    <div className="space-y-8">
+                        <div>
+                            <h4 className="font-bold text-slate-500 mb-3 text-sm flex items-center gap-2"><${Clock} size=${16} /> 선호 시간</h4>
+                            <div className="grid grid-cols-2 gap-3">
+                                ${['주중 낮', '주중 저녁', '주말 낮', '주말 저녁'].map(s => html`
+                                    <button key=${s} onClick=${() => updateData('schedule', s)} className=${`py-3 px-4 rounded-xl border-2 font-bold text-sm ${formData.schedule === s ? 'border-brand-blue bg-blue-50 text-brand-blue' : 'border-slate-50 text-slate-600'}`}>${s}</button>
+                                `)}
+                            </div>
+                        </div>
+                        <div>
+                            <h4 className="font-bold text-slate-500 mb-3 text-sm text-slate-800">레슨 패키지 선택</h4>
+                            <div className="space-y-2">
+                                ${[
+                                    {v:'1회', l:'1회 체험 레슨 (10~15만원)'},
+                                    {v:'5회', l:'5회 실력완성 패키지 (40~60만원)'},
+                                    {v:'10회', l:'10회 집중 케어 패키지 (80~120만원)'}
+                                ].map(p => html`
+                                    <button key=${p.v} onClick=${() => updateData('price', p.v)} className=${`w-full text-left py-4 px-4 rounded-xl border-2 font-bold text-sm ${formData.price === p.v ? 'border-brand-blue bg-blue-50 text-brand-blue' : 'border-slate-50 text-slate-600'}`}>${p.l}</button>
+                                `)}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex gap-3 mt-10">
+                        <button onClick=${prevStep} className="flex-1 bg-slate-100 text-slate-600 font-bold py-5 rounded-2xl">이전</button>
+                        <button disabled=${!formData.schedule || !formData.price} onClick=${nextStep} className="flex-[2] gradient-blue text-white font-black py-5 rounded-2xl shadow-xl disabled:opacity-50">작성 완료</button>
+                    </div>
                 </div>
-              </div>
-            </div>
+            `;
 
-            <div className="pt-10 border-t border-gray-800 space-y-3 text-sm font-bold text-gray-500">
-              <div className="flex flex-wrap gap-x-12 gap-y-3">
-                <div className="flex gap-4">
-                  <span>상호명</span>
-                  <span className="text-gray-400 font-black no-overflow-wrap">스승님 (Suseungnim)</span>
+            if (step === 4) return html`
+                <div className="animate-pop text-center">
+                    <${ClipboardList} size=${48} className="text-brand-blue mx-auto mb-6" />
+                    <h3 className="text-2xl font-black mb-2 text-slate-800">요청서 완성!</h3>
+                    <div className="bg-slate-50 rounded-3xl p-6 mb-10 text-left border border-slate-100 space-y-4">
+                        <div className="flex justify-between border-b border-slate-200 pb-3">
+                            <span className="text-slate-400 font-bold">지역 / 종류</span>
+                            <span className="font-black text-slate-700">${formData.location} / ${formData.lessonType}</span>
+                        </div>
+                        <div className="flex justify-between border-b border-slate-200 pb-3">
+                            <span className="text-slate-400 font-bold">클럽 / 고민</span>
+                            <span className="font-black text-slate-700">${formData.club} / ${formData.concern}</span>
+                        </div>
+                        <div className="flex justify-between">
+                            <span className="text-slate-400 font-bold">시간 / 패키지</span>
+                            <span className="font-black text-slate-700">${formData.schedule} / ${formData.price}</span>
+                        </div>
+                    </div>
+                    <button onClick=${startAnalysis} className="w-full gradient-blue text-white font-black py-6 rounded-2xl shadow-xl active:scale-95 transition-all">이 조건으로 스승님 찾기</button>
                 </div>
-                <div className="flex gap-4">
-                  <span>법률 파트너</span>
-                  <span className="text-gray-400 font-black no-overflow-wrap">법무법인 로투스</span>
+            `;
+
+            if (step === 5) return html`
+                <div className="py-20 flex flex-col items-center">
+                    <div className="relative mb-8">
+                        <div className="animate-spin rounded-full h-20 w-20 border-4 border-brand-blue border-t-transparent"></div>
+                        <div className="absolute inset-0 flex items-center justify-center"><${Flag} size=${28} className="text-brand-blue" /></div>
+                    </div>
+                    <h3 className="text-xl font-black text-slate-800 text-center">AI 매칭 분석 중...</h3>
                 </div>
-              </div>
-              <p className="no-overflow-wrap">© 2026 Suseungnim Corp. All rights reserved.</p>
-            </div>
-          </div>
-        </footer>
-      `;
+            `;
 
-      const RequestFormModal = ({ formOpen, setFormOpen }) => {
-  if (!formOpen) return null;
+            if (step === 6) return html`
+                <div className="animate-slide-up text-left">
+                    <h3 className="text-2xl font-black text-slate-800 mb-6">AI 추천 스승님 Best 3</h3>
+                    <div className="space-y-4 mb-8">
+                        ${results.map(p => html`
+                            <div key=${p.id} onClick=${() => setSelectedPro(p)} className=${`p-5 rounded-3xl border flex gap-4 items-center cursor-pointer transition-all ${selectedPro?.id === p.id ? 'border-brand-blue bg-blue-50 ring-4 ring-brand-blue/5' : 'bg-white border-slate-100'}`}>
+                                <img src=${p.img} className="w-16 h-16 rounded-2xl object-cover shadow-sm" />
+                                <div className="flex-1">
+                                    <div className="flex justify-between items-start mb-1">
+                                        <h4 className="font-black text-slate-800 text-lg">${p.name}</h4>
+                                        <span className="text-[10px] font-black text-brand-blue bg-blue-100 px-2 py-0.5 rounded-full">${formData.club} 특화</span>
+                                    </div>
+                                    <p className="text-[11px] text-slate-500 font-bold mb-2 line-clamp-1">"${p.intro}"</p>
+                                    <div className="flex items-center gap-1 text-[11px] text-amber-400 fill-amber-400">
+                                        <${Star} size=${12} /> <span className="font-black text-slate-700">${p.rating}</span>
+                                    </div>
+                                </div>
+                                ${selectedPro?.id === p.id && html`<${Check} className="text-brand-blue" strokeWidth=${4} />`}
+                            </div>
+                        `)}
+                    </div>
+                    <button disabled=${!selectedPro} onClick=${() => setStep(7)} className="w-full gradient-blue text-white font-black py-5 rounded-2xl shadow-xl disabled:opacity-50">상담 요청 보내기 →</button>
+                </div>
+            `;
 
-  return html`
-    <div className="fixed inset-0 bg-black/40 z-[100] flex items-center justify-center p-6">
+            if (step === 7) return html`
+                <div className="animate-pop py-10 text-center">
+                    <div className="w-20 h-20 bg-emerald-50 text-brand-emerald rounded-full flex items-center justify-center mx-auto mb-8 shadow-xl"><${MessageSquareText} size={40} fill="currentColor" /></div>
+                    <h3 className="text-3xl font-black text-slate-800 mb-3 text-center">상담 요청 완료!</h3>
+                    <p className="text-slate-500 font-bold mb-10 leading-relaxed text-sm text-center">${selectedPro?.name}님 상담을 위해 담당자가<br />카카오톡으로 곧 연락드립니다.</p>
+                    <div className="space-y-3">
+                        <a href=${KAKAO_CHAT_URL} className="w-full bg-[#FEE500] text-slate-800 font-black py-5 rounded-2xl flex items-center justify-center gap-2 shadow-lg">카카오톡으로 상담하기</a>
+                        <button onClick=${() => location.reload()} className="w-full bg-slate-100 text-slate-600 font-black py-5 rounded-2xl">홈으로 돌아가기</button>
+                    </div>
+                </div>
+            `;
+        };
 
-      <div className="bg-white rounded-3xl max-w-lg w-full p-8 relative max-h-[90vh] overflow-y-auto">
+        const RequestFormModal = ({ formOpen, setFormOpen }) => {
+            if (!formOpen) return null;
+            return html`<div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-6 backdrop-blur-md"><div className="bg-white rounded-[2.5rem] max-w-lg w-full p-8 relative max-h-[90vh] overflow-y-auto shadow-2xl"><button onClick=${() => setFormOpen(false)} className="absolute top-6 right-6 text-slate-300 hover:text-slate-800 transition-colors"><${X} size=${28} /></button><${InteractiveFlow} setModalOpen=${setFormOpen} /></div></div>`;
+        };
 
-        <button
-          onClick=${() => setFormOpen(false)}
-          className="absolute top-4 right-4 text-gray-400 text-xl font-bold">
-          ×
-        </button>
+        const MainContent = () => {
+            const [formOpen, setFormOpen] = React.useState(false);
+            return html`
+                <div className="min-h-screen bg-white pb-20 md:pb-0">
+                    <${Header} />
+                    <${HeroSection} setFormOpen=${setFormOpen} />
+                    <${EventSection} />
+                    <${EmpathySection} />
+                    <${ChecklistSection} />
+                    <${DifferenceSection} />
+                    <${SummarySection} />
+                    <${AfterFirstLessonSection} />
+                    <${ComparisonSection} />
+                    <${CaseStudySection} />
+                    <${TrustSection} />
+                    <${NoticeSection} />
+                    <${FinalCTASection} setFormOpen=${setFormOpen} />
 
-        <h3 className="text-2xl font-black mb-6">
-          맞춤 골프 레슨 요청
-        </h3>
+                    <footer className="px-6 py-20 bg-gray-900 text-white">
+                        <div className="max-w-screen-xl mx-auto grid md:grid-cols-2 gap-12 border-b border-gray-800 pb-12 mb-12">
+                            <div>
+                                <h4 className="text-2xl font-black mb-4 tracking-tighter italic">스승님</h4>
+                                <p className="text-gray-400 font-bold">골퍼와 프로가 만나는 가장 정직한 방식.<br/>실패 없는 레슨 경험을 선사합니다.</p>
+                            </div>
+                            <div className="text-sm font-bold text-gray-500 space-y-2 text-left">
+                                <p>상호명: 스승님 (Suseungnim)</p>
+                                <p>법률 파트너: 법무법인 로투스</p>
+                                <p>© 2026 Suseungnim Corp. All rights reserved.</p>
+                            </div>
+                        </div>
+                    </footer>
+                    <div className="fixed bottom-6 left-6 right-6 z-50 md:hidden"><button onClick=${() => setFormOpen(true)} className="w-full gradient-blue py-5 rounded-2xl text-white font-black text-lg shadow-2xl flex items-center justify-center gap-2"><${Search} size=${20} /> AI 맞춤 스승님 찾기</button></div>
+                    <${RequestFormModal} formOpen=${formOpen} setFormOpen=${setFormOpen} />
+                </div>
+            `;
+        };
 
-        <form action="https://formspree.io/f/mbdakbon" method="POST" className="space-y-4">
-        <input type="hidden" name="_next" value="https://rlaeodn1015-oss.github.io/ssnim/" />
-
-          <input
-            name="name"
-            placeholder="이름"
-            required
-            className="w-full border rounded-xl p-3"
-          />
-
-          <input
-            name="phone"
-            placeholder="연락처"
-            required
-            className="w-full border rounded-xl p-3"
-          />
-
-          <input
-            name="region"
-            placeholder="희망 지역 (예: 강남)"
-            className="w-full border rounded-xl p-3"
-          />
-
-<input
-  name="price"
-  placeholder="희망 금액 (예: 10만원 / 15만원)"
-  required
-  className="w-full border rounded-xl p-3"
-/>
-
-          <select
-            name="experience"
-            required
-            className="w-full border rounded-xl p-3"
-          >
-            <option value="">골프 구력 선택</option>
-            <option>입문</option>
-            <option>100타</option>
-            <option>90타</option>
-            <option>80타</option>
-            <option>싱글</option>
-          </select>
-
-<select
-  name="lesson_type"
-  required
-  className="w-full border rounded-xl p-3"
->
-  <option value="">레슨 종류 선택</option>
-  <option>1:1 실내 레슨</option>
-  <option>실전 레슨 (필드)</option>
-</select>
-
-          <select
-            name="lesson_count"
-            className="w-full border rounded-xl p-3"
-          >
-            <option value="">희망 레슨 횟수</option>
-            <option>1회</option>
-            <option>3회</option>
-            <option>5회</option>
-            <option>10회</option>
-          </select>
-
-          <textarea
-            name="request"
-            placeholder="레슨 고민 / 요청사항 (예: 아이언 생크, 드라이버 슬라이스)"
-            className="w-full border rounded-xl p-3 h-24"
-          ></textarea>
-
-          <button
-            type="submit"
-            className="w-full bg-brand-blue text-white py-4 rounded-xl font-black text-lg">
-            요청 보내기
-          </button>
-
-        </form>
-
-      </div>
-
-    </div>
-  `;
-};
-
-      const LiveFloatingBar = () => html`
-        <div className="fixed left-0 right-0 z-50 md:hidden pointer-events-none" style=${{ bottom: "calc(var(--safe-bottom) + 92px)" }}>
-          <div className="px-4">
-            <div className="mx-auto max-w-md pointer-events-auto bg-white/90 backdrop-blur-md border border-gray-200 shadow-lg rounded-2xl px-4 py-2 text-xs font-bold text-gray-700 ssn-live-float ssn-shimmer no-overflow-wrap">
-              현재 29명 신규 신청 / 34명 상담 요청 / 165명 보는중
-            </div>
-          </div>
-        </div>
-      `;
-
-      const MobileFixedCTA = ({ setFormOpen }) => html`
-<div
-className="md:hidden fixed bottom-0 left-0 right-0 bg-gradient-to-t from-white via-white/95 to-transparent z-40 pointer-events-none"
-style=${{ paddingBottom: "calc(12px + var(--safe-bottom))" }}
->
-
-<div className="p-4 flex gap-3">
-
-<button
-onClick=${sharePage}
-className="pointer-events-auto min-w-[70px] bg-white border border-gray-200 px-5 py-5 rounded-2xl font-black text-sm shadow-md flex items-center justify-center"
->
-친구에게 공유하기
-</button>
-
-<button
-onClick=${() => setFormOpen(true)}
-className="pointer-events-auto flex-1 bg-brand-blue py-5 rounded-2xl text-white font-black text-center shadow-2xl transform active:scale-95 transition-transform flex items-center justify-center gap-2 text-lg"
->
-<${MessageCircle} size=${24} fill="currentColor" />
-맞춤 요청서 작성하기
-</button>
-
-</div>
-</div>
-`;
-
-      const App = () => {
-const [formOpen, setFormOpen] = React.useState(false);
-
-return html`
-<div className="min-h-screen bg-white selection:bg-brand-blue/10">
-
-  <${Header} />
-
-  <${HeroSection} />
-  <${EventSection} />
-  <${EmpathySection} />
-  <${ChecklistSection} />
-  <${DifferenceSection} />
-  <${SummarySection} />
-  <${AfterFirstLessonSection} />
-  <${ComparisonSection} />
-  <${CaseStudySection} />
-  <${TrustSection} />
-  <${NoticeSection} />
-
-  <${CTASection} setFormOpen=${setFormOpen} />
-
-  <${FooterSection} />
-
-  <${LiveFloatingBar} />
-
-  <${MobileFixedCTA} setFormOpen=${setFormOpen} />
-
-  <${RequestFormModal} formOpen=${formOpen} setFormOpen=${setFormOpen} />
-
-</div>
-`;
-};
-
-      const rootEl = document.getElementById("root");
-      if (!rootEl) throw new Error("root element not found");
-      createRoot(rootEl).render(html`<${React.StrictMode}><${App} /></${React.StrictMode}>`);
+        const rootEl = document.getElementById("root");
+        createRoot(rootEl).render(html`<${MainContent} />`);
     </script>
-  </body>
+</body>
 </html>
-
-
-
-
-
 
 
 
