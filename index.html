@@ -178,7 +178,7 @@
             Smartphone, HelpCircle, CheckCircle2, Filter, ArrowRight, PenLine, BadgeCheck, X,
             TrendingUp, Award, ShieldCheck, MessageCircle, Gift, Sparkles, ClipboardList,
             CreditCard, RefreshCcw, Info, Star, Check, Search, CalendarDays, MessageSquareText, ThumbsUp,
-            MapPin, Flag, Target, Clock, ChevronRight, UserCheck, ShieldAlert, Zap
+            MapPin, Flag, Target, Clock, ChevronRight, UserCheck, ShieldAlert, Zap, User, UserPlus
         } from "lucide-react";
 
         const html = htm.bind(React.createElement);
@@ -461,21 +461,19 @@
                                 AI 매칭 요청하기
                             </button>
                             <div className="flex items-center justify-center gap-3 text-slate-400 font-bold">
-    
-    <div className="flex -space-x-2">
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center border-2 border-white shadow-sm">
-            <User size={14} className="text-white" />
-        </div>
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center border-2 border-white shadow-sm">
-            <User size={14} className="text-white" />
-        </div>
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center border-2 border-white shadow-sm">
-            <UserPlus size={14} className="text-white" />
-        </div>
-    </div>
-
-    <span className="text-sm">5일간 122명 매칭 완료</span>
-</div>
+                                <div className="flex -space-x-2">
+                                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center border-2 border-white shadow-sm">
+                                        <${User} size=${14} className="text-white" />
+                                    </div>
+                                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center border-2 border-white shadow-sm">
+                                        <${User} size=${14} className="text-white" />
+                                    </div>
+                                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center border-2 border-white shadow-sm">
+                                        <${UserPlus} size=${14} className="text-white" />
+                                    </div>
+                                </div>
+                                <span className="text-sm">5일간 122명 매칭 완료</span>
+                            </div>
                         </div>
                     </div>
 
@@ -625,48 +623,33 @@
 
         const TrustSection = () => html`
             <section id="trust" className="px-5 py-32 bg-white text-left">
-                <div className="max-w-screen-xl mx-auto">
+                <div className="max-w-screen-xl mx-auto text-left">
                     <div className="grid lg:grid-cols-2 gap-20 items-center">
                         <div className="order-2 lg:order-1">
                             <img src="https://images.unsplash.com/photo-1589216532372-1c2a367900d8?auto=format&fit=crop&q=80&w=800" className="rounded-4xl shadow-2xl" alt="Legal Partnership" />
                         </div>
                         <div className="order-1 lg:order-2">
-    
-    <${ShieldCheck} size=${64} className="text-brand-blue mb-8" />
-
-    <p className="text-sm text-brand-blue font-black mb-4">
-        단순 연결 플랫폼이 아닙니다
-    </p>
-
-    <h2 className="text-3xl md:text-5xl font-black text-slate-850 mb-8 leading-tight">
-        대한민국 최초,<br />
-        <span className="text-brand-blue">법무·특허 기반 매칭 시스템</span>
-    </h2>
-
-    <p className="text-gray-500 text-lg md:text-xl font-bold mb-10 leading-relaxed">
-        스승님은 ‘법무법인 로투스’와의 파트너십과 
-        등록 특허 기반 매칭 시스템을 통해 
-        단순 연결이 아닌, 소비자의 선택과 결과까지 책임지는 구조를 만듭니다.
-    </p>
-
-    <div className="space-y-6">
-    
-    <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 font-black text-slate-700">
-        <${CheckCircle2} className="text-brand-blue" />
-        법무법인 로투스 공식 파트너십
-    </div>
-
-    <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 font-black text-slate-700">
-        <${CheckCircle2} className="text-brand-blue" />
-        특허 기반 AI 매칭 시스템 적용
-    </div>
-
-    <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 font-black text-slate-700">
-        <${CheckCircle2} className="text-brand-blue" />
-        분쟁·환불까지 고려한 안전한 레슨 구조
-    </div>
-
-</div>
+                            <${ShieldCheck} size=${64} className="text-brand-blue mb-8" />
+                            <p className="text-sm text-brand-blue font-black mb-4">단순 연결 플랫폼이 아닙니다</p>
+                            <h2 className="text-3xl md:text-5xl font-black text-slate-850 mb-8 leading-tight">
+                                대한민국 최초,<br />
+                                <span className="text-brand-blue">법무·특허 기반 매칭 시스템</span>
+                            </h2>
+                            <p className="text-gray-500 text-lg md:text-xl font-bold mb-10 leading-relaxed text-left">
+                                스승님은 ‘법무법인 로투스’와의 파트너십과 등록 특허 기반 매칭 시스템을 통해 단순 연결이 아닌, 소비자의 선택과 결과까지 책임지는 구조를 만듭니다.
+                            </p>
+                            <div className="space-y-6">
+                                <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 font-black text-slate-700">
+                                    <${CheckCircle2} className="text-brand-blue" /> 법무법인 로투스 공식 파트너십
+                                </div>
+                                <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 font-black text-slate-700">
+                                    <${CheckCircle2} className="text-brand-blue" /> 특허 기반 AI 매칭 시스템 적용
+                                </div>
+                                <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 font-black text-slate-700">
+                                    <${CheckCircle2} className="text-brand-blue" /> 분쟁·환불까지 고려한 안전한 레슨 구조
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
