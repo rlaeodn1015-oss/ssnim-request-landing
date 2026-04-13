@@ -517,11 +517,10 @@
             const [formData, setFormData] = React.useState({
                 location: '', lessonType: '', club: '', concern: '', schedule: ''
             });
-            // 🔥 유저 정보 저장을 위한 상태
-            const [userInfo, setUserInfo] = React.useState({
-                name: '',
-                contact: ''
-            });
+            // 🔥 유저 정보 및 재매칭 카운트 상태
+            const [userInfo, setUserInfo] = React.useState({ name: '', contact: '' });
+            const [rematchCount, setRematchCount] = React.useState(0);
+            
             const [results, setResults] = React.useState([]);
             const [selectedPro, setSelectedPro] = React.useState(null);
 
@@ -579,6 +578,9 @@
             };
 
             const rematch = () => {
+                // 🔥 재매칭 시 카운트 증가
+                setRematchCount(prev => prev + 1);
+                
                 const remaining = pros.filter(p => !results.some(r => r.id === p.id));
                 
                 const rescored = remaining.map(p => {
@@ -701,21 +703,21 @@
                             </div>
                         </div>
                         
-                        <!-- 🔥 이름 및 연락처 입력 UI -->
+                        <!-- 🔥 이름 및 연락처 입력 UI 추가 -->
                         <div className="space-y-3 mt-6">
-                          <p className="text-xs font-bold text-slate-400 mb-2 ml-1 uppercase tracking-widest">연락처 정보</p>
-                          <input
-                            placeholder="이름 또는 닉네임"
-                            className="w-full p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none transition-all"
-                            value=${userInfo.name}
-                            onInput=${(e) => setUserInfo({...userInfo, name: e.target.value})}
-                          />
-                          <input
-                            placeholder="카카오톡 아이디 또는 연락처"
-                            className="w-full p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none transition-all"
-                            value=${userInfo.contact}
-                            onInput=${(e) => setUserInfo({...userInfo, contact: e.target.value})}
-                          />
+                            <p className="text-xs font-bold text-slate-400 mb-2 ml-1 uppercase tracking-widest">연락처 정보</p>
+                            <input
+                                placeholder="이름"
+                                className="w-full p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none transition-all"
+                                value=${userInfo.name}
+                                onInput=${(e) => setUserInfo({...userInfo, name: e.target.value})}
+                            />
+                            <input
+                                placeholder="연락처"
+                                className="w-full p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none transition-all"
+                                value=${userInfo.contact}
+                                onInput=${(e) => setUserInfo({...userInfo, contact: e.target.value})}
+                            />
                         </div>
 
                         <div className="bg-blue-50/50 p-5 rounded-3xl border border-blue-100/50 mt-6">
@@ -824,14 +826,15 @@
                     </div>
                     
                     <div className="flex flex-col gap-3">
-                        <!-- 🔥 텔레그램 알림 발송 및 단계 이동 로직 -->
+                        <!-- 🔥 상담 시작 시 텔레그램 알림 및 구글 시트 데이터 전송 -->
                         <button 
                           disabled=${!selectedPro} 
                           onClick=${async () => {
-                            const message = `🔥 매칭 요청 발생\n\n👤 이름: ${userInfo.name}\n📞 연락처: ${userInfo.contact}\n\n📍 지역: ${formData.location}\n⛳ 레슨: ${formData.lessonType}\n🏌️ 클럽: ${formData.club}\n💥 문제: ${formData.concern}\n⏰ 시간: ${formData.schedule}\n\n🏆 선택 프로: ${selectedPro?.name}`;
+                            const message = `🔥 매칭 요청 발생\n\n👤 이름: ${userInfo.name}\n📞 연락처: ${userInfo.contact}\n\n📍 지역: ${formData.location}\n⛳ 레슨: ${formData.lessonType}\n🏌️ 클럽: ${formData.club}\n💥 문제: ${formData.concern}\n⏰ 시간: ${formData.schedule}\n\n🏆 선택 프로: ${selectedPro?.name}\n🔄 재매칭 횟수: ${rematchCount}`;
 
+                            // 1. 텔레그램 전송
                             try {
-                              await fetch("https://api.telegram.org/bot8696133005:AAF8Uh6gK0hufHuQyufAkmZhUcjGpYCAxzE/sendMessage", {
+                              fetch("https://api.telegram.org/bot8696133005:AAF8Uh6gK0hufHuQyufAkmZhUcjGpYCAxzE/sendMessage", {
                                 method: "POST",
                                 headers: { "Content-Type": "application/json" },
                                 body: JSON.stringify({
@@ -839,12 +842,27 @@
                                   text: message
                                 })
                               });
-                              setStep(7);
-                            } catch (e) {
-                              console.error("Telegram error:", e);
-                              // 전송 실패 시에도 UX를 위해 결과 화면으로는 이동
-                              setStep(7);
-                            }
+                            } catch (e) { console.error("Telegram error:", e); }
+
+                            // 2. 🔥 구글 시트 전송 (데이터 자동 저장)
+                            try {
+                              fetch("https://script.google.com/macros/s/AKfycbzckTUPCuDVecqABMxE4Qy0sQzSG0uAIWVlwUFbgFlmeZZxcMT5Xlsao71oe3pqovpX/exec", {
+                                method: "POST",
+                                mode: "no-cors", // GAS POST 특성상 no-cors 권장
+                                body: JSON.stringify({
+                                  name: userInfo?.name,
+                                  contact: userInfo?.contact,
+                                  location: formData.location,
+                                  lessonType: formData.lessonType,
+                                  club: formData.club,
+                                  concern: formData.concern,
+                                  selectedPro: selectedPro?.name,
+                                  rematchCount: rematchCount
+                                })
+                              });
+                            } catch (e) { console.error("Google Sheet error:", e); }
+
+                            setStep(7);
                           }} 
                           className="w-full gradient-blue text-white font-black py-4 md:py-6 text-base md:text-xl rounded-3xl shadow-2xl shadow-blue-300 active:scale-95 transition-all disabled:opacity-50"
                         >
@@ -866,7 +884,6 @@
                         스승님 운영팀이 카카오톡으로 곧 연락드립니다.
                     </p>
                     <div className="flex flex-col gap-4 text-center">
-                        <!-- 🔥 최종 전환 버튼: 카카오톡 상담 -->
                         <a href=${KAKAO_CHAT_URL} target="_blank" className="block w-full bg-[#FEE500] text-slate-850 font-black py-4 md:py-6 text-base md:text-xl rounded-3xl shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-3">
                             카카오톡 즉시 상담
                         </a>
@@ -973,5 +990,3 @@
     </script>
 </body>
 </html>
-
-
