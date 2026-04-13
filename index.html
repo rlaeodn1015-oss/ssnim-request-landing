@@ -600,20 +600,20 @@
                         <div className="clay-card p-10 bg-white/10 backdrop-blur-md border border-white/20 rounded-[3rem]">
                             <div className="flex items-center gap-4 mb-8">
                                 <div className="w-16 h-16 bg-brand-blue rounded-3xl flex items-center justify-center shadow-2xl shadow-blue-500/30"><${Target} className="text-white" size={32} /></div>
-                                <div className="font-black text-3xl italic tracking-tighter">Matching AI v2.0</div>
+                                <div className="font-black text-3xl italic tracking-tighter">Matching AI v1.0</div>
                             </div>
                             <div className="space-y-8">
                                 <div className="h-4 bg-white/10 rounded-full overflow-hidden">
-                                    <div className="h-full bg-brand-blue w-[85%] animate-pulse"></div>
+                                    <div className="h-full bg-brand-blue w-[71%] animate-pulse"></div>
                                 </div>
                                 <div className="grid grid-cols-2 gap-6">
                                     <div className="p-6 bg-white/5 rounded-3xl border border-white/10 text-center">
                                         <p className="text-[11px] text-slate-400 font-black uppercase mb-2 tracking-widest">분석 데이터</p>
-                                        <p className="text-2xl font-black">1.4M+</p>
+                                        <p className="text-2xl font-black">1.4K+</p>
                                     </div>
                                     <div className="p-6 bg-white/5 rounded-3xl border border-white/10 text-center">
                                         <p className="text-[11px] text-slate-400 font-black uppercase mb-2 tracking-widest">매칭 정확도</p>
-                                        <p className="text-2xl font-black">98.2%</p>
+                                        <p className="text-2xl font-black">84.3%</p>
                                     </div>
                                 </div>
                             </div>
@@ -631,23 +631,42 @@
                             <img src="https://images.unsplash.com/photo-1589216532372-1c2a367900d8?auto=format&fit=crop&q=80&w=800" className="rounded-4xl shadow-2xl" alt="Legal Partnership" />
                         </div>
                         <div className="order-1 lg:order-2">
-                            <${ShieldCheck} size=${64} className="text-brand-blue mb-8" />
-                            <h2 className="text-3xl md:text-5xl font-black text-slate-850 mb-8 leading-tight">
-                                대한민국 최초,<br />
-                                <span className="text-brand-blue">법률 파트너십</span> 운영
-                            </h2>
-                            <p className="text-gray-500 text-lg md:text-xl font-bold mb-10 leading-relaxed">
-                                스승님은 '법무법인 로투스'와 함께합니다. 투명한 결제 시스템과 공정한 환불 정책으로 골퍼의 권리를 철저히 보호합니다.
-                            </p>
-                            <div className="space-y-6">
-                                <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 font-black text-slate-700">
-                                    <${CheckCircle2} className="text-brand-blue" /> 공식 에스크로 결제 시스템
-                                </div>
-                                <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 font-black text-slate-700">
-                                    <${CheckCircle2} className="text-brand-blue" /> 불만족 시 운영팀 즉시 조율
-                                </div>
-                            </div>
-                        </div>
+    
+    <${ShieldCheck} size=${64} className="text-brand-blue mb-8" />
+
+    <p className="text-sm text-brand-blue font-black mb-4">
+        단순 연결 플랫폼이 아닙니다
+    </p>
+
+    <h2 className="text-3xl md:text-5xl font-black text-slate-850 mb-8 leading-tight">
+        대한민국 최초,<br />
+        <span className="text-brand-blue">법무·특허 기반 매칭 시스템</span>
+    </h2>
+
+    <p className="text-gray-500 text-lg md:text-xl font-bold mb-10 leading-relaxed">
+        스승님은 ‘법무법인 로투스’와의 파트너십과 
+        등록 특허 기반 매칭 시스템을 통해 
+        단순 연결이 아닌, 소비자의 선택과 결과까지 책임지는 구조를 만듭니다.
+    </p>
+
+    <div className="space-y-6">
+    
+    <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 font-black text-slate-700">
+        <${CheckCircle2} className="text-brand-blue" />
+        법무법인 로투스 공식 파트너십
+    </div>
+
+    <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 font-black text-slate-700">
+        <${CheckCircle2} className="text-brand-blue" />
+        특허 기반 AI 매칭 시스템 적용
+    </div>
+
+    <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 font-black text-slate-700">
+        <${CheckCircle2} className="text-brand-blue" />
+        분쟁·환불까지 고려한 안전한 레슨 구조
+    </div>
+
+</div>
                     </div>
                 </div>
             </section>
