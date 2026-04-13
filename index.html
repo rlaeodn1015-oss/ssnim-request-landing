@@ -166,7 +166,7 @@
             },
             { 
                 id: 4, 
-                name: "석준형 프로", 
+                name: "석준형 스승", 
                 style: "비거리, 드라이버, 파워스윙", 
                 price: 250000, 
                 location: "강남, 서초", 
@@ -592,7 +592,7 @@
             const generateReason = (p) => {
                 const arr = [];
                 if (p.location && p.location.includes(formData.location)) arr.push(`${formData.location} 지역 전문`);
-                if (p.tags && p.tags.some(t => t.includes(formData.concern))) arr.push(`${formData.concern} 해결 전문가`);
+                if (p.tags && p.tags.some(t => t.includes(formData.concern))) arr.push(`${formData.concern} 해결 전문 스승`);
                 if (p.style && p.style.includes(formData.lessonType)) arr.push(`${formData.lessonType} 특화`);
                 
                 if (arr.length < 2 && p.reasons?.length > 0) arr.push(p.reasons[0]);
