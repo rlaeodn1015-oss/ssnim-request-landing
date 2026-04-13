@@ -109,24 +109,24 @@
         const html = htm.bind(React.createElement);
         const KAKAO_CHAT_URL = "https://pf.kakao.com/_kxawRn/chat";
 
-        // 프로 데이터셋
         const pros = [
             { 
                 id: 1, 
                 name: "곽시랑 스승", 
                 style: "필드, 파3, 숏게임, 1:1", 
                 price: 100000, 
-                location: "강남", 
+                location: "강남, 서초", 
                 rating: 4.9, 
                 review: 142, 
                 img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&h=300&fit=crop", 
                 intro: "KLPGA 준회원, 드로우 교정 1위 전문가", 
-                reasons: [
-                    "드라이버 슬라이스 교정 성공 케이스 600건+",
-                    "강남 지역 1:1 레슨 최다 만족도 기록",
-                    "트랙맨 기반 데이터 분석 및 교정 변화 최적화"
-                ],
-                tags: ["필드레슨", "슬라이스교정"] 
+                career: "KLPGA 정회원 7년",
+                lessonCount: 2100,
+                specialty: "슬라이스 교정 전문",
+                priceRange: "10~12만원",
+                reviewHighlight: "한 달 만에 슬라이스 완쾌",
+                reasons: ["드라이버 슬라이스 교정 성공 케이스 600건+", "강남 지역 1:1 레슨 최다 만족도 기록", "트랙맨 기반 데이터 분석 최적화"],
+                tags: ["필드레슨", "슬라이스 교정", "드라이버"] 
             },
             { 
                 id: 2, 
@@ -138,12 +138,13 @@
                 review: 89, 
                 img: "https://images.unsplash.com/photo-1552058544-f2b08422138a?w=300&h=300&fit=crop", 
                 intro: "여성 골퍼 비거리 및 폼 교정 전문", 
-                reasons: [
-                    "여성 골퍼 특화 비거리 30m 향상 프로그램 운영",
-                    "송파 지역 90타대 입문자 탈출 후기 다수",
-                    "아이언 일관성 및 정확한 컨택 집중 레슨"
-                ],
-                tags: ["아이언", "숏게임", "스윙교정"] 
+                career: "KPGA 투어 프로 5년",
+                lessonCount: 1500,
+                specialty: "비거리 향상 전문",
+                priceRange: "13~15만원",
+                reviewHighlight: "비거리 30m 실질적 향상",
+                reasons: ["여성 골퍼 특화 비거리 향상 프로그램", "송파 지역 90타대 입문자 탈출 후기 다수", "아이언 일관성 집중 레슨"],
+                tags: ["롱아이언", "숏게임", "스윙교정", "초보레슨"] 
             },
             { 
                 id: 3, 
@@ -155,12 +156,139 @@
                 review: 215, 
                 img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop", 
                 intro: "어프로치 입스 극복 및 퍼팅 정밀 분석", 
-                reasons: [
-                    "어프로치 및 숏게임 정밀 매니지먼트 전문가",
-                    "싱글 플레이어를 위한 고급 숏게임 기술 전수",
-                    "분당 지역 파3 레슨 숏게임 마스터 1위"
-                ],
-                tags: ["숏게임", "초보레슨"] 
+                career: "숏게임 매니지먼트 석사",
+                lessonCount: 3200,
+                specialty: "어프로치/퍼터 전문",
+                priceRange: "12~14만원",
+                reviewHighlight: "퍼팅 수 평균 8개 감소",
+                reasons: ["어프로치 정밀 매니지먼트 전문가", "싱글 플레이어를 위한 고급 기술 전수", "분당 지역 숏게임 마스터 1위"],
+                tags: ["숏게임", "초보레슨", "생크", "퍼터"] 
+            },
+            { 
+                id: 4, 
+                name: "석준형 프로", 
+                style: "비거리, 드라이버, 파워스윙", 
+                price: 250000, 
+                location: "강남, 서초", 
+                rating: 5.0, 
+                review: 95, 
+                img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&fit=crop", 
+                intro: "GTOUR 대회 선수, 비거리 30m 보장", 
+                career: "현역 GTOUR 선수",
+                lessonCount: 850,
+                specialty: "파워 페이드/장타",
+                priceRange: "20~30만원",
+                reviewHighlight: "드라이버 비거리 270m 달성",
+                reasons: ["현역 선수의 실전 스윙 메커니즘", "장타를 위한 지면 반발력 활용법", "상급자용 정밀 데이터 분석"],
+                tags: ["드라이버", "비거리", "우드/유틸"] 
+            },
+            { 
+                id: 5, 
+                name: "홍주연 스승", 
+                style: "숏아이언, 비거리증가, 배치기 교정", 
+                price: 90000, 
+                location: "강남, 서초", 
+                rating: 4.9, 
+                review: 178, 
+                img: "https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?w=300&h=300&fit=crop", 
+                intro: "숏아이언 전문, 예쁜 스윙의 정석", 
+                career: "주니어 국가대표 출신",
+                lessonCount: 1800,
+                specialty: "기초 스윙 메커니즘",
+                priceRange: "8~10만원",
+                reviewHighlight: "인생에서 가장 예쁜 스윙",
+                reasons: ["기초가 탄탄한 스윙 궤도 형성", "유연성을 활용한 부드러운 스윙", "입문자 대상 최다 추천 기록"],
+                tags: ["초보레슨", "스윙교정", "키즈골프"] 
+            },
+            { 
+                id: 6, 
+                name: "양형철 스승", 
+                style: "필드, 코스매니지먼트, 싱글도전", 
+                price: 200000, 
+                location: "강남, 분당", 
+                rating: 5.0, 
+                review: 56, 
+                img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop", 
+                intro: "전 투어 프로, 실전 라운딩 전문", 
+                career: "전 KPGA 투어 프로",
+                lessonCount: 1100,
+                specialty: "필드 매니지먼트",
+                priceRange: "18~25만원",
+                reviewHighlight: "생애 첫 싱글 기록 성공",
+                reasons: ["실전 코스 공략 및 위기 관리", "프로급 라운딩 운영 기술 전수", "필드 집중 원포인트 레슨"],
+                tags: ["필드레슨", "숏게임", "9홀 필드레슨"] 
+            },
+            { 
+                id: 7, 
+                name: "조동요 스승", 
+                style: "퍼터, 숏게임, 멘탈코칭", 
+                price: 110000, 
+                location: "서초, 용인", 
+                rating: 4.8, 
+                review: 120, 
+                img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&h=300&fit=crop", 
+                intro: "퍼팅 스트로크 및 거리감 마스터", 
+                career: "스포츠 심리학 박사 수료",
+                lessonCount: 2500,
+                specialty: "퍼팅 입스 극복",
+                priceRange: "10~13만원",
+                reviewHighlight: "퍼팅 불안감 완전 해소",
+                reasons: ["심리적 압박감을 이기는 멘탈 관리", "퍼팅 라인 분석 및 정밀 타격", "숏게임 전담 집중 코칭"],
+                tags: ["퍼터", "숏게임", "퍼터레슨"] 
+            },
+            { 
+                id: 8, 
+                name: "공나연 프로", 
+                style: "아이언, 일관성, 정확도", 
+                price: 140000, 
+                location: "송파, 강남", 
+                rating: 4.6, 
+                review: 88, 
+                img: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=300&fit=crop", 
+                intro: "칼날 같은 아이언 샷, 정확도 향상", 
+                career: "US GTF 티칭 프로",
+                lessonCount: 1400,
+                specialty: "아이언 컨택 전문가",
+                priceRange: "12~16만원",
+                reviewHighlight: "아이언 정타 확률 80% 향상",
+                reasons: ["정확한 임팩트 타이밍 교정", "아이언 비거리 조절 및 방향성", "데이터 기반 샷 분석 피드백"],
+                tags: ["숏아이언", "롱아이언", "스윙교정"] 
+            },
+            { 
+                id: 9, 
+                name: "이원영 스승", 
+                style: "우드, 유틸리티, 여성골퍼", 
+                price: 120000, 
+                location: "분당, 용인", 
+                rating: 4.9, 
+                review: 154, 
+                img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop", 
+                intro: "어려운 우드/유틸리티 쉽게 치기", 
+                career: "KLPGA 클래스 A 프로",
+                lessonCount: 2200,
+                specialty: "여성 골퍼 특화",
+                priceRange: "11~14만원",
+                reviewHighlight: "우드가 드라이버만큼 쉬워짐",
+                reasons: ["우드/유틸리티 컨택 및 리듬", "여성 골퍼 맞춤형 근력 활용법", "친절하고 체계적인 단계별 레슨"],
+                tags: ["우드/유틸", "비거리", "초보레슨"] 
+            },
+            { 
+                id: 10, 
+                name: "유민혁 스승", 
+                style: "생크 교정, 드라이버, 비거리", 
+                price: 180000, 
+                location: "서초, 강남", 
+                rating: 5.0, 
+                review: 42, 
+                img: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=300&h=300&fit=crop", 
+                intro: "고질적인 슬라이스/생크 1회 해결", 
+                career: "스윙 분석 데이터 전문가",
+                lessonCount: 950,
+                specialty: "구질 교정 긴급 처방",
+                priceRange: "15~20만원",
+                reviewHighlight: "단 한 번의 레슨으로 생크 탈출",
+                reasons: ["생크 원인 즉각 파악 및 교정", "슬라이스 궤도 수정 전문가", "원포인트 레슨 최고 만족도"],
+                tags: ["생크", "슬라이스 교정", "1:1 레슨"] 
             }
         ];
 
@@ -358,7 +486,7 @@
                 <div className="max-w-screen-xl mx-auto">
                     <div className="grid lg:grid-cols-2 gap-20 items-center">
                         <div className="order-2 lg:order-1">
-                            <img src="https://images.unsplash.com/photo-1589216532372-1c2a367900d8?auto=format&fit=crop&q=80&w=800" className="rounded-4xl shadow-2xl" alt="Legal Partnership" />
+                            <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&q=80&w=800" className="rounded-4xl shadow-2xl" alt="Legal Partnership" />
                         </div>
                         <div className="order-1 lg:order-2 text-left">
                             <${ShieldCheck} size=${64} className="text-brand-blue mb-8" />
@@ -389,6 +517,11 @@
             const [formData, setFormData] = React.useState({
                 location: '', lessonType: '', club: '', concern: '', schedule: ''
             });
+            // 🔥 유저 정보 저장을 위한 상태
+            const [userInfo, setUserInfo] = React.useState({
+                name: '',
+                contact: ''
+            });
             const [results, setResults] = React.useState([]);
             const [selectedPro, setSelectedPro] = React.useState(null);
 
@@ -403,19 +536,66 @@
             const nextStep = () => setStep(prev => prev + 1);
             const prevStep = () => setStep(prev => prev - 1);
 
+            const generateReason = (p) => {
+                const arr = [];
+                if (p.location && p.location.includes(formData.location)) arr.push(`${formData.location} 지역 전문`);
+                if (p.tags && p.tags.some(t => t.includes(formData.concern))) arr.push(`${formData.concern} 해결 전문가`);
+                if (p.style && p.style.includes(formData.lessonType)) arr.push(`${formData.lessonType} 특화`);
+                
+                if (arr.length < 2 && p.reasons?.length > 0) arr.push(p.reasons[0]);
+                if (arr.length < 3 && p.reviewHighlight) arr.push(p.reviewHighlight);
+
+                return arr.slice(0, 3);
+            };
+
             const startAnalysis = () => {
                 setStep(5);
                 let idx = 0;
+                
                 const interval = setInterval(() => {
                     idx++;
                     if (idx < loadingMessages.length) {
                         setLoadingIdx(idx);
                     } else {
                         clearInterval(interval);
-                        setResults(pros);
+                        
+                        const scoredPros = pros.map(p => {
+                            let score = 0;
+                            if (p.location.includes(formData.location)) score += 3;
+                            if (p.style.includes(formData.lessonType)) score += 2;
+                            if (p.tags.some(tag => tag.includes(formData.concern) || tag.includes(formData.club))) score += 5;
+                            score += Math.random();
+                            return { ...p, score };
+                        });
+
+                        const matched = scoredPros
+                            .sort((a, b) => b.score - a.score)
+                            .slice(0, 3);
+
+                        setResults(matched);
                         setStep(6);
                     }
                 }, 1000);
+            };
+
+            const rematch = () => {
+                const remaining = pros.filter(p => !results.some(r => r.id === p.id));
+                
+                const rescored = remaining.map(p => {
+                    let score = 0;
+                    if (p.location.includes(formData.location)) score += 3;
+                    if (p.style.includes(formData.lessonType)) score += 2;
+                    if (p.tags.some(tag => tag.includes(formData.concern) || tag.includes(formData.club))) score += 5;
+                    score += Math.random();
+                    return { ...p, score };
+                });
+
+                const newMatch = rescored
+                    .sort((a, b) => b.score - a.score)
+                    .slice(0, 3);
+
+                setResults(newMatch);
+                setSelectedPro(null);
             };
 
             const CumulativeUI = () => {
@@ -464,7 +644,7 @@
                             </div>
                         </div>
                     </div>
-                    <button disabled=${!formData.location || !formData.lessonType} onClick=${nextStep} className="w-full mt-12 gradient-blue text-white font-black py-5 rounded-2xl shadow-xl disabled:opacity-30 transition-all flex items-center justify-center gap-2">다음 단계로 이동 <${ChevronRight} size=${18} /></button>
+                    <button disabled=${!formData.location || !formData.lessonType} onClick=${nextStep} className="w-full mt-12 gradient-blue text-white font-black py-4 md:py-6 text-base md:text-xl rounded-2xl shadow-xl disabled:opacity-30 transition-all flex items-center justify-center gap-2">다음 단계로 이동 <${ChevronRight} size=${18} /></button>
                 </div>
             `;
 
@@ -496,8 +676,8 @@
                         </div>
                     </div>
                     <div className="flex gap-4 mt-12">
-                        <button onClick=${prevStep} className="flex-1 bg-slate-100 text-slate-500 font-black py-5 rounded-2xl">이전</button>
-                        <button disabled=${!formData.club || !formData.concern} onClick=${nextStep} className="flex-[2] gradient-blue text-white font-black py-5 rounded-2xl shadow-xl disabled:opacity-30">다음 단계로 이동</button>
+                        <button onClick=${prevStep} className="flex-1 bg-slate-100 text-slate-500 font-black py-4 md:py-6 rounded-2xl">이전</button>
+                        <button disabled=${!formData.club || !formData.concern} onClick=${nextStep} className="flex-[2] gradient-blue text-white font-black py-4 md:py-6 text-base md:text-xl rounded-2xl shadow-xl disabled:opacity-30">다음 단계로 이동</button>
                     </div>
                 </div>
             `;
@@ -520,14 +700,33 @@
                                 `)}
                             </div>
                         </div>
-                        <div className="bg-blue-50/50 p-5 rounded-3xl border border-blue-100/50">
+                        
+                        <!-- 🔥 이름 및 연락처 입력 UI -->
+                        <div className="space-y-3 mt-6">
+                          <p className="text-xs font-bold text-slate-400 mb-2 ml-1 uppercase tracking-widest">연락처 정보</p>
+                          <input
+                            placeholder="이름 또는 닉네임"
+                            className="w-full p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none transition-all"
+                            value=${userInfo.name}
+                            onInput=${(e) => setUserInfo({...userInfo, name: e.target.value})}
+                          />
+                          <input
+                            placeholder="카카오톡 아이디 또는 연락처"
+                            className="w-full p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none transition-all"
+                            value=${userInfo.contact}
+                            onInput=${(e) => setUserInfo({...userInfo, contact: e.target.value})}
+                          />
+                        </div>
+
+                        <div className="bg-blue-50/50 p-5 rounded-3xl border border-blue-100/50 mt-6">
                             <p className="text-brand-blue font-black text-[11px] mb-2 flex items-center gap-2 uppercase tracking-widest"><${ShieldCheck} size=${14} /> AI 매칭 보안 안내</p>
                             <p className="text-blue-700/70 text-xs font-bold leading-relaxed">회원님의 정보는 안전하게 보호되며, 매칭 확률이 가장 높은 스승님을 찾는 데만 활용됩니다.</p>
                         </div>
                     </div>
                     <div className="flex gap-4 mt-12">
-                        <button onClick=${prevStep} className="flex-1 bg-slate-100 text-slate-500 font-black py-5 rounded-2xl">이전</button>
-                        <button disabled=${!formData.schedule} onClick=${nextStep} className="flex-[2] gradient-blue text-white font-black py-5 rounded-2xl shadow-xl disabled:opacity-30">의뢰서 작성 완료</button>
+                        <button onClick=${prevStep} className="flex-1 bg-slate-100 text-slate-500 font-black py-4 md:py-6 rounded-2xl">이전</button>
+                        <!-- 🔥 필수 정보 입력 확인 후 활성화 -->
+                        <button disabled=${!formData.schedule || !userInfo.name || !userInfo.contact} onClick=${nextStep} className="flex-[2] gradient-blue text-white font-black py-4 md:py-6 text-base md:text-xl rounded-2xl shadow-xl disabled:opacity-30">의뢰서 작성 완료</button>
                     </div>
                 </div>
             `;
@@ -540,6 +739,10 @@
                     
                     <div className="bg-slate-50 rounded-[2.5rem] p-8 text-left mb-10 space-y-4 border border-slate-100">
                         <div className="flex justify-between items-center text-sm">
+                            <span className="text-slate-400 font-bold">신청인</span>
+                            <span className="font-black text-slate-700">${userInfo.name}님</span>
+                        </div>
+                        <div className="flex justify-between items-center text-sm border-t border-slate-200/50 pt-4">
                             <span className="text-slate-400 font-bold">지역 및 형태</span>
                             <span className="font-black text-slate-700">${formData.location} / ${formData.lessonType}</span>
                         </div>
@@ -557,7 +760,7 @@
                         <p className="text-brand-blue text-[11px] font-black tracking-tighter flex items-center justify-center gap-1">
                             <${ShieldCheck} size=${14} /> 이 요청서는 실제 스승님 추천 매칭에 사용됩니다
                         </p>
-                        <button onClick=${startAnalysis} className="w-full gradient-blue text-white font-black py-6 rounded-3xl shadow-2xl shadow-blue-200 text-xl flex items-center justify-center gap-3 active:scale-95 transition-all">
+                        <button onClick=${startAnalysis} className="w-full gradient-blue text-white font-black py-4 md:py-6 text-base md:text-xl rounded-3xl shadow-2xl shadow-blue-200 flex items-center justify-center gap-3 active:scale-95 transition-all">
                             → 맞춤 스승님 찾기 시작
                         </button>
                     </div>
@@ -586,39 +789,71 @@
             if (step === 6) return html`
                 <div className="animate-slide-up text-left">
                     <h3 className="text-2xl font-black text-slate-800 mb-8 flex items-center gap-3 tracking-tight">AI 추천 스승님 <span className="text-brand-blue bg-blue-50 px-3 py-1 rounded-full text-[10px] uppercase">Best 3</span></h3>
-                    <div className="space-y-5 mb-10">
+                    <div className="space-y-4 mb-6">
                         ${results.map(p => html`
-                            <div key=${p.id} onClick=${() => setSelectedPro(p)} className=${`p-6 rounded-[2.5rem] border-2 transition-all cursor-pointer flex flex-col gap-5 ${selectedPro?.id === p.id ? 'border-brand-blue bg-blue-50 ring-8 ring-blue-50/50' : 'border-slate-50 bg-white hover:border-slate-100 shadow-sm'}`}>
-                                <div className="flex items-center gap-5">
-                                    <img src=${p.img} className="w-20 h-20 rounded-3xl object-cover shadow-lg" />
+                            <div key=${p.id} onClick=${() => setSelectedPro(p)} className=${`p-4 md:p-6 rounded-[2.5rem] border-2 transition-all cursor-pointer flex flex-col gap-3 md:gap-5 active:scale-95 no-overflow-wrap ${selectedPro?.id === p.id ? 'border-brand-blue bg-blue-50 ring-8 ring-blue-50/50' : 'border-slate-50 bg-white hover:border-slate-100 shadow-sm'}`}>
+                                <div className="flex items-center gap-4 md:gap-5">
+                                    <img src=${p.img} className="w-16 h-16 md:w-20 md:h-20 rounded-2xl md:rounded-3xl object-cover shadow-lg" />
                                     <div className="flex-1">
-                                        <div className="flex justify-between items-start mb-2">
-                                            <h4 className="font-black text-slate-800 text-xl">${p.name}</h4>
-                                            <div className="flex items-center text-amber-400 font-black text-sm gap-1"><${Star} size=${16} fill="currentColor" /> ${p.rating}</div>
+                                        <div className="flex justify-between items-center mb-1">
+                                            <div className="flex items-center gap-2">
+                                                <h4 className="font-black text-slate-800 text-lg md:text-xl">${p.name}</h4>
+                                                ${selectedPro?.id === p.id && html`<span className="text-[10px] font-black text-white bg-brand-blue px-2 py-0.5 rounded-full">선택됨</span>`}
+                                            </div>
+                                            <div className="flex items-center text-amber-400 font-black text-sm gap-1"><${Star} size=${14} fill="currentColor" /> ${p.rating}</div>
                                         </div>
-                                        <p className="text-slate-500 text-xs font-bold line-clamp-1 mb-2">"${p.intro}"</p>
-                                        <div className="flex gap-2">
-                                            ${p.tags.map(t => html`<span key=${t} className="text-[10px] font-black text-brand-blue bg-white border border-blue-100 px-2.5 py-1 rounded-full shadow-sm">#${t}</span>`)}
+                                        <div className="text-[10px] text-slate-500 font-bold mb-2 flex flex-col gap-0.5">
+                                            <p className="line-clamp-1">🏆 ${p.career}</p>
+                                            <p className="line-clamp-1">📊 누적 레슨 ${p.lessonCount.toLocaleString()}회</p>
+                                        </div>
+                                        <div className="flex flex-wrap gap-1 md:gap-2">
+                                            ${p.tags.map(t => html`<span key=${t} className="text-[9px] md:text-[10px] font-black text-brand-blue bg-white border border-blue-100 px-2 py-0.5 rounded-full shadow-sm">#${t}</span>`)}
                                         </div>
                                     </div>
-                                    ${selectedPro?.id === p.id && html`<div className="w-10 h-10 bg-brand-blue rounded-full flex items-center justify-center text-white shadow-lg"><${Check} size=${24} strokeWidth=${4} /></div>`}
                                 </div>
                                 
-                                <div className=${`p-4 rounded-2xl border ${selectedPro?.id === p.id ? 'bg-white border-blue-100' : 'bg-slate-50/50 border-slate-100'}`}>
-                                    <p className="text-[11px] font-black text-slate-400 mb-3 uppercase tracking-widest flex items-center gap-2"><${TrendingUp} size=${12} /> 추천 이유</p>
-                                    <ul className="space-y-2">
-                                        ${p.reasons.map((reason, idx) => html`
-                                            <li key=${idx} className="text-xs font-bold text-slate-600 flex items-start gap-2 leading-snug">
-                                                <${Check} className="text-brand-blue shrink-0 mt-0.5" size=${14} />
-                                                ${reason}
-                                            </li>
-                                        `)}
-                                    </ul>
+                                <div className="flex flex-wrap gap-2 mt-1">
+                                    ${generateReason(p).map(r => html`
+                                        <span className="text-[10px] md:text-[11px] font-bold bg-blue-50 text-brand-blue px-3 py-1 rounded-full border border-blue-100">
+                                            ${r}
+                                        </span>
+                                    `)}
                                 </div>
                             </div>
                         `)}
                     </div>
-                    <button disabled=${!selectedPro} onClick=${() => setStep(7)} className="w-full gradient-blue text-white font-black py-6 rounded-3xl shadow-2xl shadow-blue-200 text-xl active:scale-95 transition-all">스승님과 상담 시작하기</button>
+                    
+                    <div className="flex flex-col gap-3">
+                        <!-- 🔥 텔레그램 알림 발송 및 단계 이동 로직 -->
+                        <button 
+                          disabled=${!selectedPro} 
+                          onClick=${async () => {
+                            const message = `🔥 매칭 요청 발생\n\n👤 이름: ${userInfo.name}\n📞 연락처: ${userInfo.contact}\n\n📍 지역: ${formData.location}\n⛳ 레슨: ${formData.lessonType}\n🏌️ 클럽: ${formData.club}\n💥 문제: ${formData.concern}\n⏰ 시간: ${formData.schedule}\n\n🏆 선택 프로: ${selectedPro?.name}`;
+
+                            try {
+                              await fetch("https://api.telegram.org/bot8696133005:AAF8Uh6gK0hufHuQyufAkmZhUcjGpYCAxzE/sendMessage", {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({
+                                  chat_id: "5955006042",
+                                  text: message
+                                })
+                              });
+                              setStep(7);
+                            } catch (e) {
+                              console.error("Telegram error:", e);
+                              // 전송 실패 시에도 UX를 위해 결과 화면으로는 이동
+                              setStep(7);
+                            }
+                          }} 
+                          className="w-full gradient-blue text-white font-black py-4 md:py-6 text-base md:text-xl rounded-3xl shadow-2xl shadow-blue-300 active:scale-95 transition-all disabled:opacity-50"
+                        >
+                          스승님과 상담 시작하기
+                        </button>
+                        <button onClick=${rematch} className="w-full bg-slate-100 text-slate-700 font-black py-3 md:py-4 rounded-3xl hover:bg-slate-200 transition-all flex items-center justify-center gap-2 text-xs md:text-sm">
+                            <${RefreshCcw} size=${16} /> 다른 스승님 추천받기
+                        </button>
+                    </div>
                 </div>
             `;
 
@@ -631,7 +866,10 @@
                         스승님 운영팀이 카카오톡으로 곧 연락드립니다.
                     </p>
                     <div className="flex flex-col gap-4 text-center">
-                        <a href=${KAKAO_CHAT_URL} className="block w-full bg-[#FEE500] text-slate-850 font-black py-6 rounded-3xl shadow-xl hover:scale-105 transition-all text-xl">카카오톡 즉시 상담</a>
+                        <!-- 🔥 최종 전환 버튼: 카카오톡 상담 -->
+                        <a href=${KAKAO_CHAT_URL} target="_blank" className="block w-full bg-[#FEE500] text-slate-850 font-black py-4 md:py-6 text-base md:text-xl rounded-3xl shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-3">
+                            카카오톡 즉시 상담
+                        </a>
                         <button onClick=${() => setModalOpen(false)} className="text-slate-400 font-bold text-sm">홈으로 돌아가기</button>
                     </div>
                 </div>
@@ -735,7 +973,5 @@
     </script>
 </body>
 </html>
-
-
 
 
