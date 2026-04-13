@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>스승님 - 맞춤 골프레슨 매칭 & 결제</title>
+    <title>스승님 - 결과로 증명하는 맞춤 골프레슨 AI 매칭</title>
 
-    <meta name="description" content="조건을 먼저 정하고 1회 레슨으로 확인하는 골프레슨 매칭 서비스">
+    <meta name="description" content="버려지는 레슨비 0원. 내 스윙 고민에 딱 맞는 검증된 프로만 AI가 정밀 매칭합니다.">
     <meta property="og:type" content="website">
     <meta property="og:title" content="스승님 - 맞춤 골프레슨 매칭">
-    <meta property="og:description" content="요청서 기반 맞춤 골프레슨 매칭 서비스">
-    <meta property="og:image" content="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/request1.jpg">
-    <meta property="og:url" content="https://rlaeodn1015-oss.github.io/ssnim-request-landing/">
+    <meta property="og:description" content="요청서 한 장으로 찾는 인생 스승님. AI 기반 정밀 매칭 시스템.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1535131749006-b7f58c99034b?auto=format&fit=crop&q=80&w=1200">
+    <meta property="og:url" content="https://ssnim.golf">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -20,7 +20,8 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: { "brand-blue": "#0066FF", "brand-emerald": "#10b981" },
+                    colors: { "brand-blue": "#0066FF", "brand-emerald": "#10b981", "slate-850": "#1e293b" },
+                    borderRadius: { '3xl': '1.5rem', '4xl': '2rem' }
                 },
             },
         };
@@ -28,68 +29,55 @@
 
     <style>
         body {
-            font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
-              "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji",
-              "Segoe UI Symbol", sans-serif;
+            font-family: "Pretendard", sans-serif;
             background: #fff;
-            color: #1a1a1a;
+            color: #111827;
             -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
         }
         .clay-card {
-            background: #fff;
+            background: #ffffff;
             border-radius: 2rem;
-            box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 102, 255, 0.05);
         }
-        .clay-icon {
-            background: #f0f4ff;
-            box-shadow: inset 5px 5px 10px #e0e7ff, inset -5px -5px 10px #ffffff;
-            border-radius: 1.5rem;
-        }
-        .pro-card.selected { border: 3px solid #0066FF; background-color: #f0f7ff; }
         .gradient-blue { background: linear-gradient(135deg, #0066FF 0%, #004dc2 100%); }
         
-        .option-btn {
-            border: 2px solid #f1f5f9;
-            transition: all 0.2s ease;
-        }
-        .option-btn.active {
-            border-color: #0066FF;
-            background-color: #f0f7ff;
-            color: #0066FF;
-        }
-        
         @keyframes ssnimHeroFloat {
-            0%, 100% { transform: translateY(0) rotate(-3deg); }
-            50% { transform: translateY(-10px) rotate(-3deg); }
+            0%, 100% { transform: translateY(0) rotate(-2deg); }
+            50% { transform: translateY(-15px) rotate(-1deg); }
         }
-        .ssn-hero-float { animation: ssnimHeroFloat 4.2s ease-in-out infinite; }
+        .ssn-hero-float { animation: ssnimHeroFloat 5s ease-in-out infinite; }
         
-        @keyframes ssnimFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-        .ssn-live-float { animation: ssnimFloat 3.2s ease-in-out infinite; }
-
-        @keyframes ssnimShimmer {
-            0% { transform: translateX(-120%); opacity: 0; }
-            10% { opacity: 0.25; }
-            50% { opacity: 0.25; }
-            60% { opacity: 0; }
-            100% { transform: translateX(120%); opacity: 0; }
+        @keyframes ssnimPulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
         }
-        .ssn-shimmer { position: relative; overflow: hidden; }
-        .ssn-shimmer::after {
-            content: ""; position: absolute; top: -40%; left: -60%; width: 60%; height: 180%;
-            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.06), transparent);
-            transform: skewX(-18deg); animation: ssnimShimmer 7.5s ease-in-out infinite; pointer-events: none;
-        }
+        .ssn-pulse { animation: ssnimPulse 2s infinite; }
 
-        @keyframes slide-up { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        .animate-slide-up { animation: slide-up 0.4s cubic-bezier(0, 0, 0.2, 1); }
+        @keyframes slide-up { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .animate-slide-up { animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
         
-        @keyframes pop { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .animate-pop { animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-
-        section[id] { scroll-margin-top: 80px; }
         .no-overflow-wrap { overflow-wrap: anywhere; word-break: keep-all; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #0066FF; border-radius: 10px; }
+
+        /* Summary Bar Sticky Simulation */
+        .summary-chip {
+            background: #f0f7ff;
+            color: #0066FF;
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-size: 11px;
+            font-weight: 800;
+            border: 1px solid #e0efff;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
     </style>
 
     <script type="importmap">
@@ -104,7 +92,7 @@
     </script>
 </head>
 
-<body class="overflow-x-hidden">
+<body class="overflow-x-hidden bg-white">
     <div id="root"></div>
 
     <script type="module">
@@ -115,266 +103,146 @@
             Smartphone, HelpCircle, CheckCircle2, Filter, ArrowRight, PenLine, BadgeCheck, X,
             TrendingUp, Award, ShieldCheck, MessageCircle, Gift, Sparkles, ClipboardList,
             CreditCard, RefreshCcw, Info, Star, Check, Search, CalendarDays, MessageSquareText, ThumbsUp,
-            MapPin, Flag, Target, Clock, ChevronRight
+            MapPin, Flag, Target, Clock, ChevronRight, UserCheck, ShieldAlert, Zap
         } from "lucide-react";
 
         const html = htm.bind(React.createElement);
         const KAKAO_CHAT_URL = "https://pf.kakao.com/_kxawRn/chat";
-        const APPSTORE_URL = "https://apps.apple.com/kr/app/%EC%8A%A4%EC%8A%B9%EB%8B%98/id6743513759";
-        const PLAY_URL = "https://play.google.com/store/apps/details?id=com.ssnim.lesson";
 
-        // --- 데이터셋 ---
+        // 프로 데이터셋
         const pros = [
-            { id: 1, name: "곽시랑 프로", style: "필드", price: 150000, location: "강남", rating: 4.9, review: 128, img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=120&h=120&fit=crop", intro: "실전 필드 레슨 및 드라이버 교정 전문가", tags: ["필드레슨", "드라이버"] },
-            { id: 2, name: "조이현 프로", style: "아이언", price: 120000, location: "강남", rating: 4.8, review: 95, img: "https://images.unsplash.com/photo-1552058544-f2b08422138a?w=120&h=120&fit=crop", intro: "아이언 일관성 및 생크 교정 특화", tags: ["아이언", "생크교정"] },
-            { id: 3, name: "김프로", style: "비거리", price: 100000, location: "분당", rating: 4.7, review: 210, img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&h=120&fit=crop", intro: "비거리 30m 증대 솔루션 전문", tags: ["비거리", "드라이버"] },
-            { id: 4, name: "이마스터", style: "퍼팅", price: 130000, location: "용인", rating: 5.0, review: 56, img: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=120&h=120&fit=crop", intro: "숏게임 및 퍼팅 스트로크 마스터", tags: ["퍼팅", "숏게임"] },
-            { id: 5, name: "박레슨", style: "9홀", price: 180000, location: "분당", rating: 4.9, review: 142, img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&h=120&fit=crop", intro: "KPGA 투어 프로의 정밀한 필드 매니지먼트", tags: ["9홀레슨", "어프로치"] },
-            { id: 6, name: "최정밀 프로", style: "1:1", price: 110000, location: "영등포", rating: 4.6, review: 88, img: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=120&h=120&fit=crop", intro: "트랙맨 분석 기반의 실내 집중 교정", tags: ["1:1레슨", "스윙교정"] }
+            { 
+                id: 1, 
+                name: "강현우 프로", 
+                style: "필드", 
+                price: 150000, 
+                location: "강남", 
+                rating: 4.9, 
+                review: 142, 
+                img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&h=300&fit=crop", 
+                intro: "KPGA 투어 출신, 슬라이스 교정 1위 전문가", 
+                reasons: [
+                    "드라이버 슬라이스 교정 성공 케이스 300건 이상",
+                    "강남 지역 실전 필드 레슨 최다 만족도 기록",
+                    "트랙맨 기반 데이터 분석으로 스윙 폼 최적화"
+                ],
+                tags: ["필드레슨", "슬라이스교정"] 
+            },
+            { 
+                id: 2, 
+                name: "이미소 프로", 
+                style: "아이언", 
+                price: 120000, 
+                location: "송파", 
+                rating: 5.0, 
+                review: 89, 
+                img: "https://images.unsplash.com/photo-1552058544-f2b08422138a?w=300&h=300&fit=crop", 
+                intro: "여성 골퍼 비거리 및 폼 교정 전문", 
+                reasons: [
+                    "여성 골퍼 특화 비거리 30m 향상 프로그램 운영",
+                    "송파 지역 90타대 입문자 탈출 후기 다수",
+                    "아이언 일관성 및 정확한 컨택 집중 레슨"
+                ],
+                tags: ["아이언", "폼교정"] 
+            },
+            { 
+                id: 3, 
+                name: "박성준 프로", 
+                style: "숏게임", 
+                price: 100000, 
+                location: "분당", 
+                rating: 4.8, 
+                review: 215, 
+                img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop", 
+                intro: "어프로치 입스 극복 및 퍼팅 정밀 분석", 
+                reasons: [
+                    "어프로치 및 숏게임 정밀 매니지먼트 전문가",
+                    "싱글 플레이어를 위한 고급 숏게임 기술 전수",
+                    "분당 지역 파3 레슨 숏게임 마스터 1위"
+                ],
+                tags: ["숏게임", "퍼팅"] 
+            }
         ];
 
-        // --- 컴포넌트: 헤더 ---
         const Header = () => html`
-            <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
-                <div className="max-w-screen-xl mx-auto px-6 h-16 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 bg-brand-blue rounded-lg flex items-center justify-center text-white font-black italic text-sm">S</div>
-                        <span className="text-xl font-black tracking-tighter">스승님</span>
+            <header className="fixed top-0 left-0 right-0 z-[60] bg-white/90 backdrop-blur-xl border-b border-gray-100">
+                <div className="max-w-screen-xl mx-auto px-5 h-16 md:h-20 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-brand-blue rounded-xl flex items-center justify-center text-white font-black italic text-lg shadow-lg shadow-blue-200">S</div>
+                        <span className="text-2xl font-black tracking-tighter text-slate-850">스승님</span>
                     </div>
-                    <nav className="hidden md:flex items-center gap-8 text-sm font-bold text-gray-500">
+                    <nav className="hidden lg:flex items-center gap-10 text-[15px] font-bold text-gray-500">
                         <a href="#event" className="hover:text-brand-blue transition-colors">이벤트</a>
-                        <a href="#workflow" className="hover:text-brand-blue transition-colors">이용안내</a>
-                        <a href="#cases" className="hover:text-brand-blue transition-colors">사례보기</a>
-                        <a href="#trust" className="hover:text-brand-blue transition-colors">운영정책</a>
+                        <a href="#features" className="hover:text-brand-blue transition-colors">매칭 시스템</a>
+                        <a href="#trust" className="hover:text-brand-blue transition-colors">안심 정책</a>
+                        <a href="#cases" className="hover:text-brand-blue transition-colors">성공 사례</a>
                     </nav>
-                    <a href=${KAKAO_CHAT_URL} className="bg-brand-blue text-white px-5 py-2 rounded-full font-bold text-sm">상담원 호출</a>
+                    <a href=${KAKAO_CHAT_URL} className="bg-slate-100 text-slate-800 px-6 py-2.5 rounded-full font-bold text-sm hover:bg-slate-200 transition-all hidden md:block">
+                        1:1 문의하기
+                    </a>
                 </div>
             </header>
         `;
 
-        // --- 컴포넌트: 메인 히어로 ---
         const HeroSection = ({ setFormOpen }) => html`
-            <section className="relative px-6 pt-32 pb-24 md:pt-48 md:pb-40 bg-white overflow-hidden">
-                <div className="max-w-screen-xl mx-auto grid md:grid-cols-2 gap-12 items-center">
-                    <div className="text-center md:text-left">
-                        <div className="inline-block px-4 py-1 mb-5 bg-blue-50 text-brand-blue font-black rounded-full text-sm">
-                            현재 강남·서초·송파 전담 운영 중
+            <section className="relative px-5 pt-32 pb-20 md:pt-48 md:pb-40 bg-white overflow-hidden">
+                <div className="max-w-screen-xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+                    <div className="text-center lg:text-left z-10">
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 bg-blue-50 text-brand-blue font-bold rounded-full text-xs md:text-sm border border-blue-100">
+                            강남·서초·송파 지역 매칭률 98% 돌파
                         </div>
-                        <h1 className="text-4xl md:text-6xl font-black leading-[1.15] mb-6 tracking-tight no-overflow-wrap">
-                            나에게 딱 맞는 스승님<br />
-                            <span className="text-brand-blue text-3xl md:text-5xl">요청서 한 장으로 찾기</span>
+                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-black leading-[1.1] mb-8 tracking-tight text-slate-850 no-overflow-wrap">
+                            나에게 <span className="text-brand-blue">딱 맞는</span><br />
+                            골프 스승님 찾기
                         </h1>
-                        <p className="text-gray-500 text-lg md:text-2xl font-medium mb-10 no-overflow-wrap">
-                            지역, 레슨 종류, 고민 클럽까지 선택하면<br />
-                            AI가 분석하여 최적의 프로 3인을 연결합니다.
+                        <p className="text-gray-500 text-lg md:text-xl lg:text-2xl font-medium mb-12 leading-relaxed no-overflow-wrap">
+                            무의미한 10회권 결제는 이제 그만.<br />
+                            내 스윙 고민에 최적화된 프로를 AI가 매칭합니다.
                         </p>
-                        <button onClick=${() => setFormOpen(true)} className="gradient-blue text-white px-10 py-5 rounded-2xl font-black text-xl shadow-2xl hover:translate-y-[-4px] transition-all">
-                            AI 매칭 요청 시작하기 →
-                        </button>
-                    </div>
-
-                    <div className="relative flex justify-center">
-                        <div className="clay-card p-6 md:p-10 border-8 border-brand-blue/5 transform rotate-[-3deg] ssn-hero-float w-full max-w-sm">
-                            <div className="flex items-center justify-between mb-6">
-                                <${Smartphone} className="text-brand-blue w-8 h-8" />
-                                <div className="h-2 w-20 bg-gray-200 rounded-full"></div>
-                            </div>
-                            <div className="space-y-4">
-                                <div className="bg-blue-50 rounded-2xl p-4 font-bold text-brand-blue text-sm">
-                                    🏌️ 실시간 요청: 강남 / 1:1 레슨
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                            <button onClick=${() => setFormOpen(true)} className="gradient-blue text-white px-10 py-5 rounded-2xl font-black text-xl shadow-2xl shadow-blue-300 hover:translate-y-[-4px] transition-all active:scale-95">
+                                AI 매칭 요청하기
+                            </button>
+                            <div className="flex items-center justify-center gap-3 text-slate-400 font-bold">
+                                <div className="flex -space-x-2">
+                                    ${[1, 2, 3].map(i => html`<img key=${i} src=${`https://i.pravatar.cc/100?u=${i}`} className="w-8 h-8 rounded-full border-2 border-white shadow-sm" />`)}
                                 </div>
-                                <div className="bg-gray-50 rounded-2xl border border-gray-200 p-5 space-y-4">
-                                    <div className="flex justify-between items-center text-xs">
-                                        <span className="font-black text-brand-blue">AI 분석중</span>
-                                        <span className="text-gray-400">데이터 기반 매칭</span>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <div className="h-2 bg-white rounded-full w-full"></div>
-                                        <div className="h-2 bg-white rounded-full w-3/4"></div>
-                                    </div>
-                                </div>
+                                <span className="text-sm">현재 1,240명 상담 대기 중</span>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
-        `;
 
-        // --- 컴포넌트: 이벤트 섹션 (복구 완료) ---
-        const EventSection = () => {
-            const blocks = [
-                { icon: html`<${ClipboardList} size=${26} className="text-brand-blue" />`, title: "매칭 완료", desc: "요청서 기준으로 스승님 확정" },
-                { icon: html`<${CheckCircle2} size=${26} className="text-brand-blue" />`, title: "1회 레슨 진행", desc: "1회로 방향·태도·성향 확인" },
-                { icon: html`<${CreditCard} size=${26} className="text-brand-blue" />`, title: "추가 결제 완료", desc: "추가 진행 고객 중 10명 추첨" },
-            ];
-            return html`
-                <section id="event" className="px-6 py-24 md:py-28 bg-gray-50">
-                    <div className="max-w-screen-xl mx-auto">
-                        <div className="clay-card p-8 md:p-12 border-4 border-brand-blue/10 bg-white ssn-shimmer">
-                            <div className="flex items-start justify-between gap-6 flex-wrap">
-                                <div>
-                                    <div className="inline-flex items-center gap-2 px-4 py-1 bg-blue-50 text-brand-blue font-black rounded-full text-sm mb-4">
-                                        <${Gift} size=${18} /> 오픈 기념 이벤트
-                                    </div>
-                                    <h3 className="text-2xl md:text-4xl font-black leading-tight no-overflow-wrap">
-                                        요청 레슨 완료 후,<br />
-                                        10명 추첨 10% 포인트 페이백
-                                    </h3>
-                                    <p className="text-gray-500 font-bold text-base md:text-lg mt-4 leading-relaxed no-overflow-wrap">
-                                        내 요청대로 레슨 받고, 혜택은 보너스로<br />
-                                        레슨을 ‘시작할 이유’를 만들어드립니다.
-                                    </p>
+                    <div className="relative flex justify-center lg:justify-end">
+                        <div className="clay-card p-6 md:p-8 transform rotate-[-3deg] ssn-hero-float w-full max-w-sm relative z-10 bg-white/80 backdrop-blur-sm text-left">
+                            <div className="flex items-center justify-between mb-8">
+                                <div className="flex items-center gap-2">
+                                    <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                                    <div className="w-3 h-3 rounded-full bg-amber-400"></div>
+                                    <div className="w-3 h-3 rounded-full bg-emerald-400"></div>
                                 </div>
-                                <div className="clay-icon w-20 h-20 md:w-28 md:h-28 flex items-center justify-center bg-blue-50 shrink-0">
-                                    <${Sparkles} size=${40} className="text-brand-blue" />
-                                </div>
+                                <div className="h-2 w-24 bg-gray-100 rounded-full"></div>
                             </div>
-
-                            <div className="mt-12 grid md:grid-cols-3 gap-6">
-                                ${blocks.map((b, i) => html`
-                                    <div key=${i} className="bg-gray-50 rounded-2xl p-6 border border-gray-200">
-                                        <div className="flex items-center gap-3 mb-3">
-                                            ${b.icon}
-                                            <div className="font-black text-lg no-overflow-wrap">${b.title}</div>
+                            <div className="space-y-6">
+                                <div className="bg-blue-600 rounded-2xl p-4 shadow-lg shadow-blue-200">
+                                    <p className="text-white font-bold text-sm mb-1">매칭 리포트 도착 ⛳</p>
+                                    <p className="text-blue-100 text-xs">회원님의 맞춤형 전문가 3인</p>
+                                </div>
+                                <div className="space-y-3">
+                                    ${[1, 2].map(i => html`
+                                        <div key=${i} className="flex items-center gap-4 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                                            <div className="w-10 h-10 bg-gray-200 rounded-full"></div>
+                                            <div className="flex-1 space-y-2">
+                                                <div className="h-2 bg-gray-200 rounded-full w-2/3"></div>
+                                                <div className="h-2 bg-gray-100 rounded-full w-1/2"></div>
+                                            </div>
                                         </div>
-                                        <p className="text-gray-500 font-bold leading-relaxed no-overflow-wrap">${b.desc}</p>
-                                    </div>
-                                `)}
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            `;
-        };
-
-        // --- 컴포넌트: 공감 및 체크리스트 ---
-        const EmpathySection = () => html`
-            <section className="px-6 py-24 md:py-32 bg-white text-center">
-                <div className="max-w-screen-xl mx-auto">
-                    <${HelpCircle} className="w-16 h-16 md:w-20 md:h-20 text-brand-blue mx-auto mb-7 opacity-80" />
-                    <h2 className="text-3xl md:text-5xl font-black leading-[1.4] no-overflow-wrap">
-                        “골프 레슨, 왜 늘<br />고민하고 실패할까요?”
-                    </h2>
-                </div>
-            </section>
-        `;
-
-        const ChecklistSection = () => html`
-            <section className="px-6 py-24 md:py-28 bg-gray-50 text-center">
-                <div className="max-w-screen-xl mx-auto">
-                    <h3 className="text-2xl md:text-4xl font-black mb-12">혹시, 이런 경험 있으셨나요?</h3>
-                    <div className="grid md:grid-cols-2 gap-6">
-                        ${[
-                            "골프 레슨에 돈이 아깝다고 느꼈던 경험", "10회 이상 레슨 등록 권유로 부담됐던 경험",
-                            "나한테 맞는 프로를 직접 고르기 어려웠던 경험", "여러 명에게 많이 연락 오는 게 불편했던 경험"
-                        ].map((item, idx) => html`
-                            <div key=${idx} className="clay-card p-8 flex items-start gap-6 hover:translate-y-[-8px] transition-all text-left">
-                                <${CheckCircle2} className="text-red-400 shrink-0 mt-1" size=${32} />
-                                <p className="font-bold text-lg md:text-xl text-gray-700 leading-snug no-overflow-wrap">${item}</p>
-                            </div>
-                        `)}
-                    </div>
-                </div>
-            </section>
-        `;
-
-        const DifferenceSection = () => html`
-            <section id="features" className="px-6 py-32 bg-brand-blue text-white text-center relative overflow-hidden">
-                <div className="absolute top-0 right-0 opacity-10 transform translate-x-1/4 translate-y-[-1/4]">
-                    <${Filter} size=${500} strokeWidth=${1} />
-                </div>
-                <div className="max-w-screen-md mx-auto relative z-10">
-                    <h2 className="text-3xl md:text-5xl font-black mb-8 leading-tight">
-                        “레슨 선택이 아니라,<br />‘레슨 방식 + 매칭’의 문제였습니다.”
-                    </h2>
-                    <p className="text-blue-100 text-lg md:text-2xl font-medium leading-relaxed">
-                        스승님은 아무 프로나 매칭하지 않습니다.<br />
-                        실내부터 실전 레슨까지, 요청에 맞는 스승님만 연결합니다.
-                    </p>
-                </div>
-            </section>
-        `;
-
-        // --- 컴포넌트: 이용 안내 (SummarySection 복구) ---
-        const SummarySection = () => {
-            const steps = [
-                { step: "01", title: "요청서 작성", desc: "지역·종류·클럽·고민을 한 번에 작성", icon: html`<${PenLine} size=${40} />` },
-                { step: "02", title: "AI 매칭 및 선택", desc: "분석된 Top 3 스승님 중 직접 선택", icon: html`<${ThumbsUp} size=${40} />` },
-                { step: "03", title: "상담 및 연결", desc: "담당자 조율 후 프로님과 직접 소통", icon: html`<${MessageSquareText} size=${40} />` },
-            ];
-            return html`
-                <section id="workflow" className="px-6 py-32 bg-white text-center">
-                    <div className="max-w-screen-xl mx-auto">
-                        <h3 className="text-3xl font-black mb-16 text-slate-800">이용 안내</h3>
-                        <div className="grid md:grid-cols-3 gap-12 relative">
-                            ${steps.map((item, idx) => html`
-                                <div key=${idx} className="flex flex-col items-center group relative">
-                                    <div className="clay-icon w-28 h-28 md:w-32 md:h-32 flex items-center justify-center text-brand-blue bg-blue-50 mb-6 group-hover:scale-110 transition-transform">
-                                        ${item.icon}
-                                    </div>
-                                    <span className="text-brand-blue font-black text-lg mb-2">${item.step}</span>
-                                    <h4 className="text-2xl font-black mb-3">${item.title}</h4>
-                                    <p className="text-gray-400 font-bold">${item.desc}</p>
-                                    ${idx < 2 && html`<div className="hidden md:block absolute top-16 -right-6 w-12 h-0.5 bg-gray-100"></div>`}
+                                    `)}
                                 </div>
-                            `)}
-                        </div>
-                    </div>
-                </section>
-            `;
-        };
-
-        // --- 컴포넌트: 1회 레슨 후 결정 (복구) ---
-        const AfterFirstLessonSection = () => html`
-            <section className="px-6 py-28 bg-gray-50 text-center">
-                <div className="max-w-screen-xl mx-auto">
-                    <h3 className="text-3xl md:text-5xl font-black leading-tight mb-6">
-                        첫 1회 레슨 이후,<br />추가 진행 여부도 직접 결정하세요
-                    </h3>
-                    <p className="text-gray-500 text-lg md:text-xl font-bold mb-12">
-                        상담은 무료, 결제는 모든 조건이 확정된 뒤에 진행하세요.
-                    </p>
-                    <div className="grid md:grid-cols-3 gap-8">
-                        <div className="clay-card p-10 bg-white">
-                            <${ClipboardList} size=${34} className="text-brand-blue mb-6 mx-auto" />
-                            <h4 className="text-2xl font-black mb-3">요청서 상담</h4>
-                            <p className="text-gray-500 font-bold">원하는 조건으로 먼저 대화</p>
-                        </div>
-                        <div className="clay-card p-10 bg-white">
-                            <${CheckCircle2} size=${34} className="text-brand-blue mb-6 mx-auto" />
-                            <h4 className="text-2xl font-black mb-3">1회 우선 진행</h4>
-                            <p className="text-gray-500 font-bold">직접 확인하고 만족하면 결제</p>
-                        </div>
-                        <div className="clay-card p-10 bg-white">
-                            <${RefreshCcw} size=${34} className="text-brand-blue mb-6 mx-auto" />
-                            <h4 className="text-2xl font-black mb-3">자유로운 선택</h4>
-                            <p className="text-gray-500 font-bold">만족할 때만 이어서 진행</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        `;
-
-        // --- 컴포넌트: 비교 섹션 (복구) ---
-        const ComparisonSection = () => html`
-            <section className="px-6 py-32 bg-white text-center">
-                <div className="max-w-screen-xl mx-auto">
-                    <h3 className="text-3xl font-black mb-16">무엇이 다른가요?</h3>
-                    <div className="grid md:grid-cols-2 gap-8">
-                        <div className="clay-card p-10 bg-gray-50 opacity-70">
-                            <h4 className="font-black text-gray-400 text-2xl mb-10">기존 플랫폼</h4>
-                            <div className="space-y-6 text-left">
-                                <div className="flex items-center gap-4 text-gray-400 font-bold text-lg"><${X} /> 신뢰 전 무리한 결제 요구</div>
-                                <div className="flex items-center gap-4 text-gray-400 font-bold text-lg"><${X} /> 여러 명에게 동시 연락</div>
-                                <div className="flex items-center gap-4 text-gray-400 font-bold text-lg"><${X} /> 프로 선택 실패 리스크</div>
-                            </div>
-                        </div>
-                        <div className="clay-card p-10 border-4 border-brand-blue/10 bg-white">
-                            <h4 className="font-black text-brand-blue text-2xl mb-10">스승님</h4>
-                            <div className="space-y-6 text-left">
-                                <div className="flex items-center gap-4 text-gray-800 font-bold text-lg"><${CheckCircle2} className="text-brand-blue" /> 상담 및 확정 후 결제</div>
-                                <div className="flex items-center gap-4 text-gray-800 font-bold text-lg"><${CheckCircle2} className="text-brand-blue" /> 1:1 전담 매칭 관리</div>
-                                <div className="flex items-center gap-4 text-gray-800 font-bold text-lg"><${CheckCircle2} className="text-brand-blue" /> 1회 먼저 검증 후 결정</div>
+                                <div className="pt-4 flex justify-center">
+                                    <div className="px-6 py-2 bg-brand-blue/10 text-brand-blue rounded-full text-[10px] font-black uppercase tracking-widest animate-pulse">
+                                        Analyzing Swing Data...
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -382,315 +250,482 @@
             </section>
         `;
 
-        const CaseStudySection = () => html`
-            <section id="cases" className="px-6 py-32 bg-gray-50 text-center">
-                <div className="max-w-screen-xl mx-auto">
-                    <h3 className="text-3xl font-black mb-16">성공적인 매칭 사례</h3>
-                    <div className="grid md:grid-cols-3 gap-8 text-left">
+        const ProblemSection = () => html`
+            <section className="px-5 py-24 bg-white">
+                <div className="max-w-screen-xl mx-auto text-center">
+                    <h2 className="text-3xl md:text-5xl font-black mb-16 text-slate-850 leading-tight">
+                        골프 레슨,<br className="md:hidden" /> 매번 후회하는 이유?
+                    </h2>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                         ${[
-                            {t: "“아이언 생크가 납니다. 2~3번만 제대로 봐주실 분?”", r: "레슨 3회 만에 생크 개선", i: html`<${Flag} />`},
-                            {t: "“드라이버 비거리 스트레스. 5번만 집중적으로 받고 싶어요.”", r: "비거리 30m 향상", i: html`<${TrendingUp} />`},
-                            {t: "“필드에서 우드를 제대로 쓰고 싶어요. 우드 전문 스승님 찾습니다.”", r: "파5 우드 활용도 상승", i: html`<${Award} />`}
-                        ].map((c, i) => html`
-                            <div key=${i} className="clay-card p-10 bg-white hover:translate-y-[-10px] transition-all">
-                                <div className="clay-icon w-16 h-16 flex items-center justify-center bg-blue-50 mb-8 text-brand-blue">${c.i}</div>
-                                <p className="text-gray-700 font-bold text-xl leading-relaxed mb-8 no-overflow-wrap">${c.t}</p>
-                                <div className="pt-6 border-t border-gray-100 font-black text-brand-blue text-lg">→ ${c.r}</div>
+                            { t: "프로의 불친절함", d: "가르치는 태도가 강압적이고 불성실한 경험", i: "😡" },
+                            { t: "과도한 패키지 유도", d: "실력 확인도 전에 10~20회 결제부터 요구", i: "💸" },
+                            { t: "맞지 않는 레슨 스타일", d: "나는 비거리를 원하는데 자세만 잡고 있을 때", i: "📉" },
+                            { t: "애매한 환불 기준", d: "불만족해도 남은 회차 환불이 너무 어려움", i: "⚖️" }
+                        ].map((item, idx) => html`
+                            <div key=${idx} className="p-8 bg-gray-50 rounded-4xl border border-gray-100 hover:bg-blue-50 hover:border-blue-100 transition-all group text-left">
+                                <div className="text-4xl mb-6 group-hover:scale-110 transition-transform">${item.i}</div>
+                                <h4 className="text-xl font-black mb-3 text-slate-800">${item.t}</h4>
+                                <p className="text-gray-500 font-medium text-sm leading-relaxed">${item.d}</p>
                             </div>
                         `)}
+                    </div>
+                </div>
+            </section>
+        `;
+
+        const EventSection = () => html`
+            <section id="event" className="px-5 py-24 bg-slate-50">
+                <div className="max-w-screen-xl mx-auto">
+                    <div className="bg-white rounded-[3rem] p-8 md:p-16 shadow-xl border border-blue-50 relative overflow-hidden text-center lg:text-left">
+                        <div className="absolute -top-10 -right-10 w-40 h-40 bg-brand-blue opacity-[0.03] rounded-full"></div>
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-50 text-amber-600 font-black rounded-full text-sm mb-6 border border-amber-100">
+                            <${Sparkles} size=${16} /> 런칭 기념 특별 혜택
+                        </div>
+                        <h3 className="text-3xl md:text-5xl font-black leading-tight mb-6 text-slate-850">
+                            레슨 종료 후 불만족 시,<br />
+                            <span className="text-brand-blue">100% 포인트 페이백</span>
+                        </h3>
+                        <p className="text-gray-500 font-bold text-lg md:text-xl leading-relaxed mb-8">
+                            스승님의 매칭 실력을 믿기에 가능한 약속. 결제액의 10% 적립 혜택도 놓치지 마세요.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        `;
+
+        const SystemSection = () => html`
+            <section id="features" className="px-5 py-32 bg-slate-850 text-white overflow-hidden relative">
+                <div className="max-w-screen-xl mx-auto grid lg:grid-cols-2 gap-20 items-center relative z-10 text-left">
+                    <div>
+                        <h2 className="text-4xl md:text-5xl font-black mb-10 leading-tight tracking-tight">
+                            "이것은 레슨 쇼핑이 아닌,<br />
+                            <span className="text-brand-blue">정밀한 의뢰</span>입니다."
+                        </h2>
+                        <div className="space-y-10">
+                            <div className="flex gap-6">
+                                <div className="w-14 h-14 rounded-2xl bg-brand-blue flex items-center justify-center shrink-0 font-black text-2xl shadow-xl shadow-blue-900/50">1</div>
+                                <div>
+                                    <h4 className="text-2xl font-black mb-2">문제 진단 의뢰</h4>
+                                    <p className="text-slate-400 font-medium leading-relaxed">단순히 가격만 묻지 않습니다. 현재 구질과 클럽 데이터를 통해 문제의 본질을 프로에게 전달합니다.</p>
+                                </div>
+                            </div>
+                            <div className="flex gap-6">
+                                <div className="w-14 h-14 rounded-2xl bg-brand-blue flex items-center justify-center shrink-0 font-black text-2xl shadow-xl shadow-blue-900/50">2</div>
+                                <div>
+                                    <h4 className="text-2xl font-black mb-2">해결사(스승님) 탐색</h4>
+                                    <p className="text-slate-400 font-medium leading-relaxed">AI가 회원님의 특정 구질(슬라이스, 생크 등) 해결 경험이 가장 많은 프로를 우선적으로 선별합니다.</p>
+                                </div>
+                            </div>
+                            <div className="flex gap-6">
+                                <div className="w-14 h-14 rounded-2xl bg-brand-blue flex items-center justify-center shrink-0 font-black text-2xl shadow-xl shadow-blue-900/50">3</div>
+                                <div>
+                                    <h4 className="text-2xl font-black mb-2">성공적인 매칭</h4>
+                                    <p className="text-slate-400 font-medium leading-relaxed">회원님이 선택한 스승님은 의뢰 내용을 이미 숙지한 상태로 상담에 임하게 됩니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="relative">
+                        <div className="clay-card p-10 bg-white/10 backdrop-blur-md border border-white/20 rounded-[3rem]">
+                            <div className="flex items-center gap-4 mb-8">
+                                <div className="w-16 h-16 bg-brand-blue rounded-3xl flex items-center justify-center shadow-2xl shadow-blue-500/30"><${Target} className="text-white" size={32} /></div>
+                                <div className="font-black text-3xl italic tracking-tighter">Matching AI v2.0</div>
+                            </div>
+                            <div className="space-y-8">
+                                <div className="h-4 bg-white/10 rounded-full overflow-hidden">
+                                    <div className="h-full bg-brand-blue w-[85%] animate-pulse"></div>
+                                </div>
+                                <div className="grid grid-cols-2 gap-6">
+                                    <div className="p-6 bg-white/5 rounded-3xl border border-white/10 text-center">
+                                        <p className="text-[11px] text-slate-400 font-black uppercase mb-2 tracking-widest">분석 데이터</p>
+                                        <p className="text-2xl font-black">1.4M+</p>
+                                    </div>
+                                    <div className="p-6 bg-white/5 rounded-3xl border border-white/10 text-center">
+                                        <p className="text-[11px] text-slate-400 font-black uppercase mb-2 tracking-widest">매칭 정확도</p>
+                                        <p className="text-2xl font-black">98.2%</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
         `;
 
         const TrustSection = () => html`
-            <section id="trust" className="px-6 py-32 bg-white text-center md:text-left">
-                <div className="max-w-screen-xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-                    <div>
-                        <${ShieldCheck} className="w-24 h-24 text-brand-blue mb-8 mx-auto md:mx-0" />
-                        <h3 className="text-3xl md:text-5xl font-black mb-8 leading-tight">투명한 운영 정책</h3>
-                        <p className="text-gray-500 text-xl font-bold mb-10 leading-relaxed">스승님은 결제 및 환불 구조를 법무법인 로투스와 파트너 관계로 엄격하게 관리합니다.</p>
-                        <div className="clay-card p-8 bg-gray-50 font-bold text-xl text-gray-800">
-                            “법적 기준에 맞춘 보호 시스템으로 골퍼의 권익을 최우선합니다.”
-                        </div>
-                    </div>
-                    <div className="space-y-8">
-                        <div className="flex gap-6 items-start text-left">
-                            <div className="w-10 h-10 rounded-2xl bg-brand-blue flex items-center justify-center text-white shrink-0 mt-1"><${CheckCircle2} /></div>
-                            <div><h5 className="text-xl font-black mb-2 text-slate-800">상담 선진행</h5><p className="text-gray-500 font-bold">결제 요구 전 충분한 상담을 먼저 마칩니다.</p></div>
-                        </div>
-                        <div className="flex gap-6 items-start text-left">
-                            <div className="w-10 h-10 rounded-2xl bg-brand-blue flex items-center justify-center text-white shrink-0 mt-1"><${CheckCircle2} /></div>
-                            <div><h5 className="text-xl font-black mb-2 text-slate-800">운영팀 직접 조율</h5><p className="text-gray-500 font-bold">불편이 생기면 운영팀이 중간에서 조율합니다.</p></div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        `;
-
-        const NoticeSection = () => html`
-            <section id="notice" className="px-6 py-32 bg-gray-50 text-center">
+            <section id="trust" className="px-5 py-32 bg-white">
                 <div className="max-w-screen-xl mx-auto">
-                    <h3 className="text-3xl font-black mb-16 text-slate-800">운영 및 유의사항</h3>
-                    <div className="clay-card p-8 md:p-12 bg-white grid md:grid-cols-2 gap-8 text-left">
-                        <div className="bg-white rounded-2xl p-7 border border-slate-100">
-                            <h4 className="text-xl font-black mb-4 flex items-center gap-3 text-slate-800"><${CreditCard} className="text-brand-blue" /> 결제 원칙</h4>
-                            <ul className="space-y-3 font-bold text-gray-600 text-sm">
-                                <li>• 상담 및 일정 확정 후 결제 링크가 전송됩니다.</li>
-                                <li>• 공식 채널 외 개인 결제 시 보호가 불가합니다.</li>
-                            </ul>
+                    <div className="grid lg:grid-cols-2 gap-20 items-center">
+                        <div className="order-2 lg:order-1">
+                            <img src="https://images.unsplash.com/photo-1589216532372-1c2a367900d8?auto=format&fit=crop&q=80&w=800" className="rounded-4xl shadow-2xl" alt="Legal Partnership" />
                         </div>
-                        <div className="bg-white rounded-2xl p-7 border border-slate-100">
-                            <h4 className="text-xl font-black mb-4 flex items-center gap-3 text-slate-800"><${Info} className="text-brand-blue" /> 앱 이용 원칙</h4>
-                            <ul className="space-y-3 font-bold text-gray-600 text-sm">
-                                <li>• 스승님 앱 설치 및 이용을 기본 원칙으로 합니다.</li>
-                                <li>• 예약 및 후기 관리는 앱에서 진행됩니다.</li>
-                            </ul>
+                        <div className="order-1 lg:order-2 text-left">
+                            <${ShieldCheck} size=${64} className="text-brand-blue mb-8" />
+                            <h2 className="text-3xl md:text-5xl font-black text-slate-850 mb-8 leading-tight">
+                                대한민국 최초,<br />
+                                <span className="text-brand-blue">법률 파트너십</span> 운영
+                            </h2>
+                            <p className="text-gray-500 text-lg md:text-xl font-bold mb-10 leading-relaxed">
+                                스승님은 '법무법인 로투스'와 함께합니다. 투명한 결제 시스템과 공정한 환불 정책으로 골퍼의 권리를 철저히 보호합니다.
+                            </p>
+                            <div className="space-y-6">
+                                <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 font-black text-slate-700">
+                                    <${CheckCircle2} className="text-brand-blue" /> 공식 에스크로 결제 시스템
+                                </div>
+                                <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 font-black text-slate-700">
+                                    <${CheckCircle2} className="text-brand-blue" /> 불만족 시 운영팀 즉시 조율
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
         `;
 
-        const FinalCTASection = ({ setFormOpen }) => html`
-            <section className="px-6 py-32 bg-white text-center">
-                <div className="max-w-screen-md mx-auto">
-                    <h2 className="text-4xl md:text-6xl font-black mb-12 leading-tight">실내부터 실전까지,<br />내 방식대로 요청하세요</h2>
-                    <button onClick=${() => setFormOpen(true)} className="gradient-blue text-white px-12 py-7 rounded-[2.5rem] font-black text-2xl shadow-2xl hover:scale-105 transition-all">
-                        지금 바로 요청서 작성
-                    </button>
-                    <p className="mt-8 text-gray-400 font-bold">일정 확정 전까지 결제 없이 진행됩니다.</p>
-                </div>
-            </section>
-        `;
-
-        // --- 인터랙티브 분석 모달 로직 ---
         const InteractiveFlow = ({ setModalOpen }) => {
             const [step, setStep] = React.useState(1);
+            const [loadingIdx, setLoadingIdx] = React.useState(0);
             const [formData, setFormData] = React.useState({
-                location: '', lessonType: '', club: '', concern: '', schedule: '', price: ''
+                location: '', lessonType: '', club: '', concern: '', schedule: ''
             });
             const [results, setResults] = React.useState([]);
             const [selectedPro, setSelectedPro] = React.useState(null);
 
-            const updateData = (key, val) => { setFormData(prev => ({ ...prev, [key]: val })); };
+            const loadingMessages = [
+                "✔ 요청서 분석 중...",
+                "✔ 적합한 프로 탐색 중...",
+                "✔ 매칭 확률 높은 스승님 선별 중...",
+                "✔ 회원님의 조건과 최종 매칭 중..."
+            ];
+
+            const updateData = (key, val) => setFormData(prev => ({ ...prev, [key]: val }));
             const nextStep = () => setStep(prev => prev + 1);
             const prevStep = () => setStep(prev => prev - 1);
 
             const startAnalysis = () => {
                 setStep(5);
-                setTimeout(() => {
-                    const scored = pros.map(p => {
-                        let score = 0;
-                        if (p.location.includes(formData.location)) score += 2;
-                        if (p.style.includes(formData.lessonType)) score += 3;
-                        if (p.tags.some(t => t.includes(formData.club) || t.includes(formData.concern))) score += 2;
-                        return { ...p, score };
-                    }).sort((a, b) => b.score - a.score).slice(0, 3);
-                    setResults(scored);
-                    setStep(6);
-                }, 2000);
+                let idx = 0;
+                const interval = setInterval(() => {
+                    idx++;
+                    if (idx < loadingMessages.length) {
+                        setLoadingIdx(idx);
+                    } else {
+                        clearInterval(interval);
+                        setResults(pros);
+                        setStep(6);
+                    }
+                }, 1000);
+            };
+
+            const CumulativeUI = () => {
+                if (step > 4) return null;
+                const items = [];
+                if (formData.location) items.push(`📍 ${formData.location}`);
+                if (formData.lessonType) items.push(`⛳ ${formData.lessonType}`);
+                if (formData.club) items.push(`🏌️ ${formData.club}`);
+                if (formData.concern) items.push(`💥 ${formData.concern}`);
+
+                return html`
+                    <div className="mb-6 flex flex-wrap gap-2 animate-slide-up bg-slate-50/50 p-3 rounded-2xl min-h-[48px] text-left">
+                        ${items.length === 0 ? html`<p className="text-[11px] text-slate-300 font-bold self-center ml-2">요청 내용이 여기에 쌓입니다</p>` : items.map((item, idx) => html`
+                            <span key=${idx} className="summary-chip animate-slide-up">
+                                ${item}
+                            </span>
+                        `)}
+                    </div>
+                `;
             };
 
             if (step === 1) return html`
-                <div className="animate-pop text-left">
-                    <h3 className="text-xl font-black text-slate-800 mb-6">STEP 1 / 3</h3>
+                <div className="animate-slide-up text-left">
+                    <${CumulativeUI} />
+                    <div className="flex justify-between items-center mb-8">
+                        <div>
+                            <h3 className="text-2xl font-black text-slate-800 tracking-tight">STEP 1 / 3</h3>
+                            <p className="text-brand-blue font-black text-sm mt-1">📍 레슨 환경 설정</p>
+                        </div>
+                    </div>
                     <div className="space-y-8">
                         <div>
-                            <h4 className="font-bold text-slate-500 mb-3 text-sm flex items-center gap-2"><${MapPin} size=${16} /> 레슨 지역</h4>
+                            <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">지역 선택</p>
                             <div className="grid grid-cols-2 gap-3">
-                                ${['강남', '분당', '용인', '영등포'].map(l => html`
-                                    <button key=${l} onClick=${() => updateData('location', l)} className=${`py-3 px-4 rounded-xl border-2 font-bold text-sm ${formData.location === l ? 'border-brand-blue bg-blue-50 text-brand-blue' : 'border-slate-50 text-slate-600'}`}>${l}</button>
+                                ${['강남', '서초', '송파', '분당'].map(l => html`
+                                    <button key=${l} onClick=${() => updateData('location', l)} className=${`py-4 rounded-2xl border-2 font-bold transition-all ${formData.location === l ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}>${l}</button>
                                 `)}
                             </div>
                         </div>
                         <div>
-                            <h4 className="font-bold text-slate-500 mb-3 text-sm flex items-center gap-2"><${Flag} size=${16} /> 레슨 종류</h4>
-                            <div className="grid grid-cols-3 gap-3">
-                                ${[
-                                    {v:'필드', l:'필드레슨', i:'⛳'}, {v:'9홀', l:'9홀레슨', i:'🚶'}, {v:'파3', l:'파3레슨', i:'🎯'},
-                                    {v:'숏게임', l:'숏게임', i:'🏌️'}, {v:'1:1', l:'1:1레슨', i:'👤'}
-                                ].map(opt => html`
-                                    <button key=${opt.v} onClick=${() => updateData('lessonType', opt.v)} className=${`flex flex-col items-center justify-center p-4 rounded-2xl bg-white border-2 hover:border-brand-blue ${formData.lessonType === opt.v ? 'border-brand-blue bg-blue-50 text-brand-blue' : 'border-slate-50'}`}>
-                                        <span className="text-2xl mb-2">${opt.i}</span>
-                                        <span className="text-sm font-bold">${opt.l}</span>
-                                    </button>
+                            <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">레슨 형태</p>
+                            <div className="grid grid-cols-2 gap-3">
+                                ${['필드레슨', '실내레슨', '파3레슨', '9홀레슨'].map(t => html`
+                                    <button key=${t} onClick=${() => updateData('lessonType', t)} className=${`py-4 rounded-2xl border-2 font-bold transition-all ${formData.lessonType === t ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}>${t}</button>
                                 `)}
                             </div>
                         </div>
                     </div>
-                    <button disabled=${!formData.location || !formData.lessonType} onClick=${nextStep} className="w-full mt-10 gradient-blue text-white font-black py-5 rounded-2xl shadow-xl disabled:opacity-50 flex items-center justify-center gap-2">다음 단계로 <${ChevronRight} size=${20} /></button>
+                    <button disabled=${!formData.location || !formData.lessonType} onClick=${nextStep} className="w-full mt-12 gradient-blue text-white font-black py-5 rounded-2xl shadow-xl disabled:opacity-30 transition-all flex items-center justify-center gap-2">다음 단계로 이동 <${ChevronRight} size=${18} /></button>
                 </div>
             `;
 
             if (step === 2) return html`
-                <div className="animate-pop text-left">
-                    <h3 className="text-xl font-black text-slate-800 mb-6">STEP 2 / 3</h3>
+                <div className="animate-slide-up text-left">
+                    <${CumulativeUI} />
+                    <div className="flex justify-between items-center mb-8">
+                        <div>
+                            <h3 className="text-2xl font-black text-slate-800 tracking-tight">STEP 2 / 3</h3>
+                            <p className="text-brand-blue font-black text-sm mt-1">🏌️ 스윙 문제 정의</p>
+                        </div>
+                    </div>
                     <div className="space-y-8">
                         <div>
-                            <h4 className="font-bold text-slate-500 mb-3 text-sm flex items-center gap-2"><${Target} size=${16} /> 집중 클럽</h4>
-                            <div className="grid grid-cols-3 gap-3 text-xs">
-                                ${['드라이버', '우드/유틸', '롱아이언', '미들아이언', '숏아이언'].map(c => html`
-                                    <button key=${c} onClick=${() => updateData('club', c)} className=${`py-3 px-2 rounded-xl border-2 font-bold ${formData.club === c ? 'border-brand-blue bg-blue-50 text-brand-blue' : 'border-slate-50 text-slate-600'}`}>${c}</button>
+                            <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">집중 클럽</p>
+                            <div className="grid grid-cols-3 gap-3">
+                                ${['드라이버', '아이언', '웨지', '퍼터'].map(c => html`
+                                    <button key=${c} onClick=${() => updateData('club', c)} className=${`py-4 rounded-xl border-2 font-bold text-sm ${formData.club === c ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400'}`}>${c}</button>
                                 `)}
                             </div>
                         </div>
                         <div>
-                            <h4 className="font-bold text-slate-500 mb-3 text-sm text-slate-800">해결하고 싶은 고민</h4>
+                            <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">주요 증상</p>
                             <div className="flex flex-wrap gap-2">
-                                ${['탑핑', '슬라이스', '훅', '생크', '거리증가', '스윙교정'].map(con => html`
-                                    <button key=${con} onClick=${() => updateData('concern', con)} className=${`py-2 px-4 rounded-full border-2 font-bold text-xs ${formData.concern === con ? 'border-brand-blue bg-blue-50 text-brand-blue' : 'border-slate-50 text-slate-600'}`}># ${con}</button>
+                                ${['슬라이스', '비거리부족', '생크', '뒤땅/탑볼', '폼교정'].map(con => html`
+                                    <button key=${con} onClick=${() => updateData('concern', con)} className=${`py-3 px-6 rounded-full border-2 font-bold text-xs ${formData.concern === con ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400'}`}># ${con}</button>
                                 `)}
                             </div>
                         </div>
                     </div>
-                    <div className="flex gap-3 mt-10">
-                        <button onClick=${prevStep} className="flex-1 bg-slate-100 text-slate-600 font-bold py-5 rounded-2xl">이전</button>
-                        <button disabled=${!formData.club || !formData.concern} onClick=${nextStep} className="flex-[2] gradient-blue text-white font-black py-5 rounded-2xl shadow-xl disabled:opacity-50">다음 단계로</button>
+                    <div className="flex gap-4 mt-12">
+                        <button onClick=${prevStep} className="flex-1 bg-slate-100 text-slate-500 font-black py-5 rounded-2xl">이전</button>
+                        <button disabled=${!formData.club || !formData.concern} onClick=${nextStep} className="flex-[2] gradient-blue text-white font-black py-5 rounded-2xl shadow-xl disabled:opacity-30">다음 단계로 이동</button>
                     </div>
                 </div>
             `;
 
             if (step === 3) return html`
-                <div className="animate-pop text-left">
-                    <h3 className="text-xl font-black text-slate-800 mb-6">STEP 3 / 3</h3>
-                    <div className="space-y-8">
+                <div className="animate-slide-up text-left">
+                    <${CumulativeUI} />
+                    <div className="flex justify-between items-center mb-8">
                         <div>
-                            <h4 className="font-bold text-slate-500 mb-3 text-sm flex items-center gap-2"><${Clock} size=${16} /> 선호 시간</h4>
-                            <div className="grid grid-cols-2 gap-3">
-                                ${['주중 낮', '주중 저녁', '주말 낮', '주말 저녁'].map(s => html`
-                                    <button key=${s} onClick=${() => updateData('schedule', s)} className=${`py-3 px-4 rounded-xl border-2 font-bold text-sm ${formData.schedule === s ? 'border-brand-blue bg-blue-50 text-brand-blue' : 'border-slate-50 text-slate-600'}`}>${s}</button>
-                                `)}
-                            </div>
-                        </div>
-                        <div>
-                            <h4 className="font-bold text-slate-500 mb-3 text-sm text-slate-800">레슨 패키지 선택</h4>
-                            <div className="space-y-2">
-                                ${[
-                                    {v:'1회', l:'1회 체험 레슨 (10~15만원)'},
-                                    {v:'5회', l:'5회 실력완성 패키지 (40~60만원)'},
-                                    {v:'10회', l:'10회 집중 케어 패키지 (80~120만원)'}
-                                ].map(p => html`
-                                    <button key=${p.v} onClick=${() => updateData('price', p.v)} className=${`w-full text-left py-4 px-4 rounded-xl border-2 font-bold text-sm ${formData.price === p.v ? 'border-brand-blue bg-blue-50 text-brand-blue' : 'border-slate-50 text-slate-600'}`}>${p.l}</button>
-                                `)}
-                            </div>
+                            <h3 className="text-2xl font-black text-slate-800 tracking-tight">STEP 3 / 3</h3>
+                            <p className="text-brand-blue font-black text-sm mt-1">⏰ 레슨 조건 설정</p>
                         </div>
                     </div>
-                    <div className="flex gap-3 mt-10">
-                        <button onClick=${prevStep} className="flex-1 bg-slate-100 text-slate-600 font-bold py-5 rounded-2xl">이전</button>
-                        <button disabled=${!formData.schedule || !formData.price} onClick=${nextStep} className="flex-[2] gradient-blue text-white font-black py-5 rounded-2xl shadow-xl disabled:opacity-50">작성 완료</button>
+                    <div className="space-y-8">
+                        <div>
+                            <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">선호 시간대</p>
+                            <div className="grid grid-cols-2 gap-3">
+                                ${['주중 낮/오후', '주중 퇴근후', '주말 오전', '주말 오후'].map(s => html`
+                                    <button key=${s} onClick=${() => updateData('schedule', s)} className=${`py-4 rounded-2xl border-2 font-bold text-sm ${formData.schedule === s ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400'}`}>${s}</button>
+                                `)}
+                            </div>
+                        </div>
+                        <div className="bg-blue-50/50 p-5 rounded-3xl border border-blue-100/50">
+                            <p className="text-brand-blue font-black text-[11px] mb-2 flex items-center gap-2 uppercase tracking-widest"><${ShieldCheck} size=${14} /> AI 매칭 보안 안내</p>
+                            <p className="text-blue-700/70 text-xs font-bold leading-relaxed">회원님의 정보는 안전하게 보호되며, 매칭 확률이 가장 높은 스승님을 찾는 데만 활용됩니다.</p>
+                        </div>
+                    </div>
+                    <div className="flex gap-4 mt-12">
+                        <button onClick=${prevStep} className="flex-1 bg-slate-100 text-slate-500 font-black py-5 rounded-2xl">이전</button>
+                        <button disabled=${!formData.schedule} onClick=${nextStep} className="flex-[2] gradient-blue text-white font-black py-5 rounded-2xl shadow-xl disabled:opacity-30">의뢰서 작성 완료</button>
                     </div>
                 </div>
             `;
 
             if (step === 4) return html`
-                <div className="animate-pop text-center">
-                    <${ClipboardList} size=${48} className="text-brand-blue mx-auto mb-6" />
-                    <h3 className="text-2xl font-black mb-2 text-slate-800">요청서 완성!</h3>
-                    <div className="bg-slate-50 rounded-3xl p-6 mb-10 text-left border border-slate-100 space-y-4">
-                        <div className="flex justify-between border-b border-slate-200 pb-3">
-                            <span className="text-slate-400 font-bold">지역 / 종류</span>
+                <div className="animate-slide-up text-center">
+                    <div className="w-20 h-20 bg-blue-50 text-brand-blue rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner"><${ClipboardList} size=${40} /></div>
+                    <h3 className="text-3xl font-black text-slate-800 mb-2">요청서 완성!</h3>
+                    <p className="text-slate-500 font-bold mb-10 text-lg">🔥 지금 조건에 맞는 스승님을 찾고 있습니다</p>
+                    
+                    <div className="bg-slate-50 rounded-[2.5rem] p-8 text-left mb-10 space-y-4 border border-slate-100">
+                        <div className="flex justify-between items-center text-sm">
+                            <span className="text-slate-400 font-bold">지역 및 형태</span>
                             <span className="font-black text-slate-700">${formData.location} / ${formData.lessonType}</span>
                         </div>
-                        <div className="flex justify-between border-b border-slate-200 pb-3">
-                            <span className="text-slate-400 font-bold">클럽 / 고민</span>
+                        <div className="flex justify-between items-center text-sm border-t border-slate-200/50 pt-4">
+                            <span className="text-slate-400 font-bold">집중 고민</span>
                             <span className="font-black text-slate-700">${formData.club} / ${formData.concern}</span>
                         </div>
-                        <div className="flex justify-between">
-                            <span className="text-slate-400 font-bold">시간 / 패키지</span>
-                            <span className="font-black text-slate-700">${formData.schedule} / ${formData.price}</span>
+                        <div className="flex justify-between items-center text-sm border-t border-slate-200/50 pt-4">
+                            <span className="text-slate-400 font-bold">희망 시간</span>
+                            <span className="font-black text-slate-700">${formData.schedule}</span>
                         </div>
                     </div>
-                    <button onClick=${startAnalysis} className="w-full gradient-blue text-white font-black py-6 rounded-2xl shadow-xl active:scale-95 transition-all">이 조건으로 스승님 찾기</button>
+
+                    <div className="flex flex-col gap-4 text-center">
+                        <p className="text-brand-blue text-[11px] font-black tracking-tighter flex items-center justify-center gap-1">
+                            <${ShieldCheck} size=${14} /> 이 요청서는 실제 프로 매칭에 사용됩니다
+                        </p>
+                        <button onClick=${startAnalysis} className="w-full gradient-blue text-white font-black py-6 rounded-3xl shadow-2xl shadow-blue-200 text-xl flex items-center justify-center gap-3 active:scale-95 transition-all">
+                            → 맞춤 스승님 찾기 시작
+                        </button>
+                    </div>
                 </div>
             `;
 
             if (step === 5) return html`
-                <div className="py-20 flex flex-col items-center">
-                    <div className="relative mb-8">
-                        <div className="animate-spin rounded-full h-20 w-20 border-4 border-brand-blue border-t-transparent"></div>
-                        <div className="absolute inset-0 flex items-center justify-center"><${Flag} size=${28} className="text-brand-blue" /></div>
+                <div className="py-24 text-center animate-slide-up">
+                    <div className="relative w-36 h-36 mx-auto mb-12">
+                        <div className="absolute inset-0 border-8 border-brand-blue/10 rounded-full"></div>
+                        <div className="absolute inset-0 border-8 border-brand-blue border-t-transparent rounded-full animate-spin"></div>
+                        <div className="absolute inset-0 flex items-center justify-center"><${Search} size=${48} className="text-brand-blue animate-pulse" /></div>
                     </div>
-                    <h3 className="text-xl font-black text-slate-800 text-center">AI 매칭 분석 중...</h3>
+                    <h3 className="text-2xl font-black text-slate-800 mb-8 tracking-tight">회원님을 위한 스승님 분석 중</h3>
+                    <div className="space-y-4 max-w-xs mx-auto text-left">
+                        ${loadingMessages.map((msg, idx) => html`
+                            <div key=${idx} className=${`flex items-center gap-3 font-black text-sm transition-all duration-700 ${loadingIdx >= idx ? 'text-brand-blue opacity-100' : 'text-slate-200 opacity-30'}`}>
+                                <${CheckCircle2} size=${18} />
+                                <span>${msg}</span>
+                            </div>
+                        `)}
+                    </div>
                 </div>
             `;
 
             if (step === 6) return html`
                 <div className="animate-slide-up text-left">
-                    <h3 className="text-2xl font-black text-slate-800 mb-6">AI 추천 스승님 Best 3</h3>
-                    <div className="space-y-4 mb-8">
+                    <h3 className="text-2xl font-black text-slate-800 mb-8 flex items-center gap-3 tracking-tight">AI 추천 스승님 <span className="text-brand-blue bg-blue-50 px-3 py-1 rounded-full text-[10px] uppercase">Best 3</span></h3>
+                    <div className="space-y-5 mb-10">
                         ${results.map(p => html`
-                            <div key=${p.id} onClick=${() => setSelectedPro(p)} className=${`p-5 rounded-3xl border flex gap-4 items-center cursor-pointer transition-all ${selectedPro?.id === p.id ? 'border-brand-blue bg-blue-50 ring-4 ring-brand-blue/5' : 'bg-white border-slate-100'}`}>
-                                <img src=${p.img} className="w-16 h-16 rounded-2xl object-cover shadow-sm" />
-                                <div className="flex-1">
-                                    <div className="flex justify-between items-start mb-1">
-                                        <h4 className="font-black text-slate-800 text-lg">${p.name}</h4>
-                                        <span className="text-[10px] font-black text-brand-blue bg-blue-100 px-2 py-0.5 rounded-full">${formData.club} 특화</span>
+                            <div key=${p.id} onClick=${() => setSelectedPro(p)} className=${`p-6 rounded-[2.5rem] border-2 transition-all cursor-pointer flex flex-col gap-5 ${selectedPro?.id === p.id ? 'border-brand-blue bg-blue-50 ring-8 ring-blue-50/50' : 'border-slate-50 bg-white hover:border-slate-100 shadow-sm'}`}>
+                                <div className="flex items-center gap-5">
+                                    <img src=${p.img} className="w-20 h-20 rounded-3xl object-cover shadow-lg" />
+                                    <div className="flex-1">
+                                        <div className="flex justify-between items-start mb-2">
+                                            <h4 className="font-black text-slate-800 text-xl">${p.name}</h4>
+                                            <div className="flex items-center text-amber-400 font-black text-sm gap-1"><${Star} size=${16} fill="currentColor" /> ${p.rating}</div>
+                                        </div>
+                                        <p className="text-slate-500 text-xs font-bold line-clamp-1 mb-2">"${p.intro}"</p>
+                                        <div className="flex gap-2">
+                                            ${p.tags.map(t => html`<span key=${t} className="text-[10px] font-black text-brand-blue bg-white border border-blue-100 px-2.5 py-1 rounded-full shadow-sm">#${t}</span>`)}
+                                        </div>
                                     </div>
-                                    <p className="text-[11px] text-slate-500 font-bold mb-2 line-clamp-1">"${p.intro}"</p>
-                                    <div className="flex items-center gap-1 text-[11px] text-amber-400 fill-amber-400">
-                                        <${Star} size=${12} /> <span className="font-black text-slate-700">${p.rating}</span>
-                                    </div>
+                                    ${selectedPro?.id === p.id && html`<div className="w-10 h-10 bg-brand-blue rounded-full flex items-center justify-center text-white shadow-lg"><${Check} size=${24} strokeWidth=${4} /></div>`}
                                 </div>
-                                ${selectedPro?.id === p.id && html`<${Check} className="text-brand-blue" strokeWidth=${4} />`}
+                                
+                                <div className=${`p-4 rounded-2xl border ${selectedPro?.id === p.id ? 'bg-white border-blue-100' : 'bg-slate-50/50 border-slate-100'}`}>
+                                    <p className="text-[11px] font-black text-slate-400 mb-3 uppercase tracking-widest flex items-center gap-2"><${TrendingUp} size=${12} /> 추천 이유</p>
+                                    <ul className="space-y-2">
+                                        ${p.reasons.map((reason, idx) => html`
+                                            <li key=${idx} className="text-xs font-bold text-slate-600 flex items-start gap-2 leading-snug">
+                                                <${Check} className="text-brand-blue shrink-0 mt-0.5" size=${14} />
+                                                ${reason}
+                                            </li>
+                                        `)}
+                                    </ul>
+                                </div>
                             </div>
                         `)}
                     </div>
-                    <button disabled=${!selectedPro} onClick=${() => setStep(7)} className="w-full gradient-blue text-white font-black py-5 rounded-2xl shadow-xl disabled:opacity-50">상담 요청 보내기 →</button>
+                    <button disabled=${!selectedPro} onClick=${() => setStep(7)} className="w-full gradient-blue text-white font-black py-6 rounded-3xl shadow-2xl shadow-blue-200 text-xl active:scale-95 transition-all">스승님과 상담 시작하기</button>
                 </div>
             `;
 
             if (step === 7) return html`
-                <div className="animate-pop py-10 text-center">
-                    <div className="w-20 h-20 bg-emerald-50 text-brand-emerald rounded-full flex items-center justify-center mx-auto mb-8 shadow-xl"><${MessageSquareText} size={40} fill="currentColor" /></div>
-                    <h3 className="text-3xl font-black text-slate-800 mb-3 text-center">상담 요청 완료!</h3>
-                    <p className="text-slate-500 font-bold mb-10 leading-relaxed text-sm text-center">${selectedPro?.name}님 상담을 위해 담당자가<br />카카오톡으로 곧 연락드립니다.</p>
-                    <div className="space-y-3">
-                        <a href=${KAKAO_CHAT_URL} className="w-full bg-[#FEE500] text-slate-800 font-black py-5 rounded-2xl flex items-center justify-center gap-2 shadow-lg">카카오톡으로 상담하기</a>
-                        <button onClick=${() => location.reload()} className="w-full bg-slate-100 text-slate-600 font-black py-5 rounded-2xl">홈으로 돌아가기</button>
+                <div className="animate-slide-up text-center py-12">
+                    <div className="w-24 h-24 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-10 shadow-inner animate-bounce"><${MessageSquareText} size=${48} /></div>
+                    <h3 className="text-3xl font-black text-slate-800 mb-4 tracking-tight">매칭 의뢰 성공!</h3>
+                    <p className="text-slate-500 font-bold mb-12 text-lg leading-relaxed text-center">
+                        ${selectedPro?.name}님과의 원활한 상담을 위해<br />
+                        담당 스승님이 카카오톡으로 곧 연락드립니다.
+                    </p>
+                    <div className="flex flex-col gap-4 text-center">
+                        <a href=${KAKAO_CHAT_URL} className="block w-full bg-[#FEE500] text-slate-850 font-black py-6 rounded-3xl shadow-xl hover:scale-105 transition-all text-xl">카카오톡 즉시 상담</a>
+                        <button onClick=${() => setModalOpen(false)} className="text-slate-400 font-bold text-sm">홈으로 돌아가기</button>
                     </div>
                 </div>
             `;
         };
 
-        const RequestFormModal = ({ formOpen, setFormOpen }) => {
-            if (!formOpen) return null;
-            return html`<div className="fixed inset-0 bg-black/60 z-[100] flex items-center justify-center p-6 backdrop-blur-md"><div className="bg-white rounded-[2.5rem] max-w-lg w-full p-8 relative max-h-[90vh] overflow-y-auto shadow-2xl"><button onClick=${() => setFormOpen(false)} className="absolute top-6 right-6 text-slate-300 hover:text-slate-800 transition-colors"><${X} size=${28} /></button><${InteractiveFlow} setModalOpen=${setFormOpen} /></div></div>`;
-        };
-
         const MainContent = () => {
             const [formOpen, setFormOpen] = React.useState(false);
-            return html`
-                <div className="min-h-screen bg-white pb-20 md:pb-0">
-                    <${Header} />
-                    <${HeroSection} setFormOpen=${setFormOpen} />
-                    <${EventSection} />
-                    <${EmpathySection} />
-                    <${ChecklistSection} />
-                    <${DifferenceSection} />
-                    <${SummarySection} />
-                    <${AfterFirstLessonSection} />
-                    <${ComparisonSection} />
-                    <${CaseStudySection} />
-                    <${TrustSection} />
-                    <${NoticeSection} />
-                    <${FinalCTASection} setFormOpen=${setFormOpen} />
 
-                    <footer className="px-6 py-20 bg-gray-900 text-white">
-                        <div className="max-w-screen-xl mx-auto grid md:grid-cols-2 gap-12 border-b border-gray-800 pb-12 mb-12">
-                            <div>
-                                <h4 className="text-2xl font-black mb-4 tracking-tighter italic">스승님</h4>
-                                <p className="text-gray-400 font-bold">골퍼와 프로가 만나는 가장 정직한 방식.<br/>실패 없는 레슨 경험을 선사합니다.</p>
+            return html`
+                <div className="min-h-screen">
+                    <${Header} />
+                    <main>
+                        <${HeroSection} setFormOpen=${setFormOpen} />
+                        <${ProblemSection} />
+                        <${EventSection} />
+                        <${SystemSection} />
+                        <${TrustSection} />
+                        
+                        <section id="cases" className="px-5 py-32 bg-slate-50">
+                            <div className="max-w-screen-xl mx-auto text-center">
+                                <h2 className="text-3xl md:text-5xl font-black mb-24 text-slate-850 tracking-tight text-center">실제 의뢰로 증명된 실력</h2>
+                                <div className="grid md:grid-cols-3 gap-10 text-left">
+                                    ${[
+                                        { q: "슬라이스가 너무 심해요. 비거리도 안 나고..", a: "레슨 5회 만에 슬라이스 완전 정복 및 비거리 30m 증가", u: "34세 직장인 K님" },
+                                        { q: "필드만 나가면 생크가 나서 미치겠어요.", a: "실전 필드 레슨 1회로 원인 파악 및 즉각 해결", u: "42세 사업가 L님" },
+                                        { q: "퍼팅 스트로크가 불안정해서 쓰리퍼트가 기본..", a: "정밀 분석을 통한 루틴 정립 후 평균 퍼트 수 8개 감소", u: "29세 골린이 P님" }
+                                    ].map((c, i) => html`
+                                        <div key=${i} className="bg-white p-12 rounded-[3rem] shadow-sm border border-slate-100 hover:shadow-2xl hover:translate-y-[-10px] transition-all">
+                                            <div className="flex gap-2 text-brand-blue mb-8"><${Star} size=${18} fill="currentColor" /> <${Star} size=${18} fill="currentColor" /> <${Star} size=${18} fill="currentColor" /> <${Star} size=${18} fill="currentColor" /> <${Star} size=${18} fill="currentColor" /></div>
+                                            <p className="text-slate-400 font-bold mb-6 italic">"${c.q}"</p>
+                                            <p className="text-slate-800 font-black text-2xl mb-12 leading-tight">"${c.a}"</p>
+                                            <div className="flex justify-between items-center pt-8 border-t border-slate-50">
+                                                <span className="text-sm font-bold text-slate-300">${c.u}</span>
+                                                <div className="flex items-center gap-2 text-emerald-500 font-black text-xs bg-emerald-50 px-3 py-1.5 rounded-full"><${ThumbsUp} size=${14} /> 베스트 매칭</div>
+                                            </div>
+                                        </div>
+                                    `)}
+                                </div>
                             </div>
-                            <div className="text-sm font-bold text-gray-500 space-y-2 text-left">
-                                <p>상호명: 스승님 (Suseungnim)</p>
-                                <p>법률 파트너: 법무법인 로투스</p>
-                                <p>© 2026 Suseungnim Corp. All rights reserved.</p>
+                        </section>
+
+                        <section className="px-5 py-40 bg-brand-blue text-white text-center relative overflow-hidden">
+                            <div className="absolute top-0 left-0 w-full h-full opacity-10 flex items-center justify-center">
+                                <${Target} size={600} strokeWidth={1} />
+                            </div>
+                            <div className="max-w-screen-md mx-auto relative z-10 text-center">
+                                <h2 className="text-4xl md:text-7xl font-black mb-12 leading-tight tracking-tighter text-center">당신의 스코어를 책임질<br />단 한 명의 스승님</h2>
+                                <button onClick=${() => setFormOpen(true)} className="bg-white text-brand-blue px-16 py-8 rounded-[2.5rem] font-black text-2xl shadow-[0_20px_60px_rgba(255,255,255,0.3)] hover:scale-110 transition-transform active:scale-95 mx-auto block">지금 정식 의뢰하기</button>
+                                <p className="mt-8 text-blue-100 font-bold text-lg opacity-80 italic">결과가 없으면 100% 보상해 드립니다</p>
+                            </div>
+                        </section>
+                    </main>
+
+                    <footer className="px-5 py-24 bg-slate-900 text-white">
+                        <div className="max-w-screen-xl mx-auto text-left">
+                            <div className="grid md:grid-cols-2 gap-16 border-b border-slate-800 pb-16 mb-16">
+                                <div>
+                                    <div className="flex items-center gap-3 mb-8 text-3xl font-black tracking-tighter italic">
+                                        <div className="w-10 h-10 bg-brand-blue rounded-xl flex items-center justify-center text-white not-italic text-lg">S</div>
+                                        스승님
+                                    </div>
+                                    <p className="text-slate-500 font-bold leading-relaxed text-lg max-w-sm">
+                                        스승님은 골퍼와 프로를 잇는 가장 신뢰받는 의뢰 플랫폼입니다. 
+                                        우리는 단순히 매칭하지 않습니다. 결과를 만듭니다.
+                                    </p>
+                                </div>
+                                <div className="text-sm font-bold text-slate-600 space-y-4 md:text-right">
+                                    <p className="text-slate-400 font-black text-lg mb-4">Contact & Policy</p>
+                                    <p>상호명: 스승님 (Suseungnim)</p>
+                                    <p>법률 제휴: 법무법인 로투스 정식 계약</p>
+                                    <p>개인정보처리방침 | 이용약관</p>
+                                    <p className="pt-4">© 2026 Suseungnim Corp. All rights reserved.</p>
+                                </div>
                             </div>
                         </div>
                     </footer>
-                    <div className="fixed bottom-6 left-6 right-6 z-50 md:hidden"><button onClick=${() => setFormOpen(true)} className="w-full gradient-blue py-5 rounded-2xl text-white font-black text-lg shadow-2xl flex items-center justify-center gap-2"><${Search} size=${20} /> AI 맞춤 스승님 찾기</button></div>
-                    <${RequestFormModal} formOpen=${formOpen} setFormOpen=${setFormOpen} />
+
+                    <div className="fixed bottom-8 left-6 right-6 z-50 md:hidden">
+                        <button onClick=${() => setFormOpen(true)} className="w-full gradient-blue py-6 rounded-3xl text-white font-black text-xl shadow-[0_20px_50px_rgba(0,102,255,0.4)] flex items-center justify-center gap-3 active:scale-95 transition-all">
+                            <${Zap} size=${24} fill="white" /> 1분 매칭 의뢰 시작
+                        </button>
+                    </div>
+
+                    ${formOpen && html`
+                        <div className="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-[100] flex items-center justify-center p-5">
+                            <div className="bg-white rounded-[3rem] max-w-lg w-full p-8 md:p-14 relative max-h-[95vh] overflow-y-auto shadow-[0_40px_100px_rgba(0,0,0,0.5)] border border-white/20">
+                                <button onClick=${() => setFormOpen(false)} className="absolute top-8 right-8 text-slate-300 hover:text-slate-800 transition-colors text-right">
+                                    <${X} size=${40} />
+                                </button>
+                                <${InteractiveFlow} setModalOpen=${setFormOpen} />
+                            </div>
+                        </div>
+                    `}
                 </div>
             `;
         };
@@ -700,8 +735,6 @@
     </script>
 </body>
 </html>
-
-
 
 
 
