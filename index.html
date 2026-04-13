@@ -463,16 +463,16 @@
                             <div className="flex items-center justify-center gap-3 text-slate-400 font-bold">
     
     <div className="flex -space-x-2">
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center border-2 border-white shadow-sm">
-            <User size={14} className="text-white" />
-        </div>
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center border-2 border-white shadow-sm">
-            <User size={14} className="text-white" />
-        </div>
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center border-2 border-white shadow-sm">
-            <UserPlus size={14} className="text-white" />
-        </div>
+    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center border-2 border-white shadow-sm">
+        <${User} size=${14} className="text-white" />
     </div>
+    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center border-2 border-white shadow-sm">
+        <${User} size=${14} className="text-white" />
+    </div>
+    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center border-2 border-white shadow-sm">
+        <${UserPlus} size=${14} className="text-white" />
+    </div>
+</div>
 
     <span className="text-sm">5일간 122명 매칭 완료</span>
 </div>
@@ -496,7 +496,7 @@
                                 </div>
                                 <div className="space-y-3">
                                     ${[1, 2].map(i => html`
-                                        <div key=${i} className="flex items-center gap-4 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                                        <div className="flex items-center gap-4 p-3 bg-gray-50 rounded-xl border border-gray-100">
                                             <div className="w-10 h-10 bg-gray-200 rounded-full"></div>
                                             <div className="flex-1 space-y-2">
                                                 <div className="h-2 bg-gray-200 rounded-full w-2/3"></div>
@@ -519,7 +519,6 @@
                 </div>
             </section>
         `;
-
         const ProblemSection = () => html`
             <section className="px-5 py-24 bg-white text-left">
                 <div className="max-w-screen-xl mx-auto">
@@ -533,7 +532,7 @@
                             { t: "맞지 않는 레슨 스타일", d: "나는 비거리를 원하는데 자세만 잡고 있을 때", i: "📉" },
                             { t: "애매한 환불 기준", d: "불만족해도 남은 회차 환불이 너무 어려움", i: "⚖️" }
                         ].map((item, idx) => html`
-                            <div key=${idx} className="p-8 bg-gray-50 rounded-4xl border border-gray-100 hover:bg-blue-50 hover:border-blue-100 transition-all group">
+                            <div className="p-8 bg-gray-50 rounded-4xl border border-gray-100 hover:bg-blue-50 hover:border-blue-100 transition-all group">
                                 <div className="text-4xl mb-6 group-hover:scale-110 transition-transform">${item.i}</div>
                                 <h4 className="text-xl font-black mb-3 text-slate-800">${item.t}</h4>
                                 <p className="text-gray-500 font-medium text-sm leading-relaxed">${item.d}</p>
