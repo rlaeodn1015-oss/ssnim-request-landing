@@ -700,7 +700,9 @@
             const generateReason = (p) => {
                 const arr = [];
                 if (p.location && p.location.includes(formData.location)) arr.push(`${formData.location} 지역 전문`);
-                if (p.tags && p.tags.some(t => t.includes(formData.concern))) arr.push(`${formData.concern} 해결 전문 스승`);
+                if (p.tags && p.tags.some(tag => 
+    formData.concern.some(c => tag.includes(c))
+)) arr.push(`${formData.concern} 해결 전문 스승`);
                 if (p.style && p.style.includes(formData.lessonType)) arr.push(`${formData.lessonType} 특화`);
                 if (arr.length < 2 && p.reasons?.length > 0) arr.push(p.reasons[0]);
                 if (arr.length < 3 && p.reviewHighlight) arr.push(p.reviewHighlight);
@@ -723,7 +725,10 @@
                                 let score = 0;
                                 if (p.location.includes(formData.location)) score += 3;
                                 if (p.style.includes(formData.lessonType)) score += 2;
-                                if (p.tags.some(tag => tag.includes(formData.concern) || tag.includes(formData.club))) score += 5;
+                                if (p.tags.some(tag => 
+    formData.concern.some(c => tag.includes(c)) 
+    || tag.includes(formData.club)
+)) score += 5;
                                 score += Math.random();
                                 return { ...p, score };
                             });
@@ -741,7 +746,8 @@
                 if (formData.location) items.push(`📍 ${formData.location}`);
                 if (formData.lessonType) items.push(`⛳ ${formData.lessonType}`);
                 if (formData.club) items.push(`🏌️ ${formData.club}`);
-                if (formData.concern) items.push(`💥 ${formData.concern}`);
+                if (formData.concern.length > 0)
+    items.push(`💥 ${formData.concern.join(', ')}`);
                 return html`
                     <div className="mb-6 flex flex-wrap gap-2 animate-slide-up bg-slate-50/50 p-3 rounded-2xl min-h-[48px] text-left">
                         ${items.length === 0 ? html`<p className="text-[11px] text-slate-300 font-bold self-center ml-2">요청 내용이 여기에 쌓입니다</p>` : items.map((item, idx) => html`
