@@ -710,46 +710,35 @@
             };
 
             const startAnalysis = () => {
-    setStep(5);
-    setLoadingIdx(0);
-    let idx = 0;
-
-    const interval = setInterval(() => {
-        idx++;
-
-        if (idx < loadingMessages.length) {
-            setLoadingIdx(idx);
-        } else {
-            clearInterval(interval);
-
-            setTimeout(() => {
-                const scoredPros = pros.map(p => {
-                    let score = 0;
-
-                    if (formData.location && p.location.includes(formData.location)) score += 3;
-if (formData.lessonType && p.style.includes(formData.lessonType)) score += 2;
-                    if (
-                        p.tags.some(tag =>
-    formData.concern.some(c => tag.includes(c)) ||
-    tag.includes(formData.club)
-)
-                    ) score += 5;
-
-                    score += Math.random();
-
-                    return { ...p, score };
-                });
-
-                const matched = scoredPros
-                    .sort((a, b) => b.score - a.score)
-                    .slice(0, 3);
-
-                setResults(matched);
-                setStep(6);
-            }, 800);
-        }
-    }, 1000);
-};
+                setStep(5);
+                setLoadingIdx(0);
+                let idx = 0;
+                const interval = setInterval(() => {
+                    idx++;
+                    if (idx < loadingMessages.length) {
+                        setLoadingIdx(idx);
+                    } else {
+                        clearInterval(interval);
+                        // 8. 진짜 AI처럼 보이게 하는 딜레이 (800ms)
+                        setTimeout(() => {
+                            const scoredPros = pros.map(p => {
+                                let score = 0;
+                                if (p.location.includes(formData.location)) score += 3;
+                                if (p.style.includes(formData.lessonType)) score += 2;
+                                if (p.tags.some(tag => 
+    formData.concern.some(c => tag.includes(c)) 
+    || tag.includes(formData.club)
+)) score += 5;
+                                score += Math.random();
+                                return { ...p, score };
+                            });
+                            const matched = scoredPros.sort((a, b) => b.score - a.score).slice(0, 3);
+                            setResults(matched);
+                            setStep(6);
+                        }, 800);
+                    }
+                }, 1000);
+            };
 
             const CumulativeUI = () => {
                 if (step > 4) return null;
@@ -967,82 +956,86 @@ if (step === 2) return html`
             if (step === 6) return html`
                 <div className="animate-slide-up text-left">
                     <h3 className="text-2xl font-black text-slate-800 mb-8 flex items-center gap-3 tracking-tight">AI 추천 스승님 <span className="text-brand-blue bg-blue-50 px-3 py-1 rounded-full text-[10px] uppercase">Best 3</span></h3>
-                    <div className="space-y-5 mb-6">
+                    <div className="space-y-4 mb-6">
                         ${results.map(p => html`
-  <div
-    key=${p.id}
-    onClick=${() => setSelectedPro(p)}
-    className=${`
-      p-6 rounded-[2rem] border-2 transition-all cursor-pointer flex flex-col gap-5 relative overflow-hidden active:scale-95 no-overflow-wrap card-hover
-      ${selectedPro?.id === p.id
-        ? 'selected-card bg-blue-50 ring-8 ring-blue-50/50'
-        : 'border-slate-50 bg-white hover:border-slate-100 shadow-sm'}
-    `}
-  >
-    <div className="flex items-start gap-4">
-      <img
-        src=${p.img}
-        className="w-20 h-20 rounded-3xl object-cover shadow-lg shrink-0"
-      />
+                            <div key=${p.id} onClick=${() => setSelectedPro(p)} className=${`
+                                p-6 rounded-[2.5rem] border-2 transition-all cursor-pointer flex flex-col gap-5 relative overflow-hidden active:scale-95 no-overflow-wrap card-hover
+                                ${selectedPro?.id === p.id 
+                                  ? 'selected-card bg-blue-50 ring-8 ring-blue-50/50' 
+                                  : 'border-slate-50 bg-white hover:border-slate-100 shadow-sm'}
+                            `}>
+                                <div className="flex justify-end mb-1">
+  <span className="text-[10px] bg-blue-100 text-blue-600 px-2 py-1 rounded-full font-black whitespace-nowrap">
+    AI 추천
+  </span>
+</div>
 
-      <div className="flex-1 min-w-0">
-        <div className="flex flex-wrap items-center gap-2 mb-2">
-          <span className="text-[10px] bg-blue-100 text-blue-600 px-2 py-1 rounded-full font-black whitespace-nowrap">
-            AI 추천
-          </span>
-          <span className="text-[10px] bg-sky-100 text-sky-600 px-2 py-1 rounded-full font-black whitespace-nowrap">
-            AI 매칭 상위
-          </span>
+<div className="flex items-center gap-5">
+
+    <!-- 🔥 이게 빠졌던 부분 (사진) -->
+    <img 
+        src=${p.img} 
+        className="w-20 h-20 rounded-3xl object-cover shadow-lg" 
+    />
+
+    <!-- 텍스트 영역 -->
+    <div className="flex-1">
+
+        <div className="flex items-center gap-2 mb-1 min-w-0">
+
+    <h4 className="flex-1 min-w-0 font-black text-slate-800 text-xl leading-tight break-keep">
+  ${p.name}
+</h4>
+
+    <span className="text-[10px] bg-blue-100 text-blue-600 px-2 py-1 rounded-full font-black shrink-0">
+        AI 매칭 상위
+    </span>
+
+</div>
+
+<div className="flex items-center gap-2 mb-2">
+    <div className="flex items-center text-amber-400 font-black text-sm gap-1">
+        <${Star} size=${16} fill="currentColor" />
+        ${p.rating}
+    </div>
+
+            <span className="text-[11px] text-slate-400 font-bold">
+                후기 ${p.review}개
+            </span>
         </div>
 
-        <h4 className="font-black text-slate-900 text-[26px] leading-[1.05] tracking-tight break-keep mb-2">
-          ${p.name}
-        </h4>
-
-        <div className="flex items-center gap-2 mb-2 flex-wrap">
-          <div className="flex items-center text-amber-400 font-black text-sm gap-1">
-            <${Star} size=${16} fill="currentColor" />
-            ${p.rating}
-          </div>
-
-          <span className="text-[12px] text-slate-400 font-bold">
-            후기 ${p.review}개
-          </span>
-        </div>
-
-        <p className="text-slate-500 text-[13px] leading-[1.4] font-bold mb-2 break-keep">
-          "${p.intro}"
+        <p className="text-slate-500 text-xs font-bold mb-2">
+            "${p.intro}"
         </p>
 
-        <p className="text-[13px] font-black text-blue-600">
-          AI 매칭 점수: ${Math.floor(Math.random() * 5) + 90}%
+        <p className="text-[11px] font-black text-blue-600 mb-2">
+            AI 매칭 점수: ${Math.floor(Math.random()*5)+90}%
         </p>
-      </div>
+
+        <div className="flex gap-2 mt-3 overflow-x-auto whitespace-nowrap pb-1">
+  ${p.tags.map(tag => html`
+    <span className="px-3 py-1.5 rounded-full border border-blue-200 text-blue-600 text-[12px] font-black bg-white shrink-0">
+      #${tag}
+    </span>
+  `)}
+</div>
+
     </div>
 
-    <div className="flex flex-wrap gap-2 mt-4">
-      ${p.tags.map(tag => html`
-        <span className="px-3 py-1.5 rounded-full border border-blue-200 text-blue-600 text-[12px] font-black bg-white">
-          #${tag}
-        </span>
-      `)}
-    </div>
-
-    <div className="p-3 rounded-xl bg-blue-50 border border-blue-100 mt-4">
-      <p className="text-[13px] leading-[1.45] font-black text-blue-500 mb-2 uppercase tracking-widest">
-        AI 분석 결과
-      </p>
-      <ul className="space-y-1">
-        ${p.reasons.map((r, i) => html`
-          <li key=${i} className="text-[11px] font-bold text-slate-600 flex gap-1">
-            <span className="text-blue-500">•</span> ${r}
-          </li>
-        `)}
-      </ul>
-    </div>
-  </div>
-`)}
+</div>
                                 
+                                <div className="p-3 rounded-xl bg-blue-50 border border-blue-100">
+                                  <p className="text-[10px] font-black text-blue-500 mb-2 uppercase tracking-widest">AI 분석 결과</p>
+                                  <ul className="space-y-1">
+                                    ${p.reasons.map((r, i) => html`
+                                      <li key=${i} className="text-[11px] font-bold text-slate-600 flex gap-1">
+                                        <span className="text-blue-500">•</span> ${r}
+                                      </li>
+                                    `)}
+                                  </ul>
+                                </div>
+                            </div>
+                        `)}
                     </div>
                     <div className="flex flex-col gap-3">
                         <button disabled=${!selectedPro} onClick=${async () => {
