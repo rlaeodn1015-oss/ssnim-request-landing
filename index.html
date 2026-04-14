@@ -710,35 +710,46 @@
             };
 
             const startAnalysis = () => {
-                setStep(5);
-                setLoadingIdx(0);
-                let idx = 0;
-                const interval = setInterval(() => {
-                    idx++;
-                    if (idx < loadingMessages.length) {
-                        setLoadingIdx(idx);
-                    } else {
-                        clearInterval(interval);
-                        // 8. 진짜 AI처럼 보이게 하는 딜레이 (800ms)
-                        setTimeout(() => {
-                            const scoredPros = pros.map(p => {
-                                let score = 0;
-                                if (p.location.includes(formData.location)) score += 3;
-                                if (p.style.includes(formData.lessonType)) score += 2;
-                                if (p.tags.some(tag => 
-    formData.concern.some(c => tag.includes(c)) 
-    || tag.includes(formData.club)
-)) score += 5;
-                                score += Math.random();
-                                return { ...p, score };
-                            });
-                            const matched = scoredPros.sort((a, b) => b.score - a.score).slice(0, 3);
-                            setResults(matched);
-                            setStep(6);
-                        }, 800);
-                    }
-                }, 1000);
-            };
+    setStep(5);
+    setLoadingIdx(0);
+    let idx = 0;
+
+    const interval = setInterval(() => {
+        idx++;
+
+        if (idx < loadingMessages.length) {
+            setLoadingIdx(idx);
+        } else {
+            clearInterval(interval);
+
+            setTimeout(() => {
+                const scoredPros = pros.map(p => {
+                    let score = 0;
+
+                    if (p.location.includes(formData.location)) score += 3;
+                    if (p.style.includes(formData.lessonType)) score += 2;
+                    if (
+                        p.tags.some(tag =>
+                            formData.concern.some(c => tag.includes(c)) ||
+                            tag.includes(formData.club)
+                        )
+                    ) score += 5;
+
+                    score += Math.random();
+
+                    return { ...p, score };
+                });
+
+                const matched = scoredPros
+                    .sort((a, b) => b.score - a.score)
+                    .slice(0, 3);
+
+                setResults(matched);
+                setStep(6);
+            }, 800);
+        }
+    }, 1000);
+};
 
             const CumulativeUI = () => {
                 if (step > 4) return null;
