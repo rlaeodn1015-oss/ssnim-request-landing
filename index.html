@@ -1043,18 +1043,6 @@ if (step === 2) return html`
   </div>
 `)}
                                 
-                                <div className="p-3 rounded-xl bg-blue-50 border border-blue-100 mt-4">
-                                  <p className="text-[13px] leading-[1.45] font-black text-blue-500 mb-2 uppercase tracking-widest">AI 분석 결과</p>
-                                  <ul className="space-y-1">
-                                    ${p.reasons.map((r, i) => html`
-                                      <li key=${i} className="text-[11px] font-bold text-slate-600 flex gap-1">
-                                        <span className="text-blue-500">•</span> ${r}
-                                      </li>
-                                    `)}
-                                  </ul>
-                                </div>
-                            </div>
-                        `)}
                     </div>
                     <div className="flex flex-col gap-3">
                         <button disabled=${!selectedPro} onClick=${async () => {
