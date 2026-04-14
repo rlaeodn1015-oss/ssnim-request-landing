@@ -789,6 +789,7 @@
             `;
 
             // Step 2 부분의 UI 코드 수정
+// Step 2
 if (step === 2) return html`
     <div className="animate-slide-up text-left">
 
@@ -867,19 +868,6 @@ if (step === 2) return html`
             </button>
         </div>
 
-    </div>
-`;
-
-        <div className="flex gap-4 mt-12">
-            <button onClick=${prevStep} className="flex-1 bg-slate-100 text-slate-500 font-black py-4 rounded-2xl">이전</button>
-            <button 
-                disabled=${formData.concern.length === 0} 
-                onClick=${nextStep} 
-                className="flex-[2] gradient-blue text-white font-black py-4 rounded-2xl shadow-xl disabled:opacity-30 btn-glow"
-            >
-                다음 단계로 이동
-            </button>
-        </div>
     </div>
 `;
 
