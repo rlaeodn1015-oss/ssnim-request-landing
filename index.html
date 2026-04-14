@@ -791,31 +791,87 @@
             // Step 2 부분의 UI 코드 수정
 if (step === 2) return html`
     <div className="animate-slide-up text-left">
+
         <${CumulativeUI} />
+
         <div className="flex justify-between items-center mb-8">
-            <h3 className="text-2xl font-black text-slate-800 tracking-tight">STEP 2 / 3</h3>
+            <h3 className="text-2xl font-black text-slate-800 tracking-tight">
+                STEP 2 / 3
+            </h3>
         </div>
         
         <div className="space-y-8">
+
+            <!-- ✅ 1. 집중 클럽 -->
             <div>
-                <p className="text-xs font-bold text-slate-400 mb-4 uppercase tracking-widest">주요 증상 (중복 선택 가능)</p>
+                <p className="text-[11px] font-black text-slate-400 mb-3 uppercase tracking-widest">
+                    집중 클럽
+                </p>
+
+                <div className="grid grid-cols-3 gap-2">
+                    ${['드라이버', '아이언', '웨지/숏게임', '퍼터', '우드/유틸', '전체'].map(c => html`
+                        <button
+                            key=${c}
+                            onClick=${() => updateData('club', c)}
+                            className=${`
+                                py-3 rounded-xl border-2 font-bold text-xs transition-all
+                                ${formData.club === c
+                                    ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-md'
+                                    : 'border-slate-100 text-slate-400 hover:border-slate-200'}
+                            `}
+                        >
+                            ${c}
+                        </button>
+                    `)}
+                </div>
+            </div>
+
+            <!-- ✅ 2. 주요 증상 -->
+            <div>
+                <p className="text-xs font-bold text-slate-400 mb-4 uppercase tracking-widest">
+                    주요 증상 (중복 선택 가능)
+                </p>
+
                 <div className="flex flex-wrap gap-2">
                     ${['슬라이스 교정', '훅 교정', '비거리/탄도', '생크', '뒤땅/탑볼', '스윙 궤도', '자세 교정', '퍼터 레슨', '초보 레슨'].map(con => html`
                         <button 
                             key=${con} 
                             onClick=${() => updateConcern(con)} 
-                            className=${`py-3 px-6 rounded-full border-2 font-bold text-xs transition-all ${
-                                formData.concern.includes(con) 
-                                ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-md' 
-                                : 'border-slate-100 text-slate-400 hover:border-slate-200'
-                            }`}
+                            className=${`
+                                py-3 px-4 rounded-full border-2 font-bold text-xs transition-all whitespace-nowrap
+                                ${formData.concern.includes(con)
+                                    ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-md'
+                                    : 'border-slate-100 text-slate-400 hover:border-slate-200'}
+                            `}
                         >
                             # ${con}
                         </button>
                     `)}
                 </div>
             </div>
+
         </div>
+
+        <!-- ✅ 하단 버튼 -->
+        <div className="flex gap-4 mt-12">
+            <button 
+                onClick=${prevStep} 
+                className="flex-1 bg-slate-100 text-slate-500 font-black py-4 rounded-2xl"
+            >
+                이전
+            </button>
+
+            <button 
+                disabled=${!formData.club || formData.concern.length === 0} 
+                onClick=${nextStep} 
+                className="flex-[2] gradient-blue text-white font-black py-4 rounded-2xl shadow-xl disabled:opacity-30 btn-glow"
+            >
+                다음 단계로 이동
+            </button>
+        </div>
+
+    </div>
+`;
 
         <div className="flex gap-4 mt-12">
             <button onClick=${prevStep} className="flex-1 bg-slate-100 text-slate-500 font-black py-4 rounded-2xl">이전</button>
