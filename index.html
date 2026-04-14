@@ -936,19 +936,23 @@ if (step === 2) return html`
     <!-- 텍스트 영역 -->
     <div className="flex-1">
 
-        <div className="flex items-center gap-2 mb-1">
-            <h4 className="font-black text-slate-800 text-xl">${p.name}</h4>
+        <div className="flex items-center gap-2 mb-1 min-w-0">
 
-            <span className="text-[10px] bg-blue-100 text-blue-600 px-2 py-1 rounded-full font-black">
-                AI 매칭 상위
-            </span>
-        </div>
+    <h4 className="flex-1 min-w-0 font-black text-slate-800 text-xl whitespace-nowrap overflow-hidden text-ellipsis">
+        ${p.name}
+    </h4>
 
-        <div className="flex items-center gap-2 mb-2">
-            <div className="flex items-center text-amber-400 font-black text-sm gap-1">
-                <${Star} size=${16} fill="currentColor" />
-                ${p.rating}
-            </div>
+    <span className="text-[10px] bg-blue-100 text-blue-600 px-2 py-1 rounded-full font-black shrink-0">
+        AI 매칭 상위
+    </span>
+
+</div>
+
+<div className="flex items-center gap-2 mb-2">
+    <div className="flex items-center text-amber-400 font-black text-sm gap-1">
+        <${Star} size=${16} fill="currentColor" />
+        ${p.rating}
+    </div>
 
             <span className="text-[11px] text-slate-400 font-bold">
                 후기 ${p.review}개
@@ -963,9 +967,9 @@ if (step === 2) return html`
             AI 매칭 점수: ${Math.floor(Math.random()*5)+90}%
         </p>
 
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-3">
             ${p.tags.map(t => html`
-                <span key=${t} className="text-[10px] font-black text-brand-blue bg-white border border-blue-100 px-2.5 py-1 rounded-full shadow-sm">
+                <span key=${t} className="text-[10px] font-black text-brand-blue bg-white border border-blue-100 px-2.5 py-1 rounded-full shadow-sm whitespace-nowrap">
                     #${t}
                 </span>
             `)}
