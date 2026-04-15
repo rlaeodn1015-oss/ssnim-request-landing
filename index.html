@@ -707,17 +707,21 @@
                 setLoadingIdx(idx);
             } else {
                 clearInterval(interval);
-                setTimeout(() => {
-                    const scoredPros = pros.map(p => {
-                        let score = 0;
-                        if (p.location.includes(formData.location)) score += 3;
-                        if (p.style.includes(formData.lessonType)) score += 2;
-                        if (p.tags.some(tag => formData.concern.some(c => tag.includes(c)))) score += 5;
-                        return { ...p, score: score + Math.random() };
-                    });
-                    setResults(scoredPros.sort((a, b) => b.score - a.score).slice(0, 3));
-                    setStep(6);
-                }, 800);
+                // startAnalysis 함수 내부의 setTimeout 부분을 이렇게 수정
+setTimeout(() => {
+    const scoredPros = pros.map(p => {
+        let score = 0;
+        if (p.location.includes(formData.location)) score += 3;
+        if (p.style.includes(formData.lessonType)) score += 2;
+        if (p.tags.some(tag => formData.concern.some(c => tag.includes(c)))) score += 5;
+    
+        const fixedDisplayScore = Math.floor(Math.random() * 5) + 95;
+        
+        return { ...p, score: score + Math.random(), displayScore: fixedDisplayScore };
+    });
+    setResults(scoredPros.sort((a, b) => b.score - a.score).slice(0, 3));
+    setStep(6);
+}, 800);
             }
         }, 1000);
     };
@@ -917,7 +921,7 @@
                                     <span className="text-[11px] text-slate-400 font-bold">후기 ${p.review}개</span>
                                 </div>
                                 <p className="text-slate-600 text-[13px] leading-tight font-medium break-keep mb-1">"${p.intro}"</p>
-                                <p className="text-[11px] font-black text-blue-600">AI 매칭 점수: ${Math.floor(Math.random()*5)+95}%</p>
+                                <p className="text-[11px] font-black text-blue-600">AI 매칭 점수: ${p.displayScore}%</p>
                             </div>
                         </div>
                         <div className="flex flex-wrap gap-2 mt-4">
