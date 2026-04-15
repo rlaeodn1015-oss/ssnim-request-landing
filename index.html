@@ -423,6 +423,57 @@
             }
         ];
 
+        const RealTimeStatus = () => {
+            const mockData = [
+                { name: "김**", location: "강남", type: "1:1 레슨", contact: "010-****-6431", status: "요청 완료" },
+                { name: "이**", location: "분당", type: "숏게임", contact: "010-****-4818", status: "요청 완료" },
+                { name: "박**", location: "용인", type: "1:1 레슨", contact: "010-****-9012", status: "요청 완료" },
+                { name: "김**", location: "송파", type: "1:1 레슨", contact: "010-****-2415", status: "요청 완료" },
+                { name: "류**", location: "분당", type: "9홀 레슨", contact: "010-****-3241", status: "요청 완료" },
+                { name: "송**", location: "강남", type: "숏게임 레슨", contact: "010-****-7556", status: "요청 완료" },
+                { name: "안**", location: "강남", type: "1:1 레슨", contact: "010-****-9824", status: "요청 완료" },
+                { name: "이**", location: "서초", type: "파3 레슨", contact: "010-****-3532", status: "요청 완료" },
+                { name: "조**", location: "분당", type: "1:1 레슨", contact: "010-****-1259", status: "요청 완료" },
+                { name: "현**", location: "서초", type: "숏게임 레슨", contact: "010-****-2678", status: "요청 완료" },
+                { name: "여**", location: "용인", type: "1:1 레슨", contact: "010-****-8415", status: "요청 완료" },
+                { name: "최*", location: "송파", type: "9홀 레슨", contact: "010-****-7890", status: "요청 완료" }
+            ];
+
+            return html`
+                <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden mb-8 animate-fade-in">
+                    <div className="bg-slate-50 px-5 py-3 border-b border-slate-100 flex justify-between items-center">
+                        <span className="text-sm font-black text-slate-800 flex items-center gap-2">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                            </span>
+                            실시간 매칭 신청 현황
+                        </span>
+                        <span className="text-[11px] text-slate-400 font-bold italic underline decoration-slate-200">현재 51명 분석 중</span>
+                    </div>
+                    <div className="p-2 overflow-x-auto">
+                        <table className="w-full text-left">
+                            <tbody className="divide-y divide-slate-50">
+                                ${mockData.map((item, idx) => html`
+                                    <tr key=${idx} className="hover:bg-slate-50/50 transition-colors">
+                                        <td className="py-3 px-4 text-[13px] font-bold text-slate-700">${item.name}</td>
+                                        <td className="py-3 px-2 text-[13px] text-slate-500">${item.location}</td>
+                                        <td className="py-3 px-2 text-[13px] text-brand-blue font-black">${item.type}</td>
+                                        <td className="py-3 px-2 text-[12px] text-slate-400">${item.contact}</td>
+                                        <td className="py-3 px-4 text-right">
+                                            <span className="text-[10px] bg-emerald-50 text-emerald-600 px-2 py-1 rounded-full font-black ring-1 ring-emerald-100 italic">
+                                                ${item.status}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                `)}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        };
+
         const Header = () => html`
             <header className="fixed top-0 left-0 right-0 z-[60] bg-white/90 backdrop-blur-xl border-b border-gray-100">
                 <div className="max-w-screen-xl mx-auto px-5 h-16 md:h-20 flex items-center justify-between">
