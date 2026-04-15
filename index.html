@@ -707,21 +707,23 @@
                 setLoadingIdx(idx);
             } else {
                 clearInterval(interval);
-                // startAnalysis 함수 내부의 setTimeout 부분을 이렇게 수정
-setTimeout(() => {
-    const scoredPros = pros.map(p => {
-        let score = 0;
-        if (p.location.includes(formData.location)) score += 3;
-        if (p.style.includes(formData.lessonType)) score += 2;
-        if (p.tags.some(tag => formData.concern.some(c => tag.includes(c)))) score += 5;
-    
-        const fixedDisplayScore = Math.floor(Math.random() * 5) + 95;
-        
-        return { ...p, score: score + Math.random(), displayScore: fixedDisplayScore };
-    });
-    setResults(scoredPros.sort((a, b) => b.score - a.score).slice(0, 3));
-    setStep(6);
-}, 800);
+                setTimeout(() => {
+                    const scoredPros = pros.map(p => {
+                        let score = 0;
+                        if (p.location.includes(formData.location)) score += 3;
+                        if (p.style.includes(formData.lessonType)) score += 2;
+                        if (p.tags.some(tag => formData.concern.some(c => tag.includes(c)))) score += 5;
+                        return { ...p, score: score + Math.random() };
+                    });
+
+                    const matched = scoredPros.sort((a, b) => b.score - a.score).slice(0, 3).map((p, i) => ({
+                        ...p,
+                        displayScore: 99 - (i * 2) - Math.floor(Math.random() * 2)
+                    }));
+
+                    setResults(matched);
+                    setStep(6);
+                }, 800);
             }
         }, 1000);
     };
