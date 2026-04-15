@@ -695,7 +695,7 @@
 📍 지역: ${formData.location}
 ⛳ 레슨: ${formData.lessonType}
 🏌️ 클럽: ${formData.club}
-💥 문제: ${formData.concern.join(", ")}
+💥 문제: ${(formData.concern || []).join(", ")}
 ⏰ 시간: ${formData.schedule}
 
 🏆 선택 프로: ${selectedPro?.name || ""}
@@ -714,13 +714,15 @@
         });
 
         const data = await res.json();
+        console.log("telegram response:", data);
 
-        if (!data.ok) throw new Error("전송 실패");
-
-        setStep(7);
+        if (!data.ok) {
+            throw new Error(data.description || "전송 실패");
+        }
     } catch (err) {
-        console.error(err);
-        alert("텔레그램 전송 실패");
+        console.error("Telegram error:", err);
+    } finally {
+        setStep(7);
     }
 };
 
