@@ -744,7 +744,7 @@
         const telegramMessage = `🔥 매칭 요청 발생\n\n👤 이름: ${payload.name}\n📞 연락처: ${payload.contact}\n📍 지역: ${payload.location}\n⛳ 레슨: ${payload.lessonType}\n🏌️ 클럽: ${payload.club}\n💥 문제: ${payload.concern}\n⏰ 시간: ${payload.schedule}\n🏆 선택 프로: ${payload.selectedPro}`;
 
         try {
-            const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyf9iA_C_x1F4S6f5fS_yK-l-GZ9pT9_5wR7gE0/exec"; 
+            const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyXGjMJvkv9CK3dajK16HFXdXNJZelmYCv8DiFn8rQuOnOHI4KZH2nka-ImTr20Kzna/exec"; 
             
             fetch(GOOGLE_SHEET_URL, {
                 method: "POST",
@@ -822,7 +822,7 @@
                 <div>
                     <p className="text-xs font-bold text-slate-400 mb-4 uppercase tracking-widest">골프 고민 (중복 선택 가능)</p>
                     <div className="flex flex-wrap gap-2">
-                        ${[['슬라이스 교정', '훅 교정', '비거리/탄도', '바디스윙', '체중이동', '생크/임팩 교정', '뒤땅/탑볼', '스윙 궤도', '자세 교정', '퍼터 교정', '초보 레슨', '부상 레슨',].map(con => html`<button key=${con} onClick=${() => updateConcern(con)} className=${`py-3 px-4 rounded-full border-2 font-bold text-xs transition-all ${formData.concern.includes(con) ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-md' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}># ${con}</button>`)}
+                        ${['슬라이스 교정', '훅 교정', '비거리/탄도', '바디스윙', '체중이동', '생크/임팩 교정', '뒤땅/탑볼', '스윙 궤도', '자세 교정', '퍼터 교정', '초보 레슨', '부상 레슨'].map(con => html`<button key=${con} onClick=${() => updateConcern(con)} className=${`py-3 px-4 rounded-full border-2 font-bold text-xs transition-all ${formData.concern.includes(con) ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-md' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}># ${con}</button>`)}
                     </div>
                 </div>
             </div>
