@@ -692,9 +692,7 @@
             const exists = prev.concern.includes(value);
             return {
                 ...prev,
-                concern: exists
-                    ? prev.concern.filter(v => v !== value)
-                    : [...prev.concern, value]
+                concern: exists ? prev.concern.filter(v => v !== value) : [...prev.concern, value]
             };
         });
     };
@@ -725,28 +723,37 @@
     };
 
     const submitRequest = async () => {
-        const message = `🔥 매칭 요청 발생
+        const payload = {
+            name: userInfo.name,
+            contact: userInfo.contact,
+            location: formData.location,
+            lessonType: formData.lessonType,
+            club: formData.club,
+            concern: formData.concern.join(", "),
+            schedule: formData.schedule,
+            selectedPro: selectedPro?.name || "미선택",
+            rematchCount: rematchCount
+        };
 
-👤 이름: ${userInfo.name}
-📞 연락처: ${userInfo.contact}
-
-📍 지역: ${formData.location}
-⛳ 레슨: ${formData.lessonType}
-🏌️ 클럽: ${formData.club}
-💥 문제: ${(formData.concern || []).join(", ")}
-⏰ 시간: ${formData.schedule}
-
-🏆 선택 프로: ${selectedPro?.name || "미선택"}
-🔄 재매칭 횟수: ${rematchCount || 0}`;
+        const telegramMessage = `🔥 매칭 요청 발생\n\n👤 이름: ${payload.name}\n📞 연락처: ${payload.contact}\n📍 지역: ${payload.location}\n⛳ 레슨: ${payload.lessonType}\n🏌️ 클럽: ${payload.club}\n💥 문제: ${payload.concern}\n⏰ 시간: ${payload.schedule}\n🏆 선택 프로: ${payload.selectedPro}`;
 
         try {
+            const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyf9iA_C_x1F4S6f5fS_yK-l-GZ9pT9_5wR7gE0/exec"; 
+            
+            fetch(GOOGLE_SHEET_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
             await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ chat_id: CHAT_ID, text: message })
+                body: JSON.stringify({ chat_id: CHAT_ID, text: telegramMessage })
             });
         } catch (err) {
-            console.error("Telegram error:", err);
+            console.error(err);
         } finally {
             setStep(7);
         }
@@ -759,13 +766,9 @@
         if (formData.lessonType) items.push(`⛳ ${formData.lessonType}`);
         if (formData.club) items.push(`🏌️ ${formData.club}`);
         if (formData.concern.length > 0) items.push(`💥 ${formData.concern.join(', ')}`);
-        
         return html`
             <div className="mb-6 flex flex-wrap gap-2 animate-slide-up bg-slate-50/50 p-3 rounded-2xl min-h-[48px] text-left">
-                ${items.length === 0 
-                    ? html`<p className="text-[11px] text-slate-300 font-bold self-center ml-2">요청 내용이 여기에 쌓입니다</p>` 
-                    : items.map((item, idx) => html`<span key=${idx} className="summary-chip animate-slide-up">${item}</span>`)
-                }
+                ${items.length === 0 ? html`<p className="text-[11px] text-slate-300 font-bold self-center ml-2">요청 내용이 여기에 쌓입니다</p>` : items.map((item, idx) => html`<span key=${idx} className="summary-chip animate-slide-up">${item}</span>`)}
             </div>
         `;
     };
@@ -783,17 +786,13 @@
                 <div>
                     <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">지역 선택</p>
                     <div className="grid grid-cols-2 gap-3">
-                        ${['강남', '서초', '송파', '분당', '용인'].map(l => html`
-                            <button key=${l} onClick=${() => updateData('location', l)} className=${`py-4 rounded-2xl border-2 font-bold transition-all ${formData.location === l ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}>${l}</button>
-                        `)}
+                        ${['강남', '서초', '송파', '분당', '용인'].map(l => html`<button key=${l} onClick=${() => updateData('location', l)} className=${`py-4 rounded-2xl border-2 font-bold transition-all ${formData.location === l ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}>${l}</button>`)}
                     </div>
                 </div>
                 <div>
                     <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">레슨 형태</p>
                     <div className="grid grid-cols-2 gap-3">
-                        ${['18홀 필드레슨', '9홀 레슨', '숏게임레슨', '파3 레슨', '1:1 레슨', '캠프'].map(t => html`
-                            <button key=${t} onClick=${() => updateData('lessonType', t)} className=${`py-4 rounded-2xl border-2 font-bold transition-all ${formData.lessonType === t ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}>${t}</button>
-                        `)}
+                        ${['18홀 필드레슨', '9홀 레슨', '숏게임레슨', '파3 레슨', '1:1 레슨', '캠프 레슨'].map(t => html`<button key=${t} onClick=${() => updateData('lessonType', t)} className=${`py-4 rounded-2xl border-2 font-bold transition-all ${formData.lessonType === t ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}>${t}</button>`)}
                     </div>
                 </div>
             </div>
@@ -811,17 +810,13 @@
                 <div>
                     <p className="text-[11px] font-black text-slate-400 mb-3 uppercase tracking-widest">교정 클럽</p>
                     <div className="grid grid-cols-3 gap-2">
-                        ${['드라이버', '우드/유틸', '롱아이언', '숏아이언', '웨지/숏게임', '퍼터'].map(c => html`
-                            <button key=${c} onClick=${() => updateData('club', c)} className=${`py-3 rounded-xl border-2 font-bold text-xs transition-all ${formData.club === c ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-md' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}>${c}</button>
-                        `)}
+                        ${['드라이버', '우드/유틸', '롱아이언', '숏아이언', '웨지/숏게임', '퍼터'].map(c => html`<button key=${c} onClick=${() => updateData('club', c)} className=${`py-3 rounded-xl border-2 font-bold text-xs transition-all ${formData.club === c ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-md' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}>${c}</button>`)}
                     </div>
                 </div>
                 <div>
                     <p className="text-xs font-bold text-slate-400 mb-4 uppercase tracking-widest">골프 고민 (중복 선택 가능)</p>
                     <div className="flex flex-wrap gap-2">
-                        ${['슬라이스 교정', '훅 교정', '비거리/탄도', '바디스윙', '체중이동', '생크/임팩 교정', '뒤땅/탑볼', '스윙 궤도', '자세 교정', '퍼터 교정', '초보 레슨', '부상 레슨',].map(con => html`
-                            <button key=${con} onClick=${() => updateConcern(con)} className=${`py-3 px-4 rounded-full border-2 font-bold text-xs transition-all ${formData.concern.includes(con) ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-md' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}># ${con}</button>
-                        `)}
+                        ${['슬라이스 교정', '훅 교정', '비거리/탄도', '생크', '뒤땅/탑볼', '스윙 궤도', '자세 교정', '퍼터 레슨', '초보 레슨'].map(con => html`<button key=${con} onClick=${() => updateConcern(con)} className=${`py-3 px-4 rounded-full border-2 font-bold text-xs transition-all ${formData.concern.includes(con) ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-md' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}># ${con}</button>`)}
                     </div>
                 </div>
             </div>
@@ -845,15 +840,13 @@
                 <div>
                     <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">선호 시간대</p>
                     <div className="grid grid-cols-2 gap-3">
-                        ${['주중 낮/오후', '주중 퇴근후', '주말 오전', '주말 오후'].map(s => html`
-                            <button key=${s} onClick=${() => updateData('schedule', s)} className=${`py-4 rounded-2xl border-2 font-bold text-sm ${formData.schedule === s ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400'}`}>${s}</button>
-                        `)}
+                        ${['주중 낮/오후', '주중 퇴근 후', '주말 오전', '주말 오후'].map(s => html`<button key=${s} onClick=${() => updateData('schedule', s)} className=${`py-4 rounded-2xl border-2 font-bold text-sm ${formData.schedule === s ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400'}`}>${s}</button>`)}
                     </div>
                 </div>
                 <div className="space-y-3 mt-6">
                     <p className="text-xs font-bold text-slate-400 mb-2 ml-1 uppercase tracking-widest">연락처 정보</p>
-                    <input placeholder="이름" className="w-full p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none transition-all" value=${userInfo.name} onInput=${(e) => setUserInfo({...userInfo, name: e.target.value})} />
-                    <input placeholder="연락처" className="w-full p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none transition-all" value=${userInfo.contact} onInput=${(e) => setUserInfo({...userInfo, contact: e.target.value})} />
+                    <input placeholder="이름" className="w-full p-4 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-brand-blue" value=${userInfo.name} onInput=${(e) => setUserInfo({...userInfo, name: e.target.value})} />
+                    <input placeholder="연락처" className="w-full p-4 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-brand-blue" value=${userInfo.contact} onInput=${(e) => setUserInfo({...userInfo, contact: e.target.value})} />
                 </div>
             </div>
             <div className="flex gap-4 mt-12">
