@@ -664,7 +664,10 @@
         const InteractiveFlow = ({ setModalOpen }) => {
     const [step, setStep] = React.useState(1);
     const [loadingIdx, setLoadingIdx] = React.useState(0);
-
+    const [results, setResults] = React.useState([]);
+    const [selectedPro, setSelectedPro] = React.useState(null);
+    const [rematchCount, setRematchCount] = React.useState(0);
+    const [userInfo, setUserInfo] = React.useState({ name: '', contact: '' });
     const [formData, setFormData] = React.useState({
         location: '',
         lessonType: '',
@@ -673,10 +676,20 @@
         schedule: ''
     });
 
+    const loadingMessages = [
+        "✔ 사용자 요청 데이터 수집 중...",
+        "✔ 공급자 데이터 및 문제 유형 분석 중...",
+        "✔ 매칭 적합률 기반 주변 스승님 탐색 중...",
+        "✔ 최적의 매칭 결과 도출 중..."
+    ];
+
+    const updateData = (key, val) => setFormData(prev => ({ ...prev, [key]: val }));
+    const nextStep = () => setStep(prev => prev + 1);
+    const prevStep = () => setStep(prev => prev - 1);
+
     const updateConcern = (value) => {
         setFormData(prev => {
             const exists = prev.concern.includes(value);
-
             return {
                 ...prev,
                 concern: exists
@@ -686,8 +699,33 @@
         });
     };
 
-            const submitRequest = async () => {
-    const message = `🔥 매칭 요청 발생
+    const startAnalysis = () => {
+        setStep(5);
+        setLoadingIdx(0);
+        let idx = 0;
+        const interval = setInterval(() => {
+            idx++;
+            if (idx < loadingMessages.length) {
+                setLoadingIdx(idx);
+            } else {
+                clearInterval(interval);
+                setTimeout(() => {
+                    const scoredPros = pros.map(p => {
+                        let score = 0;
+                        if (p.location.includes(formData.location)) score += 3;
+                        if (p.style.includes(formData.lessonType)) score += 2;
+                        if (p.tags.some(tag => formData.concern.some(c => tag.includes(c)))) score += 5;
+                        return { ...p, score: score + Math.random() };
+                    });
+                    setResults(scoredPros.sort((a, b) => b.score - a.score).slice(0, 3));
+                    setStep(6);
+                }, 800);
+            }
+        }, 1000);
+    };
+
+    const submitRequest = async () => {
+        const message = `🔥 매칭 요청 발생
 
 👤 이름: ${userInfo.name}
 📞 연락처: ${userInfo.contact}
@@ -698,402 +736,207 @@
 💥 문제: ${(formData.concern || []).join(", ")}
 ⏰ 시간: ${formData.schedule}
 
-🏆 선택 프로: ${selectedPro?.name || ""}
+🏆 선택 프로: ${selectedPro?.name || "미선택"}
 🔄 재매칭 횟수: ${rematchCount || 0}`;
 
-    try {
-        const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                chat_id: CHAT_ID,
-                text: message
-            })
-        });
-
-        const data = await res.json();
-        console.log("telegram response:", data);
-
-        if (!data.ok) {
-            throw new Error(data.description || "전송 실패");
+        try {
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: CHAT_ID,
+                    text: message
+                })
+            });
+        } catch (err) {
+            console.error("Telegram error:", err);
+        } finally {
+            setStep(7);
         }
-    } catch (err) {
-        console.error("Telegram error:", err);
-    } finally {
-        setStep(7);
-    }
-};
+    };
 
-    const [userInfo, setUserInfo] = React.useState({ name: '', contact: '' });
-    const [rematchCount, setRematchCount] = React.useState(0);
-    const [results, setResults] = React.useState([]);
-    const [selectedPro, setSelectedPro] = React.useState(null);
-
-            // 7. 분석 단계 텍스트 강화
-            const loadingMessages = [
-                "✔ 사용자 요청 데이터 수집 중...",
-                "✔ 공급자 데이터 및 문제 유형 분석 중...",
-                "✔ 매칭 적합률 기반 주변 스승님 탐색 중...",
-                "✔ 최적의 매칭 결과 도출 중..."
-            ];
-
-            const updateData = (key, val) => setFormData(prev => ({ ...prev, [key]: val }));
-            const nextStep = () => setStep(prev => prev + 1);
-            const prevStep = () => setStep(prev => prev - 1);
-
-            const generateReason = (p) => {
-                const arr = [];
-                if (p.location && p.location.includes(formData.location)) arr.push(`${formData.location} 지역 전문`);
-                if (p.tags && p.tags.some(tag => 
-    formData.concern.some(c => tag.includes(c))
-)) arr.push(`${formData.concern} 해결 전문 스승`);
-                if (p.style && p.style.includes(formData.lessonType)) arr.push(`${formData.lessonType} 특화`);
-                if (arr.length < 2 && p.reasons?.length > 0) arr.push(p.reasons[0]);
-                if (arr.length < 3 && p.reviewHighlight) arr.push(p.reviewHighlight);
-                return arr.slice(0, 3);
-            };
-
-            const startAnalysis = () => {
-                setStep(5);
-                setLoadingIdx(0);
-                let idx = 0;
-                const interval = setInterval(() => {
-                    idx++;
-                    if (idx < loadingMessages.length) {
-                        setLoadingIdx(idx);
-                    } else {
-                        clearInterval(interval);
-                        // 8. 진짜 AI처럼 보이게 하는 딜레이 (800ms)
-                        setTimeout(() => {
-                            const scoredPros = pros.map(p => {
-                                let score = 0;
-                                if (p.location.includes(formData.location)) score += 3;
-                                if (p.style.includes(formData.lessonType)) score += 2;
-                                if (p.tags.some(tag => 
-    formData.concern.some(c => tag.includes(c)) 
-    || tag.includes(formData.club)
-)) score += 5;
-                                score += Math.random();
-                                return { ...p, score };
-                            });
-                            const matched = scoredPros.sort((a, b) => b.score - a.score).slice(0, 3);
-                            setResults(matched);
-                            setStep(6);
-                        }, 800);
-                    }
-                }, 1000);
-            };
-
-            const CumulativeUI = () => {
-                if (step > 4) return null;
-                const items = [];
-                if (formData.location) items.push(`📍 ${formData.location}`);
-                if (formData.lessonType) items.push(`⛳ ${formData.lessonType}`);
-                if (formData.club) items.push(`🏌️ ${formData.club}`);
-                if (formData.concern.length > 0)
-    items.push(`💥 ${formData.concern.join(', ')}`);
-                return html`
-                    <div className="mb-6 flex flex-wrap gap-2 animate-slide-up bg-slate-50/50 p-3 rounded-2xl min-h-[48px] text-left">
-                        ${items.length === 0 ? html`<p className="text-[11px] text-slate-300 font-bold self-center ml-2">요청 내용이 여기에 쌓입니다</p>` : items.map((item, idx) => html`
-                            <span key=${idx} className="summary-chip animate-slide-up">${item}</span>
-                        `)}
-                    </div>
-                `;
-            };
-
-            if (step === 1) return html`
-                <div className="animate-slide-up text-left">
-                    <${CumulativeUI} />
-                    <div className="flex justify-between items-center mb-8">
-                        <div>
-                            <h3 className="text-2xl font-black text-slate-800 tracking-tight">STEP 1 / 3</h3>
-                            <p className="text-brand-blue font-black text-sm mt-1">📍 레슨 환경 설정</p>
-                        </div>
-                    </div>
-                    <div className="space-y-8">
-                        <div>
-                            <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">지역 선택</p>
-                            <div className="grid grid-cols-2 gap-3">
-                                ${['강남', '서초', '송파', '분당', '용인'].map(l => html`
-                                    <button key=${l} onClick=${() => updateData('location', l)} className=${`py-4 rounded-2xl border-2 font-bold transition-all ${formData.location === l ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}>${l}</button>
-                                `)}
-                            </div>
-                        </div>
-                        <div>
-                            <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">레슨 형태</p>
-                            <div className="grid grid-cols-2 gap-3">
-                                ${['18홀 필드레슨', '9홀 레슨', '숏게임레슨', '파3 레슨', '1:1 레슨', '캠프 레슨'].map(t => html`
-                                    <button key=${t} onClick=${() => updateData('lessonType', t)} className=${`py-4 rounded-2xl border-2 font-bold transition-all ${formData.lessonType === t ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}>${t}</button>
-                                `)}
-                            </div>
-                        </div>
-                    </div>
-                    <button disabled=${!formData.location || !formData.lessonType} onClick=${nextStep} className="w-full mt-12 gradient-blue text-white font-black py-4 md:py-6 text-base md:text-xl rounded-2xl shadow-xl disabled:opacity-30 transition-all flex items-center justify-center gap-2 btn-glow">다음 단계로 이동 <${ChevronRight} size=${18} /></button>
-                </div>
-            `;
-
-            // Step 2 부분의 UI 코드 수정
-// Step 2
-if (step === 2) return html`
-    <div className="animate-slide-up text-left">
-
-        <${CumulativeUI} />
-
-        <div className="flex justify-between items-center mb-8">
-            <h3 className="text-2xl font-black text-slate-800 tracking-tight">
-                STEP 2 / 3
-            </h3>
-        </div>
+    const CumulativeUI = () => {
+        if (step > 4) return null;
+        const items = [];
+        if (formData.location) items.push(`📍 ${formData.location}`);
+        if (formData.lessonType) items.push(`⛳ ${formData.lessonType}`);
+        if (formData.club) items.push(`🏌️ ${formData.club}`);
+        if (formData.concern.length > 0) items.push(`💥 ${formData.concern.join(', ')}`);
         
-        <div className="space-y-8">
+        return html`
+            <div className="mb-6 flex flex-wrap gap-2 animate-slide-up bg-slate-50/50 p-3 rounded-2xl min-h-[48px] text-left">
+                ${items.length === 0 
+                    ? html`<p className="text-[11px] text-slate-300 font-bold self-center ml-2">요청 내용이 여기에 쌓입니다</p>` 
+                    : items.map((item, idx) => html`<span key=${idx} className="summary-chip animate-slide-up">${item}</span>`)
+                }
+            </div>
+        `;
+    };
 
-            <div>
-                <p className="text-[11px] font-black text-slate-400 mb-3 uppercase tracking-widest">
-                    집중 클럽
-                </p>
-
-                <div className="grid grid-cols-3 gap-2">
-                    ${['드라이버', '아이언', '웨지/숏게임', '퍼터', '우드/유틸', '전체'].map(c => html`
-                        <button
-                            key=${c}
-                            onClick=${() => updateData('club', c)}
-                            className=${`
-                                py-3 rounded-xl border-2 font-bold text-xs transition-all
-                                ${formData.club === c
-                                    ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-md'
-                                    : 'border-slate-100 text-slate-400 hover:border-slate-200'}
-                            `}
-                        >
-                            ${c}
-                        </button>
-                    `)}
+    if (step === 1) return html`
+        <div className="animate-slide-up text-left">
+            <${CumulativeUI} />
+            <div className="flex justify-between items-center mb-8">
+                <div>
+                    <h3 className="text-2xl font-black text-slate-800 tracking-tight">STEP 1 / 3</h3>
+                    <p className="text-brand-blue font-black text-sm mt-1">📍 레슨 환경 설정</p>
                 </div>
             </div>
-
-            <div>
-                <p className="text-xs font-bold text-slate-400 mb-4 uppercase tracking-widest">
-                    주요 증상 (중복 선택 가능)
-                </p>
-
-                <div className="flex flex-wrap gap-2">
-                    ${['슬라이스 교정', '훅 교정', '비거리/탄도', '생크', '뒤땅/탑볼', '스윙 궤도', '자세 교정', '퍼터 레슨', '초보 레슨'].map(con => html`
-                        <button 
-                            key=${con} 
-                            onClick=${() => updateConcern(con)} 
-                            className=${`
-                                py-3 px-4 rounded-full border-2 font-bold text-xs transition-all whitespace-nowrap
-                                ${formData.concern.includes(con)
-                                    ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-md'
-                                    : 'border-slate-100 text-slate-400 hover:border-slate-200'}
-                            `}
-                        >
-                            # ${con}
-                        </button>
-                    `)}
-                </div>
-            </div>
-
-        </div>
-
-        <div className="flex gap-4 mt-12">
-            <button 
-                onClick=${prevStep} 
-                className="flex-1 bg-slate-100 text-slate-500 font-black py-4 rounded-2xl"
-            >
-                이전
-            </button>
-
-            <button 
-                disabled=${!formData.club || formData.concern.length === 0} 
-                onClick=${nextStep} 
-                className="flex-[2] gradient-blue text-white font-black py-4 rounded-2xl shadow-xl disabled:opacity-30 btn-glow"
-            >
-                다음 단계로 이동
-            </button>
-        </div>
-
-    </div>
-`;
-
-            if (step === 3) return html`
-                <div className="animate-slide-up text-left">
-                    <${CumulativeUI} />
-                    <div className="flex justify-between items-center mb-8">
-                        <div>
-                            <h3 className="text-2xl font-black text-slate-800 tracking-tight">STEP 3 / 3</h3>
-                            <p className="text-brand-blue font-black text-sm mt-1">⏰ 레슨 조건 설정</p>
-                        </div>
-                    </div>
-                    <div className="space-y-8">
-                        <div>
-                            <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">선호 시간대</p>
-                            <div className="grid grid-cols-2 gap-3">
-                                ${['주중 낮/오후', '주중 퇴근후', '주말 오전', '주말 오후'].map(s => html`
-                                    <button key=${s} onClick=${() => updateData('schedule', s)} className=${`py-4 rounded-2xl border-2 font-bold text-sm ${formData.schedule === s ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400'}`}>${s}</button>
-                                `)}
-                            </div>
-                        </div>
-                        <div className="space-y-3 mt-6">
-                            <p className="text-xs font-bold text-slate-400 mb-2 ml-1 uppercase tracking-widest">연락처 정보</p>
-                            <input placeholder="이름" className="w-full p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none transition-all" value=${userInfo.name} onInput=${(e) => setUserInfo({...userInfo, name: e.target.value})} />
-                            <input placeholder="연락처" className="w-full p-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-blue outline-none transition-all" value=${userInfo.contact} onInput=${(e) => setUserInfo({...userInfo, contact: e.target.value})} />
-                        </div>
-                        <div className="bg-blue-50/50 p-5 rounded-3xl border border-blue-100/50 mt-6 text-left">
-                            <p className="text-brand-blue font-black text-[11px] mb-2 flex items-center gap-2 uppercase tracking-widest"><${ShieldCheck} size=${14} /> AI 매칭 보안 안내</p>
-                            <p className="text-blue-700/70 text-xs font-bold leading-relaxed">회원님의 정보는 안전하게 보호되며, 매칭 확률이 가장 높은 스승님을 찾는 데만 활용됩니다.</p>
-                        </div>
-                    </div>
-                    <div className="flex gap-4 mt-12 text-left">
-                        <button onClick=${prevStep} className="flex-1 bg-slate-100 text-slate-500 font-black py-4 md:py-6 rounded-2xl">이전</button>
-                        <button disabled=${!formData.schedule || !userInfo.name || !userInfo.contact} onClick=${nextStep} className="flex-[2] gradient-blue text-white font-black py-4 md:py-6 text-base md:text-xl rounded-2xl shadow-xl disabled:opacity-30 btn-glow">요청서 작성 완료</button>
-                    </div>
-                </div>
-            `;
-
-            if (step === 4) return html`
-                <div className="animate-slide-up text-center">
-                    <div className="w-20 h-20 bg-blue-50 text-brand-blue rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner"><${ClipboardList} size=${40} /></div>
-                    <h3 className="text-3xl font-black text-slate-800 mb-2">요청서 완성!</h3>
-                    <p className="text-slate-500 font-bold mb-10 text-lg">🔥 요청에 적합한 스승님을 바로 찾아보세요</p>
-                    <div className="bg-slate-50 rounded-[2.5rem] p-8 text-left mb-10 space-y-4 border border-slate-100 reveal active">
-                        <div className="flex justify-between items-center text-sm">
-                            <span className="text-slate-400 font-bold">신청인</span>
-                            <span className="font-black text-slate-700">${userInfo.name}님</span>
-                        </div>
-                        <div className="flex justify-between items-center text-sm border-t border-slate-200/50 pt-4">
-                            <span className="text-slate-400 font-bold">지역 및 형태</span>
-                            <span className="font-black text-slate-700">${formData.location} / ${formData.lessonType}</span>
-                        </div>
-                        <div className="flex justify-between items-center text-sm border-t border-slate-200/50 pt-4">
-                            <span className="text-slate-400 font-bold">집중 고민</span>
-                            <span className="font-black text-slate-700">${formData.club} / ${formData.concern}</span>
-                        </div>
-                        <div className="flex justify-between items-center text-sm border-t border-slate-200/50 pt-4">
-                            <span className="text-slate-400 font-bold">희망 시간</span>
-                            <span className="font-black text-slate-700">${formData.schedule}</span>
-                        </div>
-                    </div>
-                    <div className="flex flex-col gap-4 text-center">
-                        <p className="text-brand-blue text-[11px] font-black tracking-tighter flex items-center justify-center gap-1"><${ShieldCheck} size=${14} /> 이 요청서는 실제 스승님 추천 매칭에 사용됩니다</p>
-                        <button onClick=${startAnalysis} className="w-full gradient-blue text-white font-black py-4 md:py-6 text-base md:text-xl rounded-3xl shadow-2xl shadow-blue-300 flex items-center justify-center gap-3 active:scale-95 transition-all btn-glow">→ 맞춤 스승님 찾기 시작</button>
-                    </div>
-                </div>
-            `;
-
-            if (step === 5) return html`
-                <div className="py-24 text-center animate-slide-up relative overflow-hidden rounded-[3rem]">
-                    <div className="data-flow"></div>
-                    <div className="relative w-36 h-36 mx-auto mb-12">
-                        <div className="absolute inset-0 border-8 border-brand-blue/10 rounded-full"></div>
-                        <div className="absolute inset-0 border-8 border-brand-blue border-t-transparent rounded-full animate-spin"></div>
-                        <div className="absolute inset-0 flex items-center justify-center ai-glow rounded-full">
-                            <${Search} size=${48} className="text-brand-blue animate-pulse" />
-                        </div>
-                    </div>
-                    <h3 className="text-2xl font-black text-slate-800 mb-8 tracking-tight">회원님을 위한 스승님 분석 중</h3>
-                    <div className="space-y-4 max-w-xs mx-auto text-left">
-                        ${loadingMessages.map((msg, idx) => html`<div key=${idx} className=${`flex items-center gap-3 font-black text-sm transition-all duration-700 ${loadingIdx >= idx ? 'text-brand-blue opacity-100' : 'text-slate-200 opacity-30'}`}><${CheckCircle2} size=${18} /><span>${msg}</span></div>`)}
-                    </div>
-                </div>
-            `;
-
-            if (step === 6) return html`
-    <div className="animate-slide-up text-left">
-        <h3 className="text-2xl font-black text-slate-800 mb-8 flex items-center gap-3 tracking-tight">
-            AI 추천 스승님 <span className="text-brand-blue bg-blue-50 px-3 py-1 rounded-full text-[10px] uppercase">TOP3</span>
-        </h3>
-        <div className="space-y-6 mb-8">
-            ${results.map(p => html`
-                <div key=${p.id} onClick=${() => setSelectedPro(p)} className=${`
-                    p-5 md:p-6 rounded-[2.5rem] border-2 transition-all cursor-pointer flex flex-col relative overflow-hidden active:scale-95 no-overflow-wrap
-                    ${selectedPro?.id === p.id 
-                        ? 'selected-card bg-blue-50 ring-8 ring-blue-50/50' 
-                        : 'border-slate-50 bg-white shadow-sm'}
-                `}>
-                    <div className="flex justify-end mb-2">
-                        <span className="text-[10px] bg-blue-100 text-blue-600 px-2 py-1 rounded-full font-black">AI 추천</span>
-                    </div>
-
-                    <div className="flex items-start gap-4">
-                        <img 
-                            src=${p.img} 
-                            className="w-20 h-20 rounded-3xl object-cover shadow-md shrink-0 border-2 border-white" 
-                        />
-
-                        <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-2 mb-1">
-                                <h4 className="font-black text-slate-900 text-xl truncate">${p.name}</h4>
-                            </div>
-                            
-                            <div className="flex items-center gap-2 mb-2">
-                                <div className="flex items-center text-amber-400 font-black text-xs gap-0.5">
-                                    <${Star} size=${14} fill="currentColor" />
-                                    ${p.rating}
-                                </div>
-                                <span className="text-[11px] text-slate-400 font-bold">후기 ${p.review}개</span>
-                            </div>
-
-                            <p className="text-slate-600 text-[13px] leading-tight font-medium break-keep mb-1">
-                                "${p.intro}"
-                            </p>
-                            <p className="text-[11px] font-black text-blue-600">AI 매칭 점수: ${Math.floor(Math.random()*5)+90}%</p>
-                        </div>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2 mt-4">
-                        ${p.tags.map(tag => html`
-                            <span key=${tag} className="px-3 py-1.5 rounded-full border border-blue-100 text-blue-600 text-[11px] font-black bg-white shadow-sm">
-                                #${tag}
-                            </span>
+            <div className="space-y-8">
+                <div>
+                    <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">지역 선택</p>
+                    <div className="grid grid-cols-2 gap-3">
+                        ${['강남', '서초', '송파', '분당', '용인'].map(l => html`
+                            <button onClick=${() => updateData('location', l)} className=${`py-4 rounded-2xl border-2 font-bold transition-all ${formData.location === l ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}>${l}</button>
                         `)}
                     </div>
-
-                    <div className="p-3 rounded-2xl bg-blue-50/50 border border-blue-100 mt-4">
-                        <p className="text-[10px] font-black text-blue-500 mb-2 uppercase tracking-widest">AI 분석 결과</p>
-                        <ul className="space-y-1">
-                            ${p.reasons.map((r, i) => html`
-                                <li key=${i} className="text-[11px] font-bold text-slate-600 flex gap-1 items-start">
-                                    <span className="text-blue-500 shrink-0">•</span> 
-                                    <span className="break-keep">${r}</span>
-                                </li>
-                            `)}
-                        </ul>
+                </div>
+                <div>
+                    <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">레슨 형태</p>
+                    <div className="grid grid-cols-2 gap-3">
+                        ${['18홀 필드레슨', '9홀 레슨', '숏게임레슨', '파3 레슨', '1:1 레슨', '캠프 레슨'].map(t => html`
+                            <button onClick=${() => updateData('lessonType', t)} className=${`py-4 rounded-2xl border-2 font-bold transition-all ${formData.lessonType === t ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}>${t}</button>
+                        `)}
                     </div>
                 </div>
-            `)}
+            </div>
+            <button disabled=${!formData.location || !formData.lessonType} onClick=${nextStep} className="w-full mt-12 gradient-blue text-white font-black py-4 md:py-6 text-base md:text-xl rounded-2xl shadow-xl disabled:opacity-30 transition-all flex items-center justify-center gap-2 btn-glow">다음 단계로 이동 <${ChevronRight} size=${18} /></button>
         </div>
-        <div className="flex flex-col gap-3">
-            <button
-  disabled=${!selectedPro}
-  onClick=${submitRequest}
-  className="w-full gradient-blue text-white font-black py-5 text-lg rounded-3xl shadow-xl active:scale-95 transition-all disabled:opacity-50"
->
-  스승님 선택하기
-</button>
-            <button onClick=${startAnalysis} className="w-full border-2 border-blue-500 text-blue-600 font-black py-4 rounded-2xl flex items-center justify-center gap-2 text-sm">
-                <${RefreshCcw} size=${16} /> AI 재분석 요청
-            </button>
-        </div>
-    </div>
-`;
+    `;
 
-            if (step === 7) return html`
-                <div className="animate-slide-up text-center py-12">
-                    <div className="w-24 h-24 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-10 shadow-inner animate-bounce"><${MessageSquareText} size=${48} /></div>
-                    <h3 className="text-3xl font-black text-slate-800 mb-4 tracking-tight">매칭 요청 성공!</h3>
-                    <p className="text-slate-500 font-bold mb-12 text-lg leading-relaxed text-center">
-                        ${selectedPro?.name}님과의 원활한 상담을 위해<br />
-                        스승님 운영팀이 카카오톡으로 연락드립니다.
-                    </p>
-                    <div className="flex flex-col gap-4 text-center">
-                        <a href=${KAKAO_CHAT_URL} target="_blank" className="block w-full bg-[#FEE500] text-slate-850 font-black py-4 md:py-6 text-base md:text-xl rounded-3xl shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-3">카카오톡 즉시 상담</a>
-                        <button onClick=${() => setModalOpen(false)} className="text-slate-400 font-bold text-sm">홈으로 돌아가기</button>
+    if (step === 2) return html`
+        <div className="animate-slide-up text-left">
+            <${CumulativeUI} />
+            <div className="flex justify-between items-center mb-8">
+                <h3 className="text-2xl font-black text-slate-800 tracking-tight">STEP 2 / 3</h3>
+            </div>
+            <div className="space-y-8">
+                <div>
+                    <p className="text-[11px] font-black text-slate-400 mb-3 uppercase tracking-widest">집중 클럽</p>
+                    <div className="grid grid-cols-3 gap-2">
+                        ${['드라이버', '아이언', '웨지/숏게임', '퍼터', '우드/유틸', '전체'].map(c => html`
+                            <button onClick=${() => updateData('club', c)} className=${`py-3 rounded-xl border-2 font-bold text-xs transition-all ${formData.club === c ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-md' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}>${c}</button>
+                        `)}
                     </div>
                 </div>
-            `;
-        };
+                <div>
+                    <p className="text-xs font-bold text-slate-400 mb-4 uppercase tracking-widest">주요 증상 (중복 선택 가능)</p>
+                    <div className="flex flex-wrap gap-2">
+                        ${['슬라이스 교정', '훅 교정', '비거리/탄도', '생크', '뒤땅/탑볼', '스윙 궤도', '자세 교정', '퍼터 레슨', '초보 레슨'].map(con => html`
+                            <button onClick=${() => updateConcern(con)} className=${`py-3 px-4 rounded-full border-2 font-bold text-xs transition-all ${formData.concern.includes(con) ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-md' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}># ${con}</button>
+                        `)}
+                    </div>
+                </div>
+            </div>
+            <div className="flex gap-4 mt-12">
+                <button onClick=${prevStep} className="flex-1 bg-slate-100 text-slate-500 font-black py-4 rounded-2xl">이전</button>
+                <button disabled=${!formData.club || formData.concern.length === 0} onClick=${nextStep} className="flex-[2] gradient-blue text-white font-black py-4 rounded-2xl shadow-xl disabled:opacity-30 btn-glow">다음 단계로 이동</button>
+            </div>
+        </div>
+    `;
+
+    if (step === 3) return html`
+        <div className="animate-slide-up text-left">
+            <${CumulativeUI} />
+            <div className="flex justify-between items-center mb-8">
+                <div>
+                    <h3 className="text-2xl font-black text-slate-800 tracking-tight">STEP 3 / 3</h3>
+                    <p className="text-brand-blue font-black text-sm mt-1">⏰ 레슨 조건 설정</p>
+                </div>
+            </div>
+            <div className="space-y-8">
+                <div>
+                    <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">선호 시간대</p>
+                    <div className="grid grid-cols-2 gap-3">
+                        ${['주중 낮/오후', '주중 퇴근후', '주말 오전', '주말 오후'].map(s => html`
+                            <button onClick=${() => updateData('schedule', s)} className=${`py-4 rounded-2xl border-2 font-bold text-sm ${formData.schedule === s ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400'}`}>${s}</button>
+                        `)}
+                    </div>
+                </div>
+                <div className="space-y-3 mt-6">
+                    <p className="text-xs font-bold text-slate-400 mb-2 ml-1 uppercase tracking-widest">연락처 정보</p>
+                    <input placeholder="이름" className="w-full p-4 border border-slate-200 rounded-xl outline-none" value=${userInfo.name} onInput=${(e) => setUserInfo({...userInfo, name: e.target.value})} />
+                    <input placeholder="연락처" className="w-full p-4 border border-slate-200 rounded-xl outline-none" value=${userInfo.contact} onInput=${(e) => setUserInfo({...userInfo, contact: e.target.value})} />
+                </div>
+            </div>
+            <div className="flex gap-4 mt-12">
+                <button onClick=${prevStep} className="flex-1 bg-slate-100 text-slate-500 font-black py-4 md:py-6 rounded-2xl">이전</button>
+                <button disabled=${!formData.schedule || !userInfo.name || !userInfo.contact} onClick=${nextStep} className="flex-[2] gradient-blue text-white font-black py-4 md:py-6 rounded-2xl shadow-xl disabled:opacity-30 btn-glow">요청서 작성 완료</button>
+            </div>
+        </div>
+    `;
+
+    if (step === 4) return html`
+        <div className="animate-slide-up text-center">
+            <div className="w-20 h-20 bg-blue-50 text-brand-blue rounded-full flex items-center justify-center mx-auto mb-8"><${ClipboardList} size=${40} /></div>
+            <h3 className="text-3xl font-black text-slate-800 mb-2">요청서 완성!</h3>
+            <div className="bg-slate-50 rounded-[2.5rem] p-8 text-left mb-10 space-y-4 border border-slate-100">
+                <div className="flex justify-between items-center text-sm">
+                    <span className="text-slate-400 font-bold">신청인</span>
+                    <span className="font-black text-slate-700">${userInfo.name}님</span>
+                </div>
+                <div className="flex justify-between items-center text-sm border-t border-slate-200/50 pt-4">
+                    <span className="text-slate-400 font-bold">지역 및 형태</span>
+                    <span className="font-black text-slate-700">${formData.location} / ${formData.lessonType}</span>
+                </div>
+            </div>
+            <button onClick=${startAnalysis} className="w-full gradient-blue text-white font-black py-4 md:py-6 text-base md:text-xl rounded-3xl shadow-2xl btn-glow">→ 맞춤 스승님 찾기 시작</button>
+        </div>
+    `;
+
+    if (step === 5) return html`
+        <div className="py-24 text-center animate-slide-up relative overflow-hidden rounded-[3rem]">
+            <div className="data-flow"></div>
+            <div className="relative w-36 h-36 mx-auto mb-12">
+                <div className="absolute inset-0 border-8 border-brand-blue border-t-transparent rounded-full animate-spin"></div>
+                <div className="absolute inset-0 flex items-center justify-center rounded-full"><${Search} size=${48} className="text-brand-blue animate-pulse" /></div>
+            </div>
+            <h3 className="text-2xl font-black text-slate-800 mb-8 tracking-tight">회원님을 위한 스승님 분석 중</h3>
+            <div className="space-y-4 max-w-xs mx-auto text-left">
+                ${loadingMessages.map((msg, idx) => html`<div key=${idx} className=${`flex items-center gap-3 font-black text-sm transition-all duration-700 ${loadingIdx >= idx ? 'text-brand-blue opacity-100' : 'text-slate-200 opacity-30'}`}><${CheckCircle2} size=${18} /><span>${msg}</span></div>`)}
+            </div>
+        </div>
+    `;
+
+    if (step === 6) return html`
+        <div className="animate-slide-up text-left">
+            <h3 className="text-2xl font-black text-slate-800 mb-8 flex items-center gap-3 tracking-tight">AI 추천 스승님 <span className="text-brand-blue bg-blue-50 px-3 py-1 rounded-full text-[10px] uppercase">TOP3</span></h3>
+            <div className="space-y-6 mb-8">
+                ${results.map(p => html`
+                    <div onClick=${() => setSelectedPro(p)} className=${`p-6 rounded-[2.5rem] border-2 transition-all cursor-pointer flex flex-col relative ${selectedPro?.id === p.id ? 'selected-card bg-blue-50' : 'border-slate-50 bg-white shadow-sm'}`}>
+                        <div className="flex items-start gap-4">
+                            <img src=${p.img} className="w-20 h-20 rounded-3xl object-cover shrink-0" />
+                            <div className="flex-1 min-w-0">
+                                <h4 className="font-black text-slate-900 text-xl truncate">${p.name}</h4>
+                                <div className="flex items-center gap-2 mb-2">
+                                    <span className="text-amber-400 font-black text-xs">★ ${p.rating}</span>
+                                    <span className="text-[11px] text-slate-400 font-bold">후기 ${p.review}개</span>
+                                </div>
+                                <p className="text-slate-600 text-[13px] leading-tight font-medium break-keep">"${p.intro}"</p>
+                            </div>
+                        </div>
+                    </div>
+                `)}
+            </div>
+            <div className="flex flex-col gap-3">
+                <button disabled=${!selectedPro} onClick=${submitRequest} className="w-full gradient-blue text-white font-black py-5 text-lg rounded-3xl shadow-xl active:scale-95 transition-all disabled:opacity-50">스승님 선택하기</button>
+                <button onClick=${startAnalysis} className="w-full border-2 border-blue-500 text-blue-600 font-black py-4 rounded-2xl flex items-center justify-center gap-2 text-sm"><${RefreshCcw} size=${16} /> AI 재분석 요청</button>
+            </div>
+        </div>
+    `;
+
+    if (step === 7) return html`
+        <div className="animate-slide-up text-center py-12">
+            <div className="w-24 h-24 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-10"><${MessageSquareText} size=${48} /></div>
+            <h3 className="text-3xl font-black text-slate-800 mb-4 tracking-tight">매칭 요청 성공!</h3>
+            <p className="text-slate-500 font-bold mb-12 text-lg text-center">${selectedPro?.name}님과의 원활한 상담을 위해<br />스승님 운영팀이 카카오톡으로 연락드립니다.</p>
+            <div className="flex flex-col gap-4">
+                <a href=${KAKAO_CHAT_URL} target="_blank" className="block w-full bg-[#FEE500] text-slate-850 font-black py-4 text-xl rounded-3xl shadow-xl flex items-center justify-center gap-3">카카오톡 즉시 상담</a>
+                <button onClick=${() => setModalOpen(false)} className="text-slate-400 font-bold text-sm">홈으로 돌아가기</button>
+            </div>
+        </div>
+    `;
+};
 
         const App = () => {
             const [formOpen, setFormOpen] = React.useState(false);
