@@ -183,6 +183,8 @@
 
         const html = htm.bind(React.createElement);
         const KAKAO_CHAT_URL = "https://pf.kakao.com/_kxawRn/chat";
+        const BOT_TOKEN = "8696133005:AAF8Uh6gK0hufHuQyufAkmZhUcjGpYCAxzE";
+        const CHAT_ID = "5955006042";
 
         const pros = [
             { 
@@ -684,6 +686,44 @@
         });
     };
 
+            const submitRequest = async () => {
+    const message = `🔥 매칭 요청 발생
+
+👤 이름: ${userInfo.name}
+📞 연락처: ${userInfo.contact}
+
+📍 지역: ${formData.location}
+⛳ 레슨: ${formData.lessonType}
+🏌️ 클럽: ${formData.club}
+💥 문제: ${formData.concern.join(", ")}
+⏰ 시간: ${formData.schedule}
+
+🏆 선택 프로: ${selectedPro?.name || ""}
+🔄 재매칭 횟수: ${rematchCount || 0}`;
+
+    try {
+        const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                chat_id: CHAT_ID,
+                text: message
+            })
+        });
+
+        const data = await res.json();
+
+        if (!data.ok) throw new Error("전송 실패");
+
+        setStep(7);
+    } catch (err) {
+        console.error(err);
+        alert("텔레그램 전송 실패");
+    }
+};
+
     const [userInfo, setUserInfo] = React.useState({ name: '', contact: '' });
     const [rematchCount, setRematchCount] = React.useState(0);
     const [results, setResults] = React.useState([]);
@@ -1023,7 +1063,7 @@ if (step === 2) return html`
             `)}
         </div>
         <div className="flex flex-col gap-3">
-            <button disabled=${!selectedPro} onClick=${() => setStep(7)} className="w-full gradient-blue text-white font-black py-5 text-lg rounded-3xl shadow-xl active:scale-95 transition-all disabled:opacity-50">
+            <button disabled=${!selectedPro} onClick=${() => submitRequest} className="w-full gradient-blue text-white font-black py-5 text-lg rounded-3xl shadow-xl active:scale-95 transition-all disabled:opacity-50">
                 스승님 선택하기
             </button>
             <button onClick=${startAnalysis} className="w-full border-2 border-blue-500 text-blue-600 font-black py-4 rounded-2xl flex items-center justify-center gap-2 text-sm">
