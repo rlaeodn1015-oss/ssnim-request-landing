@@ -820,7 +820,7 @@ setTimeout(() => {
                 <div>
                     <p className="text-xs font-bold text-slate-400 mb-4 uppercase tracking-widest">골프 고민 (중복 선택 가능)</p>
                     <div className="flex flex-wrap gap-2">
-                        ${['슬라이스 교정', '훅 교정', '비거리/탄도', '생크', '뒤땅/탑볼', '스윙 궤도', '자세 교정', '퍼터 레슨', '초보 레슨'].map(con => html`<button key=${con} onClick=${() => updateConcern(con)} className=${`py-3 px-4 rounded-full border-2 font-bold text-xs transition-all ${formData.concern.includes(con) ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-md' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}># ${con}</button>`)}
+                        ${[['슬라이스 교정', '훅 교정', '비거리/탄도', '바디스윙', '체중이동', '생크/임팩 교정', '뒤땅/탑볼', '스윙 궤도', '자세 교정', '퍼터 교정', '초보 레슨', '부상 레슨',].map(con => html`<button key=${con} onClick=${() => updateConcern(con)} className=${`py-3 px-4 rounded-full border-2 font-bold text-xs transition-all ${formData.concern.includes(con) ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-md' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}># ${con}</button>`)}
                     </div>
                 </div>
             </div>
