@@ -27,6 +27,15 @@
         };
     </script>
 
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>스승님 - 결과로 증명하는 맞춤 골프레슨 AI 매칭</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@100;400;700;900&display=swap" rel="stylesheet" />
+
     <style>
         body {
             font-family: "Pretendard", sans-serif;
@@ -60,12 +69,10 @@
         
         .no-overflow-wrap { overflow-wrap: anywhere; word-break: keep-all; }
         
-        /* Custom scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #0066FF; border-radius: 10px; }
 
-        /* Summary Bar Sticky Simulation */
         .summary-chip {
             background: #f0f7ff;
             color: #0066FF;
@@ -84,51 +91,24 @@
             transform: translateY(40px);
             transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .reveal-left {
-            opacity: 0;
-            transform: translateX(-60px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal-left.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        .reveal-right {
-            opacity: 0;
-            transform: translateX(60px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal-right.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        .card-hover {
-            transition: all 0.3s ease;
-        }
+        .card-hover { transition: all 0.3s ease; }
         .card-hover:hover {
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.08);
         }
-        .btn-glow {
-            transition: all 0.3s ease;
-        }
+        .btn-glow { transition: all 0.3s ease; }
         .btn-glow:hover {
             box-shadow: 0 0 30px rgba(0, 102, 255, 0.4);
             transform: translateY(-2px);
         }
 
-        /* 추가된 애니메이션 스타일 */
         @keyframes dataFlow {
             0% { transform: translateX(-100%); opacity: 0; }
             50% { opacity: 1; }
             100% { transform: translateX(100%); opacity: 0; }
         }
-
         .data-flow {
             position: absolute;
             top: 0;
@@ -145,13 +125,32 @@
             background-color: #f0f7ff !important;
         }
 
-        .ai-glow {
-            animation: aiGlow 2s ease-in-out infinite;
-        }
-
+        .ai-glow { animation: aiGlow 2s ease-in-out infinite; }
         @keyframes aiGlow {
             0%, 100% { box-shadow: 0 0 0 rgba(0,102,255,0); }
             50% { box-shadow: 0 0 25px rgba(0,102,255,0.4); }
+        }
+
+        /* 롤링 애니메이션 추가 위치 */
+        @keyframes rolling-list {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-50%); }
+        }
+        .rolling-container {
+            animation: rolling-list 25s linear infinite;
+        }
+        .rolling-container:hover {
+            animation-play-state: paused;
+        }
+        .fade-mask {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to top, rgba(255,255,255,1), rgba(255,255,255,0));
+            pointer-events: none;
+            z-index: 5;
         }
     </style>
 
@@ -424,55 +423,59 @@
         ];
 
         const RealTimeStatus = () => {
-            const mockData = [
-                { name: "김**", location: "강남", type: "1:1 레슨", contact: "010-****-6431", status: "요청 완료" },
-                { name: "이**", location: "분당", type: "숏게임", contact: "010-****-4818", status: "요청 완료" },
-                { name: "박**", location: "용인", type: "1:1 레슨", contact: "010-****-9012", status: "요청 완료" },
-                { name: "김**", location: "송파", type: "1:1 레슨", contact: "010-****-2415", status: "요청 완료" },
-                { name: "류**", location: "분당", type: "9홀 레슨", contact: "010-****-3241", status: "요청 완료" },
-                { name: "송**", location: "강남", type: "숏게임 레슨", contact: "010-****-7556", status: "요청 완료" },
-                { name: "안**", location: "강남", type: "1:1 레슨", contact: "010-****-9824", status: "요청 완료" },
-                { name: "이**", location: "서초", type: "파3 레슨", contact: "010-****-3532", status: "요청 완료" },
-                { name: "조**", location: "분당", type: "1:1 레슨", contact: "010-****-1259", status: "요청 완료" },
-                { name: "현**", location: "서초", type: "숏게임 레슨", contact: "010-****-2678", status: "요청 완료" },
-                { name: "여**", location: "용인", type: "1:1 레슨", contact: "010-****-8415", status: "요청 완료" },
-                { name: "최*", location: "송파", type: "9홀 레슨", contact: "010-****-7890", status: "요청 완료" }
-            ];
+    const mockData = [
+        { name: "김**", location: "강남", type: "1:1 레슨", contact: "010-****-6431", status: "요청 완료" },
+        { name: "이**", location: "분당", type: "숏게임", contact: "010-****-4818", status: "요청 완료" },
+        { name: "박**", location: "용인", type: "1:1 레슨", contact: "010-****-9012", status: "요청 완료" },
+        { name: "김**", location: "송파", type: "1:1 레슨", contact: "010-****-2415", status: "요청 완료" },
+        { name: "류**", location: "분당", type: "9홀 레슨", contact: "010-****-3241", status: "요청 완료" },
+        { name: "송**", location: "강남", type: "숏게임 레슨", contact: "010-****-7556", status: "요청 완료" },
+        { name: "안**", location: "강남", type: "1:1 레슨", contact: "010-****-9824", status: "요청 완료" },
+        { name: "이**", location: "서초", type: "파3 레슨", contact: "010-****-3532", status: "요청 완료" },
+        { name: "조**", location: "분당", type: "1:1 레슨", contact: "010-****-1259", status: "요청 완료" },
+        { name: "현**", location: "서초", type: "숏게임 레슨", contact: "010-****-2678", status: "요청 완료" }
+    ];
 
-            return html`
-                <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden mb-8 animate-fade-in">
-                    <div className="bg-slate-50 px-5 py-3 border-b border-slate-100 flex justify-between items-center">
-                        <span className="text-sm font-black text-slate-800 flex items-center gap-2">
-                            <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
-                            </span>
-                            실시간 매칭 신청 현황
-                        </span>
-                        <span className="text-[11px] text-slate-400 font-bold italic underline decoration-slate-200">현재 51명 분석 중</span>
-                    </div>
-                    <div className="p-2 overflow-x-auto">
-                        <table className="w-full text-left">
-                            <tbody className="divide-y divide-slate-50">
-                                ${mockData.map((item, idx) => html`
-                                    <tr key=${idx} className="hover:bg-slate-50/50 transition-colors">
-                                        <td className="py-3 px-4 text-[13px] font-bold text-slate-700">${item.name}</td>
-                                        <td className="py-3 px-2 text-[13px] text-slate-500">${item.location}</td>
-                                        <td className="py-3 px-2 text-[13px] text-brand-blue font-black">${item.type}</td>
-                                        <td className="py-3 px-2 text-[12px] text-slate-400">${item.contact}</td>
-                                        <td className="py-3 px-4 text-right">
-                                            <span className="text-[10px] bg-emerald-50 text-emerald-600 px-2 py-1 rounded-full font-black ring-1 ring-emerald-100 italic">
-                                                ${item.status}
-                                            </span>
-                                        </td>
-                                    </tr>
-                                `)}
-                            </tbody>
-                        </table>
-                    </div>
+    const rollingData = [...mockData, ...mockData];
+
+    return html`
+        <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden mb-8">
+            <div className="bg-slate-50 px-5 py-3 border-b border-slate-100 flex justify-between items-center relative z-10">
+                <span className="text-sm font-black text-slate-800 flex items-center gap-2">
+                    <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                    </span>
+                    실시간 매칭 신청 현황
+                </span>
+                <span className="text-[11px] text-brand-blue font-black italic animate-pulse">LIVE</span>
+            </div>
+            
+            <div className="relative h-52 overflow-hidden">
+                <div className="rolling-container">
+                    <table className="w-full text-left">
+                        <tbody className="divide-y divide-slate-50">
+                            ${rollingData.map((item, idx) => html`
+                                <tr key=${idx}>
+                                    <td className="py-4 px-5 text-[13px] font-bold text-slate-700">${item.name}</td>
+                                    <td className="py-4 px-2 text-[13px] text-slate-500">${item.location}</td>
+                                    <td className="py-4 px-2 text-[13px] text-brand-blue font-black">${item.type}</td>
+                                    <td className="py-4 px-2 text-[12px] text-slate-400">${item.contact}</td>
+                                    <td className="py-4 px-5 text-right">
+                                        <span className="text-[10px] bg-emerald-50 text-emerald-600 px-2 py-1 rounded-full font-black ring-1 ring-emerald-100">
+                                            ${item.status}
+                                        </span>
+                                    </td>
+                                </tr>
+                            `)}
+                        </tbody>
+                    </table>
                 </div>
-            `;
-        };
+                <div className="fade-mask"></div>
+            </div>
+        </div>
+    `;
+};
 
         const Header = () => html`
             <header className="fixed top-0 left-0 right-0 z-[60] bg-white/90 backdrop-blur-xl border-b border-gray-100">
