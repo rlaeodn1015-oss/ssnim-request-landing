@@ -820,74 +820,18 @@
     };
 
 const submitRequest = async () => {
-            const payload = {
-                name: userInfo.name,
-                contact: userInfo.contact,
-                location: formData.location,
-                lessonType: formData.lessonType,
-                club: formData.club,
-                concern: formData.concern.join(', '),
-                schedule: `${formData.lessonDate} / ${formData.schedule}`, 
-                selectedPro: selectedPro.name,
-                proContact: selectedPro.phone, 
-                lessonCount: formData.lessonCount,
-                finalPrice: formData.price.toLocaleString()
-            };
-
-            const telegramMessage = `🔥 매칭 요청 발생\n\n👤 이름: ${payload.name}\n📞 연락처: ${payload.contact}\n📍 지역: ${payload.location}\n⛳ 레슨: ${payload.lessonType}\n🏌️ 클럽: ${payload.club}\n💥 문제: ${payload.concern}\n⏰ 시간: ${payload.schedule}\n🏆 선택 프로: ${payload.selectedPro}`;
-
-            try {
-                const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyXGjMJvkv9CK3dajK16HFXdXNJZelmYCv8DiFn8rQuOnOHI4KZH2nka-ImTr20Kzna/exec"; 
-                const ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/27197789/uj4d9ko/";
-                
-                fetch(GOOGLE_SHEET_URL, {
-                    method: "POST",
-                    mode: "no-cors",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload)
-                });
-
-                fetch(ZAPIER_WEBHOOK_URL, {
-                    method: "POST",
-                    mode: "no-cors",
-                    body: JSON.stringify(payload)
-                });
-
-                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ chat_id: CHAT_ID, text: telegramMessage })
-                });
-
-            } catch (err) {
-                console.error(err);
-            } finally {
-                setStep(7);
-            }
-        };
-
-        const acceptRequest = async () => {
-            const ZAPIER_ACCEPT_URL = "https://hooks.zapier.com/hooks/catch/27197789/uj4iu7w/";
-            const payload = {
-                name: userInfo.name, 
-                contact: userInfo.contact, 
-                selectedPro: selectedPro.name,
-                finalPrice: formData.price.toLocaleString(),
-                club: formData.club,
-                lessonCount: formData.lessonCount
-            };
-
-            try {
-                await fetch(ZAPIER_ACCEPT_URL, {
-                    method: "POST",
-                    mode: "no-cors",
-                    body: JSON.stringify(payload)
-                });
-                alert("수락 완료! 고객에게 결제 카톡이 발송되었습니다.");
-            } catch (err) {
-                console.error(err);
-                alert("수락 처리 중 오류가 발생했습니다.");
-            }
+        const payload = {
+            name: userInfo.name,
+            contact: userInfo.contact,
+            location: formData.location,
+            lessonType: formData.lessonType,
+            club: formData.club,
+            concern: formData.concern.join(', '),
+            schedule: `${formData.lessonDate} / ${formData.schedule}`, 
+            selectedPro: selectedPro.name,
+            proContact: selectedPro.phone, 
+            lessonCount: formData.lessonCount,
+            finalPrice: formData.price.toLocaleString()
         };
 
         const telegramMessage = `🔥 매칭 요청 발생\n\n👤 이름: ${payload.name}\n📞 연락처: ${payload.contact}\n📍 지역: ${payload.location}\n⛳ 레슨: ${payload.lessonType}\n🏌️ 클럽: ${payload.club}\n💥 문제: ${payload.concern}\n⏰ 시간: ${payload.schedule}\n🏆 선택 프로: ${payload.selectedPro}`;
@@ -895,19 +839,9 @@ const submitRequest = async () => {
         try {
             const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyXGjMJvkv9CK3dajK16HFXdXNJZelmYCv8DiFn8rQuOnOHI4KZH2nka-ImTr20Kzna/exec"; 
             const ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/27197789/uj4d9ko/";
-           
-            fetch(GOOGLE_SHEET_URL, {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            });
-
-            fetch(ZAPIER_WEBHOOK_URL, {
-                method: "POST",
-                mode: "no-cors",
-                body: JSON.stringify(payload)
-            });
+            
+            fetch(GOOGLE_SHEET_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+            fetch(ZAPIER_WEBHOOK_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
 
             await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: "POST",
@@ -918,6 +852,21 @@ const submitRequest = async () => {
             console.error(err);
         } finally {
             setStep(7);
+        }
+    };
+
+    const acceptRequest = async () => {
+        const ZAPIER_ACCEPT_URL = "https://hooks.zapier.com/hooks/catch/27197789/uj4iu7w/";
+        const payload = {
+            name: userInfo.name, contact: userInfo.contact, selectedPro: selectedPro.name,
+            finalPrice: formData.price.toLocaleString(), club: formData.club, lessonCount: formData.lessonCount
+        };
+        try {
+            await fetch(ZAPIER_ACCEPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
+            alert("수락 완료! 고객에게 결제 카톡이 발송되었습니다.");
+        } catch (err) {
+            console.error(err);
+            alert("수락 처리 중 오류가 발생했습니다.");
         }
     };
 
