@@ -819,20 +819,20 @@
         }, 1000);
     };
 
-    const submitRequest = async () => {
-        const payload = {
-    name: userInfo.name,
-    contact: userInfo.contact,
-    location: formData.location,
-    lessonType: formData.lessonType,
-    club: formData.club,
-    concern: formData.concern.join(', '),
-    schedule: formData.schedule,
-    selectedPro: selectedPro.name,
-    proContact: selectedPro.phone, 
-    lessonCount: formData.lessonCount,
-    finalPrice: formData.price
-};
+const submitRequest = async () => {
+    const payload = {
+        name: userInfo.name,
+        contact: userInfo.contact,
+        location: formData.location,
+        lessonType: formData.lessonType,
+        club: formData.club,
+        concern: formData.concern.join(', '),
+        schedule: `${formData.lessonDate} / ${formData.schedule}`, 
+        selectedPro: selectedPro.name,
+        proContact: selectedPro.phone, 
+        lessonCount: formData.lessonCount,
+        finalPrice: formData.price.toLocaleString()
+    };
 
         const telegramMessage = `🔥 매칭 요청 발생\n\n👤 이름: ${payload.name}\n📞 연락처: ${payload.contact}\n📍 지역: ${payload.location}\n⛳ 레슨: ${payload.lessonType}\n🏌️ 클럽: ${payload.club}\n💥 문제: ${payload.concern}\n⏰ 시간: ${payload.schedule}\n🏆 선택 프로: ${payload.selectedPro}`;
 
@@ -942,6 +942,16 @@
                     <p className="text-brand-blue font-black text-sm mt-1">⏰ 레슨 조건 설정</p>
                 </div>
             </div>
+            <div>
+    <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">희망 레슨 시작일</p>
+    <input 
+        type="date" 
+        className="w-full p-4 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-slate-700"
+        value=${formData.lessonDate} 
+        onInput=${(e) => updateData('lessonDate', e.target.value)} 
+    />
+    <p className="text-[10px] text-slate-400 mt-2 ml-1">* 가장 빠른 레슨 가능 날짜를 선택해주세요.</p>
+</div>
             <div className="space-y-8">
                 <div>
                     <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">선호 시간대</p>
@@ -957,7 +967,11 @@
             </div>
             <div className="flex gap-4 mt-12">
                 <button onClick=${prevStep} className="flex-1 bg-slate-100 text-slate-500 font-black py-4 md:py-6 rounded-2xl">이전</button>
-                <button disabled=${!formData.schedule || !userInfo.name || !userInfo.contact} onClick=${nextStep} className="flex-[2] gradient-blue text-white font-black py-4 md:py-6 rounded-2xl shadow-xl disabled:opacity-30 btn-glow">요청서 작성 완료</button>
+                <button disabled=${!formData.lessonDate || !formData.schedule || !userInfo.name || !userInfo.contact} 
+        onClick=${nextStep} 
+        className="flex-[2] gradient-blue text-white font-black py-4 md:py-6 rounded-2xl shadow-xl disabled:opacity-30 btn-glow">
+    요청서 작성 완료
+</button>
             </div>
         </div>
     `;
