@@ -97,14 +97,15 @@
                 requestId: requestId,
                 name: name,
                 contact: contact,
+                lessonType: type, // 👈 여기에 'type' 필드를 추가했습니다!
                 finalPrice: parseInt(price).toLocaleString() + "원",
                 proNote: note || "별도 안내 사항 없음",
-                paymentUrl: `https://sseuseungnim.com/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}`,
+                paymentUrl: `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}`,
                 status: "accepted"
             };
 
             try {
-                const ZAPIER_ACCEPT_URL = "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/";
+                const ZAPIER_ACCEPT_URL = "https://hooks.zapier.com/hooks/catch/27197789/uj4d9ko/";
                 
                 await fetch(ZAPIER_ACCEPT_URL, {
                     method: "POST",
