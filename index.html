@@ -1081,17 +1081,24 @@ const submitRequest = async () => {
                 </div>
                 
                 <div className="flex flex-col gap-3">
-                    <button 
-                        disabled=${!selectedPro} 
-                        onClick=${() => isFixedPrice ? setStep(6.5) : submitRequest()} 
-                        className="w-full gradient-blue text-white font-black py-5 text-lg rounded-3xl shadow-xl active:scale-95 transition-all disabled:opacity-50"
-                    >
-                        ${isFixedPrice ? "스승님 선택 및 플랜 보기" : "이 스승님께 견적 요청하기"}
-                    </button>
-                    <p className="text-center text-[11px] text-slate-400 font-bold">
-                        ${isFixedPrice ? "※ 1:1 레슨은 정찰제 패키지로 운영됩니다." : "※ 필드/숏게임 레슨은 인원수에 따라 프로님이 직접 견적을 보내드립니다."}
-                    </p>
-                </div>
+    <button 
+        disabled=${!selectedPro} 
+        onClick=${() => isFixedPrice ? setStep(6.5) : submitRequest()} 
+        className="w-full gradient-blue text-white font-black py-5 text-lg rounded-3xl shadow-xl active:scale-95 transition-all disabled:opacity-50"
+    >
+        ${isFixedPrice ? "스승님 선택 및 플랜 보기" : "이 스승님께 견적 요청하기"}
+    </button>
+    <button 
+    onClick=${startAnalysis} 
+    className="w-full border-2 border-blue-500 text-blue-600 font-black py-4 rounded-2xl flex items-center justify-center gap-2 text-sm active:scale-95 transition-all"
+>
+    <${RefreshCcw} size=${16} /> AI 재분석 요청
+</button>
+
+    <p className="text-center text-[11px] text-slate-400 font-bold">
+        ${isFixedPrice ? "※ 1:1 레슨은 정찰제 패키지로 운영됩니다." : "※ 필드/숏게임 레슨은 인원수에 따라 프로님이 직접 견적을 보내드립니다."}
+    </p>
+</div>
             </div>
         `;
     }
