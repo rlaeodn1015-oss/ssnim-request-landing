@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>스승님 - 레슨비 결제</title>
+    <script src="https://cdn.bootpay.co.kr/js/bootpay-4.3.3.min.js" type="application/javascript"></script>
+</head>
+<body>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const price = parseInt(params.get('price').replace(/[^0-9]/g, ''));
+        const name = params.get('name') || "고객님";
+        const requestId = params.get('requestId') || "order_id_" + new Date().getTime();
+
+        async function requestPayment() {
+            try {
+                const response = await Bootpay.requestPayment({
+                    "application_id": "67ecd171d9af4e5c6d21736b",
+                    "price": price,
+                    "order_name": "스승님 골프 레슨비",
+                    "order_id": requestId,
+                    "pg": "nicepay",
+                    "method": "card",
+                    "user": {
+                        "username": name
+                    },
+                    "extra": {
+                        "open_type": "iframe",
+                        "card_quota": "0,2,3"
+                    }
+                });
+                
+                if (response.event === 'done') {
+                    alert("결제가 완료되었습니다!");
+                    location.href = "https://sseuseungnim.com/success.html";
+                }
+            } catch (e) {
+                alert("결제 중 오류가 발생했습니다: " + e.message);
+            }
+        }
+
+        window.onload = function() {
+            if(!price) {
+                alert("결제 금액 정보가 없습니다.");
+                return;
+            }
+            requestPayment();
+        };
+    </script>
+</body>
+</html>
