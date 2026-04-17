@@ -40,7 +40,8 @@
                 "extra": { "open_type": "iframe" }
             }).then(function(res) {
                 if (res.event === 'done') {
-                    location.href = "https://rlaeodn1015-oss.github.io/ssnim-request-landing/success.html";
+                    // ✅ 성공 시 success.html로 이동 (경로 고정)
+                    location.href = "success.html";
                 }
             }).catch(function(e) {
                 alert("결제창 오류: " + e.message);
