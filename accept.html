@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>스승님 - 프로용 견적 발송</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Pretendard', sans-serif; }</style>
+</head>
+<body class="bg-slate-50 flex items-center justify-center min-h-screen p-5">
+
+    <div class="max-w-md w-full bg-white rounded-[2.5rem] shadow-2xl p-8 border border-slate-100">
+        <div class="mb-8 text-center">
+            <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+            </div>
+            <h1 class="text-2xl font-black text-slate-800">레슨 견적서 발송</h1>
+            <p class="text-slate-500 font-medium mt-2">고객에게 보낼 최종 레슨비를 입력해주세요.</p>
+        </div>
+
+        <div class="space-y-6">
+            <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100">
+                <p class="text-[11px] font-black text-blue-500 uppercase tracking-widest mb-2">요청 내용 확인</p>
+                <div id="customerSummary" class="text-slate-700 font-bold text-sm space-y-1">
+                    데이터를 불러오는 중...
+                </div>
+            </div>
+
+            <div>
+                <label class="text-xs font-black text-slate-400 mb-2 block ml-1">최종 레슨비 (총액)</label>
+                <input type="number" id="finalPriceInput" placeholder="예: 350000 (숫자만)" 
+                    class="w-full p-4 bg-white border-2 border-slate-100 rounded-2xl outline-none focus:border-blue-500 transition-all font-bold text-lg">
+                <p class="text-[10px] text-red-500 mt-2 ml-1 font-bold">※ 입력하신 금액으로 고객에게 결제 카톡이 발송됩니다.</p>
+            </div>
+
+            <button onclick="sendAccept()" id="submitBtn"
+                class="w-full bg-blue-600 text-white font-black py-5 rounded-[1.5rem] shadow-xl shadow-blue-200 hover:bg-blue-700 active:scale-95 transition-all text-lg">
+                견적 승인 및 카톡 발송
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // URL에서 고객 정보를 가져오는 로직 (나중에 자피어에서 보낼 때 ?name=홍길동 식으로 보낼 예정)
+        const params = new URLSearchParams(window.location.search);
+        const name = params.get('name') || "요청 고객";
+        const type = params.get('type') || "레슨";
+        const contact = params.get('contact') || "";
+
+        document.getElementById('customerSummary').innerHTML = `
+            <p>👤 고객명: ${name}</p>
+            <p>⛳ 종류: ${type}</p>
+        `;
+
+        const sendAccept = async () => {
+            const price = document.getElementById('finalPriceInput').value;
+            const btn = document.getElementById('submitBtn');
+
+            if (!price) return alert("가격을 입력해주세요!");
+
+            btn.disabled = true;
+            btn.innerText = "발송 중...";
+
+            const payload = {
+                name: name,
+                contact: contact,
+                finalPrice: parseInt(price).toLocaleString() + "원",
+                status: "accepted"
+            };
+
+            try {
+                // 어제 만든 자피어 수락용 Webhook URL
+                const ZAPIER_ACCEPT_URL = "https://hooks.zapier.com/hooks/catch/27197789/uj4iu7w/";
+                
+                await fetch(ZAPIER_ACCEPT_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    body: JSON.stringify(payload)
+                });
+
+                alert("✅ 견적 발송 완료! 고객에게 결제 알림톡이 전송되었습니다.");
+                window.close(); // 전송 후 창 닫기
+            } catch (err) {
+                alert("오류가 발생했습니다. 다시 시도해주세요.");
+                btn.disabled = false;
+                btn.innerText = "견적 승인 및 카톡 발송";
+            }
+        };
+    </script>
+</body>
+</html>
