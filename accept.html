@@ -36,6 +36,15 @@
                 <p class="text-[10px] text-red-500 mt-2 ml-1 font-bold">※ 입력하신 금액으로 고객에게 결제 카톡이 발송됩니다.</p>
             </div>
 
+            <div>
+                <label class="text-xs font-black text-slate-400 mb-2 block ml-1">프로 안내 사항 (그린피 등 별도 비용 고지)</label>
+                <textarea id="proNote" rows="3" placeholder="예: 그린피/카트비/캐디피 별도입니다. 현장에서 결제해주세요."
+                    class="w-full p-4 bg-white border-2 border-slate-100 rounded-2xl outline-none focus:border-blue-500 transition-all font-bold text-sm"></textarea>
+                <p class="text-[10px] text-red-500 mt-2 ml-1 font-bold leading-relaxed">
+                    ※ 연락처(번호, 카톡ID 등) 입력 시 시스템에 의해 자동 차단되며, <br>반복될 경우 활동 정지 및 정산금 몰수 조치됩니다.
+                </p>
+            </div>
+
             <button onclick="sendAccept()" id="submitBtn"
                 class="w-full bg-blue-600 text-white font-black py-5 rounded-[1.5rem] shadow-xl shadow-blue-200 hover:bg-blue-700 active:scale-95 transition-all text-lg">
                 견적 승인 및 카톡 발송
@@ -63,9 +72,20 @@
 
         const sendAccept = async () => {
             const price = document.getElementById('finalPriceInput').value;
+            const note = document.getElementById('proNote').value;
             const btn = document.getElementById('submitBtn');
 
             if (!price) return alert("가격을 입력해주세요!");
+
+            // 연락처 차단 로직 (숫자 8자리 이상 연속 또는 전화번호 형식 감지)
+            const phonePattern = /(01[016789]|02|0[3-9][0-9])[- .]*(\d{3,4})[- .]*(\d{4})/g;
+            const digitPattern = /\d{8,11}/g;
+            const checkText = note.replace(/\s/g, ''); // 공백 제거 후 검사
+
+            if (phonePattern.test(checkText) || digitPattern.test(checkText)) {
+                alert("경고: 안내 사항에 연락처나 개인 정보를 입력할 수 없습니다. 적발 시 활동이 정지될 수 있습니다.");
+                return;
+            }
 
             btn.disabled = true;
             btn.innerText = "발송 중...";
@@ -75,7 +95,8 @@
                 name: name,
                 contact: contact,
                 finalPrice: parseInt(price).toLocaleString() + "원",
-                paymentUrl: `https://sseuseungnim.com/pay.html?requestId=${requestId}&price=${price}`,
+                proNote: note || "별도 안내 사항 없음",
+                paymentUrl: `https://sseuseungnim.com/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}`,
                 status: "accepted"
             };
 
