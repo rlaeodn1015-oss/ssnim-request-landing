@@ -77,16 +77,19 @@
 
             if (!price) return alert("가격을 입력해주세요!");
 
-            // 연락처 차단 로직 (숫자 8자리 이상 연속 또는 전화번호 형식 감지)
+            const checkText = note.replace(/\s/g, '').toLowerCase(); 
+
             const phonePattern = /(01[016789]|02|0[3-9][0-9])[- .]*(\d{3,4})[- .]*(\d{4})/g;
             const digitPattern = /\d{8,11}/g;
-            const checkText = note.replace(/\s/g, ''); // 공백 제거 후 검사
 
-            if (phonePattern.test(checkText) || digitPattern.test(checkText)) {
-                alert("경고: 안내 사항에 연락처나 개인 정보를 입력할 수 없습니다. 적발 시 활동이 정지될 수 있습니다.");
-                return;
+            const kakaoKeywords = ['카톡', '카카오', 'kakao', '라인', 'line', '텔레', 'tele', '연락처', '번호', '문의주세요', '공일공'];
+            const hasKeyword = kakaoKeywords.some(keyword => checkText.includes(keyword));
+
+            if (phonePattern.test(checkText) || digitPattern.test(checkText) || hasKeyword) {
+                alert("경고: 안내 사항에 연락처, 메신저 ID 등 개인 정보를 입력할 수 없습니다.\n적발 시 서비스 이용이 영구 정지될 수 있습니다.");
+                return; // 전송 중단
             }
-
+            
             btn.disabled = true;
             btn.innerText = "발송 중...";
 
