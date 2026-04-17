@@ -44,17 +44,22 @@
     </div>
 
     <script>
-        // [수정] URL에서 정보를 가져올 때 requestId도 가져오도록 추가
         const params = new URLSearchParams(window.location.search);
         const name = params.get('name') || "요청 고객";
         const type = params.get('type') || "레슨";
         const contact = params.get('contact') || "";
-        const requestId = params.get('requestId') || ""; // 고유 ID 추가
+        const requestId = params.get('requestId') || "";
+        const fixedPrice = params.get('price') || "";
 
         document.getElementById('customerSummary').innerHTML = `
             <p>👤 고객명: ${name}</p>
             <p>⛳ 종류: ${type}</p>
         `;
+
+        if (fixedPrice) {
+            const purePrice = fixedPrice.replace(/[^0-9]/g, '');
+            document.getElementById('finalPriceInput').value = purePrice;
+        }
 
         const sendAccept = async () => {
             const price = document.getElementById('finalPriceInput').value;
@@ -65,17 +70,16 @@
             btn.disabled = true;
             btn.innerText = "발송 중...";
 
-            // [수정] 자피어로 보낼 때 requestId를 포함시킵니다.
             const payload = {
-                requestId: requestId, // 이거 없으면 자피어가 누군지 몰라요!
+                requestId: requestId,
                 name: name,
                 contact: contact,
                 finalPrice: parseInt(price).toLocaleString() + "원",
+                paymentUrl: `https://sseuseungnim.com/pay.html?requestId=${requestId}&price=${price}`,
                 status: "accepted"
             };
 
             try {
-                // 자피어 수락용 Webhook URL (uj4iu7w)
                 const ZAPIER_ACCEPT_URL = "https://hooks.zapier.com/hooks/catch/27197789/uj4iu7w/";
                 
                 await fetch(ZAPIER_ACCEPT_URL, {
@@ -85,7 +89,6 @@
                 });
 
                 alert("✅ 견적 발송 완료! 고객에게 결제 알림톡이 전송되었습니다.");
-                // 모바일에서 창이 안 닫힐 수 있으니 안내 문구로 교체
                 btn.innerText = "발송 완료";
             } catch (err) {
                 alert("오류가 발생했습니다. 다시 시도해주세요.");
