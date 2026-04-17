@@ -823,7 +823,7 @@ const submitRequest = async () => {
 
     const submitBtn = event?.target?.closest('button') || document.querySelector('button[onClick*="submitRequest"]');
     if (submitBtn) {
-        submitBtn.disabled = true; // 버튼 비활성화
+        submitBtn.disabled = true; 
         submitBtn.style.opacity = "0.7";
         submitBtn.innerHTML = `
             <span class="flex items-center justify-center gap-2">
@@ -843,7 +843,6 @@ const submitRequest = async () => {
         contact: userInfo.contact,
         lessonType: formData.lessonType,
         location: formData.location,
-        lessonType: formData.lessonType,
         club: formData.club,
         concern: formData.concern.join(', '),
         schedule: `${formData.lessonDate} / ${formData.schedule}`, 
@@ -871,6 +870,11 @@ const submitRequest = async () => {
         });
     } catch (err) {
         console.error(err);
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.style.opacity = "1";
+            submitBtn.innerText = "다시 시도하기";
+        }
     } finally {
         setStep(7); 
     }
