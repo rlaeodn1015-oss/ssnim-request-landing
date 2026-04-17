@@ -2,17 +2,30 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>스승님 - 레슨비 결제</title>
     <script src="https://cdn.bootpay.co.kr/js/bootpay-4.3.3.min.js" type="application/javascript"></script>
 </head>
 <body>
-    <script>
-        const params = new URLSearchParams(window.location.search);
-        const price = parseInt(params.get('price').replace(/[^0-9]/g, ''));
-        const name = params.get('name') || "고객님";
-        const requestId = params.get('requestId') || "order_id_" + new Date().getTime();
+    <div id="status" style="display: flex; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif; text-align: center;">
+        <p>결제창을 불러오는 중입니다...<br><span style="font-size: 12px; color: #888;">잠시만 기다려주세요.</span></p>
+    </div>
 
-        async function requestPayment() {
+    <script>
+        window.onload = async function() {
+            const params = new URLSearchParams(window.location.search);
+            
+            const rawPrice = params.get('price') || "0";
+            const price = parseInt(rawPrice.toString().replace(/[^0-9]/g, '')) || 0;
+            const name = params.get('name') || "고객님";
+            const requestId = params.get('requestId') || "order_" + new Date().getTime();
+
+            if (price <= 0) {
+                alert("결제 금액 정보가 올바르지 않습니다. 다시 시도해주세요.");
+                document.getElementById('status').innerText = "결제 정보 오류 (금액 확인 필요)";
+                return;
+            }
+
             try {
                 const response = await Bootpay.requestPayment({
                     "application_id": "67ecd171d9af4e5c6d21736b",
@@ -26,25 +39,18 @@
                     },
                     "extra": {
                         "open_type": "iframe",
-                        "card_quota": "0,2,3"
+                        "card_quota": "0,2,3",
+                        "display_success_result": true
                     }
                 });
                 
                 if (response.event === 'done') {
-                    alert("결제가 완료되었습니다!");
                     location.href = "https://rlaeodn1015-oss.github.io/ssnim-request-landing/success.html";
                 }
             } catch (e) {
-                alert("결제 중 오류가 발생했습니다: " + e.message);
+                alert("결제창 실행 중 오류가 발생했습니다: " + e.message);
+                console.error(e);
             }
-        }
-
-        window.onload = function() {
-            if(!price) {
-                alert("결제 금액 정보가 없습니다.");
-                return;
-            }
-            requestPayment();
         };
     </script>
 </body>
