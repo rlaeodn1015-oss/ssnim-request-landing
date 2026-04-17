@@ -28,8 +28,8 @@
                 스승님 앱 설치하기
             </a>
             
-            <button onclick="history.back()" class="block w-full bg-slate-100 text-slate-600 font-black py-4 rounded-2xl hover:bg-slate-200 transition-all text-sm">
-                이전 화면으로 돌아가기
+            <button onclick="closeWindow()" class="block w-full bg-slate-100 text-slate-600 font-black py-4 rounded-2xl hover:bg-slate-200 transition-all text-sm">
+                창 닫기
             </button>
         </div>
 
@@ -38,5 +38,22 @@
         </p>
     </div>
 
+    <script>
+        function closeWindow() {
+            // 카카오톡 인앱 브라우저 닫기 시도
+            if (typeof bfinish !== 'undefined') {
+                bfinish(); 
+            } else if (window.Kakao && Kakao.isInitialized() && Kakao.Navi) {
+                // 카카오 SDK 사용 시 (현재는 SDK 미포함이므로 무시됨)
+            }
+            
+            // 일반적인 창 닫기 시도
+            window.open('', '_self', ''); 
+            window.close();
+            
+            // 만약 위 명령어로 안 닫힐 경우 (보안 정책 때문)
+            alert("결제가 완료되었습니다. 이 창을 닫아주세요.");
+        }
+    </script>
 </body>
 </html>
