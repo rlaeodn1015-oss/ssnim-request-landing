@@ -110,9 +110,13 @@
                     ZAPIER_URL = "https://hooks.zapier.com/hooks/catch/27197789/uj4iu7w/"; 
                 } 
 
+                // 수정된 fetch 코드
                 await fetch(ZAPIER_URL, {
                     method: "POST",
-                    mode: "no-cors",
+                    // mode: "no-cors" 는 삭제합니다.
+                    headers: {
+                        "Content-Type": "application/json" // 내가 보내는 건 JSON이라고 명시
+                    },
                     body: JSON.stringify(payload)
                 });
 
