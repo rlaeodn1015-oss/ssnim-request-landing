@@ -839,18 +839,20 @@ const submitRequest = async () => {
     const isFixedPrice = formData.lessonType === '1:1 레슨';
     
     const payload = {
-        name: userInfo.name,
-        contact: userInfo.contact,
-        lessonType: formData.lessonType,
-        location: formData.location,
-        club: formData.club,
-        concern: formData.concern.join(', '),
-        schedule: `${formData.lessonDate} / ${formData.schedule}`, 
-        selectedPro: selectedPro.name,
-        proContact: selectedPro.phone, 
-        lessonCount: isFixedPrice ? formData.lessonCount : "맞춤 견적 요청",
-        finalPrice: isFixedPrice ? formData.price.toLocaleString() : "프로 견적 후 결정"
-    };
+    name: userInfo.name,
+    contact: userInfo.contact,
+    
+    lessonType: formData.lessonType,
+    location: formData.location,
+    club: formData.club,
+    concern: formData.concern.join(', '),
+    schedule: `${formData.lessonDate} / ${formData.schedule}`, 
+    lessonCount: isFixedPrice ? formData.lessonCount : "맞춤 견적 요청",
+    finalPrice: isFixedPrice ? formData.price.toLocaleString() : "프로 견적 후 결정",
+
+    selectedPro: selectedPro.name,   
+    proContact: selectedPro.phone,   
+};
 
     const telegramMessage = `🔥 [${isFixedPrice ? '패키지' : '견적요청'}] 매칭 발생\n\n👤 이름: ${payload.name}\n📞 연락처: ${payload.contact}\n📍 지역: ${payload.location}\n⛳ 레슨: ${payload.lessonType}\n🏌️ 클럽: ${payload.club}\n💥 문제: ${payload.concern}\n⏰ 시간: ${payload.schedule}\n🏆 선택 프로: ${payload.selectedPro}\n💰 가격: ${payload.finalPrice}`;
 
