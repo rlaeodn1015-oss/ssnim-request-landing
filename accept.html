@@ -77,52 +77,49 @@
 
             if (!price) return alert("가격을 입력해주세요!");
 
-            // 연락처 필터링 로직
             const checkText = note.replace(/\s/g, '').toLowerCase(); 
             const phonePattern = /(01[016789]|02|0[3-9][0-9])[- .]*(\d{3,4})[- .]*(\d{4})/g;
             const digitPattern = /\d{8,11}/g;
             const kakaoKeywords = ['카톡', '카카오', 'kakao', '라인', 'line', '공일공', '연락처', '번호'];
-            const hasKeyword = kakaoKeywords.some(keyword => checkText.includes(keyword));
-
-            if (phonePattern.test(checkText) || digitPattern.test(checkText) || hasKeyword) {
-                alert("경고: 안내 사항에 연락처 등 개인 정보를 입력할 수 없습니다.");
+            if (phonePattern.test(checkText) || digitPattern.test(checkText) || kakaoKeywords.some(k => checkText.includes(k))) {
+                alert("경고: 안내 사항에는 연락처 등 개인 정보를 입력할 수 없습니다.");
                 return;
             }
             
             btn.disabled = true;
             btn.innerText = "발송 중...";
 
+            const paymentUrl = `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}`;
+
             const payload = {
                 requestId: requestId,
                 name: name,
-                contact: contact,
+                contact: contact, // 자피어에서 소비자 수신번호로 사용됨
                 lessonType: type,
                 finalPrice: parseInt(price).toLocaleString() + "원",
-                proNote: note || "별도 안내 사항 없음",
-                paymentUrl: `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}`,
+                proNote: note || "스승님이 제안을 수락했습니다. 결제를 진행해주세요!",
+                paymentUrl: paymentUrl, 
                 status: "accepted"
             };
 
             try {
-                let ZAPIER_URL = "https://hooks.zapier.com/hooks/catch/27197789/uj4d9ko/"; // 기본(외부레슨)
                 
-                if (type.includes("1:1")) {
-                    ZAPIER_URL = "https://hooks.zapier.com/hooks/catch/27197789/uj4iu7w/"; 
-                    console.log("1:1 레슨 감지: 전송 주소 변경됨 -> uj4iu7w");
-                } 
+                const ZAPIER_URL = "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/"; 
 
                 await fetch(ZAPIER_URL, {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+                    mode: "no-cors",
                     body: JSON.stringify(payload)
                 });
 
                 alert("✅ 견적 발송 완료! 고객에게 결제 알림톡이 전송되었습니다.");
                 btn.innerText = "발송 완료";
+                
+                // [추가] 발송 완료 후 프로가 다시 돌아갈 페이지 (홈이나 안내페이지)
+                // window.location.href = "https://pf.kakao.com/_kxawRn/chat"; 
+                
             } catch (err) {
-                console.error(err); // 에러 로그 확인용
+                console.error(err);
                 alert("오류가 발생했습니다. 다시 시도해주세요.");
                 btn.disabled = false;
                 btn.innerText = "견적 승인 및 카톡 발송";
