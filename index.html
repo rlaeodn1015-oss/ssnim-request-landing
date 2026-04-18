@@ -837,6 +837,13 @@ const submitRequest = async () => {
     }
 
     const isFixedPrice = formData.lessonType === '1:1 레슨';
+
+    let ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/27197789/uj4d9ko/"; // 기본값
+    
+    if (formData.lessonType.includes("1:1")) {
+        ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/27197789/uj4iu7w/"; // 1:1 전용
+        console.log("1:1 레슨 주소로 변경됨");
+    }
     
     const payload = {
     name: userInfo.name,
@@ -857,9 +864,6 @@ const submitRequest = async () => {
     const telegramMessage = `🔥 [${isFixedPrice ? '패키지' : '견적요청'}] 매칭 발생\n\n👤 이름: ${payload.name}\n📞 연락처: ${payload.contact}\n📍 지역: ${payload.location}\n⛳ 레슨: ${payload.lessonType}\n🏌️ 클럽: ${payload.club}\n💥 문제: ${payload.concern}\n⏰ 시간: ${payload.schedule}\n🏆 선택 프로: ${payload.selectedPro}\n💰 가격: ${payload.finalPrice}`;
 
     try {
-        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyXGjMJvkv9CK3dajK16HFXdXNJZelmYCv8DiFn8rQuOnOHI4KZH2nka-ImTr20Kzna/exec"; 
-        const ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/27197789/uj4d9ko/";
-        
         await Promise.all([
             fetch(GOOGLE_SHEET_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) }),
             fetch(ZAPIER_WEBHOOK_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) })
