@@ -106,16 +106,15 @@
             try {
                 let ZAPIER_URL = "https://hooks.zapier.com/hooks/catch/27197789/uj4d9ko/"; // 기본(외부레슨)
                 
-                if (type.includes("1:1 레슨") || type === "1:1 레슨") {
+                if (type.includes("1:1")) {
                     ZAPIER_URL = "https://hooks.zapier.com/hooks/catch/27197789/uj4iu7w/"; 
+                    console.log("1:1 레슨 감지: 전송 주소 변경됨 -> uj4iu7w");
                 } 
 
-                // 수정된 fetch 코드
                 await fetch(ZAPIER_URL, {
                     method: "POST",
-                    // mode: "no-cors" 는 삭제합니다.
                     headers: {
-                        "Content-Type": "application/json" // 내가 보내는 건 JSON이라고 명시
+                        "Content-Type": "application/json"
                     },
                     body: JSON.stringify(payload)
                 });
