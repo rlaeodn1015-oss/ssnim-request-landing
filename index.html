@@ -838,28 +838,28 @@ const submitRequest = async () => {
 
     const isFixedPrice = formData.lessonType === '1:1 레슨';
 
+    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbz9dpSM0zNpYzH9c0p871pJBFBGZXwLmGgMJxGBltS4b7inmxiFw2BBo5cP1hxJna6Y9Q/exec"
+
     let ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/27197789/uj4d9ko/"; // 기본값
     
     if (formData.lessonType.includes("1:1")) {
         ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/27197789/uj4iu7w/"; // 1:1 전용
-        console.log("1:1 레슨 주소로 변경됨");
+        console.log("1:1 레슨 확인: 전용 자피어 주소로 분기합니다.");
     }
     
     const payload = {
-    name: userInfo.name,
-    contact: userInfo.contact,
-    
-    lessonType: formData.lessonType,
-    location: formData.location,
-    club: formData.club,
-    concern: formData.concern.join(', '),
-    schedule: `${formData.lessonDate} / ${formData.schedule}`, 
-    lessonCount: isFixedPrice ? formData.lessonCount : "맞춤 견적 요청",
-    finalPrice: isFixedPrice ? formData.price.toLocaleString() : "프로 견적 후 결정",
-
-    selectedPro: selectedPro.name,   
-    proContact: selectedPro.phone,   
-};
+        name: userInfo.name,
+        contact: userInfo.contact,
+        lessonType: formData.lessonType,
+        location: formData.location,
+        club: formData.club,
+        concern: formData.concern.join(', '),
+        schedule: `${formData.lessonDate} / ${formData.schedule}`, 
+        selectedPro: selectedPro.name,
+        proContact: selectedPro.phone,
+        lessonCount: isFixedPrice ? formData.lessonCount : "맞춤 견적 요청",
+        finalPrice: isFixedPrice ? formData.price.toLocaleString() : "프로 견적 후 결정"
+    };
 
     const telegramMessage = `🔥 [${isFixedPrice ? '패키지' : '견적요청'}] 매칭 발생\n\n👤 이름: ${payload.name}\n📞 연락처: ${payload.contact}\n📍 지역: ${payload.location}\n⛳ 레슨: ${payload.lessonType}\n🏌️ 클럽: ${payload.club}\n💥 문제: ${payload.concern}\n⏰ 시간: ${payload.schedule}\n🏆 선택 프로: ${payload.selectedPro}\n💰 가격: ${payload.finalPrice}`;
 
@@ -867,13 +867,14 @@ const submitRequest = async () => {
         await Promise.all([
             fetch(GOOGLE_SHEET_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) }),
             fetch(ZAPIER_WEBHOOK_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) })
-        ]);
+        ]); 
 
         await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ chat_id: CHAT_ID, text: telegramMessage })
         });
+        
     } catch (err) {
         console.error(err);
         if (submitBtn) {
