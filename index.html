@@ -1086,23 +1086,32 @@ const submitRequest = async () => {
                         </h4>
 
                         <div className="space-y-8 text-left">
-                            <div>
-                                <p className="text-[11px] font-black text-brand-blue mb-4 uppercase tracking-widest">일반 1:1 매칭 레슨</p>
-                                <div className="space-y-2 text-[12px] text-slate-600 font-bold">
-                                    <div className="flex justify-between border-b border-slate-50 pb-1">
-                                        <span>프로 매칭 전</span><span>100% 환불</span>
-                                    </div>
-                                    <div className="flex justify-between border-b border-slate-50 pb-1">
-                                        <span>매칭 완료 후 (조율 단계)</span><span>90% 환불</span>
-                                    </div>
-                                    <div className="flex justify-between border-b border-slate-50 pb-1 text-red-500">
-                                        <span>첫 레슨 24시간 전</span><span>환불 불가</span>
-                                    </div>
-                                    <p className="text-[10px] text-slate-400 mt-2 leading-tight font-medium">
-                                        * 레슨 시작 이후에는 남은 회차에 대해 프로와 협의 후 중도 환불이 가능합니다.
-                                    </p>
-                                </div>
-                            </div>
+                    <div>
+    <p className="text-[11px] font-black text-brand-blue mb-4 uppercase tracking-widest">일반 1:1 매칭 레슨</p>
+    <div className="space-y-2 text-[12px] text-slate-600 font-bold">
+        <div className="flex justify-between border-b border-slate-50 pb-1">
+            <span>레슨 3일 전까지</span><span>100% 환불</span>
+        </div>
+        <div className="flex justify-between border-b border-slate-50 pb-1 text-orange-500">
+            <span>레슨 2일 전 ~ 24시간 전</span><span>위약금 10% 발생</span>
+        </div>
+        <div className="flex justify-between border-b border-slate-50 pb-1 text-red-600 bg-red-50 p-2 rounded-lg mt-1">
+            <span>레슨 24시간 이내 ~ 당일</span><span>1회 레슨비 차감</span>
+        </div>
+        
+        <div className="pt-4">
+            <p className="text-slate-800 mb-1">• 레슨 진행 후 (중도 해지)</p>
+            <div className="bg-slate-50 p-3 rounded-xl text-[11px] leading-relaxed">
+                결제 금액에서 <span className="text-red-500">진행 회차(정상가)</span> 차감 후,<br /> 
+                잔여 금액의 <span className="text-blue-600">90% 환불</span> (위약금 10% 공제)
+            </div>
+        </div>
+        
+        <p className="text-[10px] text-slate-400 mt-3 leading-tight font-medium">
+            * 24시간 이내 직전 취소 시에는 예약된 프로님의 시간 보상을 위해 1회 노쇼 비용이 발생합니다.
+        </p>
+    </div>
+</div>
 
                             <div>
                                 <p className="text-[11px] font-black text-brand-blue mb-4 uppercase tracking-widest">특별레슨 / 캠프 / 필드</p>
