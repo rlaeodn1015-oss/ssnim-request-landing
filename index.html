@@ -821,7 +821,7 @@
     };
 
 const submitRequest = async () => {
-    const cleanName = userInfo.name.replace(/\s+/g, '');
+    const cleanName = (userInfo.name || "").replace(/\s+/g, '');
 
     const forbiddenKeywords = [
         '카톡', '카카오', '인스타', 'insta', '인별', 'instagram', 'dm', 'link', 'kakao', '라인', 'line', 
@@ -836,13 +836,13 @@ const submitRequest = async () => {
         return;
     }
 
-    const hasForbidden = forbiddenKeywords.some(keyword => cleanName.includes(keyword));
-    if (hasForbidden) {
+    if (forbiddenKeywords.some(keyword => cleanName.includes(keyword))) {
         alert("성함 입력란에 적절하지 않은 단어나 외부 연락처 유도 키워드를 포함할 수 없습니다.");
         return;
     }
 
-    const submitBtn = event?.target?.closest('button') || document.querySelector('button[onClick*="submitRequest"]');
+    const submitBtn = document.querySelector('button[onClick*="submitRequest"]') || (typeof event !== 'undefined' ? event.target.closest('button') : null);
+    
     if (submitBtn) {
         submitBtn.disabled = true; 
         submitBtn.style.opacity = "0.7";
@@ -857,18 +857,10 @@ const submitRequest = async () => {
         `;
     }
 
-    const submitRequest = async () => {
-    const submitBtn = event?.target?.closest('button');
-    if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.style.opacity = "0.7";
-        submitBtn.innerHTML = `매칭 요청 중...`;
-    }
-
-    const isFixedPrice = formData.lessonType.includes('1:1');
+    const isFixedPrice = (formData.lessonType || "").includes('1:1');
     const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbz9dpSM0zNpYzH9c0p871pJBFBGZXwLmGgMJxGBltS4b7inmxiFw2BBo5cP1hxJna6Y9Q/exec";
     
-    let ZAPIER_WEBHOOK_URL = isFixedPrice 
+    const ZAPIER_WEBHOOK_URL = isFixedPrice 
         ? "https://hooks.zapier.com/hooks/catch/27197789/uj4iu7w/" 
         : "https://hooks.zapier.com/hooks/catch/27197789/uj4d9ko/";
 
@@ -879,7 +871,7 @@ const submitRequest = async () => {
         lessonCount: isFixedPrice ? "1인(고정)" : (formData.lessonCount || "1인"),
         location: formData.location,
         club: formData.club,
-        concern: formData.concern.join(', '),
+        concern: (formData.concern || []).join(', '),
         schedule: `${formData.lessonDate} / ${formData.schedule}`, 
         selectedPro: selectedPro.name,
         proContact: selectedPro.phone,
@@ -893,7 +885,6 @@ const submitRequest = async () => {
             fetch(GOOGLE_SHEET_URL, { 
                 method: "POST", 
                 mode: "no-cors", 
-                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload) 
             }),
             fetch(ZAPIER_WEBHOOK_URL, { 
@@ -910,7 +901,6 @@ const submitRequest = async () => {
         
         setStep(7);
     } catch (err) {
-        console.error(err);
         if (submitBtn) {
             submitBtn.disabled = false;
             submitBtn.style.opacity = "1";
