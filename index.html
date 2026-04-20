@@ -6,7 +6,7 @@
     <meta name="description" content="버려지는 레슨비 0원, 내 골프 고민에 딱 맞는 검증된 스승님을 AI가 정밀 매칭합니다.">
     <meta property="og:type" content="website">
     <meta property="og:title" content="스승님 - 요청 맞춤 골프레슨 매칭">
-    <meta property="og:description" content="요청서 한 번으로 찾는 인생 골프 스승, AI 기반 정밀 매칭 시스템">
+    <meta property="og:description" content="요청서 한 번으로 찾는 인생 골프 레슨, AI 기반 정밀 매칭 시스템">
     <meta property="og:url" content="https://rlaeodn1015-oss.github.io/ssnim-request-landing/">
     <meta property="og:image" content="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/ssnim.png">
 
@@ -754,6 +754,7 @@
     const [selectedPro, setSelectedPro] = React.useState(null);
     const [rematchCount, setRematchCount] = React.useState(0);
     const [userInfo, setUserInfo] = React.useState({ name: '', contact: '' });
+    const [policyOpen, setPolicyOpen] = React.useState(false);
     const [formData, setFormData] = React.useState({
         location: '',
         lessonType: '',
@@ -1002,78 +1003,111 @@ const submitRequest = async () => {
     `;
 
     if (step === 3) return html`
-    <div className="animate-slide-up text-left">
-        <${CumulativeUI} />
-        
-        <div className="flex justify-between items-center mb-8">
-            <div>
-                <h3 className="text-2xl font-black text-slate-800 tracking-tight">STEP 3 / 3</h3>
-                <p className="text-brand-blue font-black text-sm mt-1">⏰ 레슨 조건 및 연락처</p>
-            </div>
-        </div>
-
-        <div className="space-y-8">
-            <div>
-                <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">희망 레슨 시작일</p>
-                <input 
-                    type="date" 
-                    className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-slate-700 transition-all"
-                    value=${formData.lessonDate} 
-                    onInput=${(e) => updateData('lessonDate', e.target.value)} 
-                />
-                <p className="text-[10px] text-slate-400 mt-2 ml-1">* 가장 빠른 레슨 가능 날짜를 선택해주세요.</p>
-            </div>
-
-            <div>
-                <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">선호 시간대 (최대한 맞춰드릴게요!)</p>
-                <div className="grid grid-cols-2 gap-3">
-                    ${[
-                        '평일 오전 (출근 전)', 
-                        '평일 낮 (여유롭게)', 
-                        '평일 저녁 (퇴근 후)', 
-                        '주말 오전 (일찍)', 
-                        '주말 오후 (점심 후)',
-                        '무관 (프로님 맞춤)'
-                    ].map(s => html`
-                        <button key=${s} 
-                            onClick=${() => updateData('schedule', s)} 
-                            className=${`py-4 rounded-2xl border-2 font-bold text-sm transition-all ${formData.schedule === s ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}>
-                            ${s}
-                        </button>
-                    `)}
+        <div className="animate-slide-up text-left relative">
+            <${CumulativeUI} />
+            
+            <div className="flex justify-between items-center mb-8">
+                <div>
+                    <h3 className="text-2xl font-black text-slate-800 tracking-tight">STEP 3 / 3</h3>
+                    <p className="text-brand-blue font-black text-sm mt-1">⏰ 레슨 조건 및 연락처</p>
                 </div>
-                <p className="text-[10px] text-slate-400 mt-3 ml-1 text-center italic">* 구체적인 일정은 프로님 수락 후 최종 확정됩니다.</p>
             </div>
 
-            <div className="space-y-3 pt-6 border-t border-slate-50">
-                <p className="text-xs font-bold text-slate-400 mb-2 ml-1 uppercase tracking-widest">연락처 정보</p>
-                <input 
-                    placeholder="성함" 
-                    className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold transition-all" 
-                    value=${userInfo.name} 
-                    onInput=${(e) => setUserInfo({...userInfo, name: e.target.value})} 
-                />
-                <input 
-                    type="tel"
-                    placeholder="연락처 (- 없이 숫자만)" 
-                    className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold transition-all" 
-                    value=${userInfo.contact} 
-                    onInput=${(e) => setUserInfo({...userInfo, contact: e.target.value})} 
-                />
-            </div>
-        </div>
+            <div className="space-y-8">
+                {/* 1. 시작일 선택 */}
+                <div>
+                    <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">희망 레슨 시작일</p>
+                    <input 
+                        type="date" 
+                        className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-slate-700 transition-all"
+                        value=${formData.lessonDate} 
+                        onInput=${(e) => updateData('lessonDate', e.target.value)} 
+                    />
+                </div>
 
-        <div className="flex gap-4 mt-12">
-            <button onClick=${prevStep} className="flex-1 bg-slate-100 text-slate-500 font-black py-4 md:py-6 rounded-2xl hover:bg-slate-200 transition-all">이전</button>
-            <button 
-                disabled=${!formData.lessonDate || !formData.schedule || !userInfo.name || !userInfo.contact} 
-                onClick=${nextStep} 
-                className="flex-[2] gradient-blue text-white font-black py-4 md:py-6 rounded-2xl shadow-xl disabled:opacity-30 transition-all btn-glow">
-                요청서 작성 완료
-            </button>
+                {/* 2. 시간대 선택 */}
+                <div>
+                    <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">선호 시간대</p>
+                    <div className="grid grid-cols-2 gap-3">
+                        ${['평일 오전', '평일 낮', '평일 저녁', '주말 오전', '주말 오후', '무관'].map(s => html`
+                            <button key=${s} 
+                                onClick=${() => updateData('schedule', s)} 
+                                className=${`py-4 rounded-2xl border-2 font-bold text-sm transition-all ${formData.schedule === s ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400'}`}>
+                                ${s}
+                            </button>
+                        `)}
+                    </div>
+                </div>
+
+                {/* 3. 연락처 정보 */}
+                <div className="space-y-3 pt-6 border-t border-slate-50">
+                    <input 
+                        placeholder="성함" 
+                        className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold transition-all" 
+                        value=${userInfo.name} 
+                        onInput=${(e) => setUserInfo({...userInfo, name: e.target.value})} 
+                    />
+                    <input 
+                        type="tel"
+                        placeholder="연락처 (- 없이 숫자만)" 
+                        className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold transition-all" 
+                        value=${userInfo.contact} 
+                        onInput=${(e) => setUserInfo({...userInfo, contact: e.target.value})} 
+                    />
+                </div>
+            </div>
+
+            {/* 🚀 하단 듀얼 버튼 영역 */}
+            <div className="flex gap-3 mt-12">
+                <button 
+                    onClick=${() => setPolicyOpen(true)} 
+                    className="flex-1 bg-slate-100 text-slate-500 font-bold py-5 rounded-3xl text-[11px] transition-all">
+                    환불정책
+                </button>
+                <button 
+                    disabled=${!formData.lessonDate || !formData.schedule || !userInfo.name || !userInfo.contact} 
+                    onClick=${nextStep} 
+                    className="flex-[2.5] gradient-blue text-white font-black py-5 rounded-3xl shadow-xl disabled:opacity-30 transition-all btn-glow text-lg">
+                    AI 매칭 시작하기
+                </button>
+            </div>
+
+            {/* 📜 환불 정책 팝업 모달 */}
+            ${policyOpen && html`
+                <div className="fixed inset-0 z-[1000] flex items-center justify-center p-6">
+                    <div className="absolute inset-0 bg-slate-900/70 backdrop-blur-md" onClick=${() => setPolicyOpen(false)}></div>
+                    <div className="relative bg-white w-full max-w-sm rounded-[3rem] p-10 shadow-2xl border border-white/20">
+                        <button onClick=${() => setPolicyOpen(false)} className="absolute top-8 right-8 text-slate-300 hover:text-slate-800"><${X} size=${32} /></button>
+                        <h4 className="text-xl font-black text-slate-800 mb-8 flex items-center gap-2">
+                            <span className="w-6 h-6 bg-brand-blue text-white rounded-full flex items-center justify-center text-xs">!</span>
+                            이용 정책 및 환불 규정
+                        </h4>
+                        <div className="space-y-8 text-left">
+                            <div>
+                                <p className="text-[11px] font-black text-brand-blue mb-4 uppercase tracking-widest">특별레슨 / 캠프 / 필드</p>
+                                <div className="space-y-2 text-[12px] text-slate-600 font-bold">
+                                    <div className="flex justify-between border-b border-slate-50 pb-1"><span>21일 전까지</span><span>100% 환불</span></div>
+                                    <div className="flex justify-between border-b border-slate-50 pb-1"><span>14일 전까지</span><span>80% 환불</span></div>
+                                    <div className="flex justify-between border-b border-slate-50 pb-1"><span>7일 전까지</span><span>50% 환불</span></div>
+                                    <div className="flex justify-between border-b border-slate-50 pb-1"><span>4일 전까지</span><span>10% 환불</span></div>
+                                    <div className="flex justify-between text-red-500 font-black pt-1 bg-red-50 p-2 rounded-lg mt-2">
+                                        <span>1일 전 ~ 당일 / 노쇼</span><span>환불 불가</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="bg-slate-900 p-5 rounded-[2rem] text-white">
+                                <p className="text-[11px] font-black text-slate-400 mb-2 uppercase">안전 거래 안내</p>
+                                <p className="text-[10px] leading-relaxed opacity-80 font-medium">
+                                    • 앱 내 결제 시에만 플랫폼의 보호를 받습니다.<br/>
+                                    • 직접 결제 사고 시 회사는 법적 책임을 지지 않습니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `}
         </div>
-    </div>
-`;
+    `;
 
     if (step === 4) return html`
         <div className="animate-slide-up text-center">
@@ -1329,49 +1363,85 @@ const submitRequest = async () => {
                                 </div>
                             </div>
                         </section>
-                        <section className="px-5 py-40 bg-brand-blue text-white text-center relative overflow-hidden text-center">
-                            <div className="absolute top-0 left-0 w-full h-full opacity-10 flex items-center justify-center"><${Target} size={600} strokeWidth={1} /></div>
-                            <div className="max-w-screen-md mx-auto relative z-10 text-center reveal">
-                                <h2 className="text-4xl md:text-7xl font-black mb-12 leading-tight tracking-tighter mx-auto">완벽한 만족을 위한<br />단 한 명의 스승님</h2>
-                                <button onClick=${() => setFormOpen(true)} className="bg-white text-brand-blue px-16 py-8 rounded-[2.5rem] font-black text-2xl shadow-[0_20px_60px_rgba(255,255,255,0.3)] hover:scale-110 transition-transform active:scale-95 mx-auto block btn-glow">지금 레슨 요청 하기</button>
-                                <p className="mt-8 text-blue-100 font-bold text-lg opacity-80 italic">결과가 없으면 100% 보상해 드립니다</p>
-                            </div>
-                        </section>
-                    </main>
-                    <footer className="px-5 py-24 bg-slate-900 text-white">
-                        <div className="max-w-screen-xl mx-auto text-left">
-                            <div className="grid md:grid-cols-2 gap-16 border-b border-slate-800 pb-16 mb-16">
-                                <div>
-                                    <div className="mb-8"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/ssnim.png" alt="스승님 로고" className="h-12 object-contain" /></div>
-                                    <p className="text-slate-500 font-bold leading-relaxed text-lg max-w-sm">스승님은 골퍼와 프로를 잇는 신뢰 기반 매칭 플랫폼입니다. 우리는 검증하고 매칭합니다. 결과를 선물합니다.</p>
-                                </div>
-                                <div className="text-sm font-bold text-slate-600 space-y-4 md:text-right text-left">
-                                    <p className="text-slate-400 font-black text-lg mb-4">Contact & Policy</p>
-                                    <p>상호명: 스승님 (Suseungnim)</p>
-                                    <p>법률 제휴: 법무법인 로투스 정식 계약</p>
-                                    <p>개인정보처리방침 | 이용약관</p>
-                                    <p className="pt-4">© 2026 Suseungnim Corp. All rights reserved.</p>
-                                </div>
-                            </div>
+                       <section className="py-24 px-6 bg-white border-t border-slate-100">
+    <div className="max-w-md mx-auto">
+        <h2 className="text-2xl font-black text-slate-800 mb-10 text-center">자주 묻는 질문 🙋‍♂️</h2>
+        <div className="space-y-4 text-left">
+            <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100 shadow-sm text-left">
+                <p className="text-sm font-black text-slate-800 mb-3">Q. 레슨 취소 및 환불은 어떻게 되나요?</p>
+                <div className="text-[12px] text-slate-500 leading-relaxed space-y-4">
+                    <div>
+                        <p className="font-bold text-slate-700 underline mb-2">• 특별레슨 / 캠프 / 필드</p>
+                        <div className="grid grid-cols-2 gap-x-4 gap-y-1 pl-2">
+                            <p>수업 21일 전까지:</p><p className="font-bold text-blue-600 text-right">100% 환불</p>
+                            <p>수업 14일 전까지:</p><p className="font-bold text-slate-700 text-right">80% 환불</p>
+                            <p>수업 7일 전까지:</p><p className="font-bold text-slate-700 text-right">50% 환불</p>
+                            <p>수업 4일 전까지:</p><p className="font-bold text-slate-700 text-right">10% 환불</p>
                         </div>
-                    </footer>
-                    <div className="fixed bottom-8 left-6 right-6 z-50 md:hidden">
-                        <button onClick=${() => setFormOpen(true)} className="w-full gradient-blue py-6 rounded-3xl text-white font-black text-xl shadow-[0_20px_50px_rgba(0,102,255,0.4)] flex items-center justify-center gap-3 active:scale-95 transition-all btn-glow"><${Zap} size=${24} fill="white" /> 1분 매칭 요청 시작</button>
+                        <p className="mt-2 pl-2 text-red-600 font-black bg-red-50 p-2 rounded-xl">⚠️ 1일 전 ~ 당일 / 노쇼: 환불 불가</p>
                     </div>
-                    ${formOpen && html`
-                        <div className="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-[100] flex items-center justify-center p-5">
-                            <div className="bg-white rounded-[3rem] max-w-lg w-full p-8 md:p-14 relative max-h-[95vh] overflow-y-auto shadow-[0_40px_100px_rgba(0,0,0,0.5)] border border-white/20">
-                                <button onClick=${() => setFormOpen(false)} className="absolute top-8 right-8 text-slate-300 hover:text-slate-800 transition-colors text-right"><${X} size=${40} /></button>
-                                <${InteractiveFlow} setModalOpen=${setFormOpen} />
-                            </div>
-                        </div>
-                    `}
+                    <div className="pt-2 border-t border-slate-200">
+                        <p className="font-bold text-slate-700 underline mb-2">• 1:1 다회권(패키지) 중도 해지</p>
+                        <ul className="pl-4 list-disc space-y-1">
+                            <li><span className="font-bold text-slate-800">1회 이용 후:</span> 결제액 - (1회 정상가 + 위약금 10%) 차감 후 환불</li>
+                            <li><span className="font-bold text-slate-800">2회 이상 이용:</span> 잔여 금액에서 위약금 10% 공제 후 환불</li>
+                        </ul>
+                        <p className="mt-2 text-[10px] text-slate-400 italic">* 중도 해지 시 패키지 할인 혜택은 소멸되며, 기이용분은 정상가(단품가) 기준으로 정산됩니다.</p>
+                    </div>
                 </div>
-            `;
-        };
+            </div>
+            <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100">
+                <p className="text-sm font-black text-slate-800 mb-3">Q. 결제는 어떻게 진행되나요?</p>
+                <p className="text-[12px] text-slate-500 leading-relaxed text-slate-500">
+                    스승님은 <span className="font-bold text-brand-blue">나이스페이(부트페이)</span> 정식 가맹점입니다. 1금융권 모든 카드 결제가 가능하며, 할부 혜택은 결제창에서 확인하실 수 있습니다.
+                </p>
+            </div>
+            <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100">
+                <p className="text-sm font-black text-slate-800 mb-3">Q. 프로님과 직접 결제해도 되나요?</p>
+                <p className="text-[12px] text-slate-500 leading-relaxed text-slate-500">
+                    아니요. 스승님 플랫폼 외 <span className="text-red-500 font-bold underline">현장 결제나 직거래는 엄격히 금지</span>됩니다. 직거래 적발 시 서비스 이용이 영구 제한될 수 있으니 반드시 앱 내 안전 결제를 이용해 주세요.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+        </main> <footer className="px-5 py-24 bg-slate-900 text-white">
+            <div className="max-w-screen-xl mx-auto text-left">
+                <div className="grid md:grid-cols-2 gap-16 border-b border-slate-800 pb-16 mb-16">
+                    <div>
+                        <div className="mb-8"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/ssnim.png" alt="스승님 로고" className="h-12 object-contain" /></div>
+                        <p className="text-slate-500 font-bold leading-relaxed text-lg max-w-sm">스승님은 골퍼와 프로를 잇는 신뢰 기반 매칭 플랫폼입니다. 우리는 검증하고 매칭합니다. 결과를 선물합니다.</p>
+                    </div>
+                    <div className="text-sm font-bold text-slate-600 space-y-4 md:text-right text-left">
+                        <p className="text-slate-400 font-black text-lg mb-4">Contact & Policy</p>
+                        <p>상호명: 주식회사 스승님 (Suseungnim)</p>
+                        <p>법률 제휴: 법무법인 로투스 정식 계약</p>
+                        <p>개인정보처리방침 | 이용약관</p>
+                        <p className="pt-4">© 2026 Suseungnim Corp. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
 
-        const rootEl = document.getElementById("root");
-        createRoot(rootEl).render(html`<${App} />`);
-    </script>
+        <div className="fixed bottom-8 left-6 right-6 z-50 md:hidden">
+            <button onClick=${() => setFormOpen(true)} className="w-full gradient-blue py-6 rounded-3xl text-white font-black text-xl shadow-[0_20px_50px_rgba(0,102,255,0.4)] flex items-center justify-center gap-3 active:scale-95 transition-all btn-glow">
+                <${Zap} size=${24} fill="white" /> 1분 매칭 요청 시작
+            </button>
+        </div>
+
+        ${formOpen && html`
+            <div className="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-[100] flex items-center justify-center p-5">
+                <div className="bg-white rounded-[3rem] max-w-lg w-full p-8 md:p-14 relative max-h-[95vh] overflow-y-auto shadow-[0_40px_100px_rgba(0,0,0,0.5)] border border-white/20">
+                    <button onClick=${() => setFormOpen(false)} className="absolute top-8 right-8 text-slate-300 hover:text-slate-800 transition-colors text-right"><${X} size=${40} /></button>
+                    <${InteractiveFlow} setModalOpen=${setFormOpen} />
+                </div>
+            </div>
+        `}
+    </div> `;
+};
+
+const rootEl = document.getElementById("root");
+createRoot(rootEl).render(html`<${App} />`);
+</script>
 </body>
 </html>
