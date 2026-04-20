@@ -13,42 +13,66 @@
     </div>
 
     <script>
-        function checkAndPay() {
-            const params = new URLSearchParams(window.location.search);
-            const price = parseInt(params.get('price')) || 0;
-            const name = params.get('name') || "고객님";
+    function checkAndPay() {
+        const params = new URLSearchParams(window.location.search);
+        const price = parseInt(params.get('price')) || 0;
+        const name = params.get('name') || "고객님";
+        const requestId = params.get('requestId') || ""; // ID 값 필수
 
-            if (price <= 0) {
-                document.getElementById('msg').innerText = "결제 금액 정보가 없습니다.";
-                return;
-            }
-
-            if (typeof Bootpay === "undefined") {
-                console.log("아직 로딩 중...");
-                setTimeout(checkAndPay, 1000); // 1초 뒤 재시도
-                return;
-            }
-
-            Bootpay.requestPayment({
-                "application_id": "67ecd171d9af4e5c6d21736b",
-                "price": price,
-                "order_name": "스승님 골프 레슨비",
-                "order_id": "order_" + new Date().getTime(),
-                "pg": "nicepay",
-                "method": "card",
-                "user": { "username": name },
-                "extra": { "open_type": "iframe" }
-            }).then(function(res) {
-                if (res.event === 'done') {
-                    // ✅ 성공 시 success.html로 이동 (경로 고정)
-                    location.href = "success.html";
-                }
-            }).catch(function(e) {
-                alert("결제창 오류: " + e.message);
-            });
+        if (price <= 0) {
+            document.getElementById('msg').innerText = "결제 금액 정보가 없습니다.";
+            return;
         }
 
-        window.onload = checkAndPay;
-    </script>
+        if (typeof Bootpay === "undefined") {
+            setTimeout(checkAndPay, 1000);
+            return;
+        }
+
+        Bootpay.requestPayment({
+            "application_id": "67ecd171d9af4e5c6d21736b",
+            "price": price,
+            "order_name": "스승님 골프 레슨비",
+            "order_id": requestId || ("order_" + new Date().getTime()), // requestId를 주문ID로 사용
+            "pg": "nicepay",
+            "method": "card",
+            "user": { "username": name },
+            "extra": { "open_type": "iframe" }
+        }).then(async function(res) {
+            if (res.event === 'done') {
+                // ✅ 결제 성공 시 구글 시트 데이터 업데이트 로직 추가
+                document.getElementById('msg').innerText = "결제 정보를 업데이트 중입니다...";
+                
+                const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzm4khJWhFRaWNkC1hmwFfSUtDK26_CAu_zHI9P-93b4ESCrzeRYUOsXdOPjO-0oIkG/exec";
+
+                const updateData = {
+                    action: "updatePayment", // GAS에서 구분할 액션명
+                    requestId: requestId,
+                    paymentStatus: "결제 완료",
+                    paidAmount: price
+                };
+
+                try {
+                    // 구글 시트에 업데이트 요청 전송
+                    await fetch(GOOGLE_SHEET_URL, {
+                        method: "POST",
+                        mode: "no-cors", // GAS 구조상 no-cors가 안정적일 수 있음
+                        body: JSON.stringify(updateData)
+                    });
+                    
+                    // 업데이트 성공 시 성공 페이지로 이동
+                    location.href = "success.html";
+                } catch (err) {
+                    console.error("데이터 업데이트 실패:", err);
+                    location.href = "success.html"; // 에러 나도 우선 이동 (사용자 경험)
+                }
+            }
+        }).catch(function(e) {
+            alert("결제창 오류: " + e.message);
+        });
+    }
+
+    window.onload = checkAndPay;
+</script>
 </body>
 </html>
