@@ -1014,7 +1014,7 @@ const submitRequest = async () => {
             </div>
 
             <div className="space-y-8">
-                {/* 1. 시작일 선택 */}
+
                 <div>
                     <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">희망 레슨 시작일</p>
                     <input 
@@ -1025,7 +1025,6 @@ const submitRequest = async () => {
                     />
                 </div>
 
-                {/* 2. 시간대 선택 */}
                 <div>
                     <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">선호 시간대</p>
                     <div className="grid grid-cols-2 gap-3">
@@ -1039,7 +1038,6 @@ const submitRequest = async () => {
                     </div>
                 </div>
 
-                {/* 3. 연락처 정보 */}
                 <div className="space-y-3 pt-6 border-t border-slate-50">
                     <input 
                         placeholder="성함" 
@@ -1057,7 +1055,6 @@ const submitRequest = async () => {
                 </div>
             </div>
 
-            {/* 🚀 하단 듀얼 버튼 영역 */}
             <div className="flex gap-3 mt-12">
                 <button 
                     onClick=${() => setPolicyOpen(true)} 
@@ -1072,42 +1069,48 @@ const submitRequest = async () => {
                 </button>
             </div>
 
-            {/* 📜 환불 정책 팝업 모달 */}
             ${policyOpen && html`
-                <div className="fixed inset-0 z-[1000] flex items-center justify-center p-6">
-                    <div className="absolute inset-0 bg-slate-900/70 backdrop-blur-md" onClick=${() => setPolicyOpen(false)}></div>
-                    <div className="relative bg-white w-full max-w-sm rounded-[3rem] p-10 shadow-2xl border border-white/20">
-                        <button onClick=${() => setPolicyOpen(false)} className="absolute top-8 right-8 text-slate-300 hover:text-slate-800"><${X} size=${32} /></button>
-                        <h4 className="text-xl font-black text-slate-800 mb-8 flex items-center gap-2">
-                            <span className="w-6 h-6 bg-brand-blue text-white rounded-full flex items-center justify-center text-xs">!</span>
-                            이용 정책 및 환불 규정
-                        </h4>
-                        <div className="space-y-8 text-left">
-                            <div>
-                                <p className="text-[11px] font-black text-brand-blue mb-4 uppercase tracking-widest">특별레슨 / 캠프 / 필드</p>
-                                <div className="space-y-2 text-[12px] text-slate-600 font-bold">
-                                    <div className="flex justify-between border-b border-slate-50 pb-1"><span>21일 전까지</span><span>100% 환불</span></div>
-                                    <div className="flex justify-between border-b border-slate-50 pb-1"><span>14일 전까지</span><span>80% 환불</span></div>
-                                    <div className="flex justify-between border-b border-slate-50 pb-1"><span>7일 전까지</span><span>50% 환불</span></div>
-                                    <div className="flex justify-between border-b border-slate-50 pb-1"><span>4일 전까지</span><span>10% 환불</span></div>
-                                    <div className="flex justify-between text-red-500 font-black pt-1 bg-red-50 p-2 rounded-lg mt-2">
-                                        <span>1일 전 ~ 당일 / 노쇼</span><span>환불 불가</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="bg-slate-900 p-5 rounded-[2rem] text-white">
-                                <p className="text-[11px] font-black text-slate-400 mb-2 uppercase">안전 거래 안내</p>
-                                <p className="text-[10px] leading-relaxed opacity-80 font-medium">
-                                    • 앱 내 결제 시에만 플랫폼의 보호를 받습니다.<br/>
-                                    • 직접 결제 사고 시 회사는 법적 책임을 지지 않습니다.
-                                </p>
-                            </div>
-                        </div>
+    <div className="fixed inset-0 z-[1000] flex items-center justify-center p-6">
+        <div className="absolute inset-0 bg-slate-900/70 backdrop-blur-md" onClick=${() => setPolicyOpen(false)}></div>
+        <div className="relative bg-white w-full max-w-sm rounded-[3rem] p-10 shadow-2xl border border-white/20">
+            <button onClick=${() => setPolicyOpen(false)} className="absolute top-8 right-8 text-slate-300 hover:text-slate-800"><${X} size=${32} /></button>
+            <h4 className="text-xl font-black text-slate-800 mb-8 flex items-center gap-2">
+                <span className="w-6 h-6 bg-brand-blue text-white rounded-full flex items-center justify-center text-xs">!</span>
+                이용 정책 및 환불 규정
+            </h4>
+            
+            <div className="space-y-6 text-left">
+              
+                <div>
+                    <p className="text-[11px] font-black text-brand-blue mb-3 uppercase tracking-widest">특별레슨 / 캠프 / 필드</p>
+                    <div className="space-y-1.5 text-[12px] text-slate-600 font-bold">
+                        <div className="flex justify-between border-b border-slate-50 pb-1"><span>21일 전까지</span><span>100% 환불</span></div>
+                        <div className="flex justify-between border-b border-slate-50 pb-1"><span>14일 전까지</span><span>80% 환불</span></div>
+                        <div className="flex justify-between border-b border-slate-50 pb-1"><span>7일 전까지</span><span>50% 환불</span></div>
+                        <div className="flex justify-between border-b border-slate-50 pb-1"><span>4일 전까지</span><span>10% 환불</span></div>
+                        <div className="flex justify-between text-red-500 font-black pt-1 bg-red-50 p-1.5 rounded-lg"><span>1일 전 ~ 당일</span><span>환불 불가</span></div>
                     </div>
                 </div>
-            `}
+
+                <div className="pt-2 border-t border-slate-100">
+                    <p className="text-[11px] font-black text-brand-blue mb-3 uppercase tracking-widest">1:1 레슨 (다회권/패키지)</p>
+                    <div className="text-[11px] text-slate-600 leading-relaxed font-bold space-y-2">
+                        <p>• <span className="text-slate-900">중도 해지 시:</span> 패키지 할인 혜택은 소멸됩니다.</p>
+                        <p>• <span className="text-slate-900">환불액 계산:</span> 결제액 - (기이용분 <span className="text-red-500 underline text-[10px]">정상가 기준</span> 정산 + 위약금 10%)</p>
+                    </div>
+                </div>
+
+                <div className="bg-slate-900 p-5 rounded-[2rem] text-white">
+                    <p className="text-[11px] font-black text-slate-400 mb-2 uppercase">안전 거래 안내</p>
+                    <p className="text-[10px] leading-relaxed opacity-80 font-medium">
+                        • 앱 내 결제 시에만 플랫폼의 보호를 받습니다.<br/>
+                        • 직접 결제(현장 송금 등) 사고 시 회사는 책임지지 않습니다.
+                    </p>
+                </div>
+            </div>
         </div>
-    `;
+    </div>
+`}
 
     if (step === 4) return html`
         <div className="animate-slide-up text-center">
