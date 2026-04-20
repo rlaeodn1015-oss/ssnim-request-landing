@@ -874,7 +874,7 @@ const submitRequest = async () => {
     const payload = {
         name: userInfo.name,
         contact: userInfo.contact,
-        rematchCount: 0
+        rematchCount: 0,
         lessonType: formData.lessonType,
         lessonCount: formData.lessonCount || (isFixedPrice ? "1:1 레슨" : "1인"),
         location: formData.location,
