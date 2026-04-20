@@ -821,6 +821,26 @@
     };
 
 const submitRequest = async () => {
+    const cleanName = userInfo.name.replace(/\s+/g, '');
+
+    const forbiddenKeywords = [
+        '카톡', '카카오', '인스타', 'insta', '인별', 'instagram', 'dm', 'link', 'kakao', '라인', 'line', 
+        '공일공', '오픈채팅', '옵챗', '텔레그램', '영일영', '전화', '카.톡', '연락처', '리틀리', 'littly', 
+        '링크트리', '.com', 'http', '유튜브', 'youtube', '번호', '공1공', 'o1o', '영1영', '0l0', 
+        '아이디', '검색', '친추', '팔로우', '.kr', '.me', '.link', '계좌', '입금', '이체', '현결', '현금', 'ID',
+        '시발', '지랄', '개새', '병신', '미친', '대표', '프로', '스승', '선생', '사장', '관리자', '운영자'
+    ];
+
+    if (!/^[가-힣]{2,5}$/.test(cleanName)) {
+        alert("성함은 한글 실명(2~5자)으로 정확히 입력해 주세요.");
+        return;
+    }
+
+    const hasForbidden = forbiddenKeywords.some(keyword => cleanName.includes(keyword));
+    if (hasForbidden) {
+        alert("성함 입력란에 적절하지 않은 단어나 외부 연락처 유도 키워드를 포함할 수 없습니다.");
+        return;
+    }
 
     const submitBtn = event?.target?.closest('button') || document.querySelector('button[onClick*="submitRequest"]');
     if (submitBtn) {
