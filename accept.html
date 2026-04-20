@@ -127,7 +127,7 @@
         selectedPro: selectedPro,
         contact: contact,
         lessonType: type,
-        finalPrice: parseInt(price).toLocaleString() + "원",
+        finalPrice: parseInt(price).toLocaleString(),
         lessonLocation: location,
         proNote: note || "별도 안내 사항 없음",
         paymentUrl: `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}`,
