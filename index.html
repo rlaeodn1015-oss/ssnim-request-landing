@@ -1366,15 +1366,16 @@ const submitRequest = async () => {
                                 </div>
                             </div>
                         </section>
+                                    
                         <section className="py-24 px-6 bg-white border-t border-slate-100">
     <div className="max-w-md mx-auto">
         <h2 className="text-2xl font-black text-slate-800 mb-10 text-center">자주 묻는 질문 🙋‍♂️</h2>
         <div className="space-y-4 text-left">
             
-            <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100 shadow-sm">
+    
+            <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100 shadow-sm text-left">
                 <p className="text-sm font-black text-slate-800 mb-3">Q. 레슨 취소 및 환불은 어떻게 되나요?</p>
-                <div className="text-[12px] text-slate-500 leading-relaxed space-y-4 text-left">
-                    {/* 1. 특별레슨/캠프 (제7조 기준) */}
+                <div className="text-[12px] text-slate-500 leading-relaxed space-y-4">
                     <div>
                         <p className="font-bold text-slate-700 underline mb-2">• 특별레슨 / 캠프 / 필드</p>
                         <div className="grid grid-cols-2 gap-x-4 gap-y-1 pl-2">
@@ -1383,24 +1384,20 @@ const submitRequest = async () => {
                             <p>수업 7일 전까지:</p><p className="font-bold text-slate-700 text-right">50% 환불</p>
                             <p>수업 4일 전까지:</p><p className="font-bold text-slate-700 text-right">10% 환불</p>
                         </div>
-                        <p className="mt-2 pl-2 text-red-600 font-black bg-red-50 p-2 rounded-xl">
-                            ⚠️ 1일 전 ~ 당일 / 노쇼: 환불 불가
-                        </p>
+                        <p className="mt-2 pl-2 text-red-600 font-black bg-red-50 p-2 rounded-xl">⚠️ 1일 전 ~ 당일 / 노쇼: 환불 불가</p>
                     </div>
 
-                    {/* 2. 1:1 다회권 (제5조 기준) */}
                     <div className="pt-2 border-t border-slate-200">
                         <p className="font-bold text-slate-700 underline mb-2">• 1:1 다회권(패키지) 중도 해지</p>
                         <ul className="pl-4 list-disc space-y-1">
                             <li><span className="font-bold text-slate-800">1회 이용 후:</span> 결제액 - (1회 정상가 + 위약금 10%) 차감 후 환불</li>
                             <li><span className="font-bold text-slate-800">2회 이상 이용:</span> 잔여 금액에서 위약금 10% 공제 후 환불</li>
                         </ul>
-                        <p className="mt-2 text-[10px] text-slate-400 italic">
-                            * 중도 해지 시 패키지 할인 혜택은 소멸되며, 기이용분은 정상가(단품가) 기준으로 정산됩니다.
-                        </p>
+                        <p className="mt-2 text-[10px] text-slate-400 italic">* 중도 해지 시 패키지 할인 혜택은 소멸되며, 기이용분은 정상가(단품가) 기준으로 정산됩니다.</p>
                     </div>
                 </div>
             </div>
+
 
             <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100">
                 <p className="text-sm font-black text-slate-800 mb-3">Q. 결제는 어떻게 진행되나요?</p>
@@ -1409,6 +1406,7 @@ const submitRequest = async () => {
                 </p>
             </div>
 
+
             <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100">
                 <p className="text-sm font-black text-slate-800 mb-3">Q. 프로님과 직접 결제해도 되나요?</p>
                 <p className="text-[12px] text-slate-500 leading-relaxed text-slate-500">
@@ -1416,26 +1414,29 @@ const submitRequest = async () => {
                 </p>
             </div>
             
+        </div> {/* space-y-4 닫기 */}
+    </div> {/* max-w-md 닫기 */}
+</section>
+
+</main> 
+
+<footer className="px-5 py-24 bg-slate-900 text-white">
+    <div className="max-w-screen-xl mx-auto text-left">
+        <div className="grid md:grid-cols-2 gap-16 border-b border-slate-800 pb-16 mb-16">
+            <div>
+                <div className="mb-8"><img src="https://rlaeodn1015-oss.github.io/ssnim.png" alt="스승님 로고" className="h-12 object-contain" /></div>
+                <p className="text-slate-500 font-bold leading-relaxed text-lg max-w-sm">스승님은 골퍼와 프로를 잇는 신뢰 기반 매칭 플랫폼입니다. 우리는 검증하고 매칭합니다. 결과를 선물합니다.</p>
+            </div>
+            <div className="text-sm font-bold text-slate-600 space-y-4 md:text-right text-left">
+                <p className="text-slate-400 font-black text-lg mb-4">Contact & Policy</p>
+                <p>상호명: 주식회사 스승님 (Suseungnim)</p>
+                <p>법률 제휴: 법무법인 로투스 정식 계약</p>
+                <p>개인정보처리방침 | 이용약관</p>
+                <p className="pt-4">© 2026 Suseungnim Corp. All rights reserved.</p>
+            </div>
         </div>
     </div>
-</section>
-        </main> <footer className="px-5 py-24 bg-slate-900 text-white">
-            <div className="max-w-screen-xl mx-auto text-left">
-                <div className="grid md:grid-cols-2 gap-16 border-b border-slate-800 pb-16 mb-16">
-                    <div>
-                        <div className="mb-8"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/ssnim.png" alt="스승님 로고" className="h-12 object-contain" /></div>
-                        <p className="text-slate-500 font-bold leading-relaxed text-lg max-w-sm">스승님은 골퍼와 프로를 잇는 신뢰 기반 매칭 플랫폼입니다. 우리는 검증하고 매칭합니다. 결과를 선물합니다.</p>
-                    </div>
-                    <div className="text-sm font-bold text-slate-600 space-y-4 md:text-right text-left">
-                        <p className="text-slate-400 font-black text-lg mb-4">Contact & Policy</p>
-                        <p>상호명: 주식회사 스승님 (Suseungnim)</p>
-                        <p>법률 제휴: 법무법인 로투스 정식 계약</p>
-                        <p>개인정보처리방침 | 이용약관</p>
-                        <p className="pt-4">© 2026 Suseungnim Corp. All rights reserved.</p>
-                    </div>
-                </div>
-            </div>
-        </footer>
+</footer>
 
         <div className="fixed bottom-8 left-6 right-6 z-50 md:hidden">
             <button onClick=${() => setFormOpen(true)} className="w-full gradient-blue py-6 rounded-3xl text-white font-black text-xl shadow-[0_20px_50px_rgba(0,102,255,0.4)] flex items-center justify-center gap-3 active:scale-95 transition-all btn-glow">
