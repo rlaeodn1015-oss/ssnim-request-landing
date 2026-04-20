@@ -72,10 +72,12 @@
         const requestId = params.get('requestId') || "";
         const fixedPrice = params.get('price') || "";
         const selectedPro = params.get('selectedPro') || "스승님";
+        const lessonCount = params.get('lessonCount') || "1회"; 
 
         document.getElementById('customerSummary').innerHTML = `
             <p>👤 고객명: ${name}</p>
             <p>⛳ 종류: ${type}</p>
+            <p>👥 인원/횟수: ${lessonCount}</p> 
         `;
 
         if (fixedPrice) {
