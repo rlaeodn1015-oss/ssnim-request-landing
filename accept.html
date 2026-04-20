@@ -88,21 +88,13 @@
             const note = document.getElementById('proNote').value;
             const btn = document.getElementById('submitBtn');
 
-            // 필수값 체크
-            if (!price) return alert("가격을 입력해주세요!");
+            if (!price || parseInt(price) < 1000) return alert("올바른 가격을 입력해주세요! (최소 1,000원 이상)");
             if (!location) return alert("레슨 장소를 입력해주세요!");
 
-            // [보안] 연락처 필터링 로직 (장소 + 안내사항 합쳐서 검사)
             const combinedText = (location + note).replace(/\s/g, '').toLowerCase(); 
-            const phonePattern = /(01[016789]|02|0[3-9][0-9])[- .]*(\d{3,4})[- .]*(\d{4})/g;
-            const digitPattern = /\d{8,11}/g;
-            const kakaoKeywords = [
-    '카톡', '카카오', '인스타', 'insta', '인별', 'instagram', 'dm', 'link', 'kakao', '라인', 'line', 
-    '공일공', '오픈채팅', '옵챗', '텔레그램', '영일영', '전화', '카.톡', '연락처', '리틀리', 'littly', 
-    '링크트리', '.com', 'http', '유튜브', 'youtube', '번호', 
-    '공1공', 'o1o', '영1영', '0l0', '아이디', '검색', '친추', '팔로우', '.kr', '.me', '.link', 
-    '계좌', '입금', '이체', '현결', '현금', 'ID'
-];
+            const phonePattern = /(01[016789]|02|0[3-9][0-9])[- .]*(\d{3,4})[- .]*(\d{4})/;
+            const digitPattern = /\d{8,11}/;
+            const kakaoKeywords = ['카톡', '카카오', '인스타', 'insta', '인별', 'instagram', 'dm', 'link', 'kakao', '라인', 'line', '공일공', '오픈채팅', '옵챗', '텔레그램', '영일영', '전화', '카.톡', '연락처', '리틀리', 'littly', '링크트리', '.com', 'http', '유튜브', 'youtube', '번호', '공1공', 'o1o', '영1영', '0l0', '아이디', '검색', '친추', '팔로우', '.kr', '.me', '.link', '계좌', '입금', '이체', '현결', '현금', 'ID'];
             
             if (phonePattern.test(combinedText) || digitPattern.test(combinedText) || kakaoKeywords.some(k => combinedText.includes(k))) {
                 alert("경고: 장소 및 안내 사항에는 연락처 등 개인 정보를 입력할 수 없습니다.");
@@ -110,7 +102,7 @@
             }
             
             btn.disabled = true;
-            btn.innerText = "발송 중...";
+            btn.innerHTML = `<span style="display:flex; align-items:center; justify-content:center; gap:8px;">발송 중...</span>`;
 
             const payload = {
                 requestId: requestId,
@@ -118,26 +110,22 @@
                 contact: contact,
                 lessonType: type,
                 finalPrice: parseInt(price).toLocaleString() + "원",
-                lessonLocation: location, // 장소 데이터 추가
+                lessonLocation: location,
                 proNote: note || "별도 안내 사항 없음",
                 paymentUrl: `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}`,
                 status: "accepted"
             };
 
             try {
-                // 결제 전용 자피어 주소
                 const ZAPIER_URL = "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/"; 
 
                 await fetch(ZAPIER_URL, {
                     method: "POST",
-                    mode: "no-cors",
                     body: JSON.stringify(payload)
                 });
 
                 alert("✅ 견적 발송 완료! 고객에게 결제 알림톡이 전송되었습니다.");
                 btn.innerText = "발송 완료";
-                
-                // 완료 후 카톡 채널로 이동하여 종결감 부여
                 window.location.href = "https://pf.kakao.com/_kxawRn/chat"; 
                 
             } catch (err) {
