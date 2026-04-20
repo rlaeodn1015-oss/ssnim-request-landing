@@ -821,7 +821,14 @@
     };
 
 const submitRequest = async () => {
-    const cleanName = (userInfo.name || "").replace(/\s+/g, '');
+    const currentName = (userInfo.name || "").trim();
+    const currentContact = (userInfo.contact || "").replace(/[^0-9]/g, '');
+
+    if (!currentName || !currentContact) {
+        alert("성함과 연락처를 모두 입력해주세요.");
+        setStep(3); 
+        return;
+    }
 
     const forbiddenKeywords = [
         '카톡', '카카오', '인스타', 'insta', '인별', '잉스타', '스타', '인스타그램', '잉스타그램', '익스타', '임스타', 'instagram', 'dm', 'link', 'kakao', '라인', 'line', 
@@ -872,11 +879,11 @@ const submitRequest = async () => {
         : "https://hooks.zapier.com/hooks/catch/27197789/uj4d9ko/";
 
     const payload = {
-        name: userInfo.name,
-        contact: userInfo.contact,
+        name: currentName,     
+        contact: currentContact,
         rematchCount: 0,
         lessonType: formData.lessonType,
-        lessonCount: formData.lessonCount || (isFixedPrice ? "1:1 레슨" : "1인"),
+        lessonCount: formData.lessonCount || (isFixedPrice ? "1:1 레슨" : "1회"),
         location: formData.location,
         club: formData.club,
         concern: (formData.concern || []).join(', '),
@@ -1072,20 +1079,28 @@ const submitRequest = async () => {
 </div>
 
                 <div className="space-y-3 pt-6 border-t border-slate-50">
-                    <input 
-                        placeholder="성함" 
-                        className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold transition-all" 
-                        value=${userInfo.name} 
-                        onInput=${(e) => setUserInfo({...userInfo, name: e.target.value})} 
-                    />
-                    <input 
-                        type="tel"
-                        placeholder="연락처 (- 없이 숫자만)" 
-                        className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold transition-all" 
-                        value=${userInfo.contact} 
-                        onInput=${(e) => setUserInfo({...userInfo, contact: e.target.value})} 
-                    />
-                </div>
+    <input 
+        id="userName"
+        placeholder="성함" 
+        className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold transition-all" 
+        value=${userInfo.name} 
+        onInput=${(e) => {
+            const val = e.target.value;
+            setUserInfo(prev => ({...prev, name: val}));
+        }} 
+    />
+    <input 
+        id="userPhone"
+        type="tel"
+        placeholder="연락처 (- 없이 숫자만)" 
+        className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold transition-all" 
+        value=${userInfo.contact} 
+        onInput=${(e) => {
+            const val = e.target.value.replace(/[^0-9]/g, ''); // 숫자만 입력받게 강제
+            setUserInfo(prev => ({...prev, contact: val}));
+        }} 
+    />
+</div>
             </div>
 
             <div className="flex gap-3 mt-12">
