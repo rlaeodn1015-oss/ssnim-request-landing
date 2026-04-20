@@ -876,7 +876,7 @@ const submitRequest = async () => {
         contact: userInfo.contact,
         rematchCount: 0
         lessonType: formData.lessonType,
-        lessonCount: isFixedPrice ? "1인(고정)" : (formData.lessonCount || "1인"),
+        lessonCount: formData.lessonCount || (isFixedPrice ? "1:1 레슨" : "1인"),
         location: formData.location,
         club: formData.club,
         concern: (formData.concern || []).join(', '),
