@@ -516,12 +516,15 @@
                         <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/ssnim.png" alt="스승님 로고" className="h-10 object-contain" />
                         <span className="text-2xl font-black tracking-tighter text-slate-850">나에게 필요한 맞춤 골프레슨</span>
                     </a>
-                    <nav className="hidden lg:flex items-center gap-10 text-[15px] font-bold text-gray-500">
-                        <a href="#event" className="hover:text-brand-blue transition-colors">이벤트</a>
-                        <a href="#features" className="hover:text-brand-blue transition-colors">매칭 시스템</a>
-                        <a href="#trust" className="hover:text-brand-blue transition-colors">안심 정책</a>
-                        <a href="#cases" className="hover:text-brand-blue transition-colors">성공 사례</a>
-                    </nav>
+                    <nav className="hidden lg:flex items-center gap-10 text-[14px] font-bold text-gray-500">
+    <a href="https://rlaeodn1015-oss.github.io/lessonticket/" target="_blank" className="text-brand-blue flex items-center gap-1 hover:opacity-80 transition-all">
+    수강권 구매 <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
+</a>
+    <a href="#event" className="hover:text-brand-blue transition-colors">이벤트</a>
+    <a href="#features" className="hover:text-brand-blue transition-colors">매칭 시스템</a>
+    <a href="#trust" className="hover:text-brand-blue transition-colors">안심 정책</a>
+    <a href="#cases" className="hover:text-brand-blue transition-colors">성공 사례</a>
+</nav>
                     <a href="https://pf.kakao.com/_kxawRn/chat" className="bg-slate-100 text-slate-800 px-6 py-2.5 rounded-full font-bold text-sm hover:bg-slate-200 transition-all hidden md:block">
                         1:1 문의하기
                     </a>
@@ -640,6 +643,43 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+`;
+
+        const TicketBanner = () => html`
+    <section className="px-5 py-12 bg-white">
+        <div className="max-w-screen-xl mx-auto">
+            <a href="https://rlaeodn1015-oss.github.io/lessonticket/" 
+               className="group block relative overflow-hidden rounded-[2.5rem] bg-slate-900 p-8 md:p-16 shadow-2xl transition-all hover:scale-[1.01]">
+                
+                <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-blue/20 to-transparent"></div>
+                <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-brand-blue opacity-20 blur-3xl animate-pulse"></div>
+
+                <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                    <div className="text-center md:text-left">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-blue text-white rounded-full text-[10px] font-black uppercase tracking-widest mb-6">
+                            Launch Event
+                        </div>
+                        <h2 className="text-2xl md:text-4xl font-black text-white leading-tight mb-4 tracking-tight">
+                            이제 레슨권도 <span className="text-brand-blue">스승님 특별할인</span> 받고<br />
+                            저렴하게 원하는 만큼만 구매하세요
+                        </h2>
+                        <p className="text-slate-400 font-bold text-sm md:text-base">
+                            카드 무이자 할부 혜택부터 법무법인 로투스 결제 보증까지 한 번에
+                        </p>
+                    </div>
+
+                    <div className="shrink-0">
+                        <div className="bg-white text-slate-900 px-8 py-5 rounded-2xl font-black text-lg shadow-xl group-hover:bg-brand-blue group-hover:text-white transition-all flex items-center gap-3">
+                            수강권 할인가 확인하기
+                            <${ArrowRight} size=${20} />
+                        </div>
+                    </div>
+                </div>
+                
+                <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r from-transparent via-brand-blue to-transparent opacity-50"></div>
+            </a>
         </div>
     </section>
 `;
@@ -1444,15 +1484,18 @@ const submitRequest = async () => {
             <main>
                 <${HeroSection} setFormOpen=${setFormOpen} />
                 
+                <section className="px-5 -mt-12 md:-mt-20 mb-16 relative z-20 max-w-screen-xl mx-auto">
+                    <${RealTimeStatus} />
+                </section>
+
                 <${UnlimitedBenefit} />
-                        
-                        <section className="px-5 -mt-8 mb-16 relative z-20 max-w-screen-xl mx-auto">
-                            <${RealTimeStatus} />
-                        </section>
-                        <${ProblemSection} />
-                        <${EventSection} />
-                        <${SystemSection} />
-                        <${TrustSection} />
+                
+                <${TicketBanner} />
+                
+                <${ProblemSection} />
+                <${EventSection} />
+                <${SystemSection} />
+                <${TrustSection} />
                
                         <section id="cases" className="px-5 py-32 bg-slate-50">
                             <div className="max-w-screen-xl mx-auto text-center">
