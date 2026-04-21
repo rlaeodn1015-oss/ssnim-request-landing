@@ -31,24 +31,24 @@
             background: #fff;
             color: #111827;
             -webkit-font-smoothing: antialiased;
-            /* 전체적인 기본 폰트 사이즈 하향 조정 */
-            font-size: 15px; 
         }
 
-        h1 { font-size: 1.875rem !important; line-height: 1.3 !important; } /* text-3xl 수준 */
-        h2 { font-size: 1.5rem !important; line-height: 1.4 !important; }   /* text-2xl 수준 */
-        h3 { font-size: 1.25rem !important; }                             /* text-xl 수준 */
-        h4 { font-size: 1rem !important; }                                /* text-base 수준 */
-
-        /* 본문 설명글(p)들을 FAQ 답변 수준으로 강제 축소 */
-        p { 
-            font-size: 0.875rem !important; 
-            line-height: 1.6 !important; 
+        /* 큰 제목들만 FAQ 수준으로 조절 (신청폼 안의 버튼들은 건드리지 않음) */
+        h1 { font-size: 1.875rem !important; line-height: 1.3 !important; } 
+        h2 { font-size: 1.5rem !important; line-height: 1.4 !important; }   
+        
+        /* 💡 핵심: 일반 문장들만 크기를 줄이고, 버튼이나 특수 텍스트는 건드리지 않음 */
+        section p { 
+            font-size: 0.9375rem; 
+            line-height: 1.6; 
             word-break: keep-all;
         }
-        .max-w-screen-xl p { font-size: 0.9375rem !important; }
-        .bg-gradient-to-br h2 { font-size: 1.5rem !important; }
-        
+
+        /* 신청폼(InteractiveFlow) 내부의 텍스트들은 원래대로 보호 */
+        .animate-slide-up p, .animate-slide-up button {
+            font-size: inherit; 
+        }
+
         .clay-card {
             background: #ffffff;
             border-radius: 2rem;
