@@ -159,20 +159,270 @@
     <div id="root"></div>
 
     <script type="module">
-    import React from "react";
-    import { createRoot } from "react-dom/client";
-    import htm from "htm";
-    import { pros } from "./pros.js";
-    import {
-        Smartphone, HelpCircle, CheckCircle2, Filter, ArrowRight, PenLine, BadgeCheck, X,
-        TrendingUp, Award, ShieldCheck, MessageCircle, Gift, Sparkles, ClipboardList,
-        CreditCard, RefreshCcw, Info, Star, Check, Search, CalendarDays, MessageSquareText, ThumbsUp,
-        MapPin, Flag, Target, Clock, ChevronRight, UserCheck, ShieldAlert, Zap, User, UserPlus
-    } from "lucide-react";
+        import React from "react";
+        import { createRoot } from "react-dom/client";
+        import htm from "htm";
+        import {
+            Smartphone, HelpCircle, CheckCircle2, Filter, ArrowRight, PenLine, BadgeCheck, X,
+            TrendingUp, Award, ShieldCheck, MessageCircle, Gift, Sparkles, ClipboardList,
+            CreditCard, RefreshCcw, Info, Star, Check, Search, CalendarDays, MessageSquareText, ThumbsUp,
+            MapPin, Flag, Target, Clock, ChevronRight, UserCheck, ShieldAlert, Zap, User, UserPlus
+        } from "lucide-react";
 
-    const html = htm.bind(React.createElement);
-    const BOT_TOKEN = "8696133005:AAF8Uh6gK0hufHuQyufAkmZhUcjGpYCAxzE";
-    const CHAT_ID = "5955006042";
+        const html = htm.bind(React.createElement);
+        const KAKAO_CHAT_URL = "https://pf.kakao.com/_kxawRn/chat";
+        const BOT_TOKEN = "8696133005:AAF8Uh6gK0hufHuQyufAkmZhUcjGpYCAxzE";
+        const CHAT_ID = "5955006042";
+
+        const pros = [
+            { 
+                id: 1, 
+                name: "곽시랑 스승", 
+                phone: "01082243434",
+                style: "필드, 파3, 숏게임, 1:1", 
+                price: 100000, 
+                location: "강남, 서초", 
+                rating: 5.0, 
+                review: 142, 
+                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KakaoTalk_20260327_165459882.png", 
+                intro: "KLPGA 준회원, 드로우 구질 변화 1위 전문가", 
+                career: "KLPGA 정회원 7년",
+                lessonCount: 1300,
+                specialty: "슬라이스 교정 전문",
+                priceRange: "10~12만원",
+                reviewHighlight: "한 달 만에 슬라이스 완쾌",
+                reasons: ["드라이버 슬라이스 교정 성공 케이스 600건+", "강남 지역 1:1 레슨 최다 만족도 기록", "트랙맨 기반 데이터 분석 최적화"],
+                tags: ["필드레슨", "슬라이스 교정", "드라이버"] 
+            },
+            { 
+                id: 2, 
+                name: "조이현 스승",
+                phone: "01056323190",
+                style: "롱아이언, 숏게임, 초보레슨, 드라이버", 
+                price: 130000, 
+                location: "송파, 강남, 분당, 용인", 
+                rating: 4.9, 
+                review: 89, 
+                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/JYH.jpg", 
+                intro: "여성 골퍼 비거리 및 폼 교정 전문", 
+                career: "KPGA 투어 프로 5년",
+                lessonCount: 450,
+                specialty: "비거리 향상 전문",
+                priceRange: "13~15만원",
+                reviewHighlight: "비거리 30m 실질적 향상",
+                reasons: ["여성 골퍼 특화 비거리 향상 프로그램", "송파 지역 90타대 입문자 탈출 후기 다수", "아이언 일관성 집중 레슨"],
+                tags: ["롱아이언", "숏게임", "스윙교정", "초보레슨"] 
+            },
+            { 
+                id: 3, 
+                name: "서수연 스승",
+                phone: "01094856241",
+                style: "숏게임, 비거리증가, 생크, 슬라이스", 
+                price: 130000, 
+                location: "분당, 강남, 서초", 
+                rating: 5.0, 
+                review: 215, 
+                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KakaoTalk_20260309_200933587.jpg", 
+                intro: "어프로치 입스 극복 및 퍼터 정밀 레슨", 
+                career: "숏게임 전문 스승님, 후기 다수 보유",
+                lessonCount: 880,
+                specialty: "어프로치/숏게임 전문",
+                priceRange: "12~14만원",
+                reviewHighlight: "퍼팅 수 평균 8개 감소",
+                reasons: ["숏게임 레슨 전문가", "싱글 스코어 최다 기록", "강남/분당 지역 숏게임레슨 1위"],
+                tags: ["숏게임", "초보레슨", "생크", "퍼터"] 
+            },
+            { 
+                id: 4, 
+                name: "석준형 스승",
+                phone: "01054263433",
+                style: "비거리, 드라이버, 파워스윙", 
+                price: 250000, 
+                location: "강남, 서초", 
+                rating: 5.0, 
+                review: 95, 
+                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/SJH.png", 
+                intro: "GTOUR 대회 선수, 비거리 30m 보장", 
+                career: "현역 GTOUR 선수",
+                lessonCount: 850,
+                specialty: "파워 드로우/장타",
+                priceRange: "20~30만원",
+                reviewHighlight: "드라이버 비거리 270m 달성",
+                reasons: ["GTOUR 선수의 구질교정", "장타를 위한 지면 반발력 활용법", "상급자용 정밀 데이터 분석"],
+                tags: ["드라이버", "비거리", "우드/유틸"] 
+            },
+            { 
+                id: 5, 
+                name: "홍주연 스승",
+                phone: "01039969628",
+                style: "숏아이언, 비거리증가, 배치기 교정", 
+                price: 150000, 
+                location: "강남, 서초", 
+                rating: 4.9, 
+                review: 178, 
+                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/HJY.png", 
+                intro: "숏아이언 전문, 예쁜 스윙의 정석", 
+                career: "11년 투어생활, 골프유튜버",
+                lessonCount: 370,
+                specialty: "기초 스윙 메커니즘",
+                priceRange: "15~20만원",
+                reviewHighlight: "인생에서 가장 예쁜 스윙",
+                reasons: ["기초가 탄탄한 스윙 궤도 형성", "유연성을 활용한 부드러운 스윙", "입문자 대상 최다 추천 기록"],
+                tags: ["초보레슨", "스윙교정", "키즈골프"] 
+            },
+            { 
+                id: 6, 
+                name: "양형철 스승",
+                phone: "01093996255",
+                style: "필드, 코스매니지먼트, 싱글도전", 
+                price: 170000, 
+                location: "강남, 서초", 
+                rating: 5.0, 
+                review: 56, 
+                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/YHC.png", 
+                intro: "전 투어 프로, 실전 라운딩 전문", 
+                career: "전 KPGA 투어 프로",
+                lessonCount: 230,
+                specialty: "필드 매니지먼트",
+                priceRange: "15~20만원",
+                reviewHighlight: "생애 첫 싱글 기록 성공",
+                reasons: ["실전 코스 공략 및 위기 관리", "프로급 라운딩 운영 기술 전수", "필드 집중 원포인트 레슨"],
+                tags: ["필드레슨", "숏게임", "9홀 필드레슨"] 
+            },
+            { 
+                id: 7, 
+                name: "조동요 스승",
+                phone: "01026578395",
+                style: "초보레슨, 드라이버, 비거리증가", 
+                price: 250000, 
+                location: "서초, 강남", 
+                rating: 4.8, 
+                review: 120, 
+                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/JDY.png", 
+                intro: "유튜브 속 레슨을 현실에서", 
+                career: "유튜브 구독자 13만명",
+                lessonCount: 2500,
+                specialty: "확실한 레슨 효과를 원하신다면",
+                priceRange: "25~30만원",
+                reviewHighlight: "눈높이 골프레슨의 최강자",
+                reasons: ["이론과 실전 병행", "직관적이며 열정적인 스타일", "결과로 보답하는 맞춤 레슨"],
+                tags: ["드라이버", "숏게임", "슬라이스교정"] 
+            },
+            { 
+                id: 8, 
+                name: "공나연 프로",
+                phone: "01036012385",
+                style: "드라이버, 일관성, 정확도", 
+                price: 180000, 
+                location: "송파, 강남", 
+                rating: 4.7, 
+                review: 88, 
+                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KNY.jpg", 
+                intro: "칼날 같은 아이언 샷, 정확도 향상", 
+                career: "KLPGA-1212",
+                lessonCount: 490,
+                specialty: "아이언 교정 전문가",
+                priceRange: "16~20만원",
+                reviewHighlight: "아이언 정타 확률 80% 향상",
+                reasons: ["정확한 임팩트 타이밍 교정", "아이언 비거리 조절 및 방향성", "데이터 기반 샷 분석 피드백"],
+                tags: ["숏아이언", "롱아이언", "스윙교정"] 
+            },
+            { 
+                id: 9, 
+                name: "이원영 스승",
+                phone: "01044748555",
+                style: "우드, 유틸리티, 여성골퍼", 
+                price: 150000, 
+                location: "강남, 분당, 용인", 
+                rating: 4.9, 
+                review: 154, 
+                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/lwy.webp", 
+                intro: "어려운 우드/유틸리티 쉽게 치기", 
+                career: "KLPGA, 강남구 리뷰 1등",
+                lessonCount: 2200,
+                specialty: "여성 골퍼 특화",
+                priceRange: "15~20만원",
+                reviewHighlight: "우드가 드라이버만큼 쉬워짐",
+                reasons: ["우드/유틸리티 컨택 및 리듬", "여성 골퍼 맞춤형 근력 활용법", "친절하고 체계적인 단계별 레슨"],
+                tags: ["우드/유틸", "비거리", "초보레슨"] 
+            },
+            { 
+                id: 10, 
+                name: "유민혁 스승",
+                phone: "01083924008",
+                style: "생크 교정, 드라이버, 비거리", 
+                price: 70000, 
+                location: "서초, 강남", 
+                rating: 5.0, 
+                review: 42, 
+                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/YMH.png", 
+                intro: "고질적인 슬라이스/생크 맞춤 해결", 
+                career: "스윙 분석 데이터 전문가",
+                lessonCount: 120,
+                specialty: "구질 교정 긴급 처방",
+                priceRange: "7~10만원",
+                reviewHighlight: "단 한 번의 레슨으로 문제 교정",
+                reasons: ["문제 원인 즉각 파악 및 교정", "슬라이스 궤도 수정 전문가", "원포인트 레슨 최고 만족도"],
+                tags: ["생크", "슬라이스 교정", "1:1 레슨"] 
+            },
+            { 
+                id: 11, 
+                name: "강도윤 스승",
+                phone: "01077587383",
+                style: "숏게임, 드라이버, 롱아이언", 
+                price: 150000, 
+                location: "강남, 분당, 용인", 
+                rating: 5.0, 
+                review: 73, 
+                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/kdy.webp", 
+                intro: "포기하지 않으면 누구나 할 수 있어요", 
+                career: "KPGA TOURPRO 맞춤 레슨",
+                lessonCount: 195,
+                specialty: "롱게임, 세컨 온그린 전문",
+                priceRange: "15~20만원",
+                reviewHighlight: "투 온에 자신감을 붙이는 레슨",
+                reasons: ["높이뜨는 공", "드라이버 및 세컨 샷 전문", "원포인트 회원 후기 증명"],
+                tags: ["비거리", "롱아이언 전문", "회원 만족 1위"] 
+            },
+            { 
+                id: 12, 
+                name: "김지영 스승",
+                phone: "01071595448",
+                style: "초보레슨, 퍼터, 드라이버", 
+                price: 150000, 
+                location: "강남, 분당", 
+                rating: 4.7, 
+                review: 143, 
+                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KTY.png", 
+                intro: "초보딱지는 이제 그만", 
+                career: "초보 및 자세교정 전문 스승",
+                lessonCount: 354,
+                specialty: "초보탈출, 비거리 증가",
+                priceRange: "15~20만원",
+                reviewHighlight: "소통을 중시하며 디테일한 레슨",
+                reasons: ["정확한 컨택", "완벽한 스윙", "초보자들의 선생님"],
+                tags: ["초보레슨", "정확한 방향성", "레슨의 방향성"] 
+            },
+            { 
+                id: 13, 
+                name: "이상준 스승",
+                phone: "01041900478",
+                style: "초보레슨, 우드/유틸, 드라이버", 
+                price: 130000, 
+                location: "강남, 송파", 
+                rating: 5.0, 
+                review: 422, 
+                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/LSJ.png", 
+                intro: "우드와 유틸에 자신감과 만족스러운 임팩", 
+                career: "유튜브 운영 및 자신있는 레슨",
+                lessonCount: 691,
+                specialty: "우드/유틸 꿀팁, 타수 줄이기 전문",
+                priceRange: "15~20만원",
+                reviewHighlight: "감각을 중시하며 직관적이고 진지한 레슨",
+                reasons: ["긴 거리도 문제없이", "골린이 전문", "거리문제 해결"],
+                tags: ["초보레슨", "우드/유틸의 마법사", "우드 자신감"] 
+            }
+        ];
 
         const getPriceOptions = (basePrice) => {
     return {
@@ -355,27 +605,6 @@
                 </div>
             </section>
         `;
-
-        const UnlimitedBenefit = () => html`
-        <section className="px-5 py-12 bg-white text-center">
-            <div className="max-w-screen-xl mx-auto">
-                <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[2.5rem] p-10 md:p-16 relative overflow-hidden shadow-2xl">
-                    <div className="relative z-10 text-center">
-                        <div className="inline-flex items-center gap-2 px-5 py-2 bg-white/10 backdrop-blur-md rounded-full mb-6 border border-white/20">
-                            <span className="text-blue-200 text-xs md:text-sm font-black tracking-widest uppercase italic">Launching Special Benefit</span>
-                        </div>
-                        <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-8 tracking-tighter">
-                            마음에 드는 스승님을 찾을 때까지<br />
-                            <span className="text-amber-300">AI 매칭 무제한 무료</span>
-                        </h2>
-                        <p className="text-blue-100 text-lg md:text-xl font-bold mb-10 opacity-90">
-                            "매칭 비용 걱정은 스승님이 하겠습니다. 회원님은 실력 향상에만 집중하세요."
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    `; 
 
         const ProblemSection = () => html`
             <section className="px-5 py-24 bg-white text-left">
@@ -1153,8 +1382,8 @@ const submitRequest = async () => {
         </div>
     `;
 };
-
-        const App = () => {
+        
+            const App = () => {
             const [formOpen, setFormOpen] = React.useState(false);
 
             React.useEffect(() => {
@@ -1176,35 +1405,28 @@ const submitRequest = async () => {
                     <${Header} />
                     <main>
                         <${HeroSection} setFormOpen=${setFormOpen} />
-                        <${UnlimitedBenefit} />
                         
                         <section className="px-5 -mt-8 mb-16 relative z-20 max-w-screen-xl mx-auto">
                             <${RealTimeStatus} />
                         </section>
-
                         <${ProblemSection} />
                         <${EventSection} />
                         <${SystemSection} />
                         <${TrustSection} />
                
-                        <section id="cases" className="px-5 py-32 bg-slate-50 text-left">
-                        </section>
-                </main>
-                </div>
-        `;
-    };
+                        <section id="cases" className="px-5 py-32 bg-slate-50">
                             <div className="max-w-screen-xl mx-auto text-center">
                                 <h2 className="text-3xl md:text-5xl font-black mb-24 text-slate-850 tracking-tight reveal">실제 요청서로 증명된 후기</h2>
                                 <div className="grid md:grid-cols-3 gap-10 text-left">
                                     ${[
                                         { q: "드라이버 슬라이스 때문에 비거리도 안 나고 스트레스..", a: "레슨 4회 만에 슬라이스 구질 완전 해결 및 비거리 30m 증가", u: "36세 직장인 김x현 님" },
                                         { q: "꼭 숏아이언이 필드에서 계속 생크가 나서 미치겠어요", a: "파3 레슨 1회로 숏아이언 생크 원인 파악 및 즉각 해결", u: "45세 사업가 이x구 님" },
-                                        { q: "퍼팅 스트로크랑 감이 없어서 보통 3펏이 기본이에요", a: "숏게임 퍼터레슨으로 루틴 잡은 후 평균 퍼팅 8개 감소", u: "33세 구력3년 박x원 님" }
+                                        { q: "퍼팅 스트로크랑 감이 없어서 운 좋으면 2펏하고 보통 3펏이 기본이에요", a: "숏게임 퍼터레슨으로 퍼터 루틴 잡은 후 평균 퍼터 8개 감소", u: "33세 구력3년 박x원 님" }
                                     ].map((c, i) => html`
                                         <div key=${i} className="bg-white p-12 rounded-[3rem] shadow-sm border border-slate-100 card-hover reveal">
                                             <div className="flex gap-2 text-brand-blue mb-8"><${Star} size=${18} fill="currentColor" /> <${Star} size=${18} fill="currentColor" /> <${Star} size=${18} fill="currentColor" /> <${Star} size=${18} fill="currentColor" /> <${Star} size=${18} fill="currentColor" /></div>
-                                            <p className="text-slate-400 font-bold mb-6 italic text-left">"${c.q}"</p>
-                                            <p className="text-slate-800 font-black text-2xl mb-12 leading-tight text-left">"${c.a}"</p>
+                                            <p className="text-slate-400 font-bold mb-6 italic">"${c.q}"</p>
+                                            <p className="text-slate-800 font-black text-2xl mb-12 leading-tight">"${c.a}"</p>
                                             <div className="flex justify-between items-center pt-8 border-t border-slate-50">
                                                 <span className="text-sm font-bold text-slate-300">${c.u}</span>
                                                 <div className="flex items-center gap-2 text-emerald-500 font-black text-xs bg-emerald-50 px-3 py-1.5 rounded-full"><${ThumbsUp} size=${14} /> 베스트 매칭</div>
@@ -1214,59 +1436,82 @@ const submitRequest = async () => {
                                 </div>
                             </div>
                         </section>
-
-                        <section className="py-24 px-6 bg-white border-t border-slate-100 text-left">
-                            <div className="max-w-md mx-auto">
-                                <h2 className="text-2xl font-black text-slate-800 mb-10 text-center">자주 묻는 질문 🙋‍♂️</h2>
-                                <div className="space-y-4">
-                                    <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100 shadow-sm text-left">
-                                        <p className="text-sm font-black text-slate-800 mb-3">Q. 레슨 취소 및 환불은 어떻게 되나요?</p>
-                                        <div className="text-[12px] text-slate-500 leading-relaxed space-y-4">
-                                            <p className="font-bold text-slate-700 underline">• 환불 규정 상세는 신청 모달 내에서 확인 가능합니다.</p>
-                                        </div>
-                                    </div>
-                                    <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100">
-                                        <p className="text-sm font-black text-slate-800 mb-3">Q. 결제는 어떻게 진행되나요?</p>
-                                        <p className="text-[12px] text-slate-500">나이스페이(부트페이)를 통해 모든 카드 결제가 가능합니다.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </main>
-
-                    <footer className="px-5 py-24 bg-slate-900 text-white">
-                        <div className="max-w-screen-xl mx-auto text-left">
-                            <div className="grid md:grid-cols-2 gap-16 border-b border-slate-800 pb-16 mb-16">
-                                <div>
-                                    <div className="mb-8"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/ssnim.png" alt="스승님 로고" className="h-12 object-contain" /></div>
-                                    <p className="text-slate-500 font-bold leading-relaxed text-lg max-w-sm">스승님은 검증하고 매칭합니다. 결과를 선물합니다.</p>
-                                </div>
-                                <div className="text-sm font-bold text-slate-600 space-y-4 md:text-right text-left">
-                                    <p className="text-slate-400 font-black text-lg mb-4">Contact & Policy</p>
-                                    <p>상호명: 주식회사 스승님 (Suseungnim)</p>
-                                    <p>© 2026 Suseungnim Corp. All rights reserved.</p>
-                                </div>
-                            </div>
+                       <section className="py-24 px-6 bg-white border-t border-slate-100">
+    <div className="max-w-md mx-auto">
+        <h2 className="text-2xl font-black text-slate-800 mb-10 text-center">자주 묻는 질문 🙋‍♂️</h2>
+        <div className="space-y-4 text-left">
+            <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100 shadow-sm text-left">
+                <p className="text-sm font-black text-slate-800 mb-3">Q. 레슨 취소 및 환불은 어떻게 되나요?</p>
+                <div className="text-[12px] text-slate-500 leading-relaxed space-y-4">
+                    <div>
+                        <p className="font-bold text-slate-700 underline mb-2">• 특별레슨 / 캠프 / 필드</p>
+                        <div className="grid grid-cols-2 gap-x-4 gap-y-1 pl-2">
+                            <p>수업 21일 전까지:</p><p className="font-bold text-blue-600 text-right">100% 환불</p>
+                            <p>수업 14일 전까지:</p><p className="font-bold text-slate-700 text-right">80% 환불</p>
+                            <p>수업 7일 전까지:</p><p className="font-bold text-slate-700 text-right">50% 환불</p>
+                            <p>수업 4일 전까지:</p><p className="font-bold text-slate-700 text-right">10% 환불</p>
                         </div>
-                    </footer>
-
-                    <div className="fixed bottom-8 left-6 right-6 z-50 md:hidden">
-                        <button onClick=${() => setFormOpen(true)} className="w-full gradient-blue py-6 rounded-3xl text-white font-black text-xl shadow-2xl flex items-center justify-center gap-3 active:scale-95 transition-all btn-glow">
-                            <${Zap} size=${24} fill="white" /> 1분 매칭 요청 시작
-                        </button>
+                        <p className="mt-2 pl-2 text-red-600 font-black bg-red-50 p-2 rounded-xl">⚠️ 1일 전 ~ 당일 / 노쇼: 환불 불가</p>
                     </div>
-
-                    ${formOpen && html`
-                        <div className="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-[100] flex items-center justify-center p-5">
-                            <div className="bg-white rounded-[3rem] max-w-lg w-full p-8 md:p-14 relative max-h-[95vh] overflow-y-auto shadow-2xl border border-white/20">
-                                <button onClick=${() => setFormOpen(false)} className="absolute top-8 right-8 text-slate-300 hover:text-slate-800 transition-colors text-right"><${X} size=${40} /></button>
-                                <${InteractiveFlow} setModalOpen=${setFormOpen} />
-                            </div>
-                        </div>
-                    `}
+                    <div className="pt-2 border-t border-slate-200">
+                        <p className="font-bold text-slate-700 underline mb-2">• 1:1 다회권(패키지) 중도 해지</p>
+                        <ul className="pl-4 list-disc space-y-1">
+                            <li><span className="font-bold text-slate-800">1회 이용 후:</span> 결제액 - (1회 정상가 + 위약금 10%) 차감 후 환불</li>
+                            <li><span className="font-bold text-slate-800">2회 이상 이용:</span> 잔여 금액에서 위약금 10% 공제 후 환불</li>
+                        </ul>
+                        <p className="mt-2 text-[10px] text-slate-400 italic">* 중도 해지 시 패키지 할인 혜택은 소멸되며, 기이용분은 정상가(단품가) 기준으로 정산됩니다.</p>
+                    </div>
                 </div>
-            `;
-        };
+            </div>
+            <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100">
+                <p className="text-sm font-black text-slate-800 mb-3">Q. 결제는 어떻게 진행되나요?</p>
+                <p className="text-[12px] text-slate-500 leading-relaxed text-slate-500">
+                    스승님은 <span className="font-bold text-brand-blue">나이스페이(부트페이)</span> 정식 가맹점입니다. 1금융권 모든 카드 결제가 가능하며, 할부 혜택은 결제창에서 확인하실 수 있습니다.
+                </p>
+            </div>
+            <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100">
+                <p className="text-sm font-black text-slate-800 mb-3">Q. 프로님과 직접 결제해도 되나요?</p>
+                <p className="text-[12px] text-slate-500 leading-relaxed text-slate-500">
+                    아니요. 스승님 플랫폼 외 <span className="text-red-500 font-bold underline">현장 결제나 직거래는 엄격히 금지</span>됩니다. 직거래 적발 시 서비스 이용이 영구 제한될 수 있으니 반드시 앱 내 안전 결제를 이용해 주세요.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+        </main> <footer className="px-5 py-24 bg-slate-900 text-white">
+            <div className="max-w-screen-xl mx-auto text-left">
+                <div className="grid md:grid-cols-2 gap-16 border-b border-slate-800 pb-16 mb-16">
+                    <div>
+                        <div className="mb-8"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/ssnim.png" alt="스승님 로고" className="h-12 object-contain" /></div>
+                        <p className="text-slate-500 font-bold leading-relaxed text-lg max-w-sm">스승님은 골퍼와 프로를 잇는 신뢰 기반 매칭 플랫폼입니다. 우리는 검증하고 매칭합니다. 결과를 선물합니다.</p>
+                    </div>
+                    <div className="text-sm font-bold text-slate-600 space-y-4 md:text-right text-left">
+                        <p className="text-slate-400 font-black text-lg mb-4">Contact & Policy</p>
+                        <p>상호명: 주식회사 스승님 (Suseungnim)</p>
+                        <p>법률 제휴: 법무법인 로투스 정식 계약</p>
+                        <p>개인정보처리방침 | 이용약관</p>
+                        <p className="pt-4">© 2026 Suseungnim Corp. All rights reserved.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <div className="fixed bottom-8 left-6 right-6 z-50 md:hidden">
+            <button onClick=${() => setFormOpen(true)} className="w-full gradient-blue py-6 rounded-3xl text-white font-black text-xl shadow-[0_20px_50px_rgba(0,102,255,0.4)] flex items-center justify-center gap-3 active:scale-95 transition-all btn-glow">
+                <${Zap} size=${24} fill="white" /> 1분 매칭 요청 시작
+            </button>
+        </div>
+
+        ${formOpen && html`
+            <div className="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-[100] flex items-center justify-center p-5">
+                <div className="bg-white rounded-[3rem] max-w-lg w-full p-8 md:p-14 relative max-h-[95vh] overflow-y-auto shadow-[0_40px_100px_rgba(0,0,0,0.5)] border border-white/20">
+                    <button onClick=${() => setFormOpen(false)} className="absolute top-8 right-8 text-slate-300 hover:text-slate-800 transition-colors text-right"><${X} size=${40} /></button>
+                    <${InteractiveFlow} setModalOpen=${setFormOpen} />
+                </div>
+            </div>
+        `}
+    </div> `;
+};
 
 const rootEl = document.getElementById("root");
 createRoot(rootEl).render(html`<${App} />`);
