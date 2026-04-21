@@ -1173,60 +1173,99 @@ const submitRequest = async () => {
 };
         
             const App = () => {
-            const [formOpen, setFormOpen] = React.useState(false);
+    const [formOpen, setFormOpen] = React.useState(false);
 
-            React.useEffect(() => {
-                const revealOnScroll = () => {
-                    const elements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-                    const triggerBottom = window.innerHeight * 0.85;
-                    elements.forEach(el => {
-                        const boxTop = el.getBoundingClientRect().top;
-                        if (boxTop < triggerBottom) el.classList.add('active');
-                    });
-                };
-                window.addEventListener('scroll', revealOnScroll);
-                revealOnScroll();
-                return () => window.removeEventListener('scroll', revealOnScroll);
-            }, [formOpen]);
+    React.useEffect(() => {
+        const revealOnScroll = () => {
+            const elements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+            const triggerBottom = window.innerHeight * 0.85;
+            elements.forEach(el => {
+                const boxTop = el.getBoundingClientRect().top;
+                if (boxTop < triggerBottom) el.classList.add('active');
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+        return () => window.removeEventListener('scroll', revealOnScroll);
+    }, [formOpen]);
 
-            return html`
-                <div className="min-h-screen">
-                    <${Header} />
-                    <main>
-                        <${HeroSection} setFormOpen=${setFormOpen} />
+    return html`
+        <div className="min-h-screen">
+            <${Header} />
+            <main>
+                <${HeroSection} setFormOpen=${setFormOpen} />
+                <${UnlimitedBenefit} />
+                
+                <section className="px-5 -mt-8 mb-16 relative z-20 max-w-screen-xl mx-auto">
+                    <${RealTimeStatus} />
+                </section>
 
-                        <${UnlimitedBenefit} />
-                        
-                        <section className="px-5 -mt-8 mb-16 relative z-20 max-w-screen-xl mx-auto">
-                            <${RealTimeStatus} />
-                        </section>
-                        <${ProblemSection} />
-                        <${EventSection} />
-                        <${SystemSection} />
-                        <${TrustSection} />
-               
-                        <section id="cases" className="px-5 py-32 bg-slate-50">
-                            <div className="max-w-screen-xl mx-auto text-center">
-                                <h2 className="text-3xl md:text-5xl font-black mb-24 text-slate-850 tracking-tight reveal">실제 요청서로 증명된 후기</h2>
-                                <div className="grid md:grid-cols-3 gap-10 text-left">
-                                    ${[
-                                        { q: "드라이버 슬라이스 때문에 비거리도 안 나고 스트레스..", a: "레슨 4회 만에 슬라이스 구질 완전 해결 및 비거리 30m 증가", u: "36세 직장인 김x현 님" },
-                                        { q: "꼭 숏아이언이 필드에서 계속 생크가 나서 미치겠어요", a: "파3 레슨 1회로 숏아이언 생크 원인 파악 및 즉각 해결", u: "45세 사업가 이x구 님" },
-                                        { q: "퍼팅 스트로크랑 감이 없어서 운 좋으면 2펏하고 보통 3펏이 기본이에요", a: "숏게임 퍼터레슨으로 퍼터 루틴 잡은 후 평균 퍼터 8개 감소", u: "33세 구력3년 박x원 님" }
-                                    ].map((c, i) => html`
-                                        <div key=${i} className="bg-white p-12 rounded-[3rem] shadow-sm border border-slate-100 card-hover reveal">
-                                            <div className="flex gap-2 text-brand-blue mb-8"><${Star} size=${18} fill="currentColor" /> <${Star} size=${18} fill="currentColor" /> <${Star} size=${18} fill="currentColor" /> <${Star} size=${18} fill="currentColor" /> <${Star} size=${18} fill="currentColor" /></div>
-                                            <p className="text-slate-400 font-bold mb-6 italic">"${c.q}"</p>
-                                            <p className="text-slate-800 font-black text-2xl mb-12 leading-tight">"${c.a}"</p>
-                                            <div className="flex justify-between items-center pt-8 border-t border-slate-50">
-                                                <span className="text-sm font-bold text-slate-300">${c.u}</span>
-                                                <div className="flex items-center gap-2 text-emerald-500 font-black text-xs bg-emerald-50 px-3 py-1.5 rounded-full"><${ThumbsUp} size=${14} /> 베스트 매칭</div>
-                                            </div>
-                                        </div>
-                                    `)}
+                <${ProblemSection} />
+                <${EventSection} />
+                <${SystemSection} />
+                <${TrustSection} />
+       
+                <section id="cases" className="px-5 py-32 bg-slate-50 text-left">
+                    <div className="max-w-screen-xl mx-auto text-center">
+                        <h2 className="text-3xl md:text-5xl font-black mb-24 text-slate-850 tracking-tight reveal">실제 요청서로 증명된 후기</h2>
+                        <div className="grid md:grid-cols-3 gap-10 text-left">
+                            ${[
+                                { q: "드라이버 슬라이스 때문에 비거리도 안 나고 스트레스..", a: "레슨 4회 만에 슬라이스 구질 완전 해결 및 비거리 30m 증가", u: "36세 직장인 김x현 님" },
+                                { q: "꼭 숏아이언이 필드에서 계속 생크가 나서 미치겠어요", a: "파3 레슨 1회로 숏아이언 생크 원인 파악 및 즉각 해결", u: "45세 사업가 이x구 님" },
+                                { q: "퍼팅 스트로크랑 감이 없어서 보통 3펏이 기본이에요", a: "숏게임 퍼터레슨으로 루틴 잡은 후 평균 퍼팅 8개 감소", u: "33세 구력3년 박x원 님" }
+                            ].map((c, i) => html`
+                                <div key=${i} className="bg-white p-12 rounded-[3rem] shadow-sm border border-slate-100 card-hover reveal">
+                                    <div className="flex gap-2 text-brand-blue mb-8"><${Star} size=${18} fill="currentColor" /> <${Star} size=${18} fill="currentColor" /> <${Star} size=${18} fill="currentColor" /> <${Star} size=${18} fill="currentColor" /> <${Star} size=${18} fill="currentColor" /></div>
+                                    <p className="text-slate-400 font-bold mb-6 italic text-left">"${c.q}"</p>
+                                    <p className="text-slate-800 font-black text-2xl mb-12 leading-tight text-left">"${c.a}"</p>
+                                    <div className="flex justify-between items-center pt-8 border-t border-slate-50">
+                                        <span className="text-sm font-bold text-slate-300">${c.u}</span>
+                                        <div className="flex items-center gap-2 text-emerald-500 font-black text-xs bg-emerald-50 px-3 py-1.5 rounded-full"><${ThumbsUp} size=${14} /> 베스트 매칭</div>
+                                    </div>
                                 </div>
+                            `)}
+                        </div>
+                    </div>
+                </section>
+
+                <section className="py-24 px-6 bg-white border-t border-slate-100">
+                    <div className="max-w-md mx-auto text-left">
+                        <h2 className="text-2xl font-black text-slate-800 mb-10 text-center">자주 묻는 질문 🙋‍♂️</h2>
+                        <div className="space-y-4">
+                            <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100 shadow-sm">
+                                <p className="text-sm font-black text-slate-800 mb-3">Q. 레슨 취소 및 환불은 어떻게 되나요?</p>
+                                <p className="text-[12px] text-slate-500 leading-relaxed font-bold underline">이용 정책 및 환불 규정 상세는 신청 시 확인 가능합니다.</p>
                             </div>
-                        </section>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <footer className="px-5 py-24 bg-slate-900 text-white">
+                <div className="max-w-screen-xl mx-auto text-left">
+                    <div className="mb-8"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/ssnim.png" alt="스승님 로고" className="h-12 object-contain" /></div>
+                    <p className="text-slate-500 font-bold">© 2026 Suseungnim Corp. All rights reserved.</p>
+                </div>
+            </footer>
+
+            <div className="fixed bottom-8 left-6 right-6 z-50 md:hidden">
+                <button onClick=${() => setFormOpen(true)} className="w-full gradient-blue py-6 rounded-3xl text-white font-black text-xl shadow-2xl flex items-center justify-center gap-3 btn-glow">
+                    <${Zap} size=${24} fill="white" /> 1분 매칭 요청 시작
+                </button>
+            </div>
+
+           ${formOpen && html`
+                <div className="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-[100] flex items-center justify-center p-5">
+                    <div className="bg-white rounded-[3rem] max-w-lg w-full p-8 md:p-14 relative max-h-[95vh] overflow-y-auto shadow-2xl border border-white/20">
+                        <button onClick=${() => setFormOpen(false)} className="absolute top-8 right-8 text-slate-300 hover:text-slate-800 transition-colors"><${X} size=${40} /></button>
+                        <${InteractiveFlow} setModalOpen=${setFormOpen} />
+                    </div>
+                </div>
+            `}
+        </div>
+    `;
+}; // <-- App 함수가 여기서 깔끔하게 닫혀야 함
+            
                        <section className="py-24 px-6 bg-white border-t border-slate-100">
     <div className="max-w-md mx-auto">
         <h2 className="text-2xl font-black text-slate-800 mb-10 text-center">자주 묻는 질문 🙋‍♂️</h2>
