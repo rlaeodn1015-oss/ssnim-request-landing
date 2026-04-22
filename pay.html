@@ -40,13 +40,14 @@
             "application_id": "67ecd171d9af4e5c6d21736b",
             "price": price,
             "order_name": "스승님 골프 레슨비",
-            "order_id": requestId, // 중복되지 않는 고유값
+            "order_id": requestId,
             "pg": "nicepay",
             "method": "card",
             "user": { "username": name },
             "extra": { 
-                "open_type": "redirect", // 🚀 모바일 결제 안정성을 위해 redirect 권장
-                "display_success_result": true // 결제 완료 후 결과 보이기
+                "open_type": "redirect", 
+                "display_success_result": true,
+                "redirect_url": "https://rlaeodn1015-oss.github.io/ssnim-request-landing/success.html" 
             }
         }).then(async function(res) {
             // 결제 완료 시 (일반적인 완료 이벤트 체크)
