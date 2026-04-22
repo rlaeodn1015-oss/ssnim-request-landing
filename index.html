@@ -902,10 +902,10 @@ const submitRequest = async () => {
     const currentName = (userInfo.name || "").trim();
     const currentContact = (userInfo.contact || "").replace(/[^0-9]/g, '');
 
-    if (!currentName || !currentContact) {
-        alert("성함과 연락처를 모두 입력해주세요.");
+    if (!/^[가-힣]{2,5}$/.test(currentName)) { 
+        alert("성함은 한글 실명(2~5자)으로 정확히 입력해 주세요."); 
         setStep(3); 
-        return;
+        return; 
     }
 
     const forbiddenKeywords = [
@@ -916,19 +916,19 @@ const submitRequest = async () => {
         '시발', '지랄', '개새', '병신', '미친', '대표', '프로', '스승', '선생', '사장', '관리자', '운영자'
     ];
 
-    if (!/^[가-힣]{2,5}$/.test(cleanName)) {
+    if (!/^[가-힣]{2,5}$/.test(currentName)) {
         alert("성함은 한글 실명(2~5자)으로 정확히 입력해 주세요.");
         setStep(3); // 에러 발생 시 이름 입력 단계로 강제 이동
         return;
     }
 
-    if (forbiddenKeywords.some(keyword => cleanName.includes(keyword))) {
+    if (forbiddenKeywords.some(keyword => currentName.includes(keyword))) {
         alert("성함 입력란에 적절하지 않은 단어나 외부 연락처 유도 키워드를 포함할 수 없습니다.");
         setStep(3); // 에러 발생 시 이름 입력 단계로 강제 이동
         return;
     }
 
-    if (forbiddenKeywords.some(keyword => cleanName.includes(keyword))) {
+    if (forbiddenKeywords.some(keyword => currentName.includes(keyword))) {
         alert("성함 입력란에 적절하지 않은 단어나 외부 연락처 유도 키워드를 포함할 수 없습니다.");
         return;
     }
