@@ -14,15 +14,19 @@
 
     <script>
     function checkAndPay() {
-    const params = new URLSearchParams(window.location.search);
+        const params = new URLSearchParams(window.location.search);
+        // 파라미터 가져오기
         const rawPrice = params.get('price') || "0";
         const name = params.get('name') || "고객님";
-        const requestId = params.get('requestId') || "";
+        const requestId = params.get('requestId') || "req_" + new Date().getTime(); // 결제 고유 ID 필수
         
-        const price = parseInt(rawPrice.replace(/[^0-9]/g, '')) || 0;
+        // 가격 처리 (콤마나 한글이 섞여도 숫자만 추출)
+        const price = parseInt(rawPrice.toString().replace(/[^0-9]/g, '')) || 0;
 
-        if (price <= 0) {
-            document.getElementById('msg').innerText = "결제 금액 정보가 올바르지 않습니다.";
+        // 결제 검증
+        if (price < 100) { // 최소 결제 금액 체크
+            document.getElementById('msg').innerText = "결제 금액 정보가 너무 낮거나 올바르지 않습니다.";
+            document.getElementById('sub-msg').innerText = "고객 센터에 문의해주세요.";
             return;
         }
 
@@ -31,18 +35,23 @@
             return;
         }
 
+        // 부트페이 호출
         Bootpay.requestPayment({
             "application_id": "67ecd171d9af4e5c6d21736b",
-            "price": price, // 숫자 타입으로 정확히 전달됨
+            "price": price,
             "order_name": "스승님 골프 레슨비",
-            "order_id": requestId || ("order_" + new Date().getTime()),
+            "order_id": requestId, // 중복되지 않는 고유값
             "pg": "nicepay",
             "method": "card",
             "user": { "username": name },
-            "extra": { "open_type": "iframe" }
+            "extra": { 
+                "open_type": "redirect", // 🚀 모바일 결제 안정성을 위해 redirect 권장
+                "display_success_result": true // 결제 완료 후 결과 보이기
+            }
         }).then(async function(res) {
+            // 결제 완료 시 (일반적인 완료 이벤트 체크)
             if (res.event === 'done') {
-                document.getElementById('msg').innerText = "결제 완료! 결제 정보를 업데이트 중입니다...";
+                document.getElementById('msg').innerText = "결제 완료! 장부를 업데이트 중입니다...";
                 
                 const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzm4khJWhFRaWNkC1hmwFfSUtDK26_CAu_zHI9P-93b4ESCrzeRYUOsXdOPjO-0oIkG/exec";
                 const updateData = {
@@ -53,6 +62,7 @@
                 };
 
                 try {
+                    // 구글 시트 장부 업데이트 (비동기 처리)
                     await fetch(GOOGLE_SHEET_URL, {
                         method: "POST",
                         mode: "no-cors",
@@ -65,7 +75,8 @@
                 }
             }
         }).catch(function(e) {
-            alert("결제창 오류: " + e.message);
+            console.error(e);
+            alert("결제 창을 여는 중 오류가 발생했습니다: " + e.message);
         });
     }
 
