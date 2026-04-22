@@ -75,6 +75,9 @@
         const lessonCount = params.get('lessonCount') || "1회"; 
         const schedule = params.get('schedule') || "시간 협의";
 
+        // 1:1 레슨 여부 확인
+        const isFixedPriceType = type.includes('1:1');
+
         document.getElementById('customerSummary').innerHTML = `
             <p>👤 고객명: ${name}</p>
             <p>⛳ 종류: ${type}</p>
@@ -82,84 +85,80 @@
             <p>⏰ 시간: ${schedule}</p> 
         `;
 
+        const priceInput = document.getElementById('finalPriceInput');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // [교정 포인트] 괄호 위치를 바로잡았습니다.
         if (fixedPrice) {
             const purePrice = fixedPrice.replace(/[^0-9]/g, '');
-            document.getElementById('finalPriceInput').value = purePrice;
+            priceInput.value = purePrice;
+        }
+
+        // 1:1 레슨일 때 UI 강제 변경 (읽기전용 + 문구변경)
+        if (isFixedPriceType) {
+            priceInput.readOnly = true;
+            priceInput.style.backgroundColor = "#f8fafc"; // slate-50
+            priceInput.style.color = "#64748b"; // slate-500
+            submitBtn.innerText = "레슨 수락 및 결제 요청";
+            
+            // 제목도 상황에 맞게 변경 (선택사항)
+            document.querySelector('h1').innerText = "1:1 레슨 수락";
         }
 
         const sendAccept = async () => {
-    const price = document.getElementById('finalPriceInput').value;
-    const location = document.getElementById('lessonLocation').value;
-    const note = document.getElementById('proNote').value;
-    const btn = document.getElementById('submitBtn');
+            const price = priceInput.value;
+            const location = document.getElementById('lessonLocation').value;
+            const note = document.getElementById('proNote').value;
 
-    if (!price || parseInt(price) < 1000) return alert("올바른 가격을 입력해주세요!");
-    if (!location) return alert("레슨 장소를 입력해주세요!");
+            if (!price || parseInt(price) < 1000) return alert("올바른 가격을 입력해주세요!");
+            if (!location) return alert("레슨 장소를 입력해주세요!");
 
-    // 1. 추가 안내 사항(proNote)에서만 영문 및 특수문자 차단
-    const cleanNote = (note || "").replace(/\s/g, '').toLowerCase();
-    const invalidPattern = /[^가-힣0-9.,/~()]/;
-    
-    if (note && invalidPattern.test(cleanNote)) {
-        alert("보안 정책상 '추가 안내 사항'에는 영문 및 특수문자(!@#$%^&* 등)를 입력할 수 없습니다. 한글로 적어주세요.");
-        return;
-    }
+            const combinedText = (location + note).replace(/\s/g, '').toLowerCase();
+            const phonePattern = /(01[016789]|02|0[3-9][0-9])[- .]*(\d{3,4})[- .]*(\d{4})/;
+            const digitPattern = /\d{8,11}/;
+            const kakaoKeywords = ['카톡', '카카오', '인스타', '잉스타', '임스타', 'insta', '인별', 'instagram', 'dm', 'link', 'kakao', '라인', 'line', '공일공', '오픈채팅', '옵챗', '텔레그램', '영일영', '전화', '카.톡', '연락처', '리틀리', 'littly', '링크트리', '.com', 'http', '유튜브', 'youtube', '번호', '공1공', 'o1o', '영1영', '0l0', '아이디', '검색', '친추', '팔로우', '.kr', '.me', '.link', '계좌', '입금', '이체', '현결', '현금', 'ID'];
+            
+            if (phonePattern.test(combinedText) || digitPattern.test(combinedText) || kakaoKeywords.some(k => combinedText.includes(k))) {
+                return alert("경고: 장소 및 안내 사항에는 연락처 등 개인 정보를 입력할 수 없습니다.");
+            }
+            
+            submitBtn.disabled = true;
+            submitBtn.innerText = "처리 중...";
 
-    // 2. 전체 텍스트에 대한 키워드 및 연락처 검사 (장소 포함)
-    const combinedText = (location + note).replace(/\s/g, '').toLowerCase();
-    const phonePattern = /(01[016789]|02|0[3-9][0-9])[- .]*(\d{3,4})[- .]*(\d{4})/;
-    const digitPattern = /\d{8,11}/;
-    const kakaoKeywords = ['카톡', '카카오', '인스타', '잉스타', '임스타', 'insta', '인별', 'instagram', 'dm', 'link', 'kakao', '라인', 'line', '공일공', '오픈채팅', '옵챗', '텔레그램', '영일영', '전화', '카.톡', '연락처', '리틀리', 'littly', '링크트리', '.com', 'http', '유튜브', 'youtube', '번호', '공1공', 'o1o', '영1영', '0l0', '아이디', '검색', '친추', '팔로우', '.kr', '.me', '.link', '계좌', '입금', '이체', '현결', '현금', 'ID'];
-    
-    if (phonePattern.test(combinedText) || digitPattern.test(combinedText) || kakaoKeywords.some(k => combinedText.includes(k))) {
-        alert("경고: 장소 및 안내 사항에는 연락처 등 개인 정보를 입력할 수 없습니다.");
-        return;
-    }
-    
-    btn.disabled = true;
-    btn.innerText = "발송 중...";
+            const payload = {
+                requestId: requestId,
+                name: name,
+                lessonCount: lessonCount,
+                schedule: schedule,
+                selectedPro: selectedPro,
+                contact: contact,
+                lessonType: type,
+                finalPrice: parseInt(price).toLocaleString(),
+                lessonLocation: location,
+                proNote: note || "별도 안내 사항 없음",
+                paymentUrl: `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}`,
+                status: "accepted"
+            };
 
-    const payload = {
-        requestId: requestId,
-        name: name,
-        lessonCount: lessonCount,
-        schedule: schedule,
-        selectedPro: selectedPro,
-        contact: contact,
-        lessonType: type,
-        finalPrice: parseInt(price).toLocaleString(),
-        lessonLocation: location,
-        proNote: note || "별도 안내 사항 없음",
-        paymentUrl: `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}`
-        status: "accepted"
-    };
+            try {
+                const ZAPIER_URL = "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/"; 
+                const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzm4khJWhFRaWNkC1hmwFfSUtDK26_CAu_zHI9P-93b4ESCrzeRYUOsXdOPjO-0oIkG/exec";
 
-    try {
-        const ZAPIER_URL = "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/"; 
-        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzm4khJWhFRaWNkC1hmwFfSUtDK26_CAu_zHI9P-93b4ESCrzeRYUOsXdOPjO-0oIkG/exec";
+                await Promise.all([
+                    fetch(ZAPIER_URL, { method: "POST", body: JSON.stringify(payload) }),
+                    fetch(GOOGLE_SHEET_URL, { method: "POST", mode: "no-cors", body: JSON.stringify({ action: "updateQuote", ...payload }) })
+                ]);
 
-        await fetch(ZAPIER_URL, {
-            method: "POST",
-            body: JSON.stringify(payload)
-        });
-
-        await fetch(GOOGLE_SHEET_URL, {
-    method: "POST",
-    mode: "no-cors",
-    body: JSON.stringify({ action: "updateQuote", ...payload })
-});
-
-        alert("✅ 견적 발송 완료! 고객에게 결제 알림톡이 전송되었습니다.");
-        btn.innerText = "발송 완료";
-        window.location.href = "https://pf.kakao.com/_kxawRn/chat"; 
-        
-    } catch (err) {
-        console.error(err);
-        alert("오류가 발생했습니다. 다시 시도해주세요.");
-        btn.disabled = false;
-        btn.innerText = "견적 승인 및 카톡 발송";
-    }
-};
+                alert(isFixedPriceType ? "✅ 수락 완료! 고객에게 결제 카톡이 전송되었습니다." : "✅ 견적 발송 완료!");
+                window.location.href = "https://pf.kakao.com/_kxawRn/chat"; 
+                
+            } catch (err) {
+                console.error(err);
+                alert("오류가 발생했습니다. 다시 시도해주세요.");
+                submitBtn.disabled = false;
+                submitBtn.innerText = isFixedPriceType ? "레슨 수락 및 결제 요청" : "견적 승인 및 카톡 발송";
+            }
+        };
     </script>
 </body>
 </html>
