@@ -40,20 +40,27 @@
 
     <script>
         function closeWindow() {
-            // 카카오톡 인앱 브라우저 닫기 시도
-            if (typeof bfinish !== 'undefined') {
-                bfinish(); 
-            } else if (window.Kakao && Kakao.isInitialized() && Kakao.Navi) {
-                // 카카오 SDK 사용 시 (현재는 SDK 미포함이므로 무시됨)
+            // 1. 카카오톡 인앱 브라우저 강제 종료 (가장 확실한 방법)
+            const userAgent = navigator.userAgent.toLowerCase();
+            if (userAgent.includes('kakao')) {
+                location.href = 'kakaotalk://inappbrowser/close';
+                return;
             }
-            
-            // 일반적인 창 닫기 시도
+
+            // 2. 일반적인 창 닫기 시도
             window.open('', '_self', ''); 
             window.close();
             
-            // 만약 위 명령어로 안 닫힐 경우 (보안 정책 때문)
-            alert("결제가 완료되었습니다. 이 창을 닫아주세요.");
+            // 3. 브라우저 보안으로 안 닫힐 경우 메인으로 리다이렉트 (사용자 방치 방지)
+            setTimeout(() => {
+                if (!window.closed) {
+                    // 창이 안 닫혔다면 고객센터나 메인으로 보냅니다.
+                    location.href = "https://pf.kakao.com/_kxawRn/chat";
+                }
+            }, 500);
         }
+
+        setTimeout(closeWindow, 5000);
     </script>
 </body>
 </html>
