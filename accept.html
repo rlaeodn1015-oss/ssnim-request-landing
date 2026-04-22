@@ -94,15 +94,19 @@
             priceInput.value = purePrice;
         }
 
-        // 1:1 레슨일 때 UI 강제 변경 (읽기전용 + 문구변경)
         if (isFixedPriceType) {
-            priceInput.readOnly = true;
-            priceInput.style.backgroundColor = "#f8fafc"; // slate-50
-            priceInput.style.color = "#64748b"; // slate-500
-            submitBtn.innerText = "레슨 수락 및 결제 요청";
+            priceInput.readOnly = true; 
+            priceInput.style.backgroundColor = "#f1f5f9"; // slate-100
+            priceInput.style.color = "#94a3b8"; // slate-400
+            priceInput.style.cursor = "not-allowed"; // 마우스 커서 금지 표시
             
-            // 제목도 상황에 맞게 변경 (선택사항)
+            submitBtn.innerText = "레슨 수락 및 결제 요청";
             document.querySelector('h1').innerText = "1:1 레슨 수락";
+            
+            const priceLabel = priceInput.previousElementSibling;
+            if (priceLabel) {
+                priceLabel.innerHTML = '최종 레슨비 <span class="text-blue-600">(1:1 정찰제 고정금액)</span>';
+            }
         }
 
         const sendAccept = async () => {
