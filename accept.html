@@ -30,14 +30,11 @@
             </div>
 
             <div>
-    <label class="text-xs font-black text-slate-400 mb-2 block ml-1">최종 레슨비 (전체 인원 합계 금액)</label>
-    <input type="number" id="finalPriceInput" placeholder="예: 350000 (숫자만)" 
-        class="w-full p-4 bg-white border-2 border-slate-100 rounded-2xl outline-none focus:border-blue-500 transition-all font-bold text-lg">
-    
-    <p class="text-[10px] text-blue-600 mt-2 ml-1 font-bold">
-        ※ 고객은 위 금액만 결제하며, 현장 추가 결제 유도 시 이용이 제한됩니다.
-    </p>
-</div>
+                <label class="text-xs font-black text-slate-400 mb-2 block ml-1">최종 레슨비 (전체 인원 합계 금액)</label>
+                <input type="number" id="finalPriceInput" placeholder="예: 350000 (숫자만)" 
+                    class="w-full p-4 bg-white border-2 border-slate-100 rounded-2xl outline-none focus:border-blue-500 transition-all font-bold text-lg">
+                <p class="text-[10px] text-blue-600 mt-2 ml-1 font-bold">※ 고객은 위 금액만 결제하며, 현장 추가 결제 유도 시 이용이 제한됩니다.</p>
+            </div>
 
             <div>
                 <label class="text-xs font-black text-slate-400 mb-2 block ml-1">레슨 가능 장소 (상세)</label>
@@ -75,7 +72,6 @@
         const lessonCount = params.get('lessonCount') || "1회"; 
         const schedule = params.get('schedule') || "시간 협의";
 
-        // 1:1 레슨 여부 확인
         const isFixedPriceType = type.includes('1:1');
 
         document.getElementById('customerSummary').innerHTML = `
@@ -88,7 +84,6 @@
         const priceInput = document.getElementById('finalPriceInput');
         const submitBtn = document.getElementById('submitBtn');
 
-        // [교정 포인트] 괄호 위치를 바로잡았습니다.
         if (fixedPrice) {
             const purePrice = fixedPrice.replace(/[^0-9]/g, '');
             priceInput.value = purePrice;
@@ -96,13 +91,11 @@
 
         if (isFixedPriceType) {
             priceInput.readOnly = true; 
-            priceInput.style.backgroundColor = "#f1f5f9"; // slate-100
-            priceInput.style.color = "#94a3b8"; // slate-400
-            priceInput.style.cursor = "not-allowed"; // 마우스 커서 금지 표시
-            
+            priceInput.style.backgroundColor = "#f1f5f9";
+            priceInput.style.color = "#94a3b8";
+            priceInput.style.cursor = "not-allowed";
             submitBtn.innerText = "레슨 수락 및 결제 요청";
             document.querySelector('h1').innerText = "1:1 레슨 수락";
-            
             const priceLabel = priceInput.previousElementSibling;
             if (priceLabel) {
                 priceLabel.innerHTML = '최종 레슨비 <span class="text-blue-600">(1:1 정찰제 고정금액)</span>';
@@ -118,12 +111,10 @@
             if (!location) return alert("레슨 장소를 입력해주세요!");
 
             const combinedText = (location + note).replace(/\s/g, '').toLowerCase();
-            const phonePattern = /(01[016789]|02|0[3-9][0-9])[- .]*(\d{3,4})[- .]*(\d{4})/;
-            const digitPattern = /\d{8,11}/;
-            const kakaoKeywords = ['카톡', '카카오', '인스타', '잉스타', '임스타', 'insta', '인별', 'instagram', 'dm', 'link', 'kakao', '라인', 'line', '공일공', '오픈채팅', '옵챗', '텔레그램', '영일영', '전화', '카.톡', '연락처', '리틀리', 'littly', '링크트리', '.com', 'http', '유튜브', 'youtube', '번호', '공1공', 'o1o', '영1영', '0l0', '아이디', '검색', '친추', '팔로우', '.kr', '.me', '.link', '계좌', '입금', '이체', '현결', '현금', 'ID'];
+            const kakaoKeywords = ['카톡', '카카오', '인스타', 'dm', 'link', '라인', '전화', '연락처', '번호', '아이디'];
             
-            if (phonePattern.test(combinedText) || digitPattern.test(combinedText) || kakaoKeywords.some(k => combinedText.includes(k))) {
-                return alert("경고: 장소 및 안내 사항에는 연락처 등 개인 정보를 입력할 수 없습니다.");
+            if (kakaoKeywords.some(k => combinedText.includes(k))) {
+                return alert("경고: 장소 및 안내 사항에는 개인 정보를 입력할 수 없습니다.");
             }
             
             submitBtn.disabled = true;
@@ -137,23 +128,24 @@
                 selectedPro: selectedPro,
                 contact: contact,
                 lessonType: type,
+                type: type, 
                 finalPrice: parseInt(price).toLocaleString(),
+                price: price,
                 lessonLocation: location,
                 proNote: note || "별도 안내 사항 없음",
-                paymentUrl: `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}`,
+                paymentUrl: `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}&type=${encodeURIComponent(type)}`,
                 status: "accepted"
             };
 
             try {
                 const ZAPIER_URL = "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/";
                 const CUSTOMER_ALARM_URL = "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
-                const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzm4khJWhFRaWNkC1hmwFfSUtDK26_CAu_zHI9P-93b4ESCrzeRYUOsXdOPjO-0oIkG/exec";
 
+                // [중요] 시트로 바로 쏘는 GOOGLE_SHEET_URL 줄을 삭제했습니다.
                 await Promise.all([
-        fetch(ZAPIER_URL, { method: "POST", body: JSON.stringify(payload) }), 
-        fetch(CUSTOMER_ALARM_URL, { method: "POST", body: JSON.stringify(payload) }), // 새 자피어 (결제톡 발송!)
-        fetch(GOOGLE_SHEET_URL, { method: "POST", mode: "no-cors", body: JSON.stringify({ action: "updateQuote", ...payload }) })
-    ]);
+                    fetch(ZAPIER_URL, { method: "POST", body: JSON.stringify(payload) }), 
+                    fetch(CUSTOMER_ALARM_URL, { method: "POST", body: JSON.stringify(payload) })
+                ]);
 
                 alert(isFixedPriceType ? "✅ 수락 완료! 고객에게 결제 카톡이 전송되었습니다." : "✅ 견적 발송 완료!");
                 window.location.href = "https://pf.kakao.com/_kxawRn/chat"; 
