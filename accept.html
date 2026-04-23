@@ -90,7 +90,7 @@
         }
 
         if (isFixedPriceType) {
-            priceInput.readOnly = true; 
+            // priceInput.readOnly = true; 
             priceInput.style.backgroundColor = "#f1f5f9";
             priceInput.style.color = "#94a3b8";
             priceInput.style.cursor = "not-allowed";
@@ -107,7 +107,7 @@
             const location = document.getElementById('lessonLocation').value;
             const note = document.getElementById('proNote').value;
 
-            if (!price || parseInt(price) < 1000) return alert("올바른 가격을 입력해주세요!");
+            if (!price || parseInt(price) < 100) return alert("올바른 가격을 입력해주세요!");
             if (!location) return alert("레슨 장소를 입력해주세요!");
 
             const combinedText = (location + note).replace(/\s/g, '').toLowerCase();
