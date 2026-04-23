@@ -143,8 +143,9 @@
                 const CUSTOMER_ALARM_URL = "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
 
                 await Promise.all([
-                    fetch(ZAPIER_URL, { method: "POST", body: JSON.stringify(payload) }), 
-                    fetch(CUSTOMER_ALARM_URL, { method: "POST", body: JSON.stringify(payload) })
+                    // mode: "no-cors" 이 다섯 글자가 생명줄입니다.
+                    fetch(ZAPIER_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) }), 
+                    fetch(CUSTOMER_ALARM_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) })
                 ]);
 
                 alert(isFixedPriceType ? "✅ 수락 완료! 고객에게 결제 카톡이 전송되었습니다." : "✅ 견적 발송 완료!");
