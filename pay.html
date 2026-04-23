@@ -54,25 +54,26 @@
 
     <script>
         const params = new URLSearchParams(window.location.search);
-        const rawPrice = parseInt(params.get('price') || "0");
-        const name = params.get('name') || "고객님";
-        const requestId = params.get('requestId') || "req_" + new Date().getTime();
-        const lessonType = params.get('type') || ""; // URL에서 '3인 레슨' 등을 받음
-        
-        // 인원수 추출 (숫자만 뽑기, 없으면 1인)
-        const personCount = parseInt(lessonType.match(/\d+/) || 1);
-        let finalPayPrice = rawPrice;
+const rawPrice = parseInt(params.get('price')) || 0; // 1000원을 가져옴
+const lessonType = params.get('type') || ""; // "레슨"을 가져옴
 
-        // 초기 화면 세팅
-        window.onload = () => {
-            document.getElementById('customer-info').innerText = `${name}님, 맞춤 레슨 견적입니다.`;
-            document.getElementById('display-price').innerText = rawPrice.toLocaleString() + "원";
-            
-            // 1인 레슨이면 선택창 숨기기
-            if (personCount <= 1) {
-                document.getElementById('split-selector').style.display = 'none';
-            }
-        };
+// 2. 인원수 추출 (이 부분이 핵심!)
+// 숫자가 있으면 그 숫자를 쓰고, "레슨"처럼 숫자가 없으면 무조건 1인으로 간주함
+const match = lessonType.match(/\d+/);
+const personCount = match ? parseInt(match[0]) : 1; 
+
+// 3. 최종 금액 계산
+let finalPayPrice = rawPrice; // 일단 1000원으로 세팅
+
+window.onload = () => {
+    // 4. 화면에 금액 표시 (여기서 1000원이 찍혀야 함)
+    document.getElementById('display-price').innerText = rawPrice.toLocaleString() + "원";
+    
+    // 1인 레슨이면 나눠내기 버튼 숨기기
+    if (personCount <= 1) {
+        document.getElementById('split-selector').style.display = 'none';
+    }
+};
 
         // 모드 변경 함수
         function setPayMode(mode) {
