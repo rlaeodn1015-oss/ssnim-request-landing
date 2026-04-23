@@ -73,123 +73,126 @@
     </div>
 
     <script>
-        const params = new URLSearchParams(window.location.search);
-        const name = params.get('name') || "요청 고객";
-        const type = params.get('type') || "레슨";
-        const contact = params.get('contact') || "";
-        const requestId = params.get('requestId') || "";
-        const fixedPrice = params.get('price') || "";
-        const selectedPro = params.get('selectedPro') || "스승님";
-        const lessonCount = params.get('lessonCount') || "1회"; 
-        const schedule = params.get('schedule') || "시간 협의";
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get('name') || "요청 고객";
+    const type = params.get('type') || "레슨";
+    const contact = params.get('contact') || "";
+    const requestId = params.get('requestId') || "";
+    const fixedPrice = params.get('price') || "";
+    const selectedPro = params.get('selectedPro') || "스승님";
+    const lessonCount = params.get('lessonCount') || "1회"; 
+    const schedule = params.get('schedule') || "시간 협의";
 
-        // 1:1 레슨 여부 확인
-        const isFixedPriceType = type.includes('1:1');
+    // 1:1 레슨 여부 확인 및 UI 세팅
+    const isFixedPriceType = type.includes('1:1');
+    const personCountForCheck = parseInt(type.match(/\d+/) || 1); 
 
-        document.getElementById('customerSummary').innerHTML = `
-            <p>👤 고객명: ${name}</p>
-            <p>⛳ 종류: ${type}</p>
-            <p>🔢 횟수: ${lessonCount}</p>
-            <p>⏰ 시간: ${schedule}</p> 
-        `;
+    document.getElementById('customerSummary').innerHTML = `
+        <p>👤 고객명: ${name}</p>
+        <p>⛳ 종류: ${type}</p>
+        <p>🔢 횟수: ${lessonCount}</p>
+        <p>⏰ 시간: ${schedule}</p> 
+    `;
 
-        const priceInput = document.getElementById('finalPriceInput');
-        const submitBtn = document.getElementById('submitBtn');
+    const priceInput = document.getElementById('finalPriceInput');
+    const submitBtn = document.getElementById('submitBtn');
+    const splitSection = document.getElementById('splitPayment').closest('.flex'); // 분할결제 박스 전체
 
-        // [교정 포인트] 괄호 위치를 바로잡았습니다.
-        if (fixedPrice) {
-            const purePrice = fixedPrice.replace(/[^0-9]/g, '');
-            priceInput.value = purePrice;
-        }
-
-        if (isFixedPriceType) {
-            priceInput.readOnly = true; 
-            priceInput.style.backgroundColor = "#f1f5f9"; // slate-100
-            priceInput.style.color = "#94a3b8"; // slate-400
-            priceInput.style.cursor = "not-allowed"; // 마우스 커서 금지 표시
-            
-            submitBtn.innerText = "레슨 수락 및 결제 요청";
-            document.querySelector('h1').innerText = "1:1 레슨 수락";
-            
-            const priceLabel = priceInput.previousElementSibling;
-            if (priceLabel) {
-                priceLabel.innerHTML = '최종 레슨비 <span class="text-blue-600">(1:1 정찰제 고정금액)</span>';
-            }
-        }
-
-        const sendAccept = async () => {
-    const price = priceInput.value;
-    const location = document.getElementById('lessonLocation').value;
-    const note = document.getElementById('proNote').value;
-
-    if (!price || parseInt(price) < 1000) return alert("올바른 가격을 입력해주세요!");
-    if (!location) return alert("레슨 장소를 입력해주세요!");
-
-    // 개인정보 필터링 로직 (동일)
-    const combinedText = (location + note).replace(/\s/g, '').toLowerCase();
-    const phonePattern = /(01[016789]|02|0[3-9][0-9])[- .]*(\d{3,4})[- .]*(\d{4})/;
-    const digitPattern = /\d{8,11}/;
-    const kakaoKeywords = ['카톡', '카카오', '인스타', 'dm', 'kakao', '번호', '계좌', '입금']; 
-    
-    if (phonePattern.test(combinedText) || digitPattern.test(combinedText) || kakaoKeywords.some(k => combinedText.includes(k))) {
-        return alert("경고: 장소 및 안내 사항에는 연락처 등 개인 정보를 입력할 수 없습니다.");
+    // [로직 1] 페이지 로드 시 인원수 체크하여 분할결제 숨기기
+    if (personCountForCheck <= 1 || isFixedPriceType) {
+        splitSection.style.display = 'none';
     }
-    
-    submitBtn.disabled = true;
-    submitBtn.innerText = "처리 중...";
 
-    // [핵심: 1/N 분할 결제 로직]
-    const isSplit = document.getElementById('splitPayment').checked;
-    // type 변수에서 숫자 추출 (예: "3인 레슨" -> 3)
-    const personCount = parseInt(type.match(/\d+/) || 1); 
-    const originalPrice = parseInt(price);
-    const finalPricePerPerson = isSplit ? Math.floor(originalPrice / personCount) : originalPrice;
+    if (fixedPrice) {
+        const purePrice = fixedPrice.replace(/[^0-9]/g, '');
+        priceInput.value = purePrice;
+    }
 
-    // [대표님 요청: 심리적 압박 문구 정의]
-    const warningMsg = isSplit 
-        ? "⚠️ 주의: 동반자 전원이 결제를 완료해야 예약이 최종 확정됩니다. 미결제 시 자동 취소됩니다." 
-        : "⚠️ 결제가 완료되어야 예약이 최종 확정됩니다.";
+    if (isFixedPriceType) {
+        priceInput.readOnly = true; 
+        priceInput.style.backgroundColor = "#f1f5f9"; 
+        priceInput.style.color = "#94a3b8"; 
+        priceInput.style.cursor = "not-allowed"; 
+        submitBtn.innerText = "레슨 수락 및 결제 요청";
+        document.querySelector('h1').innerText = "1:1 레슨 수락";
+        const priceLabel = priceInput.previousElementSibling;
+        if (priceLabel) {
+            priceLabel.innerHTML = '최종 레슨비 <span class="text-blue-600">(1:1 정찰제 고정금액)</span>';
+        }
+    }
 
-    const payload = {
-        requestId: requestId,
-        name: name,
-        lessonCount: lessonCount,
-        schedule: schedule,
-        selectedPro: selectedPro,
-        contact: contact,
-        lessonType: type,
-        isSplit: isSplit, // 분할 결제 여부
-        personCount: personCount, // 인원수
-        totalPrice: originalPrice.toLocaleString(), // 총액
-        finalPrice: finalPricePerPerson.toLocaleString(), // 인당 결제액 (알림톡 변수용)
-        lessonLocation: location,
-        proNote: note || "별도 안내 사항 없음",
-        warningMsg: warningMsg, // [추가] 알림톡에 뿌릴 압박 문구
-        paymentUrl: `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${finalPricePerPerson}&name=${encodeURIComponent(name)}`,
-        status: "accepted"
-    };
+    // [로직 2] 견적 발송 함수
+    const sendAccept = async () => {
+        const price = priceInput.value;
+        const location = document.getElementById('lessonLocation').value;
+        const note = document.getElementById('proNote').value;
 
-    try {
-        const ZAPIER_URL = "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/";
-        const CUSTOMER_ALARM_URL = "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
-        const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzm4khJWhFRaWNkC1hmwFfSUtDK26_CAu_zHI9P-93b4ESCrzeRYUOsXdOPjO-0oIkG/exec";
+        if (!price || parseInt(price) < 1000) return alert("올바른 가격을 입력해주세요!");
+        if (!location) return alert("레슨 장소를 입력해주세요!");
 
-        await Promise.all([
-            fetch(ZAPIER_URL, { method: "POST", body: JSON.stringify(payload) }), 
-            fetch(CUSTOMER_ALARM_URL, { method: "POST", body: JSON.stringify(payload) }),
-            fetch(GOOGLE_SHEET_URL, { method: "POST", mode: "no-cors", body: JSON.stringify({ action: "updateQuote", ...payload }) })
-        ]);
-
-        alert(isSplit ? `✅ 1/${personCount} 분할결제 견적이 발송되었습니다.` : "✅ 견적 발송 완료!");
-        window.location.href = "https://pf.kakao.com/_kxawRn/chat"; 
+        const combinedText = (location + note).replace(/\s/g, '').toLowerCase();
+        const phonePattern = /(01[016789]|02|0[3-9][0-9])[- .]*(\d{3,4})[- .]*(\d{4})/;
+        const digitPattern = /\d{8,11}/;
+        const kakaoKeywords = ['카톡', '카카오', '인스타', 'dm', 'kakao', '번호', '계좌', '입금']; 
         
-    } catch (err) {
-        console.error(err);
-        alert("오류가 발생했습니다. 다시 시도해주세요.");
-        submitBtn.disabled = false;
-        submitBtn.innerText = "견적 승인 및 카톡 발송";
-    }
-};
-    </script>
+        if (phonePattern.test(combinedText) || digitPattern.test(combinedText) || kakaoKeywords.some(k => combinedText.includes(k))) {
+            return alert("경고: 장소 및 안내 사항에는 연락처 등 개인 정보를 입력할 수 없습니다.");
+        }
+        
+        submitBtn.disabled = true;
+        submitBtn.innerText = "처리 중...";
+
+        // 1/N 분할 결제 계산
+        const isSplit = document.getElementById('splitPayment').checked;
+        const personCount = parseInt(type.match(/\d+/) || 1); 
+        const originalPrice = parseInt(price);
+        const finalPricePerPerson = isSplit ? Math.floor(originalPrice / personCount) : originalPrice;
+
+        // 심리적 압박 문구
+        const warningMsg = isSplit 
+            ? "⚠️ 주의: 동반자 전원이 결제를 완료해야 예약이 최종 확정됩니다. 미결제 시 자동 취소됩니다." 
+            : "⚠️ 결제가 완료되어야 예약이 최종 확정됩니다.";
+
+        const payload = {
+            requestId: requestId,
+            name: name,
+            lessonCount: lessonCount,
+            schedule: schedule,
+            selectedPro: selectedPro,
+            contact: contact,
+            lessonType: type,
+            isSplit: isSplit,
+            personCount: personCount,
+            totalPrice: originalPrice.toLocaleString(),
+            finalPrice: finalPricePerPerson.toLocaleString(),
+            lessonLocation: location,
+            proNote: note || "별도 안내 사항 없음",
+            warningMsg: warningMsg,
+            paymentUrl: `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${finalPricePerPerson}&name=${encodeURIComponent(name)}`,
+            status: "accepted"
+        };
+
+        try {
+            const ZAPIER_URL = "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/";
+            const CUSTOMER_ALARM_URL = "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
+            const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzm4khJWhFRaWNkC1hmwFfSUtDK26_CAu_zHI9P-93b4ESCrzeRYUOsXdOPjO-0oIkG/exec";
+
+            await Promise.all([
+                fetch(ZAPIER_URL, { method: "POST", body: JSON.stringify(payload) }), 
+                fetch(CUSTOMER_ALARM_URL, { method: "POST", body: JSON.stringify(payload) }),
+                fetch(GOOGLE_SHEET_URL, { method: "POST", mode: "no-cors", body: JSON.stringify({ action: "updateQuote", ...payload }) })
+            ]);
+
+            alert(isSplit ? `✅ 1/${personCount} 분할결제 견적이 발송되었습니다.` : "✅ 견적 발송 완료!");
+            window.location.href = "https://pf.kakao.com/_kxawRn/chat"; 
+            
+        } catch (err) {
+            console.error(err);
+            alert("오류가 발생했습니다. 다시 시도해주세요.");
+            submitBtn.disabled = false;
+            submitBtn.innerText = isFixedPriceType ? "레슨 수락 및 결제 요청" : "견적 승인 및 카톡 발송";
+        }
+    };
+</script>
 </body>
 </html>
