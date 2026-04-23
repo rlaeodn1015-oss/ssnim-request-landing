@@ -2,86 +2,141 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>스승님 - 레슨비 결제</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700;900&display=swap" rel="stylesheet">
     <script src="https://js.bootpay.co.kr/bootpay-4.3.4.min.js" type="application/javascript"></script>
+    <style>
+        body { font-family: 'Pretendard', sans-serif; letter-spacing: -0.03em; }
+        .active-card { border-color: #0066FF; background-color: #F0F7FF; }
+    </style>
 </head>
-<body>
-    <div id="status" style="display: flex; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif; text-align: center; flex-direction: column;">
-        <p id="msg" style="font-weight: bold;">결제 모듈을 불러오는 중입니다...</p>
-        <p id="sub-msg" style="font-size: 12px; color: #888; margin-top: 10px;">3초 이상 반응이 없으면 '새로고침'을 해주세요.</p>
+<body class="bg-slate-50 min-h-screen flex items-center justify-center p-5">
+
+    <div id="payment-box" class="max-w-md w-full bg-white rounded-[2.5rem] shadow-2xl p-8 border border-slate-100">
+        <div class="text-center mb-8">
+            <h1 class="text-2xl font-black text-slate-900 mb-2">레슨비 결제하기</h1>
+            <p id="customer-info" class="text-slate-500 font-bold text-sm">정보를 불러오는 중...</p>
+        </div>
+
+        <div id="split-selector" class="space-y-4 mb-10">
+            <p class="text-xs font-black text-slate-400 uppercase tracking-widest ml-1 text-center">결제 방식 선택</p>
+            <div class="grid grid-cols-2 gap-3">
+                <button onclick="setPayMode('total')" id="btn-total" class="flex flex-col items-center justify-center py-5 rounded-2xl border-2 active-card transition-all group">
+                    <span class="text-xs font-bold text-slate-400 group-[.active-card]:text-blue-500 mb-1">한 번에</span>
+                    <span class="text-sm font-black text-slate-900">전액 결제</span>
+                </button>
+                <button onclick="setPayMode('split')" id="btn-split" class="flex flex-col items-center justify-center py-5 rounded-2xl border-2 border-slate-100 bg-white transition-all group">
+                    <span class="text-xs font-bold text-slate-400 group-[.active-card]:text-blue-500 mb-1">동반자와</span>
+                    <span class="text-sm font-black text-slate-900">1/N 나눠내기</span>
+                </button>
+            </div>
+            <p id="split-desc" class="text-[11px] text-center text-blue-600 font-bold opacity-0 transition-opacity">
+                ※ 동반자들에게 이 페이지 링크를 공유하여 각자 결제하세요.
+            </p>
+        </div>
+
+        <div class="bg-slate-50 rounded-3xl p-8 mb-8 text-center border border-slate-100 shadow-inner">
+            <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-3">최종 결제 금액</p>
+            <p id="display-price" class="text-4xl font-black text-slate-950 tracking-tighter">0원</p>
+        </div>
+
+        <button onclick="requestBootpay()" id="pay-btn" class="w-full bg-blue-600 text-white font-black py-5 rounded-[1.5rem] shadow-xl shadow-blue-100 hover:bg-blue-700 active:scale-95 transition-all text-lg">
+            지금 결제하기
+        </button>
+
+        <p class="text-center mt-6 text-[11px] text-slate-400 font-medium leading-relaxed">
+            안전한 결제를 위해 스승님 보안 시스템이 작동 중입니다.<br>
+            결제 완료 시 예약이 즉시 확정됩니다.
+        </p>
     </div>
 
     <script>
-    function checkAndPay() {
         const params = new URLSearchParams(window.location.search);
-        // 파라미터 가져오기
-        const rawPrice = params.get('price') || "0";
+        const rawPrice = parseInt(params.get('price') || "0");
         const name = params.get('name') || "고객님";
-        const requestId = params.get('requestId') || "req_" + new Date().getTime(); // 결제 고유 ID 필수
+        const requestId = params.get('requestId') || "req_" + new Date().getTime();
+        const lessonType = params.get('type') || ""; // URL에서 '3인 레슨' 등을 받음
         
-        // 가격 처리 (콤마나 한글이 섞여도 숫자만 추출)
-        const price = parseInt(rawPrice.toString().replace(/[^0-9]/g, '')) || 0;
+        // 인원수 추출 (숫자만 뽑기, 없으면 1인)
+        const personCount = parseInt(lessonType.match(/\d+/) || 1);
+        let finalPayPrice = rawPrice;
 
-        // 결제 검증
-        if (price < 100) { // 최소 결제 금액 체크
-            document.getElementById('msg').innerText = "결제 금액 정보가 너무 낮거나 올바르지 않습니다.";
-            document.getElementById('sub-msg').innerText = "고객 센터에 문의해주세요.";
-            return;
-        }
-
-        if (typeof Bootpay === "undefined") {
-            setTimeout(checkAndPay, 1000);
-            return;
-        }
-
-        // 부트페이 호출
-        Bootpay.requestPayment({
-            "application_id": "67ecd171d9af4e5c6d21736b",
-            "price": price,
-            "order_name": "스승님 골프 레슨비",
-            "order_id": requestId,
-            "pg": "nicepay",
-            "method": "card",
-            "user": { "username": name },
-            "extra": { 
-                "open_type": "redirect", 
-                "display_success_result": true,
-                "redirect_url": "https://rlaeodn1015-oss.github.io/ssnim-request-landing/success.html" 
+        // 초기 화면 세팅
+        window.onload = () => {
+            document.getElementById('customer-info').innerText = `${name}님, 맞춤 레슨 견적입니다.`;
+            document.getElementById('display-price').innerText = rawPrice.toLocaleString() + "원";
+            
+            // 1인 레슨이면 선택창 숨기기
+            if (personCount <= 1) {
+                document.getElementById('split-selector').style.display = 'none';
             }
-        }).then(async function(res) {
-            // 결제 완료 시 (일반적인 완료 이벤트 체크)
-            if (res.event === 'done') {
-                document.getElementById('msg').innerText = "결제 완료! 장부를 업데이트 중입니다...";
-                
-                const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzm4khJWhFRaWNkC1hmwFfSUtDK26_CAu_zHI9P-93b4ESCrzeRYUOsXdOPjO-0oIkG/exec";
-                const updateData = {
-                    action: "updatePayment",
-                    requestId: requestId,
-                    paymentStatus: "결제 완료",
-                    paidAmount: price
-                };
+        };
 
-                try {
-                    // 구글 시트 장부 업데이트 (비동기 처리)
-                    await fetch(GOOGLE_SHEET_URL, {
-                        method: "POST",
-                        mode: "no-cors",
-                        body: JSON.stringify(updateData)
-                    });
-                    location.href = "success.html";
-                } catch (err) {
-                    console.error("장부 업데이트 실패:", err);
-                    location.href = "success.html"; 
+        // 모드 변경 함수
+        function setPayMode(mode) {
+            const btnTotal = document.getElementById('btn-total');
+            const btnSplit = document.getElementById('btn-split');
+            const desc = document.getElementById('split-desc');
+            const display = document.getElementById('display-price');
+
+            if (mode === 'split') {
+                finalPayPrice = Math.floor(rawPrice / personCount);
+                btnSplit.classList.add('active-card');
+                btnTotal.classList.remove('active-card');
+                desc.style.opacity = "1";
+                display.innerText = finalPayPrice.toLocaleString() + "원";
+            } else {
+                finalPayPrice = rawPrice;
+                btnTotal.classList.add('active-card');
+                btnSplit.classList.remove('active-card');
+                desc.style.opacity = "0";
+                display.innerText = finalPayPrice.toLocaleString() + "원";
+            }
+        }
+
+        // 부트페이 결제 실행 (기존 로직 그대로 유지)
+        async function requestBootpay() {
+            if (finalPayPrice < 100) return alert("결제 금액이 올바르지 않습니다.");
+
+            if (typeof Bootpay === "undefined") {
+                return alert("결제 모듈을 불러오는 중입니다. 잠시 후 다시 시도해주세요.");
+            }
+
+            Bootpay.requestPayment({
+                "application_id": "67ecd171d9af4e5c6d21736b",
+                "price": finalPayPrice, // 계산된 금액(전액 또는 인당)
+                "order_name": "스승님 골프 레슨비",
+                "order_id": requestId,
+                "pg": "nicepay",
+                "method": "card",
+                "user": { "username": name },
+                "extra": { 
+                    "open_type": "redirect", 
+                    "display_success_result": true,
+                    "redirect_url": "https://rlaeodn1015-oss.github.io/ssnim-request-landing/success.html" 
                 }
-            }
-        }).catch(function(e) {
-            console.error(e);
-            alert("결제 창을 여는 중 오류가 발생했습니다: " + e.message);
-        });
-    }
-
-    window.onload = checkAndPay;
-</script>
+            }).then(async function(res) {
+                if (res.event === 'done') {
+                    const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzm4khJWhFRaWNkC1hmwFfSUtDK26_CAu_zHI9P-93b4ESCrzeRYUOsXdOPjO-0oIkG/exec";
+                    const updateData = {
+                        action: "updatePayment",
+                        requestId: requestId,
+                        paymentStatus: "결제 완료",
+                        paidAmount: finalPayPrice
+                    };
+                    try {
+                        await fetch(GOOGLE_SHEET_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(updateData) });
+                        location.href = "success.html";
+                    } catch (err) {
+                        location.href = "success.html"; 
+                    }
+                }
+            }).catch(function(e) {
+                alert("결제 오류: " + e.message);
+            });
+        }
+    </script>
 </body>
 </html>
