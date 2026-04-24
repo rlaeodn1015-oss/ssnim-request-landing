@@ -65,7 +65,7 @@
         const params = new URLSearchParams(window.location.search);
         const name = params.get('name') || "요청 고객";
         const type = params.get('type') || "레슨";
-        const contact = params.get('contact') || "";
+        const contact = params.get('contact') || params.get('phone') || params.get('userContact') || params.get('customerPhone') || "";
         const requestId = params.get('requestId') || "";
         const fixedPrice = params.get('price') || "";
         const selectedPro = params.get('selectedPro') || "스승님";
