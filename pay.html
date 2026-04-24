@@ -118,18 +118,18 @@
         }
 
         Bootpay.requestPayment({
-          "application_id": "67ecd171d9af4e5c6d21736b",
+"application_id": "67ecd171d9af4e5c6d21736b",
             "price": finalPayPrice,
             "order_name": "스승님 골프 레슨비",
             "order_id": requestId,
             "pg": "nicepay",
-            "methods": ["card", "kakao", "naver"], // 네이버페이 추가
+            "methods": ["card", "kakao", "naver"], 
             "user": { "username": name },
             "extra": { 
-                // [수정] redirect 대신 iframe이나 popup을 사용하면 405 에러를 피할 수 있습니다.
-                "open_type": "iframe", 
+                "open_type": "redirect", 
                 "display_success_result": true,
-                "redirect_url": "https://rlaeodn1015-oss.github.io/ssnim-request-landing/success.html",
+                // [우회책] 주소 뒤에 ?pay_done=1 을 붙여서 GET 요청임을 서버에 명확히 인지시킵니다.
+                "redirect_url": "https://rlaeodn1015-oss.github.io/ssnim-request-landing/success.html?pay_done=1",
                 "method": "GET" 
             }
         }).then(async function(res) {
