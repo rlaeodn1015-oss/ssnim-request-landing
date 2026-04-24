@@ -65,6 +65,7 @@
         
         // 2. 값 추출 및 안전장치
         rawPrice = parseInt(params.get('price')) || 0;
+        console.log(params);
         name = params.get('name') || "고객님";
         requestId = params.get('requestId') || "req_" + new Date().getTime();
         const lessonType = params.get('type') || "";
