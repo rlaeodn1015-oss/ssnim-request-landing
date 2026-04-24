@@ -123,7 +123,7 @@
         if (finalPayPrice < 100) return alert("결제 금액이 너무 낮습니다.");
         if (typeof Bootpay === "undefined") return alert("모듈 로딩 중...");
 
-        // [우회 전략] 파일명을 제거한 경로로 리다이렉트하여 405 에러 방어
+        // 파일명을 제거한 경로 (405 방어 필살기)
         const currentPath = window.location.origin + window.location.pathname.replace('pay.html', '');
         const successRedirect = `${currentPath}?status=done&requestId=${requestId}&price=${finalPayPrice}`;
 
@@ -138,8 +138,11 @@
             "extra": { 
                 "open_type": "redirect", 
                 "display_success_result": false, 
-                "redirect_url": successRedirect, // success.html이 아니라 자기 자신으로!
-                "method": "GET" 
+                "redirect_url": successRedirect,
+                // [수정 포인트] 이 3줄이 모바일 405 버그를 잡는 핵심입니다.
+                "method": "GET", 
+                "use_redirect_method": "GET",
+                "v2_redirect_mode": true 
             }
         });
     }
