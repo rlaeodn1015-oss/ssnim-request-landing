@@ -52,7 +52,7 @@
         </p>
     </div>
 
-   <script>
+    <script>
     let rawPrice = 0;
     let finalPayPrice = 0;
     let personCount = 1;
@@ -62,15 +62,9 @@
     window.onload = () => {
         const params = new URLSearchParams(window.location.search);
         
-        // [강력 보완] 결제 완료 후 돌아온 경우
+        // [여기가 핵심] 결제 완료 후 돌아왔을 때 작동하는 로직
         if (params.get('status') === 'done') {
-            // 화면을 즉시 결제 처리 중으로 변경
-            document.body.innerHTML = `
-                <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; font-family:Pretendard;">
-                    <div style="font-size:20px; font-weight:900; color:#0066FF; margin-bottom:10px;">결제 완료 처리 중</div>
-                    <div style="font-size:14px; color:#666;">잠시만 기다려주세요...</div>
-                </div>
-            `;
+            document.getElementById('payment-box').innerHTML = "<div class='py-20 text-center font-bold text-blue-600'>결제 정보를 처리 중입니다...</div>";
             
             const updateData = {
                 action: "updatePayment",
@@ -79,19 +73,17 @@
                 paidAmount: params.get('price')
             };
             
-            // 시트에 기록 후 이동
             fetch("https://script.google.com/macros/s/AKfycbzm4khJWhFRaWNkC1hmwFfSUtDK26_CAu_zHI9P-93b4ESCrzeRYUOsXdOPjO-0oIkG/exec", { 
                 method: "POST", 
                 mode: "no-cors", 
                 body: JSON.stringify(updateData) 
             }).finally(() => {
-                // [모바일 핵심] 캐시를 방지하기 위해 success.html 뒤에 랜덤 숫자를 붙여 이동합니다.
+                // 모바일 캐시 방지를 위해 시간값을 붙여서 이동
                 location.replace("success.html?v=" + new Date().getTime());
             });
             return;
-        }}
+        }
 
-        // 기존 로직: 가격 파싱 및 화면 세팅
         const priceParam = params.get('price') || "0";
         rawPrice = parseInt(priceParam.replace(/[^0-9]/g, '')) || 0; 
         name = params.get('name') || "고객님";
@@ -128,12 +120,12 @@
     }
 
     async function requestBootpay() {
-        if (finalPayPrice < 100) return alert("결제 금액이 올바르지 않습니다.");
-        if (typeof Bootpay === "undefined") return alert("결제 모듈을 불러오는 중입니다.");
+        if (finalPayPrice < 100) return alert("결제 금액이 너무 낮습니다.");
+        if (typeof Bootpay === "undefined") return alert("모듈 로딩 중...");
 
-        // [핵심] 리다이렉트 주소를 자기 자신으로 설정 (데이터 누락 방지)
-        const currentUrl = window.location.origin + window.location.pathname;
-        const successRedirect = `${currentUrl}?status=done&requestId=${requestId}&price=${finalPayPrice}`;
+        // [우회 전략] 파일명을 제거한 경로로 리다이렉트하여 405 에러 방어
+        const currentPath = window.location.origin + window.location.pathname.replace('pay.html', '');
+        const successRedirect = `${currentPath}?status=done&requestId=${requestId}&price=${finalPayPrice}`;
 
         Bootpay.requestPayment({
             "application_id": "67ecd171d9af4e5c6d21736b",
@@ -141,12 +133,12 @@
             "order_name": "스승님 골프 레슨비",
             "order_id": requestId,
             "pg": "nicepay",
-            "methods": ["card", "kakao"], // 네이버페이는 카드 안에서 자동 처리됨
+            "methods": ["card", "kakao"], 
             "user": { "username": name },
             "extra": { 
                 "open_type": "redirect", 
-                "display_success_result": false, // 부트페이 자체 완료창 생략
-                "redirect_url": successRedirect, // success.html이 아니라 다시 pay.html로!
+                "display_success_result": false, 
+                "redirect_url": successRedirect, // success.html이 아니라 자기 자신으로!
                 "method": "GET" 
             }
         });
