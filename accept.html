@@ -141,6 +141,8 @@
             submitBtn.disabled = true;
             submitBtn.innerText = "처리 중...";
 
+            const sendType = isFixedPriceType ? "1:1레슨" : type;
+
             const payload = {
                 requestId: requestId,
                 name: name,
@@ -148,13 +150,14 @@
                 schedule: schedule,
                 selectedPro: selectedPro,
                 contact: contact,
-                lessonType: type,
-                type: type, 
+                lessonType: sendType, 
+                type: sendType,       
                 finalPrice: parseInt(price).toLocaleString(),
                 price: price,
                 lessonLocation: location,
                 proNote: note || "별도 안내 사항 없음",
-                paymentUrl: `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}&type=${encodeURIComponent(type)}`,
+                // 아래 URL에 들어가는 type도 sendType으로 교체합니다.
+                paymentUrl: `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}&type=${encodeURIComponent(sendType)}`,
                 status: "accepted"
             };
 
