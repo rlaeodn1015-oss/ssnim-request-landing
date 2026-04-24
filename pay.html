@@ -127,22 +127,28 @@
         const currentPath = window.location.origin + window.location.pathname.replace('pay.html', '');
         const successRedirect = `${currentPath}?status=done&requestId=${requestId}&price=${finalPayPrice}`;
 
+       async function requestBootpay() {
+        if (finalPayPrice < 100) return alert("결제 금액이 너무 낮습니다.");
+        
+        // [수정] 다시 파일명(pay.html)을 명시하되, 405 에러를 막는 옵션을 추가합니다.
+        const successRedirect = window.location.origin + window.location.pathname + "?status=done&requestId=" + requestId + "&price=" + finalPayPrice;
+
         Bootpay.requestPayment({
             "application_id": "67ecd171d9af4e5c6d21736b",
             "price": finalPayPrice,
             "order_name": "스승님 골프 레슨비",
             "order_id": requestId,
             "pg": "nicepay",
-            "methods": ["card", "kakao"], 
+            "methods": ["card", "kakao"],
             "user": { "username": name },
             "extra": { 
                 "open_type": "redirect", 
                 "display_success_result": false, 
-                "redirect_url": successRedirect,
-                // [수정 포인트] 이 3줄이 모바일 405 버그를 잡는 핵심입니다.
-                "method": "GET", 
+                "redirect_url": successRedirect, 
+                // [필살기] PG사가 POST를 못 쏘게 강력하게 GET으로 고정합니다.
+                "method": "GET",
                 "use_redirect_method": "GET",
-                "v2_redirect_mode": true 
+                "v2_redirect_mode": true
             }
         });
     }
