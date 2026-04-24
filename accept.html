@@ -107,17 +107,37 @@
             const location = document.getElementById('lessonLocation').value;
             const note = document.getElementById('proNote').value;
 
-            // [테스트용] 100원 이상이면 다 통과되게 수정해드렸습니다.
             if (!price || parseInt(price) < 100) return alert("올바른 가격을 입력해주세요!");
             if (!location) return alert("레슨 장소를 입력해주세요!");
 
-            const combinedText = (location + note).replace(/\s/g, '').toLowerCase();
-            const kakaoKeywords = ['카톡', '카카오', '인스타', 'dm', 'link', '라인', '전화', '연락처', '번호', '아이디'];
-            
-            if (kakaoKeywords.some(k => combinedText.includes(k))) {
-                return alert("경고: 장소 및 안내 사항에는 개인 정보를 입력할 수 없습니다.");
+            // [추가된 끝판왕 필터링 로직 시작]
+            // 1. 공백 및 특수문자 제거 (꼼수 방어용 세탁)
+            const combinedText = (location + note).replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9]/g, "").toLowerCase();
+
+            // 2. 금지어 DB (대표님이 말씀하신 꼼수 단어 총집합)
+            const forbiddenList = [
+                "카톡", "카카오", "kakaotalk", "kaka", "카코", "옵챗", "오픈챗", "오픈채팅", "openchat", "톡주세요", "톡줘", "채널", "톡디", "카톡디",
+                "인스타", "인스타그램", "insta", "instagram", "잉스타", "잉스타그램", "인스따", "디엠", "dm", "인타", "팔로우", "맞팔",
+                "연락처", "전화번호", "핸드폰", "휴대폰", "핸펀", "폰번", "번호", "공일공", "010", "문자", "직거래", "개인레슨", "외부결제",
+                "텔레그램", "telegram", "라인", "line", "네이버", "블로그", "blog", "밴드", "band", "유튜브", "youtube"
+            ];
+
+            // 3. 텍스트 기반 검사
+            for (let word of forbiddenList) {
+                if (combinedText.includes(word)) {
+                    return alert(`🚨 등록 불가: '${word}'와(과) 관련된 우회 문구가 감지되었습니다.\n\n레슨 확정 전 개인 연락처 공유는 서비스 이용 약관에 따라 제한됩니다.`);
+                }
             }
-            
+
+            // 4. 전화번호 패턴 및 과도한 숫자 검사
+            const phoneRegex = /010[0-9]{7,8}/;
+            const numberCount = ((location + note).match(/\d/g) || []).length;
+
+            if (phoneRegex.test(combinedText) || numberCount >= 8) {
+                return alert("🚨 보안 정책상 전화번호나 과도한 숫자를 포함할 수 없습니다.");
+            }
+            // [필터링 로직 끝]
+
             submitBtn.disabled = true;
             submitBtn.innerText = "처리 중...";
 
@@ -143,7 +163,6 @@
                 const CUSTOMER_ALARM_URL = "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
 
                 await Promise.all([
-                    // mode: "no-cors" 이 다섯 글자가 생명줄입니다.
                     fetch(ZAPIER_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) }), 
                     fetch(CUSTOMER_ALARM_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) })
                 ]);
