@@ -62,9 +62,15 @@
     window.onload = () => {
         const params = new URLSearchParams(window.location.search);
         
-        // [핵심] 결제 후 ?status=done 을 달고 돌아왔을 때 처리
+        // [강력 보완] 결제 완료 후 돌아온 경우
         if (params.get('status') === 'done') {
-            document.getElementById('payment-box').innerHTML = "<div class='py-20 text-center font-bold text-blue-600'>결제 정보를 확인 중입니다...</div>";
+            // 화면을 즉시 결제 처리 중으로 변경
+            document.body.innerHTML = `
+                <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; font-family:Pretendard;">
+                    <div style="font-size:20px; font-weight:900; color:#0066FF; margin-bottom:10px;">결제 완료 처리 중</div>
+                    <div style="font-size:14px; color:#666;">잠시만 기다려주세요...</div>
+                </div>
+            `;
             
             const updateData = {
                 action: "updatePayment",
@@ -73,15 +79,17 @@
                 paidAmount: params.get('price')
             };
             
+            // 시트에 기록 후 이동
             fetch("https://script.google.com/macros/s/AKfycbzm4khJWhFRaWNkC1hmwFfSUtDK26_CAu_zHI9P-93b4ESCrzeRYUOsXdOPjO-0oIkG/exec", { 
                 method: "POST", 
                 mode: "no-cors", 
                 body: JSON.stringify(updateData) 
             }).finally(() => {
-                location.href = "success.html"; // 여기서 드디어 성공 화면으로!
+                // [모바일 핵심] 캐시를 방지하기 위해 success.html 뒤에 랜덤 숫자를 붙여 이동합니다.
+                location.replace("success.html?v=" + new Date().getTime());
             });
             return;
-        }
+        }}
 
         // 기존 로직: 가격 파싱 및 화면 세팅
         const priceParam = params.get('price') || "0";
