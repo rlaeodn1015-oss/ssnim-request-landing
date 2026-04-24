@@ -132,23 +132,20 @@
         const successRedirect = window.location.origin + window.location.pathname + "?status=done&requestId=" + requestId + "&price=" + finalPayPrice;
 
         Bootpay.requestPayment({
-            "application_id": "67ecd171d9af4e5c6d21736b",
-            "price": finalPayPrice,
-            "order_name": "스승님 골프 레슨비",
-            "order_id": requestId,
-            "pg": "nicepay",
-            "methods": ["card", "kakao"],
-            "user": { "username": name },
-            "extra": { 
-                "open_type": "redirect", 
-                "display_success_result": false, 
-                "redirect_url": successRedirect, 
-                "method": "GET",
-                "use_redirect_method": "GET",
-                "v2_redirect_mode": true
-            }
-        });
+    "application_id": "67ecd171d9af4e5c6d21736b",
+    "price": finalPayPrice,
+    "order_name": "스승님 골프 레슨비",
+    "order_id": requestId,
+    "pg": "nicepay",
+    "methods": ["card", "kakao"],
+    "user": { "username": name },
+    "extra": { 
+        "open_type": "redirect", 
+        "display_success_result": false, 
+        "redirect_url": successRedirect, 
+        "v2_redirect_mode": true
     }
+});
 </script>
 </body>
 </html>
