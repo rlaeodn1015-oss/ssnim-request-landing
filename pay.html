@@ -68,7 +68,7 @@
             
             const updateData = {
                 action: "updatePayment",
-                requestId: params.get('requestIdgoo'),
+                requestId: params.get('requestId'),
                 paymentStatus: "결제 완료",
                 paidAmount: params.get('price')
             };
@@ -121,28 +121,25 @@
 
     async function requestBootpay() {
         if (finalPayPrice < 100) return alert("결제 금액이 너무 낮습니다.");
-        
-        // [모바일 405 방어 필살기]
-        // 주소에서 'pay.html'을 아예 제거하고 폴더 경로까지만 씁니다.
-        // 예: https://.../ssnim/pay.html -> https://.../ssnim/
+        if (typeof Bootpay === "undefined") return alert("모듈 로딩 중...");
+
+        // [우회 전략] 파일명을 제거한 경로로 리다이렉트하여 405 에러 방어
         const currentPath = window.location.origin + window.location.pathname.replace('pay.html', '');
-        
-        // 뒤에 붙는 파라미터를 더 단순화해서 모바일 브라우저를 속입니다.
-        const successRedirect = `${currentPath}?status=done&id=${requestId}&amt=${finalPayPrice}`;
+        const successRedirect = `${currentPath}?status=done&requestId=${requestId}&price=${finalPayPrice}`;
 
         Bootpay.requestPayment({
             "application_id": "67ecd171d9af4e5c6d21736b",
             "price": finalPayPrice,
-            "order_name": "스승님 레슨비",
+            "order_name": "스승님 골프 레슨비",
             "order_id": requestId,
             "pg": "nicepay",
-            "methods": ["card", "kakao"],
+            "methods": ["card", "kakao"], 
             "user": { "username": name },
             "extra": { 
                 "open_type": "redirect", 
                 "display_success_result": false, 
-                "redirect_url": successRedirect, // .html이 없는 주소로 리다이렉트
-                "method": "GET" // 반드시 GET 명시
+                "redirect_url": successRedirect, // success.html이 아니라 자기 자신으로!
+                "method": "GET" 
             }
         });
     }
