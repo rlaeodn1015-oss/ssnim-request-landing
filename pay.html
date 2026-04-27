@@ -61,22 +61,6 @@
 
     window.onload = () => {
         const params = new URLSearchParams(window.location.search);
-        
-        if (params.get('status') === 'done') {
-            document.getElementById('payment-box').innerHTML = "<div class='py-20 text-center font-bold text-blue-600'>결제 정보를 처리 중입니다...</div>";
-            const updateData = {
-                action: "updatePayment",
-                requestId: params.get('requestId'),
-                paymentStatus: "결제 완료",
-                paidAmount: params.get('price')
-            };
-            fetch("https://script.google.com/macros/s/AKfycbyEehQJQKlryfjJ3PN8h46IaHCpPzbWikvlInwfmNl5CIe6CgBx1pzTaazX3fYpTmr-/exec", { 
-                method: "POST", mode: "no-cors", body: JSON.stringify(updateData) 
-            }).finally(() => {
-                location.replace("success.html?v=" + new Date().getTime());
-            });
-            return;
-        }
 
         const priceParam = params.get('price') || "0";
         rawPrice = parseInt(priceParam.replace(/[^0-9]/g, '')) || 0; 
@@ -128,7 +112,7 @@
     async function requestBootpay() {
         if (finalPayPrice < 100) return alert("결제 금액이 너무 낮습니다.");
         
-        const successRedirect = window.location.origin + window.location.pathname + "?status=done&requestId=" + requestId + "&price=" + finalPayPrice;
+        const successRedirect = window.location.origin + "/success.html?requestId=" + requestId + "&price=" + finalPayPrice;
 
         Bootpay.requestPayment({
             "application_id": "67ecd171d9af4e5c6d21736b",
