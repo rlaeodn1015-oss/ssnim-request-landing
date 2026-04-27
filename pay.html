@@ -9,7 +9,7 @@
     <script src="https://js.bootpay.co.kr/bootpay-4.3.4.min.js" type="application/javascript"></script>
     <style>
         body { font-family: 'Pretendard', sans-serif; letter-spacing: -0.03em; }
-        .active-card { border-color: #0066FF; background-color: #F0F7FF; }
+        .active-card { border-color: #0066FF !important; background-color: #F0F7FF !important; }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen flex items-center justify-center p-5">
@@ -64,37 +64,34 @@
         
         if (params.get('status') === 'done') {
             document.getElementById('payment-box').innerHTML = "<div class='py-20 text-center font-bold text-blue-600'>결제 정보를 처리 중입니다...</div>";
-            
             const updateData = {
                 action: "updatePayment",
                 requestId: params.get('requestId'),
                 paymentStatus: "결제 완료",
                 paidAmount: params.get('price')
             };
-            
             fetch("https://script.google.com/macros/s/AKfycbyEehQJQKlryfjJ3PN8h46IaHCpPzbWikvlInwfmNl5CIe6CgBx1pzTaazX3fYpTmr-/exec", { 
-                method: "POST", 
-                mode: "no-cors", 
-                body: JSON.stringify(updateData) 
+                method: "POST", mode: "no-cors", body: JSON.stringify(updateData) 
             }).finally(() => {
                 location.replace("success.html?v=" + new Date().getTime());
             });
             return;
         }
 
-        // 데이터 파싱
         const priceParam = params.get('price') || "0";
         rawPrice = parseInt(priceParam.replace(/[^0-9]/g, '')) || 0; 
         name = params.get('name') || "고객님";
         requestId = params.get('requestId') || "req_" + new Date().getTime();
-        const lessonType = params.get('type') || "";
+        const lessonType = params.get('type') || "레슨";
 
-        // [핵심] 인원수 계산 및 1:1 판별
+        // 1:1 판별 기강 잡기
+        const isOneOnOne = lessonType.includes('1:1') || 
+                           lessonType === '레슨' || 
+                           lessonType === '1' || 
+                           lessonType.trim() === '';
+
         const match = lessonType.match(/\d+/);
         personCount = (match && parseInt(match[0]) > 1) ? parseInt(match[0]) : 1;
-        
-        // 1:1 레슨이면 인원수 강제 고정 및 UI 숨김
-        const isOneOnOne = lessonType.includes('1:1') || lessonType === '레슨' || lessonType === '';
         
         if (isOneOnOne) personCount = 1;
 
@@ -103,11 +100,14 @@
         document.getElementById('customer-info').innerText = `${name}님, 맞춤 레슨 견적입니다.`;
         document.getElementById('display-price').innerText = rawPrice.toLocaleString() + "원";
         
-        // 1:1 레슨이거나 인원이 1명이면 나눠내기 숨기기
+        // UI 제거 로직
+        const selector = document.getElementById('split-selector');
         if (isOneOnOne || personCount <= 1) {
-            const selector = document.getElementById('split-selector');
-            if (selector) selector.style.display = 'none';
+            if (selector) {
+                selector.style.display = 'none';
+            }
         }
+    }; // window.onload 끝
 
     function setPayMode(mode) {
         const display = document.getElementById('display-price');
@@ -127,26 +127,26 @@
 
     async function requestBootpay() {
         if (finalPayPrice < 100) return alert("결제 금액이 너무 낮습니다.");
-        if (typeof Bootpay === "undefined") return alert("모듈 로딩 중...");
-
+        
         const successRedirect = window.location.origin + window.location.pathname + "?status=done&requestId=" + requestId + "&price=" + finalPayPrice;
 
         Bootpay.requestPayment({
-    "application_id": "67ecd171d9af4e5c6d21736b",
-    "price": finalPayPrice,
-    "order_name": "스승님 골프 레슨비",
-    "order_id": requestId,
-    "pg": "nicepay",
-    "methods": ["card", "kakao"],
-    "user": { "username": name },
-    "extra": { 
-        "open_type": "redirect", 
-        "display_success_result": false, 
-        "redirect_url": successRedirect, 
-        "v2_redirect_mode": true,
-        "popup": false
+            "application_id": "67ecd171d9af4e5c6d21736b",
+            "price": finalPayPrice,
+            "order_name": "스승님 골프 레슨비",
+            "order_id": requestId,
+            "pg": "nicepay",
+            "methods": ["card", "kakao"],
+            "user": { "username": name },
+            "extra": { 
+                "open_type": "redirect", 
+                "display_success_result": false, 
+                "redirect_url": successRedirect, 
+                "v2_redirect_mode": true,
+                "popup": false
+            }
+        });
     }
-});
-</script>
+    </script>
 </body>
 </html>
