@@ -64,15 +64,33 @@
     <script>
         const params = new URLSearchParams(window.location.search);
         const name = params.get('name') || "요청 고객";
-        const type = params.get('type') || "레슨";
-        const contact = params.get('contact') || params.get('phone') || params.get('userContact') || params.get('customerPhone') || "";
+        const contact = params.get('contact') || params.get('phone') || "";
         const requestId = params.get('requestId') || "";
         const fixedPrice = params.get('price') || "";
         const selectedPro = params.get('selectedPro') || "스승님";
         const lessonCount = params.get('lessonCount') || "1회"; 
         const schedule = params.get('schedule') || "시간 협의";
 
-        const isFixedPriceType = type.includes('1:1');
+        // ★ 여기를 아래 내용으로 수정/추가하세요 ★
+        const rawType = params.get('type') || "레슨"; // 주소창에서 가져온 원본
+
+        // 판별 로직 강화
+        const isOneOnOne = rawType.includes('1:1');
+        const isPar3 = rawType.includes('파3');
+        const isShortGame = rawType.includes('숏게임');
+        const isField = rawType.includes('필드');
+
+        // 제피어로 보낼 최종 타입(sendType) 결정
+        let sendType = rawType;
+        if (isOneOnOne) sendType = "1:1레슨";
+        else if (isPar3) sendType = "파3 레슨";
+        else if (isShortGame) sendType = "숏게임 레슨";
+        else if (isField) sendType = "필드 레슨";
+        else if (rawType === "레슨") sendType = "맞춤 레슨";
+
+        const type = sendType; // 기존 코드와의 호환성을 위해 type 변수에 대입
+        const isFixedPriceType = isOneOnOne; // 1:1이면 고정가 모드 활성
+        // ★ 여기까지 ★
 
         document.getElementById('customerSummary').innerHTML = `
             <p>👤 고객명: ${name}</p>
@@ -80,6 +98,8 @@
             <p>🔢 횟수: ${lessonCount}</p>
             <p>⏰ 시간: ${schedule}</p> 
         `;
+        
+        // ... (이하 기존 코드 동일)
 
         const priceInput = document.getElementById('finalPriceInput');
         const submitBtn = document.getElementById('submitBtn');
