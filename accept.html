@@ -160,8 +160,8 @@
 
                 // 2. 자피어 알림톡 분기 전송 (중복 코드 제거됨)
                 const webhookUrl = isOneOnOne 
-                    ? "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/" 
-                    : "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
+    ? "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/" // ★ 1:1은 기존 성공 주소 그대로!
+    : "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/"; // ★ 외부레슨만 대표님이 말한 새 주소로!
 
                 await fetch(webhookUrl, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
 
