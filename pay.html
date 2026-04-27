@@ -125,13 +125,14 @@
         display.innerText = finalPayPrice.toLocaleString() + "원";
     }
 
-    async function requestBootpay() {
+   async function requestBootpay() {
         if (finalPayPrice < 100) return alert("결제 금액이 너무 낮습니다.");
         
-        // 405 에러 방지를 위해 redirect_url을 현재 페이지의 절대 경로로 다시 잡음
-        const successRedirect = window.location.origin + window.location.pathname + "?status=done&requestId=" + requestId + "&price=" + finalPayPrice;
+        // ★ [핵심] 리다이렉트 URL 뒤에 모든 데이터를 쿼리 스트링(GET)으로 미리 붙여버립니다.
+        const successRedirect = window.location.origin + window.location.pathname + 
+                                "?status=done&requestId=" + requestId + "&price=" + finalPayPrice;
 
-       Bootpay.requestPayment({
+        Bootpay.requestPayment({
             "application_id": "67ecd171d9af4e5c6d21736b",
             "price": finalPayPrice,
             "order_name": "스승님 골프 레슨비",
@@ -143,9 +144,9 @@
                 "open_type": "redirect", 
                 "display_success_result": false, 
                 "redirect_url": successRedirect, 
-                "v2_redirect_mode": false, // 중요: false로 설정
+                "v2_redirect_mode": false, // ★ 중요: 부트페이 v2 리다이렉트 로직 차단
                 "popup": false,
-                "method": "GET" // ★ 핵심: 리다이렉트 시 GET 방식을 강제함 ★
+                "method": "GET" // ★ 중요: 나이스페이 측에 GET 요청 강제 (가능한 경우)
             }
         });
     }
