@@ -24,9 +24,7 @@
         <div class="space-y-6">
             <div class="bg-slate-50 p-5 rounded-2xl border border-slate-100">
                 <p class="text-[11px] font-black text-blue-500 uppercase tracking-widest mb-2">요청 내용 확인</p>
-                <div id="customerSummary" class="text-slate-700 font-bold text-sm space-y-1">
-                    데이터를 불러오는 중...
-                </div>
+                <div id="customerSummary" class="text-slate-700 font-bold text-sm space-y-1">데이터를 불러오는 중...</div>
             </div>
 
             <div id="priceSection">
@@ -40,7 +38,6 @@
                 <label class="text-xs font-black text-slate-400 mb-2 block ml-1">레슨 가능 장소 (상세)</label>
                 <input type="text" id="lessonLocation" placeholder="예: 대치동 OO연습장, 압구정역 인근 등" 
                     class="w-full p-4 bg-white border-2 border-slate-100 rounded-2xl outline-none focus:border-blue-500 transition-all font-bold text-sm">
-                <p class="text-[10px] text-red-500 mt-2 ml-1 font-bold">※ 장소 정보에 개인정보 입력 시 발송이 차단됩니다.</p>
             </div>
 
             <div>
@@ -53,11 +50,6 @@
                 class="w-full bg-blue-600 text-white font-black py-5 rounded-[1.5rem] shadow-xl shadow-blue-200 hover:bg-blue-700 active:scale-95 transition-all text-lg">
                 견적 승인 및 카톡 발송
             </button>
-            
-            <a href="https://pf.kakao.com/_kxawRn/chat" 
-               class="block w-full text-center text-slate-400 font-bold py-3 mt-4 border-2 border-slate-100 rounded-2xl text-sm">
-                스케줄 조정 및 운영진 문의하기
-            </a>
         </div>
     </div>
 
@@ -78,7 +70,6 @@
         const priceInput = document.getElementById('finalPriceInput');
         const submitBtn = document.getElementById('submitBtn');
 
-        // [UI 초기 설정]
         document.getElementById('customerSummary').innerHTML = `
             <p>👤 고객명: ${name}</p>
             <p>⛳ 종류: ${sendType}</p>
@@ -86,26 +77,14 @@
             <p>⏰ 시간: ${schedule}</p> 
         `;
 
-        // [수정된 UI 설정]
-        if (fixedPrice) {
-            // 가격이 있으면 일단 채워넣음 (테스트 시 수정 가능)
-            priceInput.value = fixedPrice.replace(/[^0-9]/g, '');
-        }
+        if (fixedPrice) priceInput.value = fixedPrice.replace(/[^0-9]/g, '');
 
         if (isOneOnOne) {
             document.getElementById('mainTitle').innerText = "1:1 레슨 수락";
-            document.getElementById('subTitle').innerText = "내용 확인 후 수락 버튼을 눌러주세요.";
-            
-            // ★ 대표님 테스트를 위해 readOnly 해제 및 수정 가능하게 변경 ★
-            priceInput.readOnly = false; 
-            priceInput.style.backgroundColor = "#ffffff"; 
-            priceInput.style.color = "#000000";
-            
             submitBtn.innerText = "1:1 레슨 수락 및 결제 요청";
-            document.getElementById('priceLabel').innerHTML = '결제 금액 <span class="text-blue-600">(1:1 정찰제 자동입력)</span>';
         }
 
-        const sendAccept = async () => {
+        async function sendAccept() {
             const price = priceInput.value;
             const location = document.getElementById('lessonLocation').value;
             const note = document.getElementById('proNote').value;
@@ -113,62 +92,86 @@
             if (!price || parseInt(price) < 100) return alert("올바른 가격을 입력해주세요!");
             if (!location) return alert("레슨 장소를 입력해주세요!");
 
-            // [보안 필터링 로직 생략 - 대표님 기존 코드 유지]
+            // [보안 필터링 복구]
+            const combinedText = (location + note).replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9]/g, "").toLowerCase();
+            const forbiddenList = [
+                // 1. 메신저 및 SNS 직접 언급
+                "카톡", "카카오", "kakaotalk", "kaka", "카코", "옵챗", "오픈챗", "오픈채팅", "openchat", "톡주세요", "톡줘", "채널", "톡디", "카톡디", "오픈프로필",
+                "인스타", "인스타그램", "insta", "instagram", "잉스타", "잉스타그램", "인스따", "디엠", "dm", "인타", "팔로우", "맞팔", "스토리",
+                "텔레그램", "telegram", "라인", "line", "밴드", "band", "틱톡", "tiktok", "페이스북", "페북", "facebook",
+
+                // 2. 연락처 유도 및 숫자 꼼수 (영일영, 공일공 등)
+                "연락처", "전화번호", "핸드폰", "휴대폰", "핸펀", "폰번", "번호", "문자", "전화", "콜미", "연락", "영일영", "공일공", "영1영", "공1공", "영일공", "공일영",
+                "공10", "영10", "0일0", "팔로우", "친추", "친구추가", "메세지", "메시지", "쪽지",
+
+                // 3. 외부 결제 및 직거래 (매출 누수 방지)
+                "직거래", "개인레슨", "외부결제", "현금결제", "계좌번호", "계좌", "송금", "입금", "이체", "토스", "카카오페이", "현금가", "할인가", "개별연락", "따로", "직접",
+
+                // 4. 포털 및 커뮤니티 (우회 채널)
+                "네이버", "블로그", "blog", "유튜브", "youtube", "유튜버", "너튜브", "카페", "cafe", "당근", "숨고", "크몽", "다음", "daum",
+
+                // 5. 교묘한 조합 방어 (꼼수 문구)
+                "문의주세", "상담주세", "연락주세", "프로필링크", "상단링크", "바이오", "주소창", "검색창에", "검색해보세", "구글", "google"
+            ];
+
+            for (let word of forbiddenList) {
+                if (combinedText.includes(word)) {
+                    return alert(`🚨 등록 불가: '${word}'와(과) 관련된 우회 문구가 감지되었습니다.\n\n레슨 확정 전 개인 연락처 공유는 서비스 이용 약관에 따라 제한됩니다.`);
+                }
+            }
+
+            // [추가 보안] 전화번호 패턴 및 과도한 숫자 나열 차단
+            const phoneRegex = /010[0-9]{7,8}/;
+            const numberCount = ((location + note).match(/\d/g) || []).length;
+            if (phoneRegex.test(combinedText) || numberCount >= 8) {
+                return alert("🚨 보안 정책상 전화번호나 과도한 숫자를 포함할 수 없습니다.");
+            }
 
             submitBtn.disabled = true;
             submitBtn.innerText = "처리 중...";
 
             const paymentUrl = `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}`;
-            const proContact = params.get('proContact') || "";
-
-            // ★ 대표님 오리지널 변수명(Key) 절대 사수 ★
+            
             const payload = {
-    action: "createRequest",
-    requestId: requestId,
-    name: name,
-    contact: contact,
-    proContact: params.get('proContact') || "", // ★ 주소창에서 프로 연락처 가져오기
-    type: sendType,
-    lessoncount: lessonCount,
-    club: params.get('club') || "",             // ★ 주소창에서 클럽 정보 가져오기
-    note: params.get('note') || "",             // ★ 주소창에서 고민 정보 가져오기
-    SCHEDULE: schedule,
-    LOCATION: location,
-    PRONOTE: note || "별도 안내 사항 없음",
-    selectedpro: selectedPro,
-    FINALPRICE: parseInt(price).toLocaleString(),
-    price: price,
-    paymentUrl: paymentUrl,
-    status: "accepted"
-};
+                action: "createRequest",
+                requestId: requestId,
+                name: name,
+                contact: contact,
+                proContact: params.get('proContact') || "",
+                type: sendType,
+                lessoncount: lessonCount,
+                club: params.get('club') || "",
+                note: params.get('note') || "",
+                SCHEDULE: schedule,
+                LOCATION: location,
+                PRONOTE: note || "별도 안내 사항 없음",
+                selectedpro: selectedPro,
+                FINALPRICE: parseInt(price).toLocaleString(),
+                price: price,
+                paymentUrl: paymentUrl,
+                status: "accepted"
+            };
 
             try {
                 // 1. 구글 시트 전송
                 await fetch("https://script.google.com/macros/s/AKfycbz1zcHFL17cJnlnoBq6BfM2E41tE-YxY4G9DqZCdYcLPyzw5veB6JVaTsZ8YNE-Ux6L/exec", {
-                    method: "POST",
-                    mode: "no-cors",
-                    body: JSON.stringify(payload)
+                    method: "POST", mode: "no-cors", body: JSON.stringify(payload)
                 });
 
-                // 2. 자피어 알림톡 분기 발송
+                // 2. 자피어 알림톡 분기 전송 (중복 코드 제거됨)
                 const webhookUrl = isOneOnOne 
-                    ? "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/" 
-                    : "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/";
+                    ? "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/" 
+                    : "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
 
-                await fetch(webhookUrl, {
-                    method: "POST",
-                    mode: "no-cors",
-                    body: JSON.stringify(payload)
-                });
+                await fetch(webhookUrl, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
 
                 alert("✅ 발송 완료!");
                 window.location.href = "https://pf.kakao.com/_kxawRn/chat"; 
-                
             } catch (err) {
                 alert("오류 발생");
                 submitBtn.disabled = false;
             }
-        };
+        }
     </script>
 </body>
 </html>
