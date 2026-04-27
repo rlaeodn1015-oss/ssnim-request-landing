@@ -168,47 +168,46 @@
 
             const sendType = isFixedPriceType ? "1:1레슨" : type;
 
-            const payload = {
+           const payload = {
+                action: "createRequest", // ★ 신규 신청임을 명시
                 requestId: requestId,
                 name: name,
-                lessonCount: lessonCount,
-                schedule: schedule,
-                selectedPro: selectedPro,
                 contact: contact,
-                lessonType: sendType, 
-                type: sendType,       
+                lessonType: sendType,
+                lessonCount: lessonCount,
+                time: schedule,
                 finalPrice: parseInt(price).toLocaleString(),
                 price: price,
-                lessonLocation: location,
-                proNote: note || "별도 안내 사항 없음",
-                paymentUrl: `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}&type=${encodeURIComponent(sendType)}`,
+                lessonPlace: location,
+                proNotice: note || "별도 안내 사항 없음",
+                selectedPro: selectedPro,
+                requiredCount: 1, // 필요 인원
                 status: "accepted"
             };
 
-            try {
-                // [수정 포인트] 동시에 쏘지 말고 하나씩 확실하게 쏩니다.
-                // 1. 첫 번째 제피어 전송 (프로용/로그용)
+           try {
+                // 1. [추가] 구글 시트로 직접 데이터 전송 (가장 중요!)
+                // ★ 이 주소는 아까 만든 '신형 엔진(GAS)' 주소여야 합니다.
+                await fetch("https://script.google.com/macros/s/AKfycbxX_pp8flCF_e3crjJyXwvw5h5HZN7mS6opIMMExvIUWl3yaj60OsXiRJaUFCggOHeZ/exec", {
+                    method: "POST",
+                    mode: "no-cors",
+                    body: JSON.stringify(payload)
+                });
+
+                // 2. 제피어 전송 (기존 유지 - 로그 및 알림톡용)
                 await fetch("https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/", { 
-                    method: "POST", 
-                    mode: "no-cors", 
-                    body: JSON.stringify(payload) 
+                    method: "POST", mode: "no-cors", body: JSON.stringify(payload) 
                 });
 
-                // 2. 두 번째 제피어 전송 (고객 알림용 - 여기가 문제였던 곳!)
                 await fetch("https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/", { 
-                    method: "POST", 
-                    mode: "no-cors", 
-                    body: JSON.stringify(payload) 
+                    method: "POST", mode: "no-cors", body: JSON.stringify(payload) 
                 });
 
-                alert(isFixedPriceType ? "✅ 수락 완료! 고객에게 결제 카톡이 전송되었습니다." : "✅ 견적 발송 완료!");
+                alert("✅ 견적 발송 및 시트 등록 완료!");
                 window.location.href = "https://pf.kakao.com/_kxawRn/chat"; 
                 
             } catch (err) {
-                console.error("발송 에러:", err);
-                alert("오류가 발생했습니다. 다시 시도해주세요.");
-                submitBtn.disabled = false;
-                submitBtn.innerText = isFixedPriceType ? "레슨 수락 및 결제 요청" : "견적 승인 및 카톡 발송";
+                // ... 에러 처리 ...
             }
         };
     </script>
