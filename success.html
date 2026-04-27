@@ -41,57 +41,48 @@
     </div>
 
     <script>
-    // 🔥 1. POST → GET 강제 변환 (페이지 로드 즉시 실행)
-    (function () {
-        if (!window.location.search.includes("requestId")) {
-            const url = new URL(window.location.href);
-            window.location.replace(url.origin + url.pathname + "?retry=1");
-        }
-    })();
-
-
-    // 🔥 2. 결제 데이터 처리 (구글시트)
+    // 🔥 1. 결제 데이터 처리 (필요시 사용, pay.html에서 처리했다면 비워둬도 됨)
     window.onload = () => {
         const params = new URLSearchParams(window.location.search);
-
         const requestId = params.get('requestId');
         const price = params.get('price');
 
-        if (!requestId) return;
-
-        fetch("https://script.google.com/macros/s/AKfycbyEehQJQKlryfjJ3PN8h46IaHCpPzbWikvlInwfmNl5CIe6CgBx1pzTaazX3fYpTmr-/exec", {
-            method: "POST",
-            mode: "no-cors",
-            body: JSON.stringify({
-                action: "updatePayment",
-                requestId: requestId,
-                paymentStatus: "결제 완료",
-                paidAmount: price
-            })
-        });
+        // 만약 pay.html에서 업데이트를 못했을 경우를 대비한 보험 로직
+        if (requestId && params.get('retry') === '1') {
+            fetch("https://script.google.com/macros/s/AKfycbyEehQJQKlryfjJ3PN8h46IaHCpPzbWikvlInwfmNl5CIe6CgBx1pzTaazX3fYpTmr-/exec", {
+                method: "POST",
+                mode: "no-cors",
+                body: JSON.stringify({
+                    action: "updatePayment",
+                    requestId: requestId,
+                    paymentStatus: "결제 완료",
+                    paidAmount: price
+                })
+            });
+        }
     };
 
-
-    // 🔥 3. 창 닫기
+    // 🔥 2. 창 닫기 (카톡 최적화)
     function closeWindow() {
         const userAgent = navigator.userAgent.toLowerCase();
 
+        // 카카오톡 인앱 브라우저 닫기 전용 코드
         if (userAgent.includes('kakao')) {
             location.href = 'kakaotalk://inappbrowser/close';
             return;
         }
 
+        // 일반 브라우저 닫기 시도
         window.open('', '_self', ''); 
         window.close();
         
+        // 안 닫힐 경우 고객센터로 리다이렉트
         setTimeout(() => {
-            if (!window.closed) {
-                location.href = "https://pf.kakao.com/_kxawRn/chat";
-            }
-        }, 500);
+            location.href = "https://pf.kakao.com/_kxawRn/chat";
+        }, 300);
     }
 
-    // 자동 닫기
+    // 5초 후 자동 닫기 실행
     setTimeout(closeWindow, 5000);
     </script>
 
