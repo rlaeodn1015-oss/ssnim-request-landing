@@ -167,6 +167,7 @@
             submitBtn.innerText = "처리 중...";
 
             const sendType = isFixedPriceType ? "1:1레슨" : type;
+            const paymentUrl = `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}`;
 
             const proContact = params.get('proContact') || "";
 
