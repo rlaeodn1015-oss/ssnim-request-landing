@@ -123,22 +123,24 @@
 
             // ★ 대표님 오리지널 변수명(Key) 절대 사수 ★
             const payload = {
-                action: "createRequest",
-                requestId: requestId,
-                name: name,
-                contact: contact,
-                proContact: proContact,
-                type: sendType,
-                lessoncount: lessonCount,
-                SCHEDULE: schedule,
-                LOCATION: location,
-                PRONOTE: note || "별도 안내 사항 없음",
-                selectedpro: selectedPro,
-                FINALPRICE: parseInt(price).toLocaleString(),
-                price: price,
-                paymentUrl: paymentUrl,
-                status: "accepted"
-            };
+    action: "createRequest",
+    requestId: requestId,
+    name: name,
+    contact: contact,
+    proContact: params.get('proContact') || "", // ★ 주소창에서 프로 연락처 가져오기
+    type: sendType,
+    lessoncount: lessonCount,
+    club: params.get('club') || "",             // ★ 주소창에서 클럽 정보 가져오기
+    note: params.get('note') || "",             // ★ 주소창에서 고민 정보 가져오기
+    SCHEDULE: schedule,
+    LOCATION: location,
+    PRONOTE: note || "별도 안내 사항 없음",
+    selectedpro: selectedPro,
+    FINALPRICE: parseInt(price).toLocaleString(),
+    price: price,
+    paymentUrl: paymentUrl,
+    status: "accepted"
+};
 
             try {
                 // 1. 구글 시트 전송
