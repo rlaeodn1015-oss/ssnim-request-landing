@@ -168,11 +168,14 @@
 
             const sendType = isFixedPriceType ? "1:1레슨" : type;
 
+            const proContact = params.get('proContact') || "";
+
            const payload = {
                 action: "createRequest", // ★ 신규 신청임을 명시
                 requestId: requestId,
                 name: name,
                 contact: contact,
+                proContact: proContact,
                 lessonType: sendType,
                 lessonCount: lessonCount,
                 time: schedule,
