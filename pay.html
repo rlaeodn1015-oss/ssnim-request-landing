@@ -131,7 +131,7 @@
         // 405 에러 방지를 위해 redirect_url을 현재 페이지의 절대 경로로 다시 잡음
         const successRedirect = window.location.origin + window.location.pathname + "?status=done&requestId=" + requestId + "&price=" + finalPayPrice;
 
-        Bootpay.requestPayment({
+       Bootpay.requestPayment({
             "application_id": "67ecd171d9af4e5c6d21736b",
             "price": finalPayPrice,
             "order_name": "스승님 골프 레슨비",
@@ -143,8 +143,9 @@
                 "open_type": "redirect", 
                 "display_success_result": false, 
                 "redirect_url": successRedirect, 
-                "v2_redirect_mode": false, // ★ 405 에러 방지의 핵심 ★
-                "popup": false
+                "v2_redirect_mode": false, // 중요: false로 설정
+                "popup": false,
+                "method": "GET" // ★ 핵심: 리다이렉트 시 GET 방식을 강제함 ★
             }
         });
     }
