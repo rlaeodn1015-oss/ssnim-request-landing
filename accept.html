@@ -63,6 +63,10 @@
         const lessonCount = params.get('lessonCount') || "1회"; 
         const schedule = params.get('schedule') || "시간 협의";
         const rawType = params.get('type') || "레슨";
+        
+        // [추가] 자피어에서 누락된 데이터들
+        const proContact = params.get('proContact') || ""; // 프로 연락처
+        const personCount = params.get('personCount') || params.get('person') || "1인";
 
         const isOneOnOne = rawType.includes('1:1');
         let sendType = isOneOnOne ? "1:1레슨" : (rawType === "레슨" ? "맞춤 레슨" : rawType);
@@ -137,7 +141,8 @@
                 requestId: requestId,
                 name: name,
                 contact: contact,
-                proContact: params.get('proContact') || "",
+                proContact: proContact, // ★ 이제 정상적으로 담깁니다
+                personCount: personCount, // ★ 자피어에 '2인'이라고 찍힐 변수
                 type: sendType,
                 lessoncount: lessonCount,
                 club: params.get('club') || "",
@@ -158,10 +163,10 @@
                     method: "POST", mode: "no-cors", body: JSON.stringify(payload)
                 });
 
-                // 2. 자피어 알림톡 분기 전송 (중복 코드 제거됨)
+                // 2. 자피어 알림톡 분기 (대표님 지시대로 경로 유지)
                 const webhookUrl = isOneOnOne 
-    ? "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/" // ★ 1:1은 기존 성공 주소 그대로!
-    : "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/"; // ★ 외부레슨만 대표님이 말한 새 주소로!
+                    ? "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/" 
+                    : "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
 
                 await fetch(webhookUrl, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
 
