@@ -172,20 +172,20 @@
             const proContact = params.get('proContact') || "";
 
            const payload = {
-                action: "createRequest", // ★ 신규 신청임을 명시
+                action: "createRequest",
                 requestId: requestId,
                 name: name,
                 contact: contact,
                 proContact: proContact,
-                lessonType: sendType,
-                lessonCount: lessonCount,
-                time: schedule,
-                finalPrice: parseInt(price).toLocaleString(),
+                type: sendType,        // ★ 변수명 유지
+                lessoncount: lessonCount, // ★ 변수명 유지
+                SCHEDULE: schedule,    // ★ 변수명 유지
+                LOCATION: location,    // ★ 변수명 유지
+                PRONOTE: note || "별도 안내 사항 없음", // ★ 변수명 유지
+                selectedpro: selectedPro, // ★ 변수명 유지
+                FINALPRICE: parseInt(price).toLocaleString(), // ★ 변수명 유지
                 price: price,
-                lessonPlace: location,
-                proNotice: note || "별도 안내 사항 없음",
-                selectedPro: selectedPro,
-                requiredCount: 1, // 필요 인원
+                paymentUrl: paymentUrl, // 자피어 버튼용으로 추가한 것
                 status: "accepted"
             };
 
