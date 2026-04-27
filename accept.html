@@ -190,30 +190,35 @@
             };
 
            try {
-                // 1. [추가] 구글 시트로 직접 데이터 전송 (가장 중요!)
-                // ★ 이 주소는 아까 만든 '신형 엔진(GAS)' 주소여야 합니다.
+                // 1. 구글 시트 전송 (공통)
                 await fetch("https://script.google.com/macros/s/AKfycbwE2OsXKztzV8j9Mt8Kh2a2R2L1CeZsIkUeVE6YeQak90GhFyF0ura_uTEKHmm6YrUz/exec", {
                     method: "POST",
                     mode: "no-cors",
                     body: JSON.stringify(payload)
                 });
 
-                // 2. 제피어 전송 (기존 유지 - 로그 및 알림톡용)
-                await fetch("https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/", { 
-                    method: "POST", mode: "no-cors", body: JSON.stringify(payload) 
-                });
-
-                await fetch("https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/", { 
-                    method: "POST", mode: "no-cors", body: JSON.stringify(payload) 
-                });
+                // 2. 자피어 알림톡 분기 발송
+                if (sendType.includes("1:1")) {
+                    // [1:1 레슨 전용] 자피어 주소
+                    await fetch("https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/", { 
+                        method: "POST", mode: "no-cors", body: JSON.stringify(payload) 
+                    });
+                    console.log("1:1 레슨 자피어 발송");
+                } else {
+                    // [맞춤레슨(외부레슨) 전용] 자피어 주소
+                    await fetch("https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/", { 
+                        method: "POST", mode: "no-cors", body: JSON.stringify(payload) 
+                    });
+                    console.log("맞춤 레슨 자피어 발송");
+                }
 
                 alert("✅ 견적 발송 및 시트 등록 완료!");
                 window.location.href = "https://pf.kakao.com/_kxawRn/chat"; 
                 
             } catch (err) {
-                // ... 에러 처리 ...
+                alert("전송 중 오류가 발생했습니다.");
+                submitBtn.disabled = false;
             }
-        };
     </script>
 </body>
 </html>
