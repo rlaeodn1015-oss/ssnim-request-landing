@@ -66,20 +66,43 @@
         if (params.get('status') === 'done') {
             document.getElementById('payment-box').innerHTML = "<div class='py-20 text-center font-bold text-blue-600'>결제 정보를 처리 중입니다...</div>";
             
+            const reqId = params.get('requestId');
+            const paidAmt = params.get('price');
+
+            // 1. 구글 시트 업데이트 데이터
             const updateData = {
                 action: "updatePayment",
-                requestId: params.get('requestId'),
+                requestId: reqId,
                 paymentStatus: "결제 완료",
-                paidAmount: params.get('price')
+                paidAmount: paidAmt
             };
-            
+
+            // 2. 외부레슨 전용 자피어 웹훅 전송 (대표님이 새로 만드신 주소)
+            const zapierUrl = "https://hooks.zapier.com/hooks/catch/27197789/uv4skbx/";
+            const zapierData = {
+                status: "paid",
+                requestId: reqId,
+                price: paidAmt,
+                name: params.get('name') || "고객",
+                personCount: params.get('personCount') || "1인"
+            };
+
+            // 구글 시트로 쏘기
             fetch("https://script.google.com/macros/s/AKfycbxa5v-rNeeAgyffBS6PlXXUm5NjM6qoXogWQp-Od7-lMVdekfELkWXIFwLfS34o-ZOa/exec", { 
-    method: "POST", 
-    mode: "no-cors", 
-    body: JSON.stringify(updateData) 
-}).finally(() => {
+                method: "POST", 
+                mode: "no-cors", 
+                body: JSON.stringify(updateData) 
+            });
+
+            // 자피어로 쏘기 (최종 알림톡 트리거)
+            fetch(zapierUrl, {
+                method: "POST",
+                mode: "no-cors",
+                body: JSON.stringify(zapierData)
+            }).finally(() => {
                 location.replace("success.html?v=" + new Date().getTime());
             });
+
             return;
         }
 
@@ -129,8 +152,11 @@
         if (finalPayPrice < 100) return alert("결제 금액이 너무 낮습니다.");
         
         // ★ [핵심] 리다이렉트 URL 뒤에 모든 데이터를 쿼리 스트링(GET)으로 미리 붙여버립니다.
-        const successRedirect = window.location.origin + window.location.pathname + 
-                                "?status=done&requestId=" + requestId + "&price=" + finalPayPrice;
+       const successRedirect = window.location.origin + window.location.pathname + 
+                        "?status=done&requestId=" + requestId + 
+                        "&price=" + finalPayPrice + 
+                        "&name=" + encodeURIComponent(name) + 
+                        "&personCount=" + encodeURIComponent(personCount + "인");
 
         Bootpay.requestPayment({
             "application_id": "67ecd171d9af4e5c6d21736b",
