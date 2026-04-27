@@ -62,13 +62,33 @@
     window.onload = () => {
         const params = new URLSearchParams(window.location.search);
 
+        // ★ [복구 완료] 결제 완료 후 시트 업데이트 로직 ★
+        if (params.get('status') === 'done') {
+            document.getElementById('payment-box').innerHTML = "<div class='py-20 text-center font-bold text-blue-600'>결제 정보를 처리 중입니다...</div>";
+            
+            const updateData = {
+                action: "updatePayment",
+                requestId: params.get('requestId'),
+                paymentStatus: "결제 완료",
+                paidAmount: params.get('price')
+            };
+            
+            fetch("https://script.google.com/macros/s/AKfycbyEehQJQKlryfjJ3PN8h46IaHCpPzbWikvlInwfmNl5CIe6CgBx1pzTaazX3fYpTmr-/exec", { 
+                method: "POST", 
+                mode: "no-cors", 
+                body: JSON.stringify(updateData) 
+            }).finally(() => {
+                location.replace("success.html?v=" + new Date().getTime());
+            });
+            return;
+        }
+
         const priceParam = params.get('price') || "0";
         rawPrice = parseInt(priceParam.replace(/[^0-9]/g, '')) || 0; 
         name = params.get('name') || "고객님";
         requestId = params.get('requestId') || "req_" + new Date().getTime();
         const lessonType = params.get('type') || "레슨";
 
-        // 1:1 판별 기강 잡기
         const isOneOnOne = lessonType.includes('1:1') || 
                            lessonType === '레슨' || 
                            lessonType === '1' || 
@@ -76,7 +96,6 @@
 
         const match = lessonType.match(/\d+/);
         personCount = (match && parseInt(match[0]) > 1) ? parseInt(match[0]) : 1;
-        
         if (isOneOnOne) personCount = 1;
 
         finalPayPrice = rawPrice;
@@ -84,14 +103,11 @@
         document.getElementById('customer-info').innerText = `${name}님, 맞춤 레슨 견적입니다.`;
         document.getElementById('display-price').innerText = rawPrice.toLocaleString() + "원";
         
-        // UI 제거 로직
         const selector = document.getElementById('split-selector');
         if (isOneOnOne || personCount <= 1) {
-            if (selector) {
-                selector.style.display = 'none';
-            }
+            if (selector) selector.style.display = 'none';
         }
-    }; // window.onload 끝
+    };
 
     function setPayMode(mode) {
         const display = document.getElementById('display-price');
@@ -112,7 +128,8 @@
     async function requestBootpay() {
         if (finalPayPrice < 100) return alert("결제 금액이 너무 낮습니다.");
         
-        const successRedirect = window.location.origin + "/success.html?requestId=" + requestId + "&price=" + finalPayPrice;
+        // 405 에러 방지를 위해 redirect_url을 현재 페이지의 절대 경로로 다시 잡음
+        const successRedirect = window.location.origin + window.location.pathname + "?status=done&requestId=" + requestId + "&price=" + finalPayPrice;
 
         Bootpay.requestPayment({
             "application_id": "67ecd171d9af4e5c6d21736b",
@@ -126,6 +143,7 @@
                 "open_type": "redirect", 
                 "display_success_result": false, 
                 "redirect_url": successRedirect, 
+                "v2_redirect_mode": false, // ★ 405 에러 방지의 핵심 ★
                 "popup": false
             }
         });
