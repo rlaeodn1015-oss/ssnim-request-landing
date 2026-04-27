@@ -73,11 +73,11 @@
                 paidAmount: params.get('price')
             };
             
-            fetch("https://script.google.com/macros/s/AKfycbyEehQJQKlryfjJ3PN8h46IaHCpPzbWikvlInwfmNl5CIe6CgBx1pzTaazX3fYpTmr-/exec", { 
-                method: "POST", 
-                mode: "no-cors", 
-                body: JSON.stringify(updateData) 
-            }).finally(() => {
+            fetch("https://script.google.com/macros/s/AKfycDXH0LHatOUlyXk93SV2TUCzl4mAK81ERhk5-tq5tLXd6x-0vGHPTHOjiFXovxXacw/exec", { 
+    method: "POST", 
+    mode: "no-cors", 
+    body: JSON.stringify(updateData) 
+}).finally(() => {
                 location.replace("success.html?v=" + new Date().getTime());
             });
             return;
