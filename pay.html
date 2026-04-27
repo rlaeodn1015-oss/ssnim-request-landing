@@ -94,7 +94,8 @@
         personCount = (match && parseInt(match[0]) > 1) ? parseInt(match[0]) : 1;
         
         // 1:1 레슨이면 인원수 강제 고정 및 UI 숨김
-        const isOneOnOne = lessonType.includes('1:1');
+        const isOneOnOne = lessonType.includes('1:1') || lessonType === '레슨' || lessonType === '';
+        
         if (isOneOnOne) personCount = 1;
 
         finalPayPrice = rawPrice;
@@ -107,7 +108,6 @@
             const selector = document.getElementById('split-selector');
             if (selector) selector.style.display = 'none';
         }
-    };
 
     function setPayMode(mode) {
         const display = document.getElementById('display-price');
