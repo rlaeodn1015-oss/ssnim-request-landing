@@ -514,51 +514,44 @@
 
         const BannerSlider = () => {
     return html`
-        <section className="mb-8 px-5 w-full overflow-hidden">
-            <div className="swiper mySwiper rounded-xl shadow-sm border border-slate-100 bg-white overflow-hidden">
+        <section className="mb-8 px-5 w-full">
+            <div className="swiper mySwiper rounded-xl shadow-sm border border-slate-100 bg-white overflow-hidden relative">
                 <div className="swiper-wrapper">
                     
-                    <div className="swiper-slide">
-                        <a 
-                            href="https://map.naver.com/p/entry/place/1755177298?placePath=%2Fhome%3Fentry%3Dplt&searchType=place&lng=127.0646611&lat=37.5011469" 
-                            target="_blank" 
-                            className="relative block w-full"
-                        >
+                    <div className="swiper-slide !h-auto">
+                        <a href="https://map.naver.com/p/entry/place/1755177298?..." target="_blank" className="relative block w-full leading-[0]">
                             <img 
                                 src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/gela.jpg" 
-                                className="w-full h-auto block object-contain" 
+                                className="w-full h-auto block" 
                                 alt="젤라필라테스" 
                             />
-                            <div className="absolute bottom-2 right-2 bg-black/40 backdrop-blur-md px-1.5 py-0.5 rounded text-[8px] text-white/90 font-bold tracking-tighter z-10">
-                                AD
-                            </div>
+                            <div className="absolute bottom-2 right-2 bg-black/40 backdrop-blur-md px-1.5 py-0.5 rounded text-[8px] text-white/90 font-bold z-10">AD</div>
                         </a>
                     </div>
 
-                    <div className="swiper-slide">
-                        <a 
-                            href="${KAKAO_CHAT_URL}" 
-                            target="_blank" 
-                            className="relative w-full aspect-[1200/280] bg-slate-900 flex flex-col items-center justify-center gap-1 group"
-                        >
-                            <div className="flex items-center gap-2">
-                                <span className="text-blue-400 font-black text-[10px] tracking-widest uppercase">Platform AD</span>
-                                <div className="h-px w-8 bg-slate-700"></div>
-                            </div>
-                            <h3 className="text-[14px] md:text-xl font-black text-white group-hover:text-blue-400 transition-colors">
+                    <div className="swiper-slide !h-auto">
+                        <a href="${KAKAO_CHAT_URL}" target="_blank" className="relative w-full aspect-[1200/280] bg-slate-900 flex flex-col items-center justify-center group">
+                            <h3 className="text-[13px] md:text-xl font-black text-white group-hover:text-blue-400 transition-colors">
                                 "스승님 배너 광고 하실 분 <span className="text-blue-400">연락주세요"</span> ⛳
                             </h3>
-                            <p className="text-[10px] text-slate-500 font-bold">골프 고관여 타겟 대상 정밀 노출</p>
-                            
-                            <div className="absolute bottom-2 right-2 bg-white/10 px-1.5 py-0.5 rounded text-[8px] text-white/50 font-bold tracking-tighter">
-                                AD
-                            </div>
+                            <div className="absolute bottom-2 right-2 bg-white/10 px-1.5 py-0.5 rounded text-[8px] text-white/50 font-bold">AD</div>
                         </a>
                     </div>
 
                 </div>
-                <div className="swiper-pagination !bottom-1 scale-75"></div>
+                
+                <div className="swiper-pagination !bottom-1 !left-auto !right-8 !w-auto"></div>
             </div>
+            
+            <style>
+                /* 박스가 이미지보다 커지는 것을 방지하는 절대 금기 사항들 */
+                .swiper { height: auto !important; }
+                .swiper-wrapper { height: auto !important; }
+                .swiper-slide { height: auto !important; }
+                /* 점(dot) 스타일: 이미지 안에서 방해 안 되게 아주 작게 */
+                .swiper-pagination-bullet { width: 3px; height: 3px; background: #fff; opacity: 0.5; }
+                .swiper-pagination-bullet-active { background: #0066FF !important; opacity: 1; }
+            </style>
         </section>
     `;
 };
