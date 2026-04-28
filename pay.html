@@ -59,52 +59,60 @@
     let requestId = "";
     let name = "";
 
-    window.onload = () => {
-        const params = new URLSearchParams(window.location.search);
+   window.onload = async () => { // ★ async 추가 (await를 쓰기 위해)
+    const params = new URLSearchParams(window.location.search);
 
-        // ★ [복구 완료] 결제 완료 후 시트 업데이트 로직 ★
-        if (params.get('status') === 'done') {
-            document.getElementById('payment-box').innerHTML = "<div class='py-20 text-center font-bold text-blue-600'>결제 정보를 처리 중입니다...</div>";
-            
-            const reqId = params.get('requestId');
-            const paidAmt = params.get('price');
+    // ★ [복구 완료] 결제 완료 후 시트 업데이트 로직 ★
+    if (params.get('status') === 'done') {
+        document.getElementById('payment-box').innerHTML = "<div class='py-20 text-center font-bold text-blue-600'>결제 정보를 처리 중입니다...</div>";
+        
+        const reqId = params.get('requestId');
+        const paidAmt = params.get('price');
 
-            // 1. 구글 시트 업데이트 데이터
-            const updateData = {
-                action: "updatePayment",
-                requestId: reqId,
-                paymentStatus: "결제 완료",
-                paidAmount: paidAmt
-            };
+        // 1. 구글 시트 업데이트 데이터
+        const updateData = {
+            action: "updatePayment",
+            requestId: reqId,
+            paymentStatus: "결제 완료",
+            paidAmount: paidAmt
+        };
 
-            // 2. 외부레슨 전용 자피어 웹훅 전송 (대표님이 새로 만드신 주소)
-            const zapierUrl = "https://hooks.zapier.com/hooks/catch/27197789/uv4skbx/";
-            const zapierData = {
-                status: "paid",
-                requestId: reqId,
-                price: paidAmt,
-                name: params.get('name') || "고객",
-                personCount: params.get('personCount') || "1인"
-            };
+        // 2. 외부레슨 전용 자피어 웹훅 데이터
+        const zapierUrl = "https://hooks.zapier.com/hooks/catch/27197789/uv4skbx/";
+        const zapierData = {
+            status: "paid",
+            requestId: reqId,
+            price: paidAmt,
+            name: params.get('name') || "고객",
+            personCount: params.get('personCount') || "1인"
+        };
 
+        // [수정된 로직] 구글 시트와 자피어에 순차적으로 확실히 전송
+        try {
             // 구글 시트로 쏘기
-            fetch("https://script.google.com/macros/s/AKfycbxa5v-rNeeAgyffBS6PlXXUm5NjM6qoXogWQp-Od7-lMVdekfELkWXIFwLfS34o-ZOa/exec", { 
+            await fetch("https://script.google.com/macros/s/AKfycbxa5v-rNeeAgyffBS6PlXXUm5NjM6qoXogWQp-Od7-lMVdekfELkWXIFwLfS34o-ZOa/exec", { 
                 method: "POST", 
                 mode: "no-cors", 
                 body: JSON.stringify(updateData) 
             });
 
-            // 자피어로 쏘기 (최종 알림톡 트리거)
-            fetch(zapierUrl, {
+            // 자피어로 쏘기 (성공할 때까지 기다림)
+            await fetch(zapierUrl, {
                 method: "POST",
                 mode: "no-cors",
                 body: JSON.stringify(zapierData)
-            }).finally(() => {
-                location.replace("success.html?v=" + new Date().getTime());
             });
 
-            return;
+            // 모든 전송이 완료된 후 성공 페이지로 이동
+            location.replace("success.html?v=" + new Date().getTime());
+        } catch (e) {
+            console.error("전송 중 오류 발생:", e);
+            // 오류가 나더라도 일단 성공 페이지로 이동시켜서 사용자 경험 유지
+            location.replace("success.html?v=" + new Date().getTime());
         }
+
+        return;
+    }
 
         const priceParam = params.get('price') || "0";
         rawPrice = parseInt(priceParam.replace(/[^0-9]/g, '')) || 0; 
