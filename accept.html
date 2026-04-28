@@ -88,13 +88,13 @@
             submitBtn.innerText = "1:1 레슨 수락 및 결제 요청";
         }
 
-        async function sendAccept() {
-            const price = priceInput.value;
-            const location = document.getElementById('lessonLocation').value;
-            const note = document.getElementById('proNote').value;
+       async function sendAccept() {
+    const price = priceInput.value;
+    const location = document.getElementById('lessonLocation').value;
+    const note = document.getElementById('proNote').value;
 
-            if (!price || parseInt(price) < 100) return alert("올바른 가격을 입력해주세요!");
-            if (!location) return alert("레슨 장소를 입력해주세요!");
+    if (!price || parseInt(price) < 100) return alert("올바른 가격을 입력해주세요!");
+    if (!location) return alert("레슨 장소를 입력해주세요!");
 
             // [보안 필터링 복구]
             const combinedText = (location + note).replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9]/g, "").toLowerCase();
@@ -137,46 +137,44 @@
             const paymentUrl = `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}`;
             
             const payload = {
-                action: "createRequest",
-                requestId: requestId,
-                name: name,
-                contact: contact,
-                proContact: proContact, // ★ 이제 정상적으로 담깁니다
-                personCount: personCount, // ★ 자피어에 '2인'이라고 찍힐 변수
-                type: sendType,
-                lessoncount: lessonCount,
-                club: params.get('club') || "",
-                note: params.get('note') || "",
-                SCHEDULE: schedule,
-                LOCATION: location,
-                PRONOTE: note || "별도 안내 사항 없음",
-                selectedpro: selectedPro,
-                FINALPRICE: parseInt(price).toLocaleString(),
-                price: price,
-                paymentUrl: paymentUrl,
-                status: "accepted"
-            };
+        action: "createRequest",
+        requestId: requestId,
+        name: name,
+        contact: contact,
+        proContact: proContact,
+        personCount: personCount,
+        lessonType: sendType,
+        lessonCount: lessonCount,
+        schedule: schedule,
+        location: location,
+        proNote: note || "별도 안내 사항 없음",
+        selectedPro: selectedPro,
+        finalPrice: parseInt(price).toLocaleString(),
+        price: price,
+        paymentUrl: paymentUrl,
+        status: "accepted"
+    };
 
             try {
-                // 1. 구글 시트 전송
-                await fetch("https://script.google.com/macros/s/AKfycbwjiwSQzcFKiJaV50fVhmMdD6QTdhAcWNPV7CKjB8jgd52UbaQezQfqaR2anSeHaeLR/exec", {
-                    method: "POST", mode: "no-cors", body: JSON.stringify(payload)
-                });
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbxC-ZoqqmEYLs2PRgEbVMn6E834ciG8g-E5i2trsB85vLroEnIwK8jeEeObX-HFsKg/exec";
 
-                // 2. 자피어 알림톡 분기 (대표님 지시대로 경로 유지)
-                const webhookUrl = isOneOnOne 
-                    ? "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/" 
-                    : "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
+        // ★ 수정: fetch 방식을 더 견고하게 변경
+        const response = await fetch(GAS_URL, {
+            method: "POST",
+            body: JSON.stringify(payload) // GAS 환경에 따라 필요한 경우 수정
+        });
 
-                await fetch(webhookUrl, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
-
-                alert("✅ 발송 완료!");
-                window.location.href = "https://pf.kakao.com/_kxawRn/chat"; 
-            } catch (err) {
-                alert("오류 발생");
-                submitBtn.disabled = false;
-            }
-        }
+        // 성공 알림 후 이동
+        alert("✅ 견적 발송 완료! 고객에게 결제 알림톡이 발송됩니다.");
+        window.location.href = "https://pf.kakao.com/_kxawRn/chat"; 
+        
+    } catch (err) {
+        console.error("전송 에러:", err);
+        alert("연결이 일시적으로 불안정합니다. 다시 시도해주세요.");
+        submitBtn.disabled = false;
+        submitBtn.innerText = "견적 승인 및 카톡 발송";
+    }
+}
     </script>
 </body>
 </html>
