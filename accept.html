@@ -96,47 +96,40 @@
     if (!price || parseInt(price) < 100) return alert("올바른 가격을 입력해주세요!");
     if (!location) return alert("레슨 장소를 입력해주세요!");
 
-            // [보안 필터링 복구]
-            const combinedText = (location + note).replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9]/g, "").toLowerCase();
-            const forbiddenList = [
-                // 1. 메신저 및 SNS 직접 언급
-                "카톡", "카카오", "kakaotalk", "kaka", "카코", "옵챗", "오픈챗", "오픈채팅", "openchat", "톡주세요", "톡줘", "채널", "톡디", "카톡디", "오픈프로필",
-                "인스타", "인스타그램", "insta", "instagram", "잉스타", "잉스타그램", "인스따", "디엠", "dm", "인타", "팔로우", "맞팔", "스토리",
-                "텔레그램", "telegram", "라인", "line", "밴드", "band", "틱톡", "tiktok", "페이스북", "페북", "facebook",
+    // [중요] 공백을 포함한 모든 특수문자 제거 후 검사 (꼼수 방지)
+    const cleanText = (location + note).replace(/\s/g, "").replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9]/g, "").toLowerCase();
+    
+    const forbiddenList = [
+        "카톡", "카카오", "kakaotalk", "kaka", "카코", "옵챗", "오픈챗", "오픈채팅", "openchat", "톡주세요", "톡줘", "채널", "톡디", "카톡디", "오픈프로필",
+        "인스타", "인스타그램", "insta", "instagram", "잉스타", "잉스타그램", "인스따", "디엠", "dm", "인타", "팔로우", "맞팔", "스토리",
+        "텔레그램", "telegram", "라인", "line", "밴드", "band", "틱톡", "tiktok", "페이스북", "페북", "facebook",
+        "연락처", "전화번호", "핸드폰", "휴대폰", "핸펀", "폰번", "번호", "문자", "전화", "콜미", "연락", "영일영", "공일공", "영1영", "공1공", "영일공", "공일영",
+        "공10", "영10", "0일0", "친추", "친구추가", "메세지", "메시지", "쪽지",
+        "직거래", "개인레슨", "외부결제", "현금결제", "계좌번호", "계좌", "송금", "입금", "이체", "토스", "카카오페이", "현금가", "할인가", "개별연락", "따로", "직접",
+        "네이버", "블로그", "blog", "유튜브", "youtube", "유튜버", "너튜브", "카페", "cafe", "당근", "숨고", "크몽", "다음", "daum",
+        "문의주세", "상담주세", "연락주세", "프로필링크", "상단링크", "바이오", "주소창", "검색창에", "검색해보세", "구글", "google"
+    ];
 
-                // 2. 연락처 유도 및 숫자 꼼수 (영일영, 공일공 등)
-                "연락처", "전화번호", "핸드폰", "휴대폰", "핸펀", "폰번", "번호", "문자", "전화", "콜미", "연락", "영일영", "공일공", "영1영", "공1공", "영일공", "공일영",
-                "공10", "영10", "0일0", "팔로우", "친추", "친구추가", "메세지", "메시지", "쪽지",
+    for (let word of forbiddenList) {
+        if (cleanText.includes(word)) {
+            return alert(`🚨 등록 불가: '${word}'와(과) 관련된 문구가 감지되었습니다.\n\n레슨 확정 전 개인 연락처 공유는 제한됩니다.`);
+        }
+    }
 
-                // 3. 외부 결제 및 직거래 (매출 누수 방지)
-                "직거래", "개인레슨", "외부결제", "현금결제", "계좌번호", "계좌", "송금", "입금", "이체", "토스", "카카오페이", "현금가", "할인가", "개별연락", "따로", "직접",
+    // 전화번호 패턴 및 과도한 숫자(계좌번호 등) 차단
+    const numberCount = (cleanText.match(/\d/g) || []).length;
+    if (/010[0-9]{7,8}/.test(cleanText) || numberCount >= 8) {
+        return alert("🚨 보안 정책상 전화번호나 계좌번호 등 과도한 숫자를 포함할 수 없습니다.");
+    }
 
-                // 4. 포털 및 커뮤니티 (우회 채널)
-                "네이버", "블로그", "blog", "유튜브", "youtube", "유튜버", "너튜브", "카페", "cafe", "당근", "숨고", "크몽", "다음", "daum",
+    if (!confirm("입력하신 내용으로 견적을 발송할까요?")) return;
 
-                // 5. 교묘한 조합 방어 (꼼수 문구)
-                "문의주세", "상담주세", "연락주세", "프로필링크", "상단링크", "바이오", "주소창", "검색창에", "검색해보세", "구글", "google"
-            ];
+    submitBtn.disabled = true;
+    submitBtn.innerText = "전송 중...";
 
-            for (let word of forbiddenList) {
-                if (combinedText.includes(word)) {
-                    return alert(`🚨 등록 불가: '${word}'와(과) 관련된 우회 문구가 감지되었습니다.\n\n레슨 확정 전 개인 연락처 공유는 서비스 이용 약관에 따라 제한됩니다.`);
-                }
-            }
-
-            // [추가 보안] 전화번호 패턴 및 과도한 숫자 나열 차단
-            const phoneRegex = /010[0-9]{7,8}/;
-            const numberCount = ((location + note).match(/\d/g) || []).length;
-            if (phoneRegex.test(combinedText) || numberCount >= 8) {
-                return alert("🚨 보안 정책상 전화번호나 과도한 숫자를 포함할 수 없습니다.");
-            }
-
-            submitBtn.disabled = true;
-            submitBtn.innerText = "처리 중...";
-
-            const paymentUrl = `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}`;
-            
-            const payload = {
+    const paymentUrl = `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}`;
+    
+    const payload = {
         action: "createRequest",
         requestId: requestId,
         name: name,
@@ -155,18 +148,21 @@
         status: "accepted"
     };
 
-            try {
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbxC-ZoqqmEYLs2PRgEbVMn6E834ciG8g-E5i2trsB85vLroEnIwK8jeEeObX-HFsKg/exec";
+    try {
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbwjiwSQzcFKiJaV50fVhmMdD6QTdhAcWNPV7CKjB8jgd52UbaQezQfqaR2anSeHaeLR/exec";
 
-        // ★ 수정: fetch 방식을 더 견고하게 변경
-        const response = await fetch(GAS_URL, {
+        // GAS는 POST 시 데이터가 꼬일 수 있어 아래 방식이 가장 안전합니다.
+        await fetch(GAS_URL, {
             method: "POST",
-            body: JSON.stringify(payload) // GAS 환경에 따라 필요한 경우 수정
+            mode: "no-cors", 
+            body: JSON.stringify(payload)
         });
 
-        // 성공 알림 후 이동
-        alert("✅ 견적 발송 완료! 고객에게 결제 알림톡이 발송됩니다.");
-        window.location.href = "https://pf.kakao.com/_kxawRn/chat"; 
+        // no-cors는 응답을 기다릴 수 없으므로 전송 직후 약간의 지연(0.5초) 후 이동시키는 것이 유실 방지에 안전합니다.
+        setTimeout(() => {
+            alert("✅ 견적 발송 완료! 고객에게 결제 알림톡이 발송됩니다.");
+            window.location.href = "https://pf.kakao.com/_kxawRn/chat"; 
+        }, 500);
         
     } catch (err) {
         console.error("전송 에러:", err);
