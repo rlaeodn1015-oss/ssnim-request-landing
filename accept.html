@@ -127,36 +127,34 @@
     submitBtn.disabled = true;
     submitBtn.innerText = "전송 중...";
 
-    const paymentUrl = `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}`;
-    
-    const payload = {
-        action: "createRequest",
-        requestId: requestId,
-        name: name,
-        contact: contact,
-        proContact: proContact,
-        personCount: personCount,
-        lessonType: sendType,
-        lessonCount: lessonCount,
-        schedule: schedule,
-        location: location,
-        proNote: note || "별도 안내 사항 없음",
-        selectedPro: selectedPro,
-        finalPrice: parseInt(price).toLocaleString(),
-        price: price,
-        paymentUrl: paymentUrl,
-        status: "accepted"
-    };
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbwISNH3cxd1RaT53qQsJDyneQ40UIE5jLdaUNiiN-muIvRe343N8VXno7FHzkJWC31l/exec";
 
-    try {
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbwjiwSQzcFKiJaV50fVhmMdD6QTdhAcWNPV7CKjB8jgd52UbaQezQfqaR2anSeHaeLR/exec";
+const payload = {
+    action: "createRequest",
+    requestId: requestId,
+    name: name,
+    contact: contact,
+    proContact: proContact, // 이게 있어야 프로에게 카톡이 갑니다
+    lessonType: sendType,
+    lessonCount: lessonCount,
+    club: params.get('club') || "", // 숏게임 등 데이터 밀림 방지용
+    concern: params.get('concern') || params.get('note') || "", // 고민 내용 매칭
+    schedule: schedule,
+    location: location,
+    proNote: note || "별도 안내 사항 없음",
+    selectedPro: selectedPro,
+    finalPrice: parseInt(price).toLocaleString(),
+    price: price,
+    paymentUrl: paymentUrl,
+    status: "accepted"
+};
 
-        // GAS는 POST 시 데이터가 꼬일 수 있어 아래 방식이 가장 안전합니다.
-        await fetch(GAS_URL, {
-            method: "POST",
-            mode: "no-cors", 
-            body: JSON.stringify(payload)
-        });
+// fetch 호출 (await 사용 권장)
+await fetch(GAS_URL, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify(payload)
+});
 
         // no-cors는 응답을 기다릴 수 없으므로 전송 직후 약간의 지연(0.5초) 후 이동시키는 것이 유실 방지에 안전합니다.
         setTimeout(() => {
