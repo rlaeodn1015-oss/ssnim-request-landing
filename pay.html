@@ -60,45 +60,54 @@
     let name = "";
 
     window.onload = () => {
-    const params = new URLSearchParams(window.location.search);
+        const params = new URLSearchParams(window.location.search);
 
-    // ★ [통합 완료] 결제 완료 후 GAS 호출 로직 ★
-    if (params.get('status') === 'done') {
-        document.getElementById('payment-box').innerHTML = "<div class='py-20 text-center font-bold text-blue-600'>결제 정보를 처리 중입니다...</div>";
-        
-        const reqId = params.get('requestId');
-        const paidAmt = params.get('price');
-        const customerName = params.get('name') || "고객";
-        const pCount = params.get('personCount') || "1인";
+        // ★ [복구 완료] 결제 완료 후 시트 업데이트 로직 ★
+        if (params.get('status') === 'done') {
+            document.getElementById('payment-box').innerHTML = "<div class='py-20 text-center font-bold text-blue-600'>결제 정보를 처리 중입니다...</div>";
+            
+            const reqId = params.get('requestId');
+            const paidAmt = params.get('price');
 
-        // 통합 페이로드: 시트 업데이트 + 알림톡 발송용
-        const payload = {
-            action: "paymentComplete", // 결제 완료 액션
-            status: "paid",            // ★ 이 값을 보고 GAS가 최종 확정 알림톡을 쏩니다
-            requestId: reqId,
-            price: paidAmt,
-            FINALPRICE: parseInt(paidAmt).toLocaleString(),
-            name: customerName,
-            personCount: pCount
-        };
+            // 1. 구글 시트 업데이트 데이터
+            const updateData = {
+                action: "updatePayment",
+                requestId: reqId,
+                paymentStatus: "결제 완료",
+                paidAmount: paidAmt
+            };
 
-        const gasUrl = "https://script.google.com/macros/s/AKfycbyswqOD7kNbEPha5sVP-k8uiBQATnbCJmXyRZxERTMX6OaECFKVKJNSr7vE99PUnPai/exec";
+            // 2. 외부레슨 전용 자피어 웹훅 전송 (대표님이 새로 만드신 주소)
+            const zapierUrl = "https://hooks.zapier.com/hooks/catch/27197789/uv4skbx/";
+            const zapierData = {
+                status: "paid",
+                requestId: reqId,
+                price: paidAmt,
+                name: params.get('name') || "고객",
+                personCount: params.get('personCount') || "1인"
+            };
 
-        // [통합] GAS로 단 한 번만 전송
-        fetch(gasUrl, { 
-            method: "POST", 
-            mode: "no-cors", 
-            body: JSON.stringify(payload) 
-        }).finally(() => {
-            // 처리가 끝나면 성공 페이지로 이동
-            location.replace("success.html?v=" + new Date().getTime());
-        });
+            // 구글 시트로 쏘기
+            fetch("https://script.google.com/macros/s/AKfycbxa5v-rNeeAgyffBS6PlXXUm5NjM6qoXogWQp-Od7-lMVdekfELkWXIFwLfS34o-ZOa/exec", { 
+                method: "POST", 
+                mode: "no-cors", 
+                body: JSON.stringify(updateData) 
+            });
 
-        return;
-    }
+            // 자피어로 쏘기 (최종 알림톡 트리거)
+            fetch(zapierUrl, {
+                method: "POST",
+                mode: "no-cors",
+                body: JSON.stringify(zapierData)
+            }).finally(() => {
+                location.replace("success.html?v=" + new Date().getTime());
+            });
+
+            return;
+        }
 
         const priceParam = params.get('price') || "0";
-    rawPrice = parseInt(priceParam.replace(/[^0-9]/g, '')) || 0; 
+        rawPrice = parseInt(priceParam.replace(/[^0-9]/g, '')) || 0; 
         name = params.get('name') || "고객님";
         requestId = params.get('requestId') || "req_" + new Date().getTime();
         const lessonType = params.get('type') || "레슨";
