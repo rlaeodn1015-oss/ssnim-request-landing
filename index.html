@@ -514,35 +514,47 @@
 
         const BannerSlider = () => {
     return html`
-        <section className="mb-10 w-full overflow-hidden">
-            <div className="swiper mySwiper rounded-2xl shadow-sm border border-slate-100">
+        <section className="mb-10 px-1 w-full overflow-hidden">
+            <div className="swiper mySwiper rounded-[1.2rem] shadow-sm border border-slate-100 bg-white overflow-hidden">
                 <div className="swiper-wrapper">
                     
                     <div className="swiper-slide">
                         <a 
                             href="https://map.naver.com/p/entry/place/1755177298?placePath=%2Fhome%3Fentry%3Dplt&searchType=place&lng=127.0646611&lat=37.5011469" 
                             target="_blank" 
-                            className="relative block w-full h-[120px] md:h-[180px]"
+                            className="relative block w-full h-[75px] md:h-[140px]"
                         >
                             <img 
                                 src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/gela.jpg" 
                                 className="w-full h-full object-cover" 
                                 alt="젤라필라테스" 
                             />
+                            <div className="absolute top-2 right-3 bg-black/30 backdrop-blur-sm px-1.5 py-0.5 rounded text-[8px] text-white/90 font-bold tracking-tighter">
+                                AD
+                            </div>
                         </a>
                     </div>
 
                     <div className="swiper-slide">
-                        <div className="relative block w-full h-[120px] md:h-[180px] bg-gradient-to-r from-blue-600 to-indigo-700 flex items-center justify-center text-white">
-                            <h3 className="text-lg md:text-2xl font-black">
-                                리뷰 쓰면 <span className="text-yellow-300">100% 5000원 쿠폰 증정</span> 🎁
+                        <div className="relative block w-full h-[75px] md:h-[140px] bg-slate-900 flex items-center justify-center">
+                            <h3 className="text-sm md:text-xl font-bold text-white">
+                                리뷰 작성 시 <span className="text-blue-400">100% 레슨권</span> 증정 🎁
                             </h3>
+                            <div className="absolute top-2 right-3 bg-white/20 px-1.5 py-0.5 rounded text-[8px] text-white/70 font-bold tracking-tighter">
+                                AD
+                            </div>
                         </div>
                     </div>
 
                 </div>
-                <div className="swiper-pagination"></div>
+                <div className="swiper-pagination !bottom-1"></div>
             </div>
+            
+            <style>
+                /* 페이지네이션 점 크기 및 색상 커스텀 */
+                .swiper-pagination-bullet { width: 4px; height: 4px; background: #cbd5e1; opacity: 1; }
+                .swiper-pagination-bullet-active { width: 12px; border-radius: 4px; background: #0066FF !important; transition: all 0.3s; }
+            </style>
         </section>
     `;
 };
