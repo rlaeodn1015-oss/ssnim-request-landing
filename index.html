@@ -1015,9 +1015,27 @@ const submitRequest = async () => {
     const acceptRequest = async () => {
         const ZAPIER_ACCEPT_URL = "https://hooks.zapier.com/hooks/catch/27197789/uj4iu7w/";
         const payload = {
-            name: userInfo.name, contact: userInfo.contact, selectedPro: selectedPro.name,
-            finalPrice: formData.price.toLocaleString(), club: formData.club, lessonCount: formData.lessonCount
-        };
+    // 1. 고객 및 프로 기본 정보
+    name: userInfo.name,
+    contact: userInfo.contact,
+    selectedPro: selectedPro.name, // H열
+    proContact: selectedPro.phone, // I열 (추가 필요)
+
+    // 2. 레슨 상세 정보 (밀림 방지 핵심)
+    location: formData.location,   // C열 (추가 필요)
+    type: formData.lessonType,     // D열 (추가 필요)
+    lessonCount: formData.lessonCount, // E열
+    club: formData.club,           // F열
+    concern: (formData.concern || []).join(', '), // G열 (추가 필요)
+    schedule: `${formData.lessonDate} / ${formData.schedule}`, // K열 (추가 필요)
+
+    // 3. 가격 및 상태 정보
+    finalPrice: formData.price,    // L열 (숫자로 보내는 게 좋습니다)
+    personCount: formData.lessonCount || "1인", // R열 (1/N 계산용)
+
+    // 4. ★가장 중요★ 업데이트 키
+    requestId: requestId           // U열 (이게 없으면 결제 완료 업데이트 불가!)
+};
         try {
             await fetch(ZAPIER_ACCEPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
             alert("수락 완료! 고객에게 결제 카톡이 발송되었습니다.");
