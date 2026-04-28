@@ -536,14 +536,24 @@
                     </div>
 
                     <div className="swiper-slide">
-                        <div className="relative w-full aspect-[1200/280] bg-slate-900 flex items-center justify-center">
-                            <h3 className="text-[13px] md:text-xl font-bold text-white">
-                                리뷰 작성 시 <span className="text-blue-400">100% 레슨권</span> 증정 🎁
+                        <a 
+                            href="${KAKAO_CHAT_URL}" 
+                            target="_blank" 
+                            className="relative w-full aspect-[1200/280] bg-slate-900 flex flex-col items-center justify-center gap-1 group"
+                        >
+                            <div className="flex items-center gap-2">
+                                <span className="text-blue-400 font-black text-[10px] tracking-widest uppercase">Platform AD</span>
+                                <div className="h-px w-8 bg-slate-700"></div>
+                            </div>
+                            <h3 className="text-[14px] md:text-xl font-black text-white group-hover:text-blue-400 transition-colors">
+                                "스승님 배너 광고 하실 분 <span className="text-blue-400">연락주세요"</span> ⛳
                             </h3>
-                            <div className="absolute bottom-2 right-2 bg-white/20 px-1.5 py-0.5 rounded text-[8px] text-white/70 font-bold tracking-tighter">
+                            <p className="text-[10px] text-slate-500 font-bold">골프 고관여 타겟 대상 정밀 노출</p>
+                            
+                            <div className="absolute bottom-2 right-2 bg-white/10 px-1.5 py-0.5 rounded text-[8px] text-white/50 font-bold tracking-tighter">
                                 AD
                             </div>
-                        </div>
+                        </a>
                     </div>
 
                 </div>
