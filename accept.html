@@ -137,25 +137,32 @@
             const paymentUrl = `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}`;
             
             const payload = {
-                action: "createRequest",
-                requestId: requestId,
-                name: name,
-                contact: contact,
-                proContact: proContact, // ★ 이제 정상적으로 담깁니다
-                personCount: personCount, // ★ 자피어에 '2인'이라고 찍힐 변수
-                type: sendType,
-                lessoncount: lessonCount,
-                club: params.get('club') || "",
-                note: params.get('note') || "",
-                SCHEDULE: schedule,
-                LOCATION: location,
-                PRONOTE: note || "별도 안내 사항 없음",
-                selectedpro: selectedPro,
-                FINALPRICE: parseInt(price).toLocaleString(),
-                price: price,
-                paymentUrl: paymentUrl,
-                status: "accepted"
-            };
+    action: "createRequest",
+    requestId: requestId,
+    name: name,
+    contact: contact,
+    proContact: proContact,
+    personCount: personCount, 
+    type: sendType,
+
+    // 1. [수정] '회' 글자가 포함되어 있다면 강제로 삭제
+    lessoncount: String(lessonCount).replace("회", "").trim(), 
+
+    club: params.get('club') || "",
+    note: params.get('note') || "",
+    SCHEDULE: schedule,
+    LOCATION: location,
+    PRONOTE: note || "별도 안내 사항 없음",
+    selectedpro: selectedPro,
+
+    // 2. [수정] '원' 없이 숫자와 콤마만 남기기
+    // .toLocaleString()은 "350,000" 처럼 콤마만 찍어줍니다. (뒤에 +"원"이 없어야 함)
+    FINALPRICE: parseInt(price).toLocaleString(), 
+
+    price: price,
+    paymentUrl: paymentUrl,
+    status: "accepted"
+};
 
             try {
                 // 1. 구글 시트 전송
