@@ -133,17 +133,17 @@ const payload = {
     action: "createRequest",
     requestId: requestId,
     name: name,
-    contact: contact,
-    proContact: proContact, // 이게 있어야 프로에게 카톡이 갑니다
+    contact: String(contact || "").replace(/[^0-9]/g, ""), 
+    proContact: String(proContact || "").replace(/[^0-9]/g, ""), 
     lessonType: sendType,
     lessonCount: lessonCount,
-    club: params.get('club') || "", // 숏게임 등 데이터 밀림 방지용
-    concern: params.get('concern') || params.get('note') || "", // 고민 내용 매칭
+    club: params.get('club') || "",
+    concern: params.get('concern') || params.get('note') || "",
     schedule: schedule,
     location: location,
     proNote: note || "별도 안내 사항 없음",
     selectedPro: selectedPro,
-    finalPrice: parseInt(price).toLocaleString(),
+    finalPrice: price,  //
     price: price,
     paymentUrl: paymentUrl,
     status: "accepted"
