@@ -1552,23 +1552,25 @@ const submitRequest = async () => {
             }, [formOpen]);
 
             return html`
-        <div className="min-h-screen">
-            <${Header} />
-            <main>
-                <${HeroSection} setFormOpen=${setFormOpen} />
+    <div className="min-h-screen">
+        <${Header} />
+        <main>
+            <${HeroSection} setFormOpen=${setFormOpen} />
+            
+            <section className="px-5 -mt-12 md:-mt-20 mb-8 relative z-20 max-w-screen-xl mx-auto">
+                <${RealTimeStatus} />
                 
-                <section className="px-5 -mt-12 md:-mt-20 mb-16 relative z-20 max-w-screen-xl mx-auto">
-                    <${RealTimeStatus} />
-                </section>
+                <div className="mt-8">
+                    <${BannerSlider} />
+                </div>
+            </section>
 
-                <${UnlimitedBenefit} />
-                
-                <${TicketBanner} />
-                
-                <${ProblemSection} />
-                <${EventSection} />
-                <${SystemSection} />
-                <${TrustSection} />
+            <${UnlimitedBenefit} />
+            <${TicketBanner} />
+            <${ProblemSection} />
+            <${EventSection} />
+            <${SystemSection} />
+            <${TrustSection} />
                
                         <section id="cases" className="px-5 py-32 bg-slate-50">
                             <div className="max-w-screen-xl mx-auto text-center">
