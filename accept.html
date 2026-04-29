@@ -146,27 +146,24 @@
                 status: "accepted"
             };
 
-            try {
-                // 구글 시트 전송
-               await fetch("https://script.google.com/macros/s/AKfycbx_AR32Gua-3XTlkfKXK9S4B3N5gcZWHH8_9dmzBaCv5N9YPEc_2tKyY18PIS7dvtro/exec", {
+           try {
+                // 1. [데이터 기록] 구글 시트로 프로가 작성한 견적 데이터를 보냅니다. (시트에 딱딱 쌓임)
+                await fetch("https://script.google.com/macros/s/AKfycbx_AR32Gua-3XTlkfKXK9S4B3N5gcZWHH8_9dmzBaCv5N9YPEc_2tKyY18PIS7dvtro/exec", {
                     method: "POST", mode: "no-cors", body: JSON.stringify(payload)
                 });
-                // 자피어 분기 처리
-                let webhookUrl;
-                if (isOneOnOne) {
-                    // 1:1 레슨 견적서 발송 (소비자에게 가는 주소)
-                    webhookUrl = "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
-                } else if (rawType.includes("18홀") || rawType.includes("9홀") || rawType.includes("숏게임") || rawType.includes("파3") || rawType.includes("캠프")) {
-                    // 외부 레슨 필터링 알림 (대표님 전달 주소)
-                    webhookUrl = "https://hooks.zapier.com/hooks/catch/27197789/uj4d9ko/";
-                } else {
-                    // 일반 맞춤 레슨 견적서 발송 (소비자에게 가는 주소)
-                    webhookUrl = "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
-                }
 
-                await fetch(webhookUrl, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
+                // 2. [알림 수정] 견적서 발송은 무조건 'ujl6khu' 한 곳으로만 쏩니다.
+                // 대표님이 말씀하신 : 외부레슨 견적서 전달 (공급자가 > 소비자에게 전달하는용) 주소입니다.
+                // 여기로 쏴야 소비자한테만 견적 알림이 가고, 공급자(프로) 본인한테는 알림이 안 옵니다.
+                const webhookUrl = "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
 
-                alert("✅ 발송 완료!");
+                await fetch(webhookUrl, { 
+                    method: "POST", 
+                    mode: "no-cors", 
+                    body: JSON.stringify(payload) 
+                });
+
+                alert("✅ 시트 기록 및 소비자에게 견적서 발송 완료!");
                 window.location.href = "https://pf.kakao.com/_kxawRn/chat"; 
             } catch (err) {
                 alert("오류 발생");
