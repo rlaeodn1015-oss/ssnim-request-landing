@@ -68,29 +68,30 @@
         
         const reqId = params.get('requestId');
         const paidAmt = params.get('price');
+        const userName = params.get('name') || "고객";
 
-        // 1. 구글 시트 업데이트 데이터
+        // 1. 구글 시트 업데이트 데이터 (시트 규격에 맞춰 키값 수정)
         const updateData = {
             action: "updatePayment",
-            status: "paid",
-            requestId: reqId,
-            paymentStatus: "결제 완료",
-            paidAmount: paidAmt
+            status: "paid",           // O열을 'paid'로 변경
+            requestId: reqId,         // 찾을 기준값
+            price: paidAmt,           // 결제 금액
+            name: userName
         };
 
-        // 2. 외부레슨 전용 자피어 웹훅 데이터
-        const zapierUrl = "https://hooks.zapier.com/hooks/catch/27197789/uv4skbx/";
+        // 2. 최종 결제 완료 전용 자피어 웹훅 (아까 정리한 주소로 교체)
+        const zapierUrl = "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/";
+        
         const zapierData = {
             status: "paid",
             requestId: reqId,
             price: paidAmt,
-            name: params.get('name') || "고객",
+            name: userName,
             personCount: params.get('personCount') || "1인"
         };
 
-        // [수정된 로직] 구글 시트와 자피어에 순차적으로 확실히 전송
         try {
-            // 구글 시트로 쏘기
+            // 구글 시트로 전송
             await fetch("https://script.google.com/macros/s/AKfycbx_AR32Gua-3XTlkfKXK9S4B3N5gcZWHH8_9dmzBaCv5N9YPEc_2tKyY18PIS7dvtro/exec", { 
                 method: "POST", 
                 mode: "no-cors", 
@@ -98,21 +99,19 @@
                 body: JSON.stringify(updateData) 
             });
 
-            // 자피어로 쏘기 (성공할 때까지 기다림)
+            // 자피어로 전송 (매칭 완료 메시지 발송용)
             await fetch(zapierUrl, {
                 method: "POST",
                 mode: "no-cors",
                 body: JSON.stringify(zapierData)
             });
 
-            // 모든 전송이 완료된 후 성공 페이지로 이동
+            // 완료 후 성공 페이지 이동
             location.replace("success.html?v=" + new Date().getTime());
         } catch (e) {
-            console.error("전송 중 오류 발생:", e);
-            // 오류가 나더라도 일단 성공 페이지로 이동시켜서 사용자 경험 유지
-            location.replace("success.html?v=" + new Date().getTime());
+            console.error("전송 오류:", e);
+            location.replace("success.html");
         }
-
         return;
     }
 
