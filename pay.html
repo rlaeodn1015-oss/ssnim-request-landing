@@ -72,6 +72,7 @@
         // 1. 구글 시트 업데이트 데이터
         const updateData = {
             action: "updatePayment",
+            status: "paid",
             requestId: reqId,
             paymentStatus: "결제 완료",
             paidAmount: paidAmt
@@ -93,6 +94,7 @@
             await fetch("https://script.google.com/macros/s/AKfycbx_AR32Gua-3XTlkfKXK9S4B3N5gcZWHH8_9dmzBaCv5N9YPEc_2tKyY18PIS7dvtro/exec", { 
                 method: "POST", 
                 mode: "no-cors", 
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(updateData) 
             });
 
