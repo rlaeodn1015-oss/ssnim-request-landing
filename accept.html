@@ -59,7 +59,7 @@
         const lessonCount = params.get('lessonCount') || "1회"; 
         const schedule = params.get('schedule') || "시간 협의";
         const rawType = params.get('type') || "레슨";
-        const proContact = params.get('proContact') || "";
+        const proContact = params.get('proContact') || params.get('procontact') || params.get('proPhone') || "";
         const personCount = params.get('personCount') || params.get('person') || "1인";
 
         const isOneOnOne = rawType.includes('1:1');
