@@ -55,11 +55,11 @@
 
     <script>
         const params = new URLSearchParams(window.location.search);
-        const name = params.get('name') || "요청 고객";
-        const contact = params.get('contact') || params.get('phone') || "";
+        const name = params.get('name') || params.get('userName') || "요청 고객";
+        const contact = params.get('contact') || params.get('phone') || params.get('userPhone') || "";
         const requestId = params.get('requestId') || "";
         const fixedPrice = params.get('price') || "";
-        const selectedPro = params.get('selectedPro') || "스승님";
+        const selectedPro = params.get('selectedPro') || params.get('proName') || "스승님";
         const lessonCount = params.get('lessonCount') || "1회"; 
         const schedule = params.get('schedule') || "시간 협의";
         const rawType = params.get('type') || "레슨";
