@@ -1031,8 +1031,8 @@ const submitRequest = async () => {
     const telegramMessage = `🔥 [${isFixedPrice ? '패키지' : '견적요청'}] 매칭 발생\n\n👤 이름: ${payload.name}\n📞 연락처: ${payload.contact}\n📍 지역: ${payload.location}\n⛳ 레슨: ${payload.lessonType}\n🏌️ 클럽: ${payload.club}\n💥 문제: ${payload.concern}\n⏰ 시간: ${payload.schedule}\n🏆 선택 프로: ${payload.selectedPro}\n💰 가격: ${payload.finalPrice}`;
 
     try {
-        // 1. 구글 시트 (결과를 기다리지 않음)
-        fetch(GOOGLE_SHEET_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
+        // 1. 구글 시트 (결과를 기다리지 않음) - 중복 방지를 위해 소비자 신청 시에는 기록하지 않음
+// fetch(GOOGLE_SHEET_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
 
         // 2. 자피어 (자피어가 죽어있어도 무시하고 진행)
         fetch(ZAPIER_WEBHOOK_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
