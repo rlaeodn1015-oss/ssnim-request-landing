@@ -54,7 +54,10 @@
     </div>
 
     <script>
+        // 1. [순서 변경] 얘를 무조건 맨 위로 올려야 합니다!
         const params = new URLSearchParams(window.location.search);
+
+        // 2. 그 다음에 데이터를 가져와야 합니다.
         const name = params.get('name') || params.get('userName') || "요청 고객";
         const contact = params.get('contact') || params.get('phone') || params.get('userPhone') || "";
         const requestId = params.get('requestId') || "";
