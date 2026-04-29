@@ -170,20 +170,40 @@
                     method: "POST", mode: "no-cors", body: JSON.stringify(payload)
                 });
 
-                // 2. 자피어 알림톡 분기 (대표님 지시대로 경로 유지)
-                const webhookUrl = isOneOnOne 
-                    ? "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/" 
-                    : "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
+                // 2. 자피어 알림톡 분기 (수정 완료)
+                let webhookUrl;
 
-                await fetch(webhookUrl, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
+            // 1:1 레슨인지 확인
+            if (isOneOnOne) {
+                // 1:1 레슨일 때 (일반 견적서 전달)
+                webhookUrl = "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
+            } 
+            // 외부레슨 키워드 체크: 18홀, 9홀, 숏게임, 파3, 캠프 중 하나라도 포함되면
+            else if (
+                rawType.includes("18홀") || 
+                rawType.includes("9홀") || 
+                rawType.includes("숏게임") || 
+                rawType.includes("파3") || 
+                rawType.includes("캠프")
+            ) {
+                // 대표님이 지정하신 외부레슨 전용 주소
+                webhookUrl = "https://hooks.zapier.com/hooks/catch/27197789/uj4d9ko/";
+            } 
+            else {
+                // 그 외 기타 맞춤 레슨 (기본 견적서 주소)
+                webhookUrl = "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
+            }
+
+            // 3. 자피어로 데이터 전송
+            await fetch(webhookUrl, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
 
                 alert("✅ 발송 완료!");
                 window.location.href = "https://pf.kakao.com/_kxawRn/chat"; 
             } catch (err) {
                 alert("오류 발생");
                 submitBtn.disabled = false;
+                submitBtn.innerText = "견적 승인 및 카톡 발송"; // 버튼 텍스트 복구
             }
-        }
     </script>
 </body>
 </html>
