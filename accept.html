@@ -148,17 +148,19 @@
 
             try {
                 // 구글 시트 전송
-                await fetch("https://script.google.com/macros/s/AKfycbx_AR32Gua-3XTlkfKXK9S4B3N5gcZWHH8_9dmzBaCv5N9YPEc_2tKyY18PIS7dvtro/exec", {
+               await fetch("https://script.google.com/macros/s/AKfycbx_AR32Gua-3XTlkfKXK9S4B3N5gcZWHH8_9dmzBaCv5N9YPEc_2tKyY18PIS7dvtro/exec", {
                     method: "POST", mode: "no-cors", body: JSON.stringify(payload)
                 });
-
                 // 자피어 분기 처리
                 let webhookUrl;
                 if (isOneOnOne) {
+                    // 1:1 레슨 견적서 발송 (소비자에게 가는 주소)
                     webhookUrl = "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
                 } else if (rawType.includes("18홀") || rawType.includes("9홀") || rawType.includes("숏게임") || rawType.includes("파3") || rawType.includes("캠프")) {
+                    // 외부 레슨 필터링 알림 (대표님 전달 주소)
                     webhookUrl = "https://hooks.zapier.com/hooks/catch/27197789/uj4d9ko/";
                 } else {
+                    // 일반 맞춤 레슨 견적서 발송 (소비자에게 가는 주소)
                     webhookUrl = "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
                 }
 
