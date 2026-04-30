@@ -529,22 +529,38 @@
         "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/LSJ.png"
     ];
 
+            const rollingPros = [...prosImg, ...prosImg];
+
     return html`
-        <section class="py-6 bg-white overflow-hidden">
-            <div class="max-w-7xl mx-auto px-5">
-                <div class="flex space-x-4 overflow-x-auto scroller-hide snap-x snap-mandatory pb-2">
-                    ${prosImg.map((imgSrc) => html`
-                        <div class="flex-none w-24 snap-center">
-                            <div class="relative aspect-square rounded-full overflow-hidden border-2 border-slate-100 shadow-sm">
+        <section class="py-6 bg-white overflow-hidden relative">
+            <!-- 무한 롤링 컨테이너 -->
+            <div class="flex items-center">
+                <div class="flex animate-infinite-scroll space-x-8">
+                    ${rollingPros.map((imgSrc) => html`
+                        <div class="flex-none w-24">
+                            <div class="relative aspect-square rounded-full overflow-hidden border-2 border-slate-100 shadow-sm transition-transform hover:scale-110">
                                 <img src="${imgSrc}" class="w-full h-full object-cover" loading="lazy" />
                             </div>
                         </div>
                     `)}
                 </div>
             </div>
+
             <style>
-                .scroller-hide::-webkit-scrollbar { display: none; }
-                .scroller-hide { -ms-overflow-style: none; scrollbar-width: none; }
+                /* 부드럽게 밀리는 애니메이션 정의 */
+                @keyframes infinite-scroll {
+                    from { transform: translateX(0); }
+                    to { transform: translateX(-50%); }
+                }
+                .animate-infinite-scroll {
+                    display: flex;
+                    width: max-content;
+                    animation: infinite-scroll 40s linear infinite; /* 속도는 40s 숫자를 줄이면 빨라집니다 */
+                }
+                /* 마우스를 올리면 잠시 멈추는 효과 (선택사항) */
+                .animate-infinite-scroll:hover {
+                    animation-play-state: paused;
+                }
             </style>
         </section>
     `;
