@@ -481,7 +481,7 @@
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                         <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
                     </span>
-                    실시간 매칭 신청 현황
+                    실시간 매칭 신청 현황🚨
                 </span>
                 <span className="text-[11px] text-brand-blue font-black italic animate-pulse">LIVE</span>
             </div>
@@ -613,7 +613,7 @@
                     </a>
                     <nav className="hidden lg:flex items-center gap-10 text-[14px] font-bold text-gray-500">
     <a href="https://rlaeodn1015-oss.github.io/lessonticket/" target="_blank" className="text-brand-blue flex items-center gap-1 hover:opacity-80 transition-all">
-    수강권 구매 <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
+    레슨권 할인 구매 <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
 </a>
     <a href="#event" className="hover:text-brand-blue transition-colors">이벤트</a>
     <a href="#features" className="hover:text-brand-blue transition-colors">매칭 시스템</a>
@@ -638,13 +638,16 @@
                             나에게 <span className="text-brand-blue">딱 맞는</span><br />
                             골프 스승님 찾기
                         </h1>
-                        <p className="text-gray-500 text-lg md:text-xl lg:text-2xl font-medium mb-12 leading-relaxed no-overflow-wrap text-left">
-                            부담스러운 10회 결제는 이제 그만<br />
-                            내 스윙 고민에 최적화된 스승님을 AI가 추천합니다
-                        </p>
+                       <p className="text-slate-900 text-[22px] md:text-[28px] lg:text-[32px] font-black mb-10 leading-[1.3] tracking-tighter text-left">
+    아직도 직접 찾고 계신가요?<br /> 
+    <span className="text-blue-600 underline decoration-blue-100 underline-offset-8">
+        내 골프 고민에 맞는 스승님만
+    </span><br /> 
+    딱 맞게 추천합니다 😎
+</p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                             <button onClick=${() => setFormOpen(true)} className="gradient-blue text-white px-10 py-5 rounded-2xl font-black text-xl shadow-2xl shadow-blue-300 hover:translate-y-[-4px] transition-all active:scale-95">
-                                AI 매칭 요청하기
+                                AI 매칭 바로 시작하기
                             </button>
                             <div className="flex items-center justify-center gap-3 text-slate-400 font-bold">
                                 <div className="flex -space-x-2">
@@ -658,7 +661,7 @@
                                         <${UserPlus} size=${14} className="text-white" />
                                     </div>
                                 </div>
-                                <span className="text-sm">5일간 122명 매칭 완료</span>
+                                <span className="text-sm">5일간 642명 매칭 완료</span>
                             </div>
                         </div>
                     </div>
@@ -722,7 +725,7 @@
                     </h2>
                     
                     <p className="text-blue-100 text-lg md:text-xl font-bold mb-10 opacity-90">
-                        "AI 비용은 걱정없이!<br className="md:hidden" /> 회원님은 선택에만 집중해요😎"
+                        "AI 비용은 우리가 낼게요!<br className="md:hidden" /> 회원님은 무료로 무제한 선택!😎"
                     </p>
 
                     <div className="flex flex-wrap justify-center gap-4 text-white/80 font-black text-[13px]">
@@ -754,7 +757,7 @@
                 <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
                     <div className="text-center md:text-left">
                         <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-blue text-white rounded-full text-[10px] font-black uppercase tracking-widest mb-6">
-                            Launch Event
+                            Launch Event +1회
                         </div>
                         <h2 className="text-xl md:text-3xl font-black text-white leading-tight mb-4 tracking-tight">
     이제 레슨권도 <span className="text-brand-blue">스승님 특별할인</span> 받고<br />
@@ -787,10 +790,10 @@
                     </h2>
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                         ${[
-                            { t: "프로의 불친절함", d: "가르치는 태도가 무성의하며 불성실한 경험", i: "😡" },
-                            { t: "과도한 패키지 유도", d: "실력 확인도 전에 10~20회 결제부터 요구", i: "💸" },
-                            { t: "맞지 않는 레슨 스타일", d: "나는 비거리를 원하는데 자세만 잡고 있을 때", i: "📉" },
-                            { t: "애매한 환불 기준", d: "불만족해도 남은 회차 환불이 너무 어려움", i: "⚖️" }
+                            { t: "불만족스러운 레슨", d: "2~3회 레슨 후 레슨 태도가 불성실한 경험", i: "😡" },
+                            { t: "부담스러운 결제 영업", d: "1회 레슨 후 10~20회 결제 영업 부담", i: "💸" },
+                            { t: "원치 않는 레슨 내용", d: "나는 비거리를 원하는데 자세만 잡고 있을 때", i: "📉" },
+                            { t: "애매한 환불 기준", d: "불만족 시 남은 회차 환불이 너무 어려움", i: "⚖️" }
                         ].map((item, idx) => html`
                             <div key=${idx} className="p-8 bg-gray-50 rounded-4xl border border-gray-100 hover:bg-blue-50 hover:border-blue-100 transition-all group">
                                 <div className="text-4xl mb-6 group-hover:scale-110 transition-transform">${item.i}</div>
@@ -816,7 +819,7 @@
                             <span className="text-brand-blue">100% 포인트 페이백</span>
                         </h3>
                         <p className="text-gray-500 font-bold text-lg md:text-xl leading-relaxed mb-8">
-                            스승님의 추천을 믿기에 가능한 약속. 결과가 없으면 끝까지 책임집니다.
+                            스승님의 실력을 믿기에 가능한 약속<br /> 결과가 없으면 끝까지 책임집니다
                         </p>
                     </div>
                 </div>
@@ -828,15 +831,15 @@
                 <div className="max-w-screen-xl mx-auto grid lg:grid-cols-2 gap-20 items-center relative z-10">
                     <div>
                         <h2 className="text-2xl md:text-3xl font-black mb-10 leading-tight tracking-tight">
-                            "스승님은 단순한 노출이 아닌,<br />
-                            <span className="text-brand-blue">정밀한 맞춤 레슨</span>입니다."
+                            "스승님은 단순 노출이 아닌,<br />
+                            <span className="text-brand-blue">정밀한 요청 맞춤 레슨</span>입니다."
                         </h2>
                         <div className="space-y-10">
                             <div className="flex gap-6">
                                 <div className="w-14 h-14 rounded-2xl bg-brand-blue flex items-center justify-center shrink-0 font-black text-2xl shadow-xl shadow-blue-900/50">1</div>
                                 <div>
                                     <h4 className="text-2xl font-black mb-2">문제 진단 요청</h4>
-                                    <p className="text-slate-400 font-medium leading-relaxed">단순하게 노출하고 무분별하게 추천하지 않습니다. 요청 내용과 공급자 데이터를 분석해 문제의 본질을 스승님에게 전달합니다.</p>
+                                    <p className="text-slate-400 font-medium leading-relaxed">단순하게 노출하고 무분별한 추천이 아닙니다. 요청 내용과 공급자 데이터를 분석해 레슨 목적을 스승님에게 전달합니다.</p>
                                 </div>
                             </div>
                             <div className="flex gap-6">
@@ -850,7 +853,7 @@
                                 <div className="w-14 h-14 rounded-2xl bg-brand-blue flex items-center justify-center shrink-0 font-black text-2xl shadow-xl shadow-blue-900/50">3</div>
                                 <div>
                                     <h4 className="text-2xl font-black mb-2">성공적인 매칭</h4>
-                                    <p className="text-slate-400 font-medium leading-relaxed">회원님이 선택한 스승님은 요청 내용을 이미 숙지한 상태로 상담에 임하게 됩니다.</p>
+                                    <p className="text-slate-400 font-medium leading-relaxed">회원님이 선택한 스승님은 요청 내용을 이미 숙지한 상태로 레슨에 임하게 됩니다.</p>
                                 </div>
                             </div>
                         </div>
@@ -863,16 +866,16 @@
                             </div>
                             <div className="space-y-8">
                                 <div className="h-4 bg-white/10 rounded-full overflow-hidden">
-                                    <div className="h-full bg-brand-blue w-[71%] animate-pulse"></div>
+                                    <div className="h-full bg-brand-blue w-[89%] animate-pulse"></div>
                                 </div>
                                 <div className="grid grid-cols-2 gap-6">
                                     <div className="p-6 bg-white/5 rounded-3xl border border-white/10 text-center">
                                         <p className="text-[11px] text-slate-400 font-black uppercase mb-2 tracking-widest">분석 데이터</p>
-                                        <p className="text-2xl font-black">1.4K+</p>
+                                        <p className="text-2xl font-black">4.2K+</p>
                                     </div>
                                     <div className="p-6 bg-white/5 rounded-3xl border border-white/10 text-center">
                                         <p className="text-[11px] text-slate-400 font-black uppercase mb-2 tracking-widest">매칭 정확도</p>
-                                        <p className="text-2xl font-black">84.3%</p>
+                                        <p className="text-2xl font-black">91.3%</p>
                                     </div>
                                 </div>
                             </div>
@@ -1643,27 +1646,43 @@ const submitRequest = async () => {
             <${TrustSection} />
                
                         <section id="cases" className="px-5 py-32 bg-slate-50">
-                            <div className="max-w-screen-xl mx-auto text-center">
-                                <h2 className="text-3xl md:text-5xl font-black mb-24 text-slate-850 tracking-tight reveal">실제 요청서로 증명된 후기</h2>
-                                <div className="grid md:grid-cols-3 gap-10 text-left">
-                                    ${[
-                                        { q: "드라이버 슬라이스 때문에 비거리도 안 나고 스트레스..", a: "레슨 4회 만에 슬라이스 구질 완전 해결 및 비거리 30m 증가", u: "36세 직장인 김x현 님" },
-                                        { q: "꼭 숏아이언이 필드에서 계속 생크가 나서 미치겠어요", a: "파3 레슨 1회로 숏아이언 생크 원인 파악 및 즉각 해결", u: "45세 사업가 이x구 님" },
-                                        { q: "퍼팅 스트로크랑 감이 없어서 운 좋으면 2펏하고 보통 3펏이 기본이에요", a: "숏게임 퍼터레슨으로 퍼터 루틴 잡은 후 평균 퍼터 8개 감소", u: "33세 구력3년 박x원 님" }
-                                    ].map((c, i) => html`
-                                        <div key=${i} className="bg-white p-12 rounded-[3rem] shadow-sm border border-slate-100 card-hover reveal">
-                                            <div className="flex gap-2 text-brand-blue mb-8"><${Star} size=${18} fill="currentColor" /> <${Star} size=${18} fill="currentColor" /> <${Star} size=${18} fill="currentColor" /> <${Star} size=${18} fill="currentColor" /> <${Star} size=${18} fill="currentColor" /></div>
-                                            <p className="text-slate-400 font-bold mb-6 italic">"${c.q}"</p>
-                                            <p className="text-slate-800 font-black text-2xl mb-12 leading-tight">"${c.a}"</p>
-                                            <div className="flex justify-between items-center pt-8 border-t border-slate-50">
-                                                <span className="text-sm font-bold text-slate-300">${c.u}</span>
-                                                <div className="flex items-center gap-2 text-emerald-500 font-black text-xs bg-emerald-50 px-3 py-1.5 rounded-full"><${ThumbsUp} size=${14} /> 베스트 매칭</div>
-                                            </div>
-                                        </div>
-                                    `)}
-                                </div>
-                            </div>
-                        </section>
+    <div className="max-w-screen-xl mx-auto text-center">
+        <h2 className="text-3xl md:text-5xl font-black mb-20 text-slate-850 tracking-tight reveal">
+            실제 요청서로 증명된 후기
+        </h2>
+
+        <div className="grid md:grid-cols-3 gap-8 text-left">
+            ${[
+                { q: "드라이버 슬라이스 때문에 비거리도 안 나고 스트레스..", a: "레슨 4회 만에 슬라이스 구질 완전 해결 및 비거리 30m 증가", u: "36세 직장인 김x현 님" },
+                { q: "꼭 숏아이언이 필드에서 계속 생크가 나서 미치겠어요", a: "파3 레슨 1회로 숏아이언 생크 원인 파악 및 즉각 해결", u: "45세 사업가 이x구 님" },
+                { q: "퍼팅 스트로크랑 감이 없어서 운 좋으면 2펏하고 보통 3펏이 기본이에요", a: "숏게임 퍼터레슨으로 퍼터 루틴 잡은 후 평균 퍼터 8개 감소", u: "33세 구력3년 박x원 님" }
+            ].map((c, i) => html`
+                <div key=${i} className="bg-white p-10 rounded-[2.5rem] shadow-sm border border-slate-100 card-hover reveal">
+                    <div className="flex gap-1.5 text-brand-blue mb-6">
+                        <${Star} size=${16} fill="currentColor" />
+                        <${Star} size=${16} fill="currentColor" />
+                        <${Star} size=${16} fill="currentColor" />
+                        <${Star} size=${16} fill="currentColor" />
+                        <${Star} size=${16} fill="currentColor" />
+                    </div>
+
+                    <p className="text-slate-400 font-bold mb-4 italic text-sm">"${c.q}"</p>
+
+                    <p className="text-slate-800 font-black text-xl mb-10 leading-snug tracking-tight">
+                        "${c.a}"
+                    </p>
+
+                    <div className="flex justify-between items-center pt-6 border-t border-slate-50">
+                        <span className="text-xs font-bold text-slate-300">${c.u}</span>
+                        <div className="flex items-center gap-1.5 text-emerald-500 font-black text-[10px] bg-emerald-50 px-3 py-1 rounded-full">
+                            <${ThumbsUp} size=${12} /> 베스트 매칭
+                        </div>
+                    </div>
+                </div>
+            `)}
+        </div>
+    </div>
+</section>
                        <section className="py-24 px-6 bg-white border-t border-slate-100">
     <div className="max-w-md mx-auto">
         <h2 className="text-2xl font-black text-slate-800 mb-10 text-center">자주 묻는 질문 🙋‍♂️</h2>
@@ -1698,10 +1717,14 @@ const submitRequest = async () => {
                 </p>
             </div>
             <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100">
-                <p className="text-sm font-black text-slate-800 mb-3">Q. 프로님과 직접 결제해도 되나요?</p>
-                <p className="text-[12px] text-slate-500 leading-relaxed text-slate-500">
-                    아니요. 스승님 플랫폼 외 <span className="text-red-500 font-bold underline">현장 결제나 직거래는 엄격히 금지</span>됩니다. 직거래 적발 시 서비스 이용이 영구 제한될 수 있으니 반드시 앱 내 안전 결제를 이용해 주세요.
-                </p>
+                <p className="text-sm font-black text-slate-800 mb-3">Q. 스승님과 직접 결제해도 되나요?</p>
+                <p className="text-[12px] text-slate-500 leading-relaxed font-medium">
+    안전한 결제를 위해 <span className="text-blue-600 font-bold underline">스승님을 통한 결제</span>를 권장합니다. 
+    스승님을 통해 결제 시 <span className="text-brand-blue font-black text-blue-600">회당 할인가 적용</span>은 물론, 
+    8회 이상 패키지 결제 시 <span className="text-orange-500 font-black">1회 추가 레슨</span> 혜택을 드립니다.<br /> 
+    추후 환불 혹은 분쟁 발생 시 앱 내 기록을 바탕으로 법무팀이 중재를 도와드릴 수 있으니, 
+    소중한 레슨권을 위해 가급적 스승님 안전 결제를 이용해 주세요😊
+</p>
             </div>
         </div>
     </div>
@@ -1711,12 +1734,12 @@ const submitRequest = async () => {
                 <div className="grid md:grid-cols-2 gap-16 border-b border-slate-800 pb-16 mb-16">
                     <div>
                         <div className="mb-8"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/ssnim.png" alt="스승님 로고" className="h-12 object-contain" /></div>
-                        <p className="text-slate-500 font-bold leading-relaxed text-lg max-w-sm">스승님은 골퍼와 프로를 잇는 신뢰 기반 매칭 플랫폼입니다. 우리는 검증하고 매칭합니다. 결과를 선물합니다.</p>
+                        <p className="text-slate-500 font-bold leading-relaxed text-lg max-w-sm">스승님은 골퍼와 스승님을 잇는 신뢰 기반 AI 매칭 플랫폼입니다. 우리는 검증하고 추천합니다. 소비자들에게 만족스러운 결과를 선물합니다.</p>
                     </div>
                     <div className="text-sm font-bold text-slate-600 space-y-4 md:text-right text-left">
                         <p className="text-slate-400 font-black text-lg mb-4">Contact & Policy</p>
                         <p>상호명: 주식회사 스승님 (Suseungnim)</p>
-                        <p>법률 제휴: 법무법인 로투스 정식 계약</p>
+                        <p>법률 제휴: 법무법인 로투스 정식 파트너</p>
                         <p>개인정보처리방침 | 이용약관</p>
                         <p className="pt-4">© 2026 Suseungnim Corp. All rights reserved.</p>
                     </div>
