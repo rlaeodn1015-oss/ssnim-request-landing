@@ -177,8 +177,8 @@
                 }).catch(e => console.log("시트 기록은 Zapier가 보완합니다."));
 
                 // [변경] 2. 핵심 알림톡 발송 (Zapier)
-                const ZAPIER_1ON1 = "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/";
-                const ZAPIER_EXTERNAL = "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
+                const ZAPIER_EXTERNAL = "https://hooks.zapier.com/hooks/catch/27197789/uj4d9ko/"; // 외부 레슨 요청용
+const ZAPIER_1ON1 = "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/";     // 1:1 결제 요청 창용
                 const webhookUrl = sendType.includes('1:1') ? ZAPIER_1ON1 : ZAPIER_EXTERNAL;
 
                 await fetch(webhookUrl, { 
