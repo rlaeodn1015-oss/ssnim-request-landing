@@ -187,42 +187,37 @@ async function sendAccept() {
             };
 
            try {
-    const payloadData = JSON.stringify(payload);
+                // 1. [데이터 기록] 구글 시트로 전송 (이건 공통이라 그대로 둡니다)
+                await fetch("https://script.google.com/macros/s/AKfycbwJ8jcshxR6HcNknmLkjRdeT0NMw8d4-o9Z1hAWxdryi8pzocXZveDp_pmF1PpnKkcF/exec", {
+                    method: "POST", mode: "no-cors", body: JSON.stringify(payload)
+                });
 
-    // 1. [데이터 기록] 구글 시트로 전송 
-    // (만약 Zapier에서 시트 기록까지 한방에 하신다면 이 블록은 빼는게 훨씬 안전합니다)
-    await fetch("https://script.google.com/macros/s/AKfycbwJ8jcshxR6HcNknmLkjRdeT0NMw8d4-o9Z1hAWxdryi8pzocXZveDp_pmF1PpnKkcF/exec", {
-        method: "POST",
-        // mode: "no-cors" 삭제 (데이터 유실 방지)
-        body: payloadData
-    }).catch(e => console.log("시트 기록은 Zapier에 맡깁니다."));
+                // 2. [알림 분기] 1:1이냐 외부레슨이냐에 따라 자피어 주소를 결정합니다.
+                const ZAPIER_EXTERNAL = "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/"; // 외부레슨용
+                const ZAPIER_1ON1 = "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/";     // 1:1 매칭 성공용
 
-    // 2. [알림 분기] Zapier 결정
-    const ZAPIER_EXTERNAL = "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
-    const ZAPIER_1ON1 = "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/";
+                // sendType에 '1:1'이 포함되어 있으면 1:1 주소로, 아니면 외부레슨 주소로 쏩니다.
+                const webhookUrl = sendType.includes('1:1') ? ZAPIER_1ON1 : ZAPIER_EXTERNAL;
 
-    const webhookUrl = sendType.includes('1:1') ? ZAPIER_1ON1 : ZAPIER_EXTERNAL;
+                await fetch(webhookUrl, { 
+                    method: "POST", 
+                    mode: "no-cors", 
+                    body: JSON.stringify(payload) 
+                });
 
-    // 3. [핵심] Zapier로 확실히 전송
-    const response = await fetch(webhookUrl, { 
-        method: "POST",
-        // headers를 넣어줘야 Zapier가 데이터를 명확하게 읽습니다.
-        headers: { "Content-Type": "text/plain;charset=utf-8" }, 
-        body: payloadData 
-    });
+                // 알림창도 센스 있게 분기
+                const successMsg = sendType.includes('1:1') ? "✅ 1:1 레슨 매칭 수락 완료!" : "✅ 견적서 발송 완료!";
+                alert(successMsg);
+                
+                // 완료 후 카톡 채널로 이동
+                window.location.href = "https://pf.kakao.com/_kxawRn/chat"; 
 
-    // 4. 전송 완료 후 알림 및 이동
-    const successMsg = sendType.includes('1:1') ? "✅ 1:1 레슨 매칭 수락 완료!" : "✅ 견적서 발송 완료!";
-    alert(successMsg);
-    
-    // 5. [중요] 카톡 이동은 모든 전송이 끝난 '성공' 시점에만!
-    window.location.href = "https://pf.kakao.com/_kxawRn/chat"; 
-
-} catch (err) {
-    alert("전송 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
-    submitBtn.disabled = false;
-    submitBtn.innerText = "견적 승인 및 카톡 발송";
-} // <--- 이 'sendAccept' 함수를 닫는 중괄호가 꼭 있어야 합니다!
+           } catch (err) {
+                alert("오류 발생: " + err.message);
+                submitBtn.disabled = false;
+                submitBtn.innerText = "견적 승인 및 카톡 발송";
+            }
+        } // <--- 이 'sendAccept' 함수를 닫는 중괄호가 꼭 있어야 합니다!
     </script>
 </body>
 </html>
