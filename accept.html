@@ -76,6 +76,8 @@
         const rawType = params.get('type') || "레슨";
         const proContact = params.get('proContact') || "";
         const personCount = params.get('personCount') || "1인";
+        const club = params.get('club') || ""; 
+        const note = params.get('note') || ""; // URL 파라미터의 'note'를 읽어옵니다.
 
         const isOneOnOne = rawType.includes('1:1');
         let sendType = isOneOnOne ? "1:1레슨" : (rawType === "레슨" ? "맞춤 레슨" : rawType);
@@ -152,22 +154,24 @@
             const paymentUrl = `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}`;
             
             const payload = {
-                action: "createRequest",
-                requestId: requestId,
-                name: name,
-                contact: contact,
-                proContact: proContact,
-                personCount: personCount, 
-                type: sendType,
-                lessoncount: String(lessonCount).replace("회", "").trim(), 
-                SCHEDULE: schedule,
-                LOCATION: location,
-                PRONOTE: note || "별도 안내 사항 없음",
-                selectedpro: selectedPro,
-                price: price,
-                paymentUrl: paymentUrl,
-                status: "accepted"
-            };
+    action: "createRequest",
+    requestId: requestId,
+    name: name,
+    contact: contact,
+    proContact: proContact,
+    personCount: personCount, 
+    type: sendType,
+    lessoncount: String(lessonCount).replace("회", "").trim(), 
+    SCHEDULE: schedule,
+    LOCATION: location,
+    PRONOTE: noteInput || "별도 안내 사항 없음", // 이건 프로가 쓴 안내사항입니다.
+    selectedpro: selectedPro,
+    price: price,
+    paymentUrl: paymentUrl,
+    status: "accepted",
+    club: club,       
+    concern: note     
+};
 
             try {
         // 1. 구글 시트로 비동기 전송 (응답 안 기다림)
