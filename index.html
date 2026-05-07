@@ -1405,15 +1405,20 @@ const submitRequest = async () => {
                         `)}
                         
                         <button 
-                            type="button"
-                            onClick=${() => {
-                                const val = window.prompt("현재 고민을 자유롭게 입력해주세요.");
-                                if (val && val.trim()) updateConcern(val.trim());
-                            }} 
-                            class="py-2.5 px-4 rounded-full border-2 border-dashed border-slate-200 text-slate-400 font-bold text-xs hover:border-brand-blue hover:text-brand-blue transition-all"
-                        >
-                            + 직접 입력하기
-                        </button>
+    type="button"
+    onClick=${() => {
+        const val = window.prompt("고민 중인 내용을 상세히 입력해주세요.\n(예: 비거리 20m 늘리기, 100타 깨기 등)");
+        if (val && val.trim()) {
+            const trimmedVal = val.trim();
+            updateConcern(trimmedVal);
+            // 즉각적인 피드백 알림
+            alert(`'${trimmedVal}' 항목이 추가되었습니다.`);
+        }
+    }} 
+    class="py-2.5 px-4 rounded-full border-2 border-dashed border-slate-200 text-slate-400 font-bold text-xs hover:border-brand-blue hover:text-brand-blue hover:bg-blue-50 transition-all active:scale-95"
+>
+    + 직접 입력하기
+</button>
                     </div>
                 </div>
             </div>
