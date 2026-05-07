@@ -110,16 +110,15 @@
     if (!location) return alert("레슨 장소를 입력해주세요!");
 
     // [보안 필터링]
-    const combinedText = (location + note).replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9]/g, "").toLowerCase();
+   const combinedText = (location + noteInput).replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9]/g, "").toLowerCase();
     
-    // 1. 연속된 8자리 이상의 숫자 차단 (전화번호 방지)
-    const phoneRegex = /[0-9]{8,}/; 
-
-    // 2. 공일공, 영일영 등 한글 번호 변칙 조합 차단
+    // 1. 숫자 패턴 통합 차단 (전화번호 010 및 7~11자리 연속 숫자)
+    const phoneRegex = /(010|011|016|017|018|019)\d{7,8}/;
+    const serialNumberRegex = /\d{7,11}/; 
     const krPhoneRegex = /(공|영)(일)(공|영)/;
 
-    if (phoneRegex.test(combinedText) || krPhoneRegex.test(combinedText)) {
-        return alert("🚨 등록 불가: 연락처(숫자 조합)를 직접 입력할 수 없습니다.");
+    if (phoneRegex.test(combinedText) || serialNumberRegex.test(combinedText) || krPhoneRegex.test(combinedText)) {
+        return alert("🚨 등록 불가: 연락처나 연속된 숫자를 입력할 수 없습니다.");
     }
 
     const forbiddenList = [
@@ -143,10 +142,10 @@
     ];
 
     for (let word of forbiddenList) {
-        if (combinedText.includes(word)) {
-            return alert(`🚨 등록 불가: '${word}'와(과) 관련된 문구가 감지되었습니다.`);
-        }
+    if (combinedText.includes(word)) {
+        return alert(`🚨 등록 불가: 금지어('${word}')가 포함되어 있습니다.`);
     }
+}
 
             submitBtn.disabled = true;
             submitBtn.innerText = "처리 중...";
