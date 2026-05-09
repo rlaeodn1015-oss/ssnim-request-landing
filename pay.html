@@ -108,7 +108,7 @@
                         "name": userName,
                         "price": paidAmt,
                         "requestId": reqId,
-                        "type": "JOIN_ALIMTALK" 
+                        "type": params.get('type') || "조인 레슨"
                     })
                 });
             }
