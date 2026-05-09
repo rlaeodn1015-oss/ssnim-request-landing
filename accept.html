@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>스승님 - 스승님용 견적 발송</title>
+    <title>스승님 - 스승님용 제안 확인</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;700;900&display=swap" rel="stylesheet">
     <style>body { font-family: 'Pretendard', sans-serif; }</style>
@@ -17,8 +17,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
             </div>
-            <h1 id="mainTitle" class="text-2xl font-black text-slate-800">레슨 견적서 발송</h1>
-            <p id="subTitle" class="text-slate-500 font-medium mt-2">고객에게 보낼 최종 정보를 확인해주세요.</p>
+            <h1 id="mainTitle" class="text-2xl font-black text-slate-800">레슨 제안 확인</h1>
+            <p id="subTitle" class="text-slate-500 font-medium mt-2">고객의 제안 내용을 확인하고 응답해주세요.</p>
         </div>
 
         <div class="space-y-6">
@@ -35,8 +35,9 @@
             </div>
 
             <div id="priceSection">
-                <label class="text-xs font-black text-slate-400 mb-2 block ml-1">최종 레슨비 (전체 인원 합계 금액)</label>
-                <input type="number" id="finalPriceInput" placeholder="예: 350000 (숫자만)" class="w-full p-4 bg-white border-2 border-slate-100 rounded-2xl outline-none focus:border-blue-500 transition-all font-bold text-lg">
+                <label class="text-xs font-black text-slate-400 mb-2 block ml-1">고객 희망 제안가 (수정 가능)</label>
+                <input type="number" id="finalPriceInput" placeholder="금액을 확인해주세요" class="w-full p-4 bg-slate-50 border-2 border-slate-200 rounded-2xl outline-none focus:border-blue-500 transition-all font-black text-2xl text-blue-600">
+                <p class="text-[10px] text-slate-400 font-bold mt-2 ml-1">* 소비자가 결제 의사를 밝힌 금액입니다.</p>
             </div>
 
             <div>
@@ -58,26 +59,32 @@
             class="w-full p-4 bg-white border-2 border-slate-100 rounded-2xl outline-none focus:border-blue-500 transition-all font-bold text-sm leading-relaxed"></textarea>
             </div>
 
-            <button onclick="sendAccept()" id="submitBtn" class="w-full bg-blue-600 text-white font-black py-5 rounded-[1.5rem] shadow-xl shadow-blue-200 hover:bg-blue-700 active:scale-95 transition-all text-lg">
-                견적 승인 및 카톡 발송
-            </button>
+            <div class="flex flex-col gap-3">
+                <button onclick="sendAccept()" id="submitBtn" class="w-full bg-blue-600 text-white font-black py-5 rounded-[1.5rem] shadow-xl shadow-blue-200 hover:bg-blue-700 active:scale-95 transition-all text-lg">
+                    제안 수락 및 결제톡 발송
+                </button>
+                <button onclick="sendReject()" id="rejectBtn" class="w-full bg-slate-100 text-slate-500 font-black py-4 rounded-[1.5rem] hover:bg-red-50 hover:text-red-500 active:scale-95 transition-all text-sm">
+                    일정이 안 맞아요 (제안 거절)
+                </button>
+            </div>
         </div>
     </div>
 
     <script>
         const params = new URLSearchParams(window.location.search);
         const name = params.get('name') || params.get('userName') || "요청 고객";
-        const contact = params.get('contact') || params.get('phone') || params.get('userPhone') || "";
+        const contact = params.get('phone') || params.get('contact') || params.get('userPhone') || "";
         const requestId = params.get('requestId') || "";
         const fixedPrice = params.get('price') || "";
         const selectedPro = params.get('selectedPro') || params.get('proName') || "스승님";
         const lessonCount = params.get('lessonCount') || "1회"; 
         const schedule = params.get('schedule') || "시간 협의";
         const rawType = params.get('type') || "레슨";
-        const proContact = params.get('proContact') || "";
+        const proContact = params.get('proPhone') || params.get('proContact') || "";
         const personCount = params.get('personCount') || "1인";
         const club = params.get('club') || ""; 
-        const note = params.get('note') || ""; // URL 파라미터의 'note'를 읽어옵니다.
+        const note = params.get('note') || params.get('concern') || "";
+        const LOCATION = params.get('LOCATION') || "";
 
         const isOneOnOne = rawType.includes('1:1');
         let sendType = isOneOnOne ? "1:1레슨" : (rawType === "레슨" ? "맞춤 레슨" : rawType);
@@ -86,7 +93,7 @@
             document.getElementById('customerSummary').innerHTML = `
                 <p>👤 고객명: ${name}</p>
                 <p>⛳ 종류: ${sendType}</p>
-                <p>🔢 횟수: ${lessonCount}</p>
+                <p>🔢 횟수: ${lessonCount} (${personCount})</p>
                 <p>⏰ 시간: ${schedule}</p>
             `;
 
@@ -100,26 +107,53 @@
             }
         };
 
+        // 거절 기능 추가
+        async function sendReject() {
+            if (!confirm("정말 이 레슨을 거절하시겠습니까?\n거절 시 고객에게 재매칭 안내가 발송됩니다.")) return;
+            
+            const rejectBtn = document.getElementById('rejectBtn');
+            rejectBtn.disabled = true;
+            rejectBtn.innerText = "거절 처리 중...";
+
+            const payload = {
+                action: "rejectProposal",
+                requestId: requestId,
+                name: name,
+                contact: contact,
+                type: sendType,
+                selectedpro: selectedPro
+            };
+
+            try {
+                // 자피어 거절 훅 (새로 만드실 훅 주소로 교체 필요)
+                await fetch("https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/", { 
+                    method: "POST", mode: "no-cors", body: JSON.stringify(payload) 
+                });
+                alert("레슨 거절이 완료되었습니다.");
+                window.location.href = "https://pf.kakao.com/_kxawRn/chat";
+            } catch (e) {
+                alert("에러가 발생했습니다.");
+                rejectBtn.disabled = false;
+            }
+        }
+
         async function sendAccept() {
-    const price = document.getElementById('finalPriceInput').value;
-    const location = document.getElementById('lessonLocation').value;
-    const noteInput = document.getElementById('proNote').value; // ★이 줄이 반드시 있어야 합니다!
-    const submitBtn = document.getElementById('submitBtn');
+            const price = document.getElementById('finalPriceInput').value;
+            const location = document.getElementById('lessonLocation').value;
+            const noteInput = document.getElementById('proNote').value;
+            const submitBtn = document.getElementById('submitBtn');
 
-    if (!price || parseInt(price) < 100) return alert("올바른 가격을 입력해주세요!");
-    if (!location) return alert("레슨 장소를 입력해주세요!");
+            if (!price || parseInt(price) < 100) return alert("올바른 가격을 입력해주세요!");
+            if (!location) return alert("레슨 장소를 입력해주세요!");
 
-    // [보안 필터링]
-   const combinedText = (location + noteInput).replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9]/g, "").toLowerCase();
-    
-    // 1. 숫자 패턴 통합 차단 (전화번호 010 및 7~11자리 연속 숫자)
-    const phoneRegex = /(010|011|016|017|018|019)\d{7,8}/;
-    const serialNumberRegex = /\d{7,11}/; 
-    const krPhoneRegex = /(공|영)(일)(공|영)/;
+            const combinedText = (location + noteInput).replace(/[^ㄱ-ㅎ가-힣a-zA-Z0-9]/g, "").toLowerCase();
+            const phoneRegex = /(010|011|016|017|018|019)\d{7,8}/;
+            const serialNumberRegex = /\d{7,11}/; 
+            const krPhoneRegex = /(공|영)(일)(공|영)/;
 
-    if (phoneRegex.test(combinedText) || serialNumberRegex.test(combinedText) || krPhoneRegex.test(combinedText)) {
-        return alert("🚨 등록 불가: 연락처나 연속된 숫자를 입력할 수 없습니다.");
-    }
+            if (phoneRegex.test(combinedText) || serialNumberRegex.test(combinedText) || krPhoneRegex.test(combinedText)) {
+                return alert("🚨 등록 불가: 연락처나 연속된 숫자를 입력할 수 없습니다.");
+            }
 
     const forbiddenList = [
         // 1. 메신저 및 SNS 직접 언급
@@ -142,64 +176,58 @@
     ];
 
     for (let word of forbiddenList) {
-    if (combinedText.includes(word)) {
-        return alert(`🚨 등록 불가: 금지어('${word}')가 포함되어 있습니다.`);
-    }
-}
+                if (combinedText.includes(word)) {
+                    return alert(`🚨 등록 불가: 금지어('${word}')가 포함되어 있습니다.`);
+                }
+            }
 
             submitBtn.disabled = true;
             submitBtn.innerText = "처리 중...";
 
-            const paymentUrl = `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}`;
+            const paymentUrl = `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}&type=${encodeURIComponent(sendType)}&selectedPro=${encodeURIComponent(selectedPro)}&proPhone=${proContact}&LOCATION=${encodeURIComponent(location)}&schedule=${encodeURIComponent(schedule)}&personCount=${encodeURIComponent(personCount)}`;
             
             const payload = {
-        action: "createRequest",
-        requestId: requestId,
-        name: name,
-        contact: contact,
-        proContact: proContact,
-        personCount: personCount, 
-        type: sendType,
-        lessoncount: String(lessonCount).replace("회", "").trim(), 
-        SCHEDULE: schedule,
-        LOCATION: location,
-        PRONOTE: noteInput || "별도 안내 사항 없음", // 여기서 noteInput을 사용합니다.
-        selectedpro: selectedPro,
-        price: price,
-        paymentUrl: paymentUrl,
-        status: "accepted",
-        club: club,       
-        concern: note // URL에서 가져온 소비자의 고민사항
-    };
+                action: "createRequest",
+                requestId: requestId,
+                name: name,
+                contact: contact,
+                proContact: proContact,
+                personCount: personCount, 
+                type: sendType,
+                lessoncount: String(lessonCount).replace("회", "").trim(), 
+                SCHEDULE: schedule,
+                LOCATION: location,
+                PRONOTE: noteInput || "별도 안내 사항 없음",
+                selectedpro: selectedPro,
+                price: price,
+                paymentUrl: paymentUrl,
+                status: "accepted",
+                club: club,       
+                concern: note 
+            };
 
             try {
-        // 1. 구글 시트로 비동기 전송
-        fetch("https://script.google.com/macros/s/AKfycbwJ8jcshxR6HcNknmLkjRdeT0NMw8d4-o9Z1hAWxdryi8pzocXZveDp_pmF1PpnKkcF/exec", {
-            method: "POST",
-            mode: "no-cors",
-            body: JSON.stringify(payload)
-        }).catch(e => console.log("Google Script 전송 예약됨"));
+                fetch("https://script.google.com/macros/s/AKfycbwJ8jcshxR6HcNknmLkjRdeT0NMw8d4-o9Z1hAWxdryi8pzocXZveDp_pmF1PpnKkcF/exec", {
+                    method: "POST", mode: "no-cors", body: JSON.stringify(payload)
+                });
 
-        // 2. Zapier로 전송
-        const ZAPIER_EXTERNAL = "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
-        const ZAPIER_1ON1 = "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/";
-        const webhookUrl = sendType.includes('1:1') ? ZAPIER_1ON1 : ZAPIER_EXTERNAL;
+                const ZAPIER_EXTERNAL = "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
+                const ZAPIER_1ON1 = "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/";
+                const webhookUrl = sendType.includes('1:1') ? ZAPIER_1ON1 : ZAPIER_EXTERNAL;
 
-        await fetch(webhookUrl, { 
-            method: "POST",
-            mode: "no-cors", 
-            body: JSON.stringify(payload) 
-        });
+                await fetch(webhookUrl, { 
+                    method: "POST", mode: "no-cors", body: JSON.stringify(payload) 
+                });
 
-        alert(sendType.includes('1:1') ? "✅ 1:1 레슨 매칭 수락 완료!" : "✅ 견적서 발송 완료!");
-        window.location.href = "https://pf.kakao.com/_kxawRn/chat"; 
+                alert(sendType.includes('1:1') ? "✅ 1:1 레슨 매칭 수락 완료!" : "✅ 레슨 수락 및 결제톡 발송 완료!");
+                window.location.href = "https://pf.kakao.com/_kxawRn/chat"; 
 
-    } catch (err) {
-        alert("🚨 전송 에러 발생: " + err.message);
-        submitBtn.disabled = false;
-        submitBtn.innerText = "견적 승인 및 카톡 발송";
-    }
-}
+            } catch (err) {
+                alert("🚨 에러 발생: " + err.message);
+                submitBtn.disabled = false;
+                submitBtn.innerText = "레슨 승인 및 카톡 발송";
+            }
+        }
     </script>
 </body>
 </html>
