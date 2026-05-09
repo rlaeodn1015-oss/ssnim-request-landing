@@ -602,32 +602,32 @@ const ProApplyFlow = ({ setModalOpen }) => {
     const [step, setStep] = React.useState(1);
     const [proData, setProData] = React.useState({ 
         name: '', phone: '', style: '', 
-    price: '', // 이것만 남김
-    location: '', intro: '', career: '', 
-    lessonCount: '', specialty: '', 
-    reviewHighlight: '', reasons: '', tags: '' 
-});
+        price: '', 
+        location: '', intro: '', career: '', 
+        lessonCount: '', specialty: '', 
+        reviewHighlight: '', reasons: '', tags: '' 
+    });
 
     const sendProTelegram = async () => {
         const autoRange = proData.price ? `${(proData.price/10000)}만원~` : "협의";
-       const msg = `🚩 [신규 스승님 등록 데이터]\n\n` +
-                `{ \n` +
-                `  name: "${proData.name}",\n` +
-                `  phone: "${proData.phone}",\n` +
-                `  style: "${proData.style}",\n` +
-                `  price: ${proData.price || 0},\n` +
-                `  location: "${proData.location}",\n` +
-                `  rating: 5.0,\n` +
-                `  review: 0,\n` +
-                `  intro: "${proData.intro}",\n` +
-                `  career: "${proData.career}",\n` +
-                `  lessonCount: ${proData.lessonCount || 0},\n` +
-                `  specialty: "${proData.specialty}",\n` +
-                `  priceRange: "${autoRange}",\n` + // 자동 생성된 값 삽입
-                `  reviewHighlight: "${proData.reviewHighlight}",\n` +
-                `  reasons: ["${proData.reasons.split(',').map(s => s.trim()).join('", "')}"],\n` +
-                `  tags: ["${proData.tags.split(',').map(s => s.trim()).join('", "')}"]\n` +
-                `}`;
+        const msg = `🚩 [신규 스승님 등록 데이터]\n\n` +
+                    `{ \n` +
+                    `  name: "${proData.name}",\n` +
+                    `  phone: "${proData.phone}",\n` +
+                    `  style: "${proData.style}",\n` +
+                    `  price: ${proData.price || 0},\n` +
+                    `  location: "${proData.location}",\n` +
+                    `  rating: 5.0,\n` +
+                    `  review: 0,\n` +
+                    `  intro: "${proData.intro}",\n` +
+                    `  career: "${proData.career}",\n` +
+                    `  lessonCount: ${proData.lessonCount || 0},\n` +
+                    `  specialty: "${proData.specialty}",\n` +
+                    `  priceRange: "${autoRange}",\n` +
+                    `  reviewHighlight: "${proData.reviewHighlight}",\n` +
+                    `  reasons: ["${proData.reasons.split(',').map(s => s.trim()).join('", "')}"],\n` +
+                    `  tags: ["${proData.tags.split(',').map(s => s.trim()).join('", "')}"]\n` +
+                    `}`;
         
         try {
             await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
@@ -640,75 +640,72 @@ const ProApplyFlow = ({ setModalOpen }) => {
     };
 
     if (step === 1) return html`
-    <div className="animate-slide-up text-left">
-        <h3 className="text-2xl font-black text-slate-800 mb-2">스승님 프로필 등록</h3>
-        <p className="text-slate-500 font-bold text-[13px] mb-6">질문에 편하게 답해주시면 멋진 프로필 카드를 만들어드려요! 😊</p>
-        
-        <div className="space-y-6 max-h-[65vh] overflow-y-auto pr-3 no-scrollbar pb-10">
-            <!-- 1. 기본 인적 사항 -->
-            <div className="space-y-3">
-                <p className="text-[12px] font-black text-brand-blue flex items-center gap-1">
-                    <i className="fa-solid fa-user"></i> 누구신가요?
-                </p>
-                <div className="grid grid-cols-2 gap-2">
-                    <input placeholder="성함 (예: 김대우)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm" 
-                        onInput=${(e) => setProData({...proData, name: e.target.value})} />
-                    <input placeholder="연락처 (예: 01012345678)" type="tel" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm"
-                        onInput=${(e) => setProData({...proData, phone: e.target.value})} />
+        <div className="animate-slide-up text-left">
+            <h3 className="text-2xl font-black text-slate-800 mb-2">스승님 프로필 등록</h3>
+            <p className="text-slate-500 font-bold text-[13px] mb-6">질문에 편하게 답해주시면 멋진 프로필 카드를 만들어드려요! 😊</p>
+            
+            <div className="space-y-6 max-h-[65vh] overflow-y-auto pr-3 no-scrollbar pb-10">
+                <!-- 1. 기본 인적 사항 -->
+                <div className="space-y-3">
+                    <p className="text-[12px] font-black text-brand-blue flex items-center gap-1">
+                        <i className="fa-solid fa-user"></i> 누구신가요?
+                    </p>
+                    <div className="grid grid-cols-2 gap-2">
+                        <input placeholder="성함 (예: 김대우)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm" 
+                            onInput=${(e) => setProData({...proData, name: e.target.value})} />
+                        <input placeholder="연락처 (예: 01012345678)" type="tel" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm"
+                            onInput=${(e) => setProData({...proData, phone: e.target.value})} />
+                    </div>
+                    <input placeholder="활동 지역 (예: 강남, 서초, 송파)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm"
+                        onInput=${(e) => setProData({...proData, location: e.target.value})} />
                 </div>
-                <input placeholder="활동 지역 (예: 강남, 서초, 송파)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm"
-                    onInput=${(e) => setProData({...proData, location: e.target.value})} />
-            </div>
 
-            <!-- 2. 레슨 및 가격 -->
-            <div className="space-y-3">
-    <p className="text-[12px] font-black text-brand-blue flex items-center gap-1">
-        <i className="fa-solid fa-won-sign"></i> 레슨비는 얼마인가요?
-    </p>
-    <input placeholder="주력 레슨 (예: 1:1 집중레슨, 필드레슨)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm"
-        onInput=${(e) => setProData({...proData, style: e.target.value})} />
-    
-    <!-- 1회 단가만 입력받음 -->
-    <input placeholder="1회 레슨비 단가 (예: 150000)" type="number" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm"
-        onInput=${(e) => setProData({...proData, price: e.target.value})} />
-</div>
-            </div>
+                <!-- 2. 레슨 및 가격 -->
+                <div className="space-y-3">
+                    <p className="text-[12px] font-black text-brand-blue flex items-center gap-1">
+                        <i className="fa-solid fa-won-sign"></i> 레슨비는 얼마인가요?
+                    </p>
+                    <input placeholder="주력 레슨 (예: 1:1 집중레슨, 필드레슨)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm"
+                        onInput=${(e) => setProData({...proData, style: e.target.value})} />
+                    <input placeholder="1회 레슨비 단가 (예: 150000)" type="number" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm"
+                        onInput=${(e) => setProData({...proData, price: e.target.value})} />
+                </div>
 
-            <!-- 3. 커리어 및 전문성 -->
-            <div className="space-y-3">
-                <p className="text-[12px] font-black text-brand-blue flex items-center gap-1">
-                    <i className="fa-solid fa-award"></i> 어떤걸 제일 잘하시나요?
-                </p>
-                <input placeholder="전문 분야 (예: 슬라이스 교정, 비거리 증가)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm"
-                    onInput=${(e) => setProData({...proData, specialty: e.target.value})} />
-                <input placeholder="누적 레슨 횟수 (예: 500)" type="number" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm"
-                    onInput=${(e) => setProData({...proData, lessonCount: e.target.value})} />
-                <textarea placeholder="자랑하고 싶은 경력 (예: KPGA 투어프로 5년)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm h-20"
-                    onInput=${(e) => setProData({...proData, career: e.target.value})}></textarea>
-            </div>
+                <!-- 3. 커리어 및 전문성 -->
+                <div className="space-y-3">
+                    <p className="text-[12px] font-black text-brand-blue flex items-center gap-1">
+                        <i className="fa-solid fa-award"></i> 어떤걸 제일 잘하시나요?
+                    </p>
+                    <input placeholder="전문 분야 (예: 슬라이스 교정, 비거리 증가)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm"
+                        onInput=${(e) => setProData({...proData, specialty: e.target.value})} />
+                    <input placeholder="누적 레슨 횟수 (예: 500)" type="number" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm"
+                        onInput=${(e) => setProData({...proData, lessonCount: e.target.value})} />
+                    <textarea placeholder="자랑하고 싶은 경력 (예: KPGA 투어프로 5년)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm h-20"
+                        onInput=${(e) => setProData({...proData, career: e.target.value})}></textarea>
+                </div>
 
-            <!-- 4. 홍보 문구 -->
-            <div className="space-y-3">
-                <p className="text-[12px] font-black text-brand-blue flex items-center gap-1">
-                    <i className="fa-solid fa-comment-dots"></i> 스승님을 소개해 주세요!
-                </p>
-                <input placeholder="멋진 한줄 소개 (예: 초보딱지는 이제 그만)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm"
-                    onInput=${(e) => setProData({...proData, intro: e.target.value})} />
-                <input placeholder="회원님들이 말하는 나의 강점 (예: 친절하고 디테일해요)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm"
-                    onInput=${(e) => setProData({...proData, reviewHighlight: e.target.value})} />
-                <textarea placeholder="AI가 추천할 이유 3가지 (예: 슬라이스 해결 전문, 데이터 분석, 강남지역 1위)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm h-20"
-                    onInput=${(e) => setProData({...proData, reasons: e.target.value})}></textarea>
-                <input placeholder="나를 표현하는 태그 (예: 숏게임, 입문자탈출, 비거리)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm"
-                    onInput=${(e) => setProData({...proData, tags: e.target.value})} />
-            </div>
+                <!-- 4. 홍보 문구 -->
+                <div className="space-y-3">
+                    <p className="text-[12px] font-black text-brand-blue flex items-center gap-1">
+                        <i className="fa-solid fa-comment-dots"></i> 스승님을 소개해 주세요!
+                    </p>
+                    <input placeholder="멋진 한줄 소개 (예: 초보딱지는 이제 그만)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm"
+                        onInput=${(e) => setProData({...proData, intro: e.target.value})} />
+                    <input placeholder="회원님들이 말하는 나의 강점 (예: 친절하고 디테일해요)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm"
+                        onInput=${(e) => setProData({...proData, reviewHighlight: e.target.value})} />
+                    <textarea placeholder="AI 추천 이유 3가지 (예: 슬라이스 해결 전문, 데이터 분석, 강남지역 1위)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm h-20"
+                        onInput=${(e) => setProData({...proData, reasons: e.target.value})}></textarea>
+                    <input placeholder="나를 표현하는 태그 (예: 숏게임, 입문자탈출, 비거리)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-sm"
+                        onInput=${(e) => setProData({...proData, tags: e.target.value})} />
+                </div>
+            </div> <!-- 스크롤 영역 닫기 -->
+
+            <button onClick=${sendProTelegram} 
+                className="w-full gradient-blue text-white font-black py-5 rounded-3xl shadow-xl active:scale-95 transition-all">
+                스승님 등록 신청 완료하기
+            </button>
         </div>
-
-        <button onClick=${sendProTelegram} 
-            className="w-full gradient-blue text-white font-black py-5 rounded-3xl shadow-xl active:scale-95 transition-all">
-            스승님 등록 신청 완료하기
-        </button>
-    </div>
-`;
+    `;
 
     return html`
         <div className="text-center py-10">
