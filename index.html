@@ -467,7 +467,8 @@
     };
 };
 
-       const JoinBoard = ({ setFormOpen }) => {
+      // 인자에 setProFormOpen을 추가해줘야 에러가 안 납니다!
+const JoinBoard = ({ setFormOpen, setProFormOpen }) => { 
     const joinData = [
         { 
             id: 1, tag: "마감임박", loc: "비전힐스", pro: "곽시랑스승", title: "파3레슨", 
@@ -490,6 +491,26 @@
 
     return html`
         <section className="px-0 py-8 max-w-screen-xl mx-auto bg-white text-left overflow-hidden">
+
+            <!-- 프로 전용 가로형 배너 -->
+            <div className="px-5 mb-10">
+                <div onClick=${() => {
+                    if (typeof gtag === 'function') gtag('event', 'click_pro_banner');
+                    setProFormOpen(true); 
+                }} className="w-full bg-slate-900 rounded-[2.5rem] p-7 flex justify-between items-center cursor-pointer shadow-xl relative overflow-hidden active:scale-[0.99] transition-all">
+                    <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-brand-blue/20 to-transparent"></div>
+                    <div className="relative z-10 text-left">
+                        <div className="inline-block bg-brand-blue text-white text-[9px] font-black px-2 py-0.5 rounded-md mb-2">FOR PROS</div>
+                        <h4 className="text-white text-xl font-black">아직 <span className="text-brand-blue">스승님</span>에 등록 안 하셨나요?</h4>
+                        <p className="text-slate-400 text-xs mt-2 font-bold">지금 입점하고 수강생 매칭을 무료로 시작하세요 ⛳</p>
+                    </div>
+                    <div className="w-11 h-11 bg-white/10 rounded-full flex items-center justify-center border border-white/10 shrink-0">
+                        <i className="fa-solid fa-chevron-right text-white text-xs"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 조인 레슨 타이틀 -->
             <div className="px-6 flex justify-between items-end mb-5">
                 <div>
                     <h3 className="text-xl font-black text-slate-900 tracking-tight mb-0.5">
@@ -499,7 +520,7 @@
                 </div>
             </div>
 
-            <!-- 스크롤 컨테이너: aspect-square 클래스로 정사각형 유도 -->
+            <!-- 조인 레슨 카드 리스트 -->
             <div className="flex gap-3 px-6 overflow-x-auto no-scrollbar snap-x snap-mandatory">
                 ${joinData.map(item => {
                     const payUrl = `pay.html?price=${item.price}&name=${encodeURIComponent("조인희망자")}&type=${encodeURIComponent(item.type)}&requestId=JOIN_${item.id}_${new Date().getTime()}`;
@@ -529,33 +550,33 @@
                                 </div>
                                 
                                 <div className="flex gap-1.5">
-                    <a 
-                        href=${payUrl} 
-                        onClick=${() => {
-                            if (typeof gtag === 'function') {
-                                gtag('event', 'click_join_pay', {
-                                    'lesson_title': item.title,
-                                    'pro_name': item.pro,
-                                    'location': item.loc,
-                                    'price': item.price
-                                });
-                            }
-                        }}
-                        className="flex-[3] py-3.5 bg-slate-900 text-white rounded-2xl font-black text-[11px] text-center active:scale-95 transition-all shadow-sm"
-                    >
-                        결제 후 참여하기
-                    </a>
-                    
-                    <a href=${kakaoLink} target="_blank" className="flex-1 py-3.5 bg-[#FEE500] text-slate-900 rounded-2xl font-black text-[11px] text-center flex items-center justify-center shadow-sm">
-                        <i className="fa-solid fa-comment"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    `;
-})}
-                
-                <!-- 정사각형 1인 신청 카드 -->
+                                    <a 
+                                        href=${payUrl} 
+                                        onClick=${() => {
+                                            if (typeof gtag === 'function') {
+                                                gtag('event', 'click_join_pay', {
+                                                    'lesson_title': item.title,
+                                                    'pro_name': item.pro,
+                                                    'location': item.loc,
+                                                    'price': item.price
+                                                });
+                                            }
+                                        }}
+                                        className="flex-[3] py-3.5 bg-slate-900 text-white rounded-2xl font-black text-[11px] text-center active:scale-95 transition-all shadow-sm"
+                                    >
+                                        결제 후 참여하기
+                                    </a>
+                                    
+                                    <a href=${kakaoLink} target="_blank" className="flex-1 py-3.5 bg-[#FEE500] text-slate-900 rounded-2xl font-black text-[11px] text-center flex items-center justify-center shadow-sm">
+                                        <i className="fa-solid fa-comment"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                })}
+
+                <!-- 1인 신청 카드 -->
                 <div onClick=${() => setFormOpen(true)} className="min-w-[240px] w-[240px] aspect-square bg-slate-900 p-6 rounded-[2.5rem] flex flex-col justify-center items-center text-center cursor-pointer snap-center relative overflow-hidden">
                     <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-3">
                         <i className="fa-solid fa-user-plus text-white text-lg"></i>
@@ -577,6 +598,60 @@
                 .snap-center { scroll-snap-align: center; }
             </style>
         </section>
+    `;
+};
+
+        const ProApplyFlow = ({ setModalOpen }) => {
+    const [proData, setProData] = React.useState({ 
+        name: '', phone: '', location: '', intro: '', 
+        career: '', lessonCount: '', specialty: '', reasons: '' 
+    });
+
+    const submitProApply = async () => {
+        if(!proData.name || !proData.phone) return alert("성함과 연락처는 필수입니다.");
+        
+        const message = `🚀 [신규 프로 등록 신청]\n\n` +
+            `👤 성함: ${proData.name}\n` +
+            `📞 연락처: ${proData.phone}\n` +
+            `📍 지역: ${proData.location}\n` +
+            `✍ 인트로: ${proData.intro}\n` +
+            `🏆 경력: ${proData.career}\n` +
+            `⛳ 레슨수: ${proData.lessonCount}\n` +
+            `✨ 전문분야: ${proData.specialty}\n` +
+            `💪 강점(reasons): ${proData.reasons}`;
+
+        try {
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ chat_id: CHAT_ID, text: message })
+            });
+            alert("신청 완료! 운영팀이 확인 후 연락드려 프로필을 등록해드립니다.");
+            setModalOpen(false);
+        } catch (err) { alert("전송 실패. 카톡 문의 부탁드립니다!"); }
+    };
+
+    return html`
+        <div className="animate-slide-up text-left overflow-y-auto max-h-[70vh] pr-2 no-scrollbar">
+            <h3 className="text-2xl font-black text-slate-800 mb-2">스승님 등록</h3>
+            <p className="text-slate-400 font-bold text-sm mb-8">상세히 적을수록 매칭 확률이 올라갑니다.</p>
+            
+            <div className="space-y-4">
+                <p className="text-[11px] font-black text-brand-blue ml-1">기본 정보</p>
+                <input placeholder="성함 (실명)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold" onInput=${e => setProData({...proData, name: e.target.value})} />
+                <input placeholder="연락처 (- 없이)" type="tel" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold" onInput=${e => setProData({...proData, phone: e.target.value})} />
+                <input placeholder="레슨 가능 지역 (예: 강남, 서초)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold" onInput=${e => setProData({...proData, location: e.target.value})} />
+                
+                <p className="text-[11px] font-black text-brand-blue ml-1 pt-2">전문성 및 경력</p>
+                <input placeholder="한 줄 소개 (예: 유튜브 속 레슨을 현실에서)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold" onInput=${e => setProData({...proData, intro: e.target.value})} />
+                <input placeholder="주요 경력 (예: 유튜브 구독자 13만, KPGA 정회원)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold" onInput=${e => setProData({...proData, career: e.target.value})} />
+                <input placeholder="누적 레슨 수 (예: 2500회)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold" onInput=${e => setProData({...proData, lessonCount: e.target.value})} />
+                <textarea placeholder="나만의 레슨 강점 3가지 (콤마로 구분)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold h-24" onInput=${e => setProData({...proData, reasons: e.target.value})}></textarea>
+                
+                <button onClick=${submitProApply} className="w-full mt-4 gradient-blue text-white font-black py-5 rounded-3xl shadow-xl active:scale-95 transition-all">
+                    프로필 등록 신청하기
+                </button>
+            </div>
+        </div>
     `;
 };
 
@@ -2175,22 +2250,127 @@ const submitRequest = async () => {
     </div> `;
 };
 
+const ProApplyFlow = ({ setModalOpen }) => {
+    const [proData, setProData] = React.useState({ 
+        name: '', phone: '', location: '', intro: '', 
+        career: '', lessonCount: '', specialty: '', reasons: '' 
+    });
+
+    const submitProApply = async () => {
+        if(!proData.name || !proData.phone) return alert("성함과 연락처는 필수입니다.");
+        const message = `🚀 [신규 프로 등록 신청]\n\n👤 성함: ${proData.name}\n📞 연락처: ${proData.phone}\n📍 지역: ${proData.location}\n✍ 인트로: ${proData.intro}\n🏆 경력: ${proData.career}\n⛳ 레슨수: ${proData.lessonCount}\n💪 강점: ${proData.reasons}`;
+        try {
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ chat_id: CHAT_ID, text: message })
+            });
+            alert("신청 완료! 운영팀이 확인 후 연락드리겠습니다.");
+            setModalOpen(false);
+        } catch (err) { alert("전송 실패. 카톡 문의 부탁드립니다!"); }
+    };
+
+    return html`
+        <div className="animate-slide-up text-left overflow-y-auto max-h-[70vh] pr-2 no-scrollbar">
+            <h3 className="text-2xl font-black text-slate-800 mb-2">스승님 등록</h3>
+            <p className="text-slate-400 font-bold text-sm mb-8 italic">상세히 적을수록 매칭 확률이 올라갑니다.</p>
+            <div className="space-y-4">
+                <input placeholder="성함 (실명)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold" onInput=${e => setProData({...proData, name: e.target.value})} />
+                <input placeholder="연락처 (- 없이)" type="tel" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold" onInput=${e => setProData({...proData, phone: e.target.value})} />
+                <input placeholder="레슨 가능 지역" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold" onInput=${e => setProData({...proData, location: e.target.value})} />
+                <input placeholder="한 줄 소개" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold" onInput=${e => setProData({...proData, intro: e.target.value})} />
+                <input placeholder="주요 경력" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold" onInput=${e => setProData({...proData, career: e.target.value})} />
+                <textarea placeholder="나만의 레슨 강점 (콤마로 구분)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold h-24" onInput=${e => setProData({...proData, reasons: e.target.value})}></textarea>
+                <button onClick=${submitProApply} className="w-full mt-4 gradient-blue text-white font-black py-5 rounded-3xl shadow-xl active:scale-95 transition-all">신청서 제출하기</button>
+            </div>
+        </div>
+    `;
+};
+
+// [2] 메인 App 컴포넌트 (중복 제거된 유일한 App)
+const App = () => {
+    const [formOpen, setFormOpen] = React.useState(false);
+    const [proFormOpen, setProFormOpen] = React.useState(false);
+
+    React.useEffect(() => {
+        const revealOnScroll = () => {
+            const elements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+            const triggerBottom = window.innerHeight * 0.85;
+            elements.forEach(el => {
+                const boxTop = el.getBoundingClientRect().top;
+                if (boxTop < triggerBottom) el.classList.add('active');
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+        return () => window.removeEventListener('scroll', revealOnScroll);
+    }, []);
+
+    return html`
+        <div className="min-h-screen">
+            <${Header} />
+            <main>
+                <${HeroSection} setFormOpen=${setFormOpen} />
+                <section className="px-5 -mt-12 md:-mt-20 mb-8 relative z-20 max-w-screen-xl mx-auto">
+                    <${RealTimeStatus} />
+                    <!-- 배너가 포함된 JoinBoard 호출 (인자 중요) -->
+                    <${JoinBoard} setFormOpen=${setFormOpen} setProFormOpen=${setProFormOpen} />
+                    ${ProFaceSlider()}
+                    <div className="mt-8">
+                        <${BannerSlider} />
+                    </div>
+                </section>
+                <${UnlimitedBenefit} />
+                <${TicketBanner} />
+                <${ProblemSection} />
+                <${EventSection} />
+                <${SystemSection} />
+                <${TrustSection} />
+            </main>
+
+            <footer className="px-5 py-24 bg-slate-900 text-white">
+                <div className="max-w-screen-xl mx-auto text-left">
+                    <div className="grid md:grid-cols-2 gap-16 border-b border-slate-800 pb-16 mb-16">
+                        <div>
+                            <div className="mb-8"><img src="./images/ssnim.png" className="h-12" /></div>
+                            <p className="text-slate-500 font-bold leading-relaxed text-lg max-w-sm">스승님은 골퍼와 스승님을 잇는 신뢰 기반 AI 매칭 플랫폼입니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+            <!-- 일반 신청 팝업 -->
+            ${formOpen && html`
+                <div className="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-[100] flex items-center justify-center p-5">
+                    <div className="bg-white rounded-[3rem] max-w-lg w-full p-8 md:p-14 relative max-h-[95vh] overflow-y-auto">
+                        <button onClick=${() => setFormOpen(false)} className="absolute top-8 right-8 text-slate-300"><${X} size=${40} /></button>
+                        <${InteractiveFlow} setModalOpen=${setFormOpen} />
+                    </div>
+                </div>
+            `}
+
+            <!-- 프로 등록 전용 팝업 -->
+            ${proFormOpen && html`
+                <div className="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-[100] flex items-center justify-center p-5">
+                    <div className="bg-white rounded-[3rem] max-w-lg w-full p-8 md:p-14 relative shadow-2xl border border-white/20">
+                        <button onClick=${() => setProFormOpen(false)} className="absolute top-8 right-8 text-slate-300"><${X} size=${40} /></button>
+                        <${ProApplyFlow} setModalOpen=${setProFormOpen} />
+                    </div>
+                </div>
+            `}
+        </div>
+    `;
+};
+
+// [3] 실행부
 const rootEl = document.getElementById("root");
 createRoot(rootEl).render(html`<${App} />`);
 
-   setTimeout(() => {
+setTimeout(() => {
     new Swiper(".mySwiper", {
-        loop: true,
-        autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-        },
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
+        loop: true, autoplay: { delay: 3000, disableOnInteraction: false },
+        pagination: { el: ".swiper-pagination", clickable: true },
     });
-}, 500);     
+}, 500);
 </script>
 </body>
 </html>
