@@ -586,9 +586,9 @@
             <div>
                 <div className="flex items-center gap-2 mb-1">
                     <span className="bg-brand-blue text-white text-[10px] font-black px-2 py-0.5 rounded-full">PRO</span>
-                    <h4 className="text-white font-black text-lg">대한민국 상위 1% 스승님으로 등록하기</h4>
+                    <h4 className="text-white font-black text-lg">스승님으로 등록하기</h4>
                 </div>
-                <p className="text-slate-400 text-xs font-bold">스승님의 레슨 실력, 이제 AI 데이터로 증명하고 매칭받으세요.</p>
+                <p className="text-slate-400 text-xs font-bold">스승님의 레슨 실력, 이제 AI 데이터로 증명하고 신규매칭!</p>
             </div>
             <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
                 <i className="fa-solid fa-chevron-right text-white text-sm"></i>
@@ -866,7 +866,7 @@ const RealTimeStatus = () => {
             `;
         };
 
-        const Header = () => {
+        const Header = ({ visitorCount }) => {
     // [추가] 헤더용 공유 로직
     const handleMainShare = async () => {
         const shareData = {
@@ -889,6 +889,13 @@ const RealTimeStatus = () => {
                     <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/ssnim.png" alt="스승님 로고" className="h-10 object-contain" />
                     <span className="text-2xl font-black tracking-tighter text-slate-850">나에게 필요한 맞춤 골프레슨</span>
                 </a>
+                <div className="flex items-center gap-1.5 ml-2">
+    <span className="relative flex h-2 w-2">
+        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+    </span>
+    <span className="text-[11px] font-bold text-slate-400">${visitorCount}명 접속 중</span>
+</div>
                 
                 <nav className="hidden lg:flex items-center gap-10 text-[14px] font-bold text-gray-500">
                     <a href="https://rlaeodn1015-oss.github.io/lessonticket/" target="_blank" className="text-brand-blue flex items-center gap-1 hover:opacity-80 transition-all">
@@ -2159,6 +2166,19 @@ const submitRequest = async () => {
             const [formOpen, setFormOpen] = React.useState(false);
             const [proFormOpen, setProFormOpen] = React.useState(false);
 
+const [visitorCount, setVisitorCount] = React.useState(142);
+
+React.useEffect(() => {
+    const timer = setInterval(() => {
+        // 140~160명 사이에서 자연스럽게 왔다갔다 함
+        setVisitorCount(prev => {
+            const change = Math.floor(Math.random() * 5) - 2; 
+            return Math.max(130, Math.min(180, prev + change));
+        });
+    }, 3000);
+    return () => clearInterval(timer);
+}, []);
+
             React.useEffect(() => {
                 const revealOnScroll = () => {
                     const elements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
@@ -2175,11 +2195,12 @@ const submitRequest = async () => {
 
             return html`
     <div className="min-h-screen">
-        <${Header} />
+        <${Header} visitorCount=${visitorCount} />
         <main>
             <${HeroSection} setFormOpen=${setFormOpen} />
             
             <section className="px-5 -mt-12 md:-mt-20 mb-8 relative z-20 max-w-screen-xl mx-auto">
+            <p className="text-[11px] font-bold text-slate-400 mb-4 animate-pulse">현재 ${visitorCount}명의 골퍼가 스승님을 찾고 있습니다</p>
                 <${RealTimeStatus} />
                 <${ProBanner} onClick=${() => setProFormOpen(true)} />
                 <${JoinBoard} setFormOpen=${setFormOpen} />
