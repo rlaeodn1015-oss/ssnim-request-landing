@@ -110,7 +110,7 @@
                         "type": params.get('type') || "파3",
                         "personCount": params.get('personCount') || "1인",
                         "selectedPro": params.get('selectedPro') || "곽시랑",
-                        "proPhone": params.get('proPhone') || "010XXXXXXXX",
+                        "proPhone": params.get('proPhone'),
                         "schedule": params.get('schedule') || "10:00~12:00",
                         "LOCATION": params.get('LOCATION') || "비전힐스", // 대문자로 일치
                         "PRONOTE": "결제가 완료되었습니다. 프로님이 곧 연락드립니다.",
@@ -191,11 +191,12 @@
     
     const successRedirect = window.location.origin + window.location.pathname + 
                             "?status=done&requestId=" + requestId + 
-                            "&price=" + finalPayPrice + 
-                            "&name=" + encodeURIComponent(name) + 
-                            "&personCount=" + encodeURIComponent(personCount + "인") +
-                            "&phone=" + phoneInput;
-
+    "&price=" + finalPayPrice + 
+    "&name=" + encodeURIComponent(name) + 
+    "&personCount=" + encodeURIComponent(personCount + "인") +
+    "&phone=" + phoneInput + 
+    "&proPhone=" + (params.get('proPhone') || "");
+        
     Bootpay.requestPayment({
         "application_id": "67ecd171d9af4e5c6d21736b",
         "price": finalPayPrice,
