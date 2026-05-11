@@ -1839,7 +1839,7 @@ const submitRequest = async () => {
     `;
 }
 
-    /* --- STEP 3: 조건 입력 및 금액 제안 --- */
+   /* --- STEP 3: 조건 입력 및 금액 제안 --- */
 if (step === 3) return html`
     <div className="animate-slide-up text-left relative pt-6">
         <${CumulativeUI} />
@@ -1856,7 +1856,6 @@ if (step === 3) return html`
         </div>
 
         <div className="space-y-8">
-            <!-- 날짜 선택 -->
             <div>
                 <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">희망 레슨 시작일</p>
                 <input 
@@ -1868,12 +1867,31 @@ if (step === 3) return html`
                 />
             </div>
 
-            <!-- 금액 제안 섹션 -->
+            <div>
+                <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">선호 시간대</p>
+                <div className="grid grid-cols-2 gap-3">
+                    ${[
+                        '오전 (07~11시)', 
+                        '낮 (11~14시)', 
+                        '오후 (14~17시)', 
+                        '저녁 (17~21시)', 
+                        '야간 (21~23시)', 
+                        '무관'
+                    ].map(s => html`
+                        <button key=${s} 
+                            onClick=${() => updateData('schedule', s)} 
+                            className=${`py-4 rounded-2xl border-2 font-bold text-[13px] transition-all ${formData.schedule === s ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400'}`}>
+                            ${s}
+                        </button>
+                    `)}
+                </div>
+            </div>
+
             <div className="pt-8 border-t border-slate-100">
                 ${formData.lessonType === '1:1 레슨' ? html`
                     <div className="p-6 bg-slate-50 rounded-[2rem] border border-slate-100">
                         <p className="text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest flex items-center gap-2">
-                            <i className="fa-solid fa-circle-check text-brand-blue"></i> 선택하신 패키지 정찰 금액
+                            <i className="fa-solid fa-circle-check text-brand-blue"></i> 선택하신 레슨권 정찰 금액
                         </p>
                         <div className="flex items-baseline gap-1">
                             <span className="text-3xl font-black text-slate-900">${Number(formData.price || 0).toLocaleString()}</span>
@@ -1924,7 +1942,6 @@ if (step === 3) return html`
                 `}
             </div>
 
-            <!-- 고객 정보 입력 -->
             <div className="space-y-3 pt-6 border-t border-slate-50">
                 <input 
                     placeholder="요청자 성함" 
@@ -1942,11 +1959,10 @@ if (step === 3) return html`
             </div>
         </div>
 
-        <!-- 하단 버튼 -->
         <div className="flex gap-3 mt-12">
             <button onClick=${() => setPolicyOpen(true)} className="flex-1 bg-slate-100 text-slate-500 font-bold py-5 rounded-3xl text-[11px]">환불정책</button>
             <button 
-                disabled=${!formData.lessonDate || !userInfo.name || !userInfo.contact} 
+                disabled=${!formData.lessonDate || !formData.schedule || !userInfo.name || !userInfo.contact} 
                 onClick=${nextStep} 
                 className="flex-[2.5] gradient-blue text-white font-black py-5 rounded-3xl shadow-xl disabled:opacity-30 text-lg">
                 입력 완료 (다음 단계)
