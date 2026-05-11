@@ -978,7 +978,7 @@ const RealTimeStatus = () => {
                                         <${UserPlus} size=${14} className="text-white" />
                                     </div>
                                 </div>
-                                <span className="text-sm">5일간 642명 매칭 완료</span>
+                                <span className="text-sm">7일간 981명 매칭 완료</span>
                             </div>
                         </div>
                     </div>
@@ -996,7 +996,7 @@ const RealTimeStatus = () => {
                     <div className="space-y-6">
                         <div className="bg-blue-600 rounded-2xl p-4 shadow-lg shadow-blue-200">
                             <p className="text-white font-bold text-sm mb-1">매칭 리포트 도착 ⛳</p>
-                            <p className="text-blue-100 text-xs">회원님의 맞춤형 전문가 3인</p>
+                            <p className="text-blue-100 text-xs">회원님의 맞춤형 전문 스승 3인</p>
                         </div>
                         <div className="space-y-3">
                             ${[1, 2].map(i => html`
@@ -1053,7 +1053,7 @@ const RealTimeStatus = () => {
                             <${CheckCircle2} size=${16} className="text-amber-300" /> 레슨 확정 시 우선권 부여
                         </div>
                         <div className="flex items-center gap-2 bg-black/20 px-4 py-2 rounded-xl border border-white/10">
-                            <${CheckCircle2} size=${16} className="text-amber-300" /> 골프 레슨 무제한 매칭
+                            <${CheckCircle2} size=${16} className="text-amber-300" /> 레슨 요 무제한 매칭
                         </div>
                     </div>
                 </div>
@@ -1423,10 +1423,8 @@ const submitRequest = async () => {
     proContact: selectedPro.phone,
     
     // 5. 가격 정보
-   price: formData.price || 0,
-    finalPrice: formData.lessonType === '1:1 레슨' 
-        ? `${Number(formData.price).toLocaleString()}원 [패키지 정찰가]` 
-        : `${Number(formData.price).toLocaleString()}원 [외부레슨 제안가]`
+   price: formData.price, // 150000 처럼 숫자만 전송 (솔라피 #{price} 매핑용)
+    finalPrice: `${Number(formData.price).toLocaleString()}원` // 보기용
 };
 
     const telegramMessage = `🔥 [${isFixedPrice ? '패키지' : '견적요청'}] 매칭 발생\n\n👤 이름: ${payload.name}\n📞 연락처: ${payload.contact}\n📍 지역: ${payload.location}\n⛳ 레슨: ${payload.lessonType}\n🏌️ 클럽: ${payload.club}\n💥 문제: ${payload.concern}\n⏰ 시간: ${payload.schedule}\n🏆 선택 프로: ${payload.selectedPro}\n💰 가격: ${payload.finalPrice}`;
@@ -1818,12 +1816,12 @@ const submitRequest = async () => {
 }
 
     /* --- STEP 3: 조건 입력 및 금액 제안 --- */
-    if (step === 3) return html`
-    <div className="animate-slide-up text-left relative pt-6"> <!-- pt-6 추가: X 버튼 공간 확보 -->
+if (step === 3) return html`
+    <div className="animate-slide-up text-left relative pt-6">
         <${CumulativeUI} />
         <div className="flex justify-between items-center mb-8">
             <div className="flex items-center">
-                <button onClick=${prevStep} className="mr-3 text-slate-400">
+                <button onClick=${prevStep} className="mr-3 text-slate-400 hover:text-slate-800 transition-all">
                     <i className="fa-solid fa-chevron-left text-xl"></i>
                 </button>
                 <div>
@@ -1834,186 +1832,111 @@ const submitRequest = async () => {
         </div>
 
         <div className="space-y-8">
+            <!-- 날짜 선택 -->
             <div>
                 <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">희망 레슨 시작일</p>
                 <input 
-    type="date" 
-    /* 한국 시간 기준 오늘 날짜 추출 */
-    min=${new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split('T')[0]}
-    className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-slate-700 transition-all"
-    value=${formData.lessonDate} 
-    onInput=${(e) => updateData('lessonDate', e.target.value)} 
-/>
+                    type="date" 
+                    min=${new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split('T')[0]}
+                    className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-slate-700 transition-all"
+                    value=${formData.lessonDate} 
+                    onInput=${(e) => updateData('lessonDate', e.target.value)} 
+                />
             </div>
 
-            <div>
-                <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">선호 시간대</p>
-                <div className="grid grid-cols-2 gap-3">
-                    ${['오전 (07~11시)', '낮 (11~14시)', '오후 (14~17시)', '저녁 (17~21시)', '야간 (21~23시)', '무관'].map(s => html`
-                        <button key=${s} 
-                            onClick=${() => updateData('schedule', s)} 
-                            className=${`py-4 rounded-2xl border-2 font-bold text-[13px] transition-all ${formData.schedule === s ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400'}`}>
-                            ${s}
-                        </button>
-                    `)}
-                </div>
-            </div>
-
-            <!-- [수정] 1:1 레슨 여부에 따른 금액 처리 분기 -->
+            <!-- 금액 제안 섹션 -->
             <div className="pt-8 border-t border-slate-100">
                 ${formData.lessonType === '1:1 레슨' ? html`
-                    <!-- 1:1 레슨: 정찰제 가격 안내 -->
                     <div className="p-6 bg-slate-50 rounded-[2rem] border border-slate-100">
-                        <p className="text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest">선택하신 패키지 금액</p>
+                        <p className="text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest flex items-center gap-2">
+                            <i className="fa-solid fa-circle-check text-brand-blue"></i> 선택하신 패키지 정찰 금액
+                        </p>
                         <div className="flex items-baseline gap-1">
-                            <span className="text-3xl font-black text-slate-900">${Number(formData.price).toLocaleString()}</span>
+                            <span className="text-3xl font-black text-slate-900">${Number(formData.price || 0).toLocaleString()}</span>
                             <span className="text-lg font-bold text-slate-900">원</span>
-                            <span className="ml-2 text-[11px] font-black text-brand-blue bg-blue-100 px-2 py-0.5 rounded-full">정찰제</span>
+                            <span className="ml-2 text-[11px] font-black text-brand-blue bg-blue-100 px-2 py-0.5 rounded-full">VAT 포함</span>
                         </div>
                         <p className="text-[11px] text-slate-400 font-bold mt-3 leading-tight">
-                            ※ 1:1 레슨은 스승님별 정찰제 패키지로 운영됩니다.
+                            ※ 해당 레슨은 정찰제로 운영되며, 추가 비용이 발생하지 않습니다.
                         </p>
                     </div>
                 ` : html`
-                    <!-- 외부 레슨: 소비자가 직접 금액 제안 -->
-                    <p className="text-xs font-bold text-brand-blue mb-4 ml-1 uppercase tracking-widest flex items-center gap-2">
-                        <i className="fa-solid fa-won-sign"></i> 희망 제안 금액 (1인 기준)
-                    </p>
-                    <div className="relative">
+                    <div className="flex justify-between items-end mb-4 ml-1">
+                        <p className="text-xs font-bold text-brand-blue uppercase tracking-widest flex items-center gap-2">
+                            <i className="fa-solid fa-won-sign"></i> 총 참여 인원 레슨비 (총 인원 합계)
+                        </p>
+                    </div>
+                    
+                    <div className="relative mb-6">
                         <input 
                             type="number" 
-                            placeholder="예: 150000"
+                            placeholder="예: 300000"
                             className="w-full p-5 bg-blue-50/50 border-2 border-blue-100 rounded-[2rem] outline-none focus:border-brand-blue font-black text-2xl text-slate-800 transition-all"
                             value=${formData.price}
                             onInput=${(e) => updateData('price', e.target.value)} 
                         />
                         <span className="absolute right-6 top-1/2 -translate-y-1/2 font-black text-slate-400 text-xl">원</span>
                     </div>
-                    <p className="text-[11px] text-slate-400 font-bold mt-3 ml-2 leading-tight">
-                        ※ 프로님이 수락 시 해당 금액으로 즉시 결제 알림톡이 발송됩니다.<br/>
-                        ※ 합리적인 제안가는 매칭 성공 확률을 높여줍니다.
-                    </p>
+
+                    <div className="space-y-3 bg-slate-50 p-5 rounded-[1.5rem] border border-slate-100">
+                        <p className="text-[12px] font-black text-slate-800 mb-3 flex items-center gap-1">
+                            <i className="fa-solid fa-clipboard-check text-slate-400"></i> 현장 별도 비용 확인 (필수)
+                        </p>
+                        
+                        <label className="flex items-start gap-3 cursor-pointer group">
+                            <input type="checkbox" className="mt-1 w-4 h-4 rounded border-slate-300 text-brand-blue focus:ring-brand-blue" required />
+                            <div className="flex-1">
+                                <p className="text-[11px] font-bold text-slate-600 group-hover:text-slate-900 transition-colors">
+                                    위 제안가는 <span className="text-blue-600 font-black">결제금액은 참여 인원의 총 레슨비</span>이며, 고객/스승님 <span className="underline">입장료 및 부대비용</span>은 현장에서 별도 결제함에 동의합니다.
+                                </p>
+                            </div>
+                        </label>
+
+                        <div className="pl-7 space-y-1.5 border-l-2 border-slate-200 ml-2">
+                            <p className="text-[10px] font-bold text-slate-400">• 본인 및 스승님 입장료(그린피) 별도</p>
+                            <p className="text-[10px] font-bold text-slate-400">• 카트비, 캐디피 등 부대비용 별도</p>
+                        </div>
+                    </div>
                 `}
             </div>
 
+            <!-- 고객 정보 입력 -->
             <div className="space-y-3 pt-6 border-t border-slate-50">
                 <input 
-                    id="userName"
-                    placeholder="성함" 
-                    className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold transition-all" 
+                    placeholder="요청자 성함" 
+                    className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold" 
                     value=${userInfo.name} 
                     onInput=${(e) => setUserInfo(prev => ({...prev, name: e.target.value}))} 
                 />
                 <input 
-                    id="userPhone"
                     type="tel"
                     placeholder="연락처 (- 없이 숫자만)" 
-                    className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold transition-all" 
+                    className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold" 
                     value=${userInfo.contact} 
                     onInput=${(e) => setUserInfo(prev => ({...prev, contact: e.target.value.replace(/[^0-9]/g, '')}))} 
                 />
             </div>
         </div>
 
+        <!-- 하단 버튼 -->
         <div className="flex gap-3 mt-12">
-            <button onClick=${() => setPolicyOpen(true)} className="flex-1 bg-slate-100 text-slate-500 font-bold py-5 rounded-3xl text-[11px] transition-all">환불정책</button>
+            <button onClick=${() => setPolicyOpen(true)} className="flex-1 bg-slate-100 text-slate-500 font-bold py-5 rounded-3xl text-[11px]">환불정책</button>
             <button 
-                disabled=${!formData.lessonDate || !formData.schedule || !userInfo.name || !userInfo.contact || !formData.price} 
+                disabled=${!formData.lessonDate || !userInfo.name || !userInfo.contact} 
                 onClick=${nextStep} 
-                className="flex-[2.5] gradient-blue text-white font-black py-5 rounded-3xl shadow-xl disabled:opacity-30 transition-all btn-glow text-lg">
-                요청서 확인하기
+                className="flex-[2.5] gradient-blue text-white font-black py-5 rounded-3xl shadow-xl disabled:opacity-30 text-lg">
+                입력 완료 (다음 단계)
             </button>
         </div>
-        ${policyOpen && html`
-                <div className="fixed inset-0 z-[1000] flex items-center justify-center p-6">
-                    <div className="absolute inset-0 bg-slate-900/70 backdrop-blur-md" onClick=${() => setPolicyOpen(false)}></div>
-                    <div className="relative bg-white w-full max-w-sm rounded-[3rem] p-10 shadow-2xl border border-white/20">
-                        <button onClick=${() => setPolicyOpen(false)} className="absolute top-8 right-8 text-slate-300 hover:text-slate-800"><${X} size=${32} /></button>
-                        <h4 className="text-xl font-black text-slate-800 mb-8 flex items-center gap-2">
-                            <span className="w-6 h-6 bg-brand-blue text-white rounded-full flex items-center justify-center text-xs">!</span>
-                            이용 정책 및 환불 규정
-                        </h4>
-
-                        <div className="space-y-8 text-left">
-                    <div>
-    <p class="text-[11px] font-black text-brand-blue mb-4 uppercase tracking-widest">일반 1:1 매칭 레슨 환불 규정</p>
-    <div class="space-y-3 text-[12px] text-slate-600 font-bold">
-        
-        <!-- 취소 기간별 규정 -->
-        <div class="flex justify-between border-b border-slate-50 pb-1">
-            <span>레슨 3일 전까지</span>
-            <span class="text-blue-600">100% 환불</span>
-        </div>
-        <div class="flex justify-between border-b border-slate-50 pb-1 text-orange-500">
-            <span>레슨 2일 전 ~ 24시간 전</span>
-            <span>위약금 10% 발생</span>
-        </div>
-        <div class="flex justify-between border-b border-slate-50 pb-1 text-red-600 bg-red-50 p-2 rounded-lg mt-1">
-            <div class="flex flex-col">
-                <span>레슨 24시간 이내 ~ 당일</span>
-                <span class="text-[10px] opacity-80">*전날 밤 10시 이후 연락 포함</span>
-            </div>
-            <span class="self-center">1회 레슨비 차감 (노쇼)</span>
-        </div>
-
-        <!-- 중도 해지 규정 -->
-        <div class="pt-4">
-            <p class="text-slate-800 mb-2 font-black">• 패키지 중도 해지 (환불)</p>
-            <div class="bg-slate-50 p-4 rounded-2xl text-[11px] leading-relaxed border border-slate-100">
-                <p class="mb-2">1. 결제 금액에서 <span class="text-red-500">진행 회차(정상가 기준)</span>를 우선 차감합니다.</p>
-                <p>2. 잔여 금액의 <span class="text-blue-600">90%를 환불</span>해 드립니다. (위약금 10% 공제)</p>
-            </div>
-        </div>
-
-        <!-- 이용 기한 (프로 설정 우선 원칙) -->
-        <div class="pt-2">
-            <p class="text-slate-800 mb-2 font-black">• 이용 기한 정책</p>
-            <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 text-[11px]">
-                <span class="text-slate-400 block mb-1">패키지 유효기간</span>
-                <span class="text-slate-800">해당 레슨은 <span class="text-blue-600 underline">프로가 안내한 유효기간</span>을 우선 적용합니다.</span>
-                <p class="mt-1 text-[10px] text-slate-400">*별도 명시가 없는 경우 결제일로부터 3개월(5회) / 6개월(10회)이 적용됩니다.</p>
-            </div>
-        </div>
-
-        <p class="text-[10px] text-slate-400 mt-4 leading-tight font-medium">
-            * 24시간 이내 혹은 전날 밤 10시 이후의 직전 취소는 프로님의 스케줄 손실 보상을 위해 노쇼 비용이 발생합니다.
-        </p>
     </div>
-</div>
-
-                            <div>
-                                <p className="text-[11px] font-black text-brand-blue mb-4 uppercase tracking-widest">특별레슨 / 캠프 / 필드</p>
-                                <div className="space-y-2 text-[12px] text-slate-600 font-bold">
-                                    <div className="flex justify-between border-b border-slate-50 pb-1"><span>21일 전까지</span><span>100% 환불</span></div>
-                                    <div className="flex justify-between border-b border-slate-50 pb-1"><span>14일 전까지</span><span>80% 환불</span></div>
-                                    <div className="flex justify-between border-b border-slate-50 pb-1"><span>7일 전까지</span><span>50% 환불</span></div>
-                                    <div className="flex justify-between border-b border-slate-50 pb-1"><span>4일 전까지</span><span>10% 환불</span></div>
-                                    <div className="flex justify-between text-red-500 font-black pt-1 bg-red-50 p-2 rounded-lg mt-2">
-                                        <span>1일 전 ~ 당일 / 노쇼</span><span>환불 불가</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="bg-slate-900 p-5 rounded-[2rem] text-white">
-                                <p className="text-[11px] font-black text-slate-400 mb-2 uppercase">안전 거래 안내</p>
-                                <p className="text-[10px] leading-relaxed opacity-80 font-medium">
-                                    • 앱 내 결제 시에만 플랫폼의 보호를 받습니다.<br/>
-                                    • 직접 결제 사고 시 회사는 법적 책임을 지지 않습니다.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `}
-        </div>
-    `;
+`;
 
 /* --- STEP 4: 최종 요약 및 분석 시작 --- */
 if (step === 4) return html`
     <div className="animate-slide-up text-center">
         <div className="w-20 h-20 bg-blue-50 text-brand-blue rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner"><${ClipboardList} size=${40} /></div>
         <h3 className="text-3xl font-black text-slate-800 mb-2">요청서 완성!</h3>
-        <p className="text-slate-500 font-bold mb-10 text-lg">🔥 회원님의 제안을 스승님들께 전달할게요</p>
+        <p className="text-slate-500 font-bold mb-10 text-lg">🔥 회원님의 요청을 스승님들께 전달할게요</p>
         
         <div className="bg-slate-50 rounded-[2.5rem] p-8 text-left mb-10 space-y-4 border border-slate-100">
             <div className="flex justify-between items-center text-sm">
@@ -2114,7 +2037,7 @@ if (step === 4) return html`
         onClick=${() => isFixedPrice ? setStep(6.5) : submitRequest()} 
         className="w-full gradient-blue text-white font-black py-5 text-lg rounded-3xl shadow-xl active:scale-95 transition-all disabled:opacity-50"
     >
-        ${isFixedPrice ? "스승님 선택 및 플랜 보기" : "이 스승님께 견적 요청하기"}
+        ${isFixedPrice ? "스승님 선택 및 플랜 보기" : "이 스승님께 레슨 요청하기"}
     </button>
     <button 
     onClick=${startAnalysis} 
@@ -2124,7 +2047,7 @@ if (step === 4) return html`
 </button>
 
     <p className="text-center text-[11px] text-slate-400 font-bold">
-        ${isFixedPrice ? "※ 1:1 레슨은 정찰제 패키지로 운영됩니다." : "※ 필드/숏게임 레슨은 인원수에 따라 프로님이 직접 견적을 보내드립니다."}
+        ${isFixedPrice ? "※ 1:1 레슨은 정찰제 패키지로 운영됩니다." : "※ 필드/숏게임 레슨은 인원수와 금액에 따라 스승님이 수락/거절을 할 수 있습니다."}
     </p>
 </div>
             </div>
@@ -2138,7 +2061,7 @@ if (step === 4) return html`
         <div className="animate-slide-up text-left">
             <div className="mb-8">
                 <h3 className="text-2xl font-black text-slate-800">${selectedPro.name} 스승님</h3>
-                <p className="text-brand-blue font-bold text-sm">원하시는 레슨 플랜을 선택해주세요</p>
+                <p className="text-brand-blue font-bold text-sm">원하시는 레슨 횟수를 선택해주세요</p>
             </div>
             
             <div className="grid grid-cols-1 gap-3 mb-10">
