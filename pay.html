@@ -101,23 +101,22 @@
           if (userPhone) {
                 const solapiZapierUrl = "https://hooks.zapier.com/hooks/catch/27197789/4y901so/"; 
                 fetch(solapiZapierUrl, {
-                    method: "POST",
-                    mode: "no-cors",
-                    body: JSON.stringify({
-                        "status": "paid",
-                        "phone": userPhone,
-                        "name": userName,
-                        "price": paidAmt,
-                        "type": params.get('type') || "파3",
-                        "personCount": params.get('personCount') || "1인",
-                        "selectedPro": params.get('selectedPro') || "곽시랑",
-                        "proPhone": params.get('proPhone'),
-                        "schedule": params.get('schedule') || "10:00~12:00",
-                        "LOCATION": params.get('LOCATION') || "비전힐스", // 대문자로 일치
-                        "PRONOTE": "결제가 완료되었습니다. 프로님이 곧 연락드립니다.",
-                        "requestId": reqId
-                    })
-                });
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify({
+        "status": "paid",
+        "phone": userPhone,
+        "name": userName,
+        "price": paidAmt,
+        "type": params.get('type'),
+        "personCount": params.get('personCount'),
+        "selectedPro": params.get('selectedPro'),
+        "proPhone": params.get('proPhone'),
+        "schedule": params.get('schedule'),
+        "location": params.get('LOCATION'), // 자피어 변수명과 대소문자 확인
+        "requestId": reqId
+    })
+});
             }
 
             const zapierUrl = "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/";
@@ -188,37 +187,42 @@
     }
 
     async function requestBootpay() {
+        const params = new URLSearchParams(window.location.search);
         const phoneInput = document.getElementById('user-phone').value.replace(/[^0-9]/g, '');
         if (phoneInput.length < 10) return alert("알림톡을 받을 정확한 핸드폰 번호를 입력해주세요.");
         if (finalPayPrice < 100) return alert("결제 금액이 너무 낮습니다.");
         
         // [수정] params.get 대신 위에서 저장한 globalProPhone 사용
         const successRedirect = window.location.origin + window.location.pathname + 
-                                "?status=done&requestId=" + requestId + 
-                                "&price=" + finalPayPrice + 
-                                "&name=" + encodeURIComponent(name) + 
-                                "&personCount=" + encodeURIComponent(personCount + "인") +
-                                "&phone=" + phoneInput + 
-                                "&proPhone=" + globalProPhone;
+        "?status=done&requestId=" + requestId + 
+        "&price=" + finalPayPrice + 
+        "&name=" + encodeURIComponent(name) + 
+        "&personCount=" + encodeURIComponent(personCount + "인") +
+        "&phone=" + phoneInput + 
+        "&proPhone=" + encodeURIComponent(globalProPhone) +
+        "&type=" + encodeURIComponent(params.get('type') || "레슨") + 
+        "&selectedPro=" + encodeURIComponent(params.get('selectedPro') || "") + 
+        "&schedule=" + encodeURIComponent(params.get('schedule') || "") + 
+        "&LOCATION=" + encodeURIComponent(params.get('LOCATION') || "");
             
         Bootpay.requestPayment({
-            "application_id": "67ecd171d9af4e5c6d21736b",
-            "price": finalPayPrice,
-            "order_name": "스승님 골프 레슨비",
-            "order_id": requestId,
-            "pg": "nicepay",
-            "methods": ["card", "kakao"],
-            "user": { "username": name },
-            "extra": { 
-                "open_type": "redirect", 
-                "display_success_result": false, 
-                "redirect_url": successRedirect, 
-                "v2_redirect_mode": false,
-                "popup": false,
-                "method": "GET"
-            }
-        });
-    }
+        "application_id": "67ecd171d9af4e5c6d21736b",
+        "price": finalPayPrice,
+        "order_name": "스승님 골프 레슨비",
+        "order_id": requestId,
+        "pg": "nicepay",
+        "methods": ["card", "kakao"],
+        "user": { "username": name },
+        "extra": { 
+            "open_type": "redirect", 
+            "display_success_result": false, 
+            "redirect_url": successRedirect, 
+            "v2_redirect_mode": false,
+            "popup": false,
+            "method": "GET"
+        }
+    });
+}
 
     function sharePaymentLink() {
         const currentUrl = window.location.href;
