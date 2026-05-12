@@ -1492,8 +1492,8 @@ const submitRequest = async () => {
         : "https://hooks.zapier.com/hooks/catch/27197789/uj4d9ko/";
 
     const payload = {
-        action: "createRequest", // GAS 로직 태우기 위함
-        requestId: currentRequestId, // ★ 새로 생성한 ID 주입
+        action: "createRequest",
+        requestId: currentRequestId,
         name: currentName,
         contact: currentContact,
         type: formData.isJoinable ? `${formData.lessonType} [조인희망]` : formData.lessonType,
@@ -1501,7 +1501,8 @@ const submitRequest = async () => {
         club: formData.club,
         concern: formData.concern.join(', '),
         schedule: `${formData.lessonDate} / ${formData.schedule}`,
-        selectedpro: selectedPro.name, // 소문자
+        selectedpro: selectedPro.name,   // GAS의 data.selectedpro 대응
+        selectedPro: selectedPro.name,   // GAS의 data.selectedPro 대응
         proContact: selectedPro.phone,
         price: formData.price,
         personCount: formData.lessonCount || "1인",
