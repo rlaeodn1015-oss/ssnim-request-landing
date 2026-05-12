@@ -142,9 +142,9 @@
         }
 
         // 수락 기능
-        async function sendAccept() {
+     async function sendAccept() {
     const price = document.getElementById('finalPriceInput').value;
-    const locationInput = document.getElementById('lessonLocation').value; // 1. 여기서 변수명 선언
+    const locationInput = document.getElementById('lessonLocation').value;
     const noteInput = document.getElementById('proNote').value;
     const submitBtn = document.getElementById('submitBtn');
 
@@ -192,23 +192,33 @@
             const paymentUrl = `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}&type=${encodeURIComponent(sendType)}&selectedPro=${encodeURIComponent(selectedPro)}&proPhone=${proContact}&LOCATION=${encodeURIComponent(locationInput)}&schedule=${encodeURIComponent(schedule)}&personCount=${encodeURIComponent(personCount)}`;
             
             const payload = {
-                requestId: requestId,          // U열 (INDEX 20)
-                name: name,                    // A열
-                contact: contact,              // B열
-                LOCATION: locationInput,       // C열 & M열
-                type: sendType,                // D열
-                lessonCount: lessonCount,      // E열
-                club: club,                    // F열
-                concern: note,                 // G열
-                selectedPro: selectedPro,      // H열
-                proPhone: proContact,          // I열
-                SCHEDULE: schedule,            // K열
-                price: price,                  // L열
-                PRONOTE: noteInput,            // N열
-                personCount: personCount,      // R열
-                status: "수락완료",             // O열
-                paymentUrl: `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}&type=${encodeURIComponent(sendType)}&selectedPro=${encodeURIComponent(selectedPro)}&proPhone=${proContact}&LOCATION=${encodeURIComponent(locationInput)}&schedule=${encodeURIComponent(schedule)}&personCount=${encodeURIComponent(personCount)}`
-    };
+    requestId: requestId,           // U열
+    name: name,                     // A열
+    contact: contact,               // B열
+    LOCATION: locationInput,        // C열 & M열 (대문자 유지)
+    type: sendType,                 // D열
+    
+    // [범인 1] GAS는 lessoncount(소문자)를 기다립니다.
+    lessoncount: lessonCount,       
+    
+    club: club,                     // F열
+    concern: note,                  // G열
+    selectedpro: selectedPro,       // H열 (GAS 코드에 data.selectedpro 존재)
+    
+    // [범인 2] GAS I열 매핑은 proContact 또는 proPhone입니다. 
+    // 대표님 변수명이 proContact라면 아래처럼 맞춰줘야 합니다.
+    procontact: proContact,         
+    
+    SCHEDULE: schedule,             // K열 (대문자 유지)
+    price: price,                   // L열
+    PRONOTE: noteInput,             // N열 (대문자 유지)
+    personCount: personCount,       // R열
+    status: "수락완료",               // O열
+    
+    // [범인 3] 스크립트가 인식 못 하는 불필요한 키 삭제하고 
+    // 결제 URL은 필요한 데이터만 딱 보냅니다.
+    paymentUrl: `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}&type=${encodeURIComponent(sendType)}&selectedPro=${encodeURIComponent(selectedPro)}&proPhone=${proContact}&LOCATION=${encodeURIComponent(locationInput)}&schedule=${encodeURIComponent(schedule)}&personCount=${encodeURIComponent(personCount)}`
+};
 
             try {
                 // 1. 구글 시트 저장
