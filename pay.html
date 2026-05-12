@@ -100,15 +100,6 @@
             const userPhone = params.get('phone') || "";
             const lessonType = params.get('type') || "";
 
-            const updateData = {
-                action: "updatePayment",
-                status: "paid",
-                requestId: reqId,
-                price: paidAmt,
-                name: userName
-            };
-
-            const zapierUrl = "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/";
             const zapierData = {
                 status: "paid",
                 requestId: reqId,
@@ -127,22 +118,27 @@
                 // 1. 구글 시트 업데이트 시도
                 await fetch("https://script.google.com/macros/s/AKfycbwJ8jcshxR6HcNknmLkjRdeT0NMw8d4-o9Z1hAWxdryi8pzocXZveDp_pmF1PpnKkcF/exec", { 
                     method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(updateData) 
+                    body: JSON.stringify({ action: "updatePayment", status: "paid", requestId: reqId, price: paidAmt, name: userName }) 
                 });
 
-                // 2. 메인 자피어 호출
-                await fetch(zapierUrl, {
+                // 2. 메인 자피어 호출 (ujdmj18)
+                await fetch("https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/", {
                     method: "POST", mode: "no-cors",
                     body: JSON.stringify(zapierData)
                 });
 
-                // 3. 조인레슨 전용 알림톡 호출
-                if (userPhone && lessonType.includes("조인")) {
+                // 3. 외부 레슨(조인, 숏게임 등) 조건부 즉시 발송 로직
+                const externalKeywords = ["조인", "파3", "숏게임", "9홀", "18홀", "캠프", "라운드", "필드"];
+                const isExternal = externalKeywords.some(key => lessonType.includes(key));
+                const isNotOneOnOne = !lessonType.includes("1:1") && lessonType !== "레슨";
+
+                if (userPhone && isExternal && isNotOneOnOne) {
                     const solapiZapierUrl = "https://hooks.zapier.com/hooks/catch/27197789/4y901so/"; 
                     await fetch(solapiZapierUrl, {
                         method: "POST", mode: "no-cors",
                         body: JSON.stringify(zapierData)
                     });
+                    console.log("외부 레슨 즉시 알림톡 발송");
                 }
 
                 location.replace("success.html?v=" + new Date().getTime());
