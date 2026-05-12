@@ -116,13 +116,19 @@
             rejectBtn.innerText = "거절 처리 중...";
 
             const payload = {
-                action: "rejectProposal",
-                requestId: requestId,
-                name: name,
-                contact: contact,
-                type: sendType,
-                selectedpro: selectedPro
-            };
+    action: "accept",              // 1. action을 "accept"로 고정
+    requestId: requestId,          // 2. K열 추적용 ID
+    name: name,                    // 3. B열: 고객 성함
+    phone: contact,                // 4. C열: 고객 번호 (contact -> phone)
+    type: sendType,                // 5. D열: 레슨 타입
+    price: price,                  // 6. E열: 가격
+    selectedPro: selectedPro,      // 7. F열: 담당 프로 (selectedpro -> selectedPro)
+    proPhone: proContact,          // 8. G열: 프로 번호 (proContact -> proPhone)
+    schedule: schedule,            // 9. H열: 레슨 일정
+    location: location,            // 10. I열: 장소 (LOCATION -> location)
+    note: noteInput || "안내없음",   // 추가 데이터
+    status: "수락완료"               // J열에 들어갈 상태
+};
 
             try {
                 // 자피어 거절 훅 (새로 만드실 훅 주소로 교체 필요)
@@ -187,38 +193,39 @@
             const paymentUrl = `https://rlaeodn1015-oss.github.io/ssnim-request-landing/pay.html?requestId=${requestId}&price=${price}&name=${encodeURIComponent(name)}&type=${encodeURIComponent(sendType)}&selectedPro=${encodeURIComponent(selectedPro)}&proPhone=${proContact}&LOCATION=${encodeURIComponent(location)}&schedule=${encodeURIComponent(schedule)}&personCount=${encodeURIComponent(personCount)}`;
             
             const payload = {
-                action: "createRequest",
-                requestId: requestId,
-                name: name,
-                contact: contact,
-                proContact: proContact,
-                personCount: personCount, 
-                type: sendType,
-                lessoncount: String(lessonCount).replace("회", "").trim(), 
-                SCHEDULE: schedule,
-                LOCATION: location,
-                PRONOTE: noteInput || "별도 안내 사항 없음",
-                selectedpro: selectedPro,
-                price: price,
-                paymentUrl: paymentUrl,
-                status: "accepted",
-                club: club,       
-                concern: note 
-            };
+        requestId: requestId,          // U열 (인덱스 20) 매칭용 필수값
+        name: name,                    // A열
+        contact: contact,              // B열
+        LOCATION: location,            // C열 & M열 (스크립트에서 대문자 LOCATION으로 처리함)
+        type: sendType,                // D열
+        lessonCount: lessonCount,      // E열
+        club: club,                    // F열
+        concern: note,                 // G열
+        selectedPro: selectedPro,      // H열
+        proPhone: proContact,          // I열
+        SCHEDULE: schedule,            // K열 (스크립트에서 대문자 SCHEDULE 대응)
+        price: price,                  // L열 (최종견적가)
+        PRONOTE: noteInput,            // N열 (스크립트에서 대문자 PRONOTE 대응)
+        personCount: personCount,      // R열
+        paymentUrl: paymentUrl         // 알림톡 발송용 (자피어용)
+    };
 
             try {
-                fetch("https://script.google.com/macros/s/AKfycbwJ8jcshxR6HcNknmLkjRdeT0NMw8d4-o9Z1hAWxdryi8pzocXZveDp_pmF1PpnKkcF/exec", {
-                    method: "POST", mode: "no-cors", body: JSON.stringify(payload)
-                });
+        await fetch("https://script.google.com/macros/s/AKfycbwJ8jcshxR6HcNknmLkjRdeT0NMw8d4-o9Z1hAWxdryi8pzocXZveDp_pmF1PpnKkcF/exec", {
+            method: "POST", 
+            mode: "no-cors", 
+            body: JSON.stringify(payload)
+        });
+                
+const ZAPIER_EXTERNAL = "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
+        const ZAPIER_1ON1 = "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/";
+        const webhookUrl = sendType.includes('1:1') ? ZAPIER_1ON1 : ZAPIER_EXTERNAL;
 
-                const ZAPIER_EXTERNAL = "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
-                const ZAPIER_1ON1 = "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/";
-                const webhookUrl = sendType.includes('1:1') ? ZAPIER_1ON1 : ZAPIER_EXTERNAL;
-
-                await fetch(webhookUrl, { 
-                    method: "POST", mode: "no-cors", body: JSON.stringify(payload) 
-                });
-
+               await fetch(webhookUrl, { 
+            method: "POST", 
+            mode: "no-cors", 
+            body: JSON.stringify(payload) 
+        });
                 alert(sendType.includes('1:1') ? "✅ 1:1 레슨 매칭 수락 완료!" : "✅ 레슨 수락 및 결제톡 발송 완료!");
                 window.location.href = "https://pf.kakao.com/_kxawRn/chat"; 
 
