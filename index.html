@@ -518,7 +518,8 @@
             <div className="flex gap-3 px-6 overflow-x-auto no-scrollbar snap-x snap-mandatory">
                 ${joinData.map(item => {
                     const proPhone = proPhoneMap[item.pro] || "01025991095";
-                    const payUrl = `pay.html?price=${item.price}&name=${encodeURIComponent("조인희망자")}&type=${encodeURIComponent(item.title)}&requestId=JOIN_${item.id}_${new Date().getTime()}&LOCATION=${encodeURIComponent(item.loc)}&selectedPro=${encodeURIComponent(item.pro)}&proPhone=${proPhone}&schedule=${encodeURIComponent(item.time)}`;
+                    const userName = item.userName || "고객"; // 실명 데이터가 들어있는 변수 사용
+const payUrl = `pay.html?price=${item.price}&name=${encodeURIComponent(userName)}&type=${encodeURIComponent(item.title)}&requestId=JOIN_${item.id}_${new Date().getTime()}&LOCATION=${encodeURIComponent(item.loc)}&selectedPro=${encodeURIComponent(item.pro)}&proPhone=${proPhone}&schedule=${encodeURIComponent(item.time)}`;
 
                     return html`
                         <div key=${item.id} className="min-w-[240px] w-[240px] aspect-square bg-white p-5 rounded-[2.5rem] border border-slate-100 shadow-sm flex flex-col justify-between snap-center relative">
