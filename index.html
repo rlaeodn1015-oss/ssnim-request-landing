@@ -437,6 +437,109 @@
             }
         ];
 
+       const FieldReviewSection = () => {
+    return html`
+        <section id="cases" class="py-20 bg-white overflow-hidden text-left">
+            <div class="max-w-screen-xl mx-auto px-5">
+                
+                <!-- 타이틀 영역: 우리 디자인 톤앤매너에 맞춤 -->
+                <div class="flex flex-col md:flex-row justify-between items-end mb-10 gap-4 reveal">
+                    <div>
+                        <h3 class="text-2xl md:text-4xl font-black text-slate-850 tracking-tight">
+                            스승님 <span class="text-brand-blue">맞춤 레슨</span> 현장 스케치
+                        </h3>
+                        <p class="text-slate-400 font-bold mt-2 text-sm md:text-base">연습장이 아닌 '맞춤 레슨'에서 일어나는 변화</p>
+                    </div>
+                    <div class="hidden md:block">
+                         <span class="text-[10px] text-slate-300 font-black uppercase tracking-widest">Captured by SSNIM Members</span>
+                    </div>
+                </div>
+
+                <!-- 사진 그리드: 가로로 3장 큼직하게 배치 -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8 reveal">
+                    <!-- 1번: 파3 레슨 -->
+                    <div class="group relative rounded-[2rem] overflow-hidden shadow-lg aspect-[4/5] md:aspect-square">
+                        <img src="https://rlaeodn1015-oss.github.io/camp/images/KakaoTalk_20260311_150403004.png" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-6">
+                            <p class="text-white font-black text-lg">비전힐스CC 파3 레슨</p>
+                        </div>
+                    </div>
+
+                    <!-- 2번: 실전 필드 (중가운데 포인트) -->
+                    <div class="group relative rounded-[2rem] overflow-hidden shadow-xl aspect-[4/5] md:aspect-square border-4 border-blue-50">
+                        <img src="https://rlaeodn1015-oss.github.io/camp/images/feild2.png" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-6">
+                            <p class="text-white font-black text-lg">실전 코스 공략 및 에이밍</p>
+                        </div>
+                        <span class="absolute top-5 right-5 bg-brand-blue text-white text-[9px] font-black px-2.5 py-1 rounded-full animate-pulse shadow-lg">LIVE</span>
+                    </div>
+
+                    <!-- 3번: 프로님 밀착 케어 -->
+                    <div class="group relative rounded-[2rem] overflow-hidden shadow-lg aspect-[4/5] md:aspect-square">
+                        <img src="https://rlaeodn1015-oss.github.io/camp/images/KakaoTalk_20260311_151829297_04.png" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-6">
+                            <p class="text-white font-black text-lg">1:1 밀착 아이언 교정</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    `;
+};
+
+const ReviewPhotoSlider = () => {
+    return html`
+        <section class="py-6 bg-white overflow-hidden relative">
+            <div class="flex items-center">
+                <!-- 세로 비율을 강조하기 위해 카드의 너비(w)와 세로(h) 비율을 조정 -->
+                <div class="flex animate-infinite-scroll space-x-4 md:space-x-6">
+                    <!-- 리스트 1회차 -->
+                    <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review2.png" class="w-full h-full object-cover" /></div></div>
+                    <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review3.png" class="w-full h-full object-cover" /></div></div>
+                    <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review4.png" class="w-full h-full object-cover" /></div></div>
+                    <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review5.png" class="w-full h-full object-cover" /></div></div>
+                    <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review6.png" class="w-full h-full object-cover" /></div></div>
+                    <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review7.png" class="w-full h-full object-cover" /></div></div>
+                    <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review8.png" class="w-full h-full object-cover" /></div></div>
+                    
+                    <!-- 무한 롤링을 위한 리스트 2회차 복사 -->
+                    <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review2.png" class="w-full h-full object-cover" /></div></div>
+                    <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review3.png" class="w-full h-full object-cover" /></div></div>
+                    <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review4.png" class="w-full h-full object-cover" /></div></div>
+                    <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review5.png" class="w-full h-full object-cover" /></div></div>
+                    <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review6.png" class="w-full h-full object-cover" /></div></div>
+                    <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review7.png" class="w-full h-full object-cover" /></div></div>
+                    <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review8.png" class="w-full h-full object-cover" /></div></div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12 mb-8">
+                <p class="text-slate-300 font-bold text-[10px] uppercase tracking-[0.4em] opacity-80">
+                    Trusted by 1,400+ Passionate Golfers
+                </p>
+            </div>
+
+            <style>
+                @keyframes infinite-scroll-review {
+                    from { transform: translateX(0); }
+                    to { transform: translateX(-50%); }
+                }
+                .animate-infinite-scroll {
+                    display: flex;
+                    width: max-content;
+                    animation: infinite-scroll-review 50s linear infinite;
+                }
+                .animate-infinite-scroll:hover {
+                    animation-play-state: paused;
+                }
+            </style>
+        </section>
+    `;
+};
+
         const getPriceOptions = (basePrice) => {
     return {
         '1회 체험': { 
@@ -994,7 +1097,7 @@ const RealTimeStatus = () => {
                     <a href="#event" className="hover:text-brand-blue transition-colors">이벤트</a>
                     <a href="#features" className="hover:text-brand-blue transition-colors">매칭 시스템</a>
                     <a href="#trust" className="hover:text-brand-blue transition-colors">안심 정책</a>
-                    <a href="#cases" className="hover:text-brand-blue transition-colors">성공 사례</a>
+                    <a href="#cases" className="hover:text-brand-blue transition-colors">사용자 후기 </a>
                 </nav>
 
                 <div className="flex items-center gap-2 shrink-0">
@@ -1271,7 +1374,7 @@ const RealTimeStatus = () => {
         `;
 
         const TrustSection = () => html`
-            <section id="trust" className="px-5 py-32 bg-white text-left">
+            <section id="trust" class="px-5 pt-12 pb-12 bg-white text-left">
                 <div className="max-w-screen-xl mx-auto text-left">
                     <div className="grid lg:grid-cols-2 gap-20 items-center">
                         <div className="order-2 lg:order-1">
@@ -2306,9 +2409,11 @@ React.useEffect(() => {
             <${ProblemSection} />
             <${EventSection} />
             <${SystemSection} />
+            <${FieldReviewSection} />
+            <${ReviewPhotoSlider} />
             <${TrustSection} />
                
-                        <section id="cases" className="px-5 py-32 bg-slate-50">
+                       <section className="px-5 py-32 bg-slate-50">
     <div className="max-w-screen-xl mx-auto text-center">
         <h2 className="text-3xl md:text-5xl font-black mb-20 text-slate-850 tracking-tight reveal">
             실제 요청서로 증명된 후기
