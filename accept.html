@@ -137,7 +137,7 @@
             }
         }
 
-        async function sendAccept() {
+       async function sendAccept() {
             const price = document.getElementById('finalPriceInput').value;
             const location = document.getElementById('lessonLocation').value;
             const noteInput = document.getElementById('proNote').value;
@@ -206,27 +206,29 @@
                 concern: note 
             };
 
-           try {
-                // 1. 구글 시트 저장 (원래 잘 되던 대로 await 빼고 실행)
-                fetch("https://script.google.com/macros/s/AKfycbwJ8jcshxR6HcNknmLkjRdeT0NMw8d4-o9Z1hAWxdryi8pzocXZveDp_pmF1PpnKkcF/exec", {
-                    method: "POST", 
-                    mode: "no-cors", 
-                    body: JSON.stringify(payload)
-                });
+try {
+    // 1. 자피어 알림톡 전송 (이걸 먼저 기다립니다)
+    const ZAPIER_EXTERNAL = "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
+    const ZAPIER_1ON1 = "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/";
+    const webhookUrl = sendType.includes('1:1') ? ZAPIER_1ON1 : ZAPIER_EXTERNAL;
 
-               const ZAPIER_EXTERNAL = "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
-                const ZAPIER_1ON1 = "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/";
-                const webhookUrl = sendType.includes('1:1') ? ZAPIER_1ON1 : ZAPIER_EXTERNAL;
+    await fetch(webhookUrl, { 
+        method: "POST", 
+        mode: "no-cors", 
+        body: JSON.stringify(payload) 
+    });
 
-                await fetch(webhookUrl, { 
-                    method: "POST", 
-                    mode: "no-cors", 
-                    body: JSON.stringify(payload) 
-                });
+    fetch("https://script.google.com/macros/s/AKfycbwJ8jcshxR6HcNknmLkjRdeT0NMw8d4-o9Z1hAWxdryi8pzocXZveDp_pmF1PpnKkcF/exec", {
+        method: "POST", 
+        mode: "no-cors", 
+        body: JSON.stringify(payload)
+    });
                
-                alert(sendType.includes('1:1') ? "✅ 1:1 레슨 매칭 수락 완료!" : "✅ 레슨 수락 및 결제톡 발송 완료!");
-                window.location.href = "https://pf.kakao.com/_kxawRn/chat"; 
-
+                setTimeout(() => {
+        alert("✅ 수락 완료 및 결제톡 발송!");
+        window.location.href = "https://pf.kakao.com/_kxawRn/chat";
+    }, 1000);
+    
             } catch (err) {
                 alert("🚨 에러 발생: " + err.message);
                 submitBtn.disabled = false;
