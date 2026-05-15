@@ -68,7 +68,13 @@
 
         @keyframes slide-up { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .animate-slide-up { animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
-        
+        .swiper-slide {
+    height: auto !important;
+}
+
+.swiper-wrapper {
+    align-items: center;
+}
         .no-overflow-wrap { overflow-wrap: anywhere; word-break: keep-all; }
         
         ::-webkit-scrollbar { width: 8px; }
@@ -1172,38 +1178,46 @@ const RealTimeStatus = () => {
     </section>
 `;
 
-   const BannerSlider = () => {
+  const BannerSlider = () => {
     return html`
-        <section class="mb-6 px-5 w-full">
-            <!-- 고정 높이, 배경색 전부 제거 -->
-            <div class="swiper mySwiper w-full overflow-hidden">
+        <section class="px-5 w-full">
+            <div class="swiper mySwiper w-full rounded-lg overflow-hidden">
+                
                 <div class="swiper-wrapper">
-                    
-                    <!-- 1번 슬라이드: 이미지 비율 그대로 노출 -->
-                    <div class="swiper-slide !h-auto">
-                        <a href="https://map.naver.com/p/entry/place/1755177298" target="_blank" class="block w-full">
-                            <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/gela.png" 
-                                 class="w-full h-auto block rounded-lg" alt="젤라필라테스" />
+
+                    <!-- 1 -->
+                    <div class="swiper-slide">
+                        <a href="https://map.naver.com/p/entry/place/1755177298" target="_blank">
+                            <img 
+                                src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/gela.png"
+                                class="w-full block"
+                                alt="젤라필라테스"
+                            />
                         </a>
                     </div>
 
-                    <!-- 2번 슬라이드 -->
-                    <div class="swiper-slide !h-auto">
-                        <a href="https://ceo676.github.io/japan-golf-membership/" target="_blank" class="block w-full">
-                            <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/tcm.png" 
-                                 class="w-full h-auto block rounded-lg" alt="일본 골프" />
+                    <!-- 2 -->
+                    <div class="swiper-slide">
+                        <a href="https://ceo676.github.io/japan-golf-membership/" target="_blank">
+                            <img 
+                                src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/tcm.png"
+                                class="w-full block"
+                                alt="일본 골프"
+                            />
                         </a>
                     </div>
 
-                    <!-- 3번 슬라이드: 640*130 비율(약 4.92:1)에 맞춘 텍스트 배너 -->
-                    <div class="swiper-slide !h-auto">
-                        <a href="https://pf.kakao.com/_kxawRn/chat" target="_blank" 
-                           class="block w-full aspect-[640/130] bg-zinc-100 rounded-lg border border-zinc-200 relative">
-                            <div class="flex items-center justify-center h-full gap-2">
-                                <p class="text-[12px] font-bold text-zinc-900">배너 광고 문의</p>
-                                <span class="text-[10px] text-zinc-400">|</span>
-                                <p class="text-[10px] text-zinc-500 font-medium">카카오톡 채널로 문의주세요</p>
-                            </div>
+                    <!-- 3 -->
+                    <div class="swiper-slide">
+                        <a 
+                            href="https://pf.kakao.com/_kxawRn/chat"
+                            target="_blank"
+                        >
+                            <img 
+                                src="배너이미지주소"
+                                class="w-full block"
+                                alt="배너광고문의"
+                            />
                         </a>
                     </div>
 
