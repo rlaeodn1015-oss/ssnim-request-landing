@@ -211,286 +211,303 @@
         const CHAT_ID = "5955006042";
 
         const pros = [
-            { 
-                id: 1, 
-                name: "곽시랑 스승", 
-                phone: "01039853985",
-                style: "필드, 파3, 숏게임, 1:1", 
-                price: 100000, 
-                location: "강남, 서초", 
-                rating: 5.0, 
-                review: 142, 
-                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KakaoTalk_20260327_165459882.png", 
-                intro: "KLPGA 준회원, 드로우 구질 변화 1위 전문가", 
-                career: "KLPGA 정회원 7년",
-                lessonCount: 1300,
-                specialty: "슬라이스 교정 전문",
-                priceRange: "10~12만원",
-                reviewHighlight: "한 달 만에 슬라이스 완쾌",
-                reasons: ["드라이버 슬라이스 교정 성공 케이스 600건+", "강남 지역 1:1 레슨 최다 만족도 기록", "트랙맨 기반 데이터 분석 최적화"],
-                tags: ["필드레슨", "슬라이스 교정", "드라이버"] 
-            },
-            { 
-                id: 2, 
-                name: "조이현 스승",
-                phone: "01056323190",
-                style: "롱아이언, 숏게임, 초보레슨, 드라이버", 
-                price: 130000, 
-                location: "송파, 강남, 분당, 용인", 
-                rating: 4.9, 
-                review: 89, 
-                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/JYH.jpg", 
-                intro: "여성 골퍼 비거리 및 폼 교정 전문", 
-                career: "KPGA 투어 프로 5년",
-                lessonCount: 450,
-                specialty: "비거리 향상 전문",
-                priceRange: "13~15만원",
-                reviewHighlight: "비거리 30m 실질적 향상",
-                reasons: ["여성 골퍼 특화 비거리 향상 프로그램", "송파 지역 90타대 입문자 탈출 후기 다수", "아이언 일관성 집중 레슨"],
-                tags: ["롱아이언", "숏게임", "스윙교정", "초보레슨"] 
-            },
-            { 
-                id: 3, 
-                name: "서수연 스승",
-                phone: "01094856241",
-                style: "숏게임, 비거리증가, 생크, 슬라이스", 
-                price: 150000, 
-                location: "분당, 강남, 서초", 
-                rating: 5.0, 
-                review: 215, 
-                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KakaoTalk_20260309_200933587.jpg", 
-                intro: "어프로치 입스 극복 및 퍼터 정밀 레슨", 
-                career: "숏게임 전문 스승님, 후기 다수 보유",
-                lessonCount: 880,
-                specialty: "어프로치/숏게임 전문",
-                priceRange: "12~14만원",
-                reviewHighlight: "퍼팅 수 평균 8개 감소",
-                reasons: ["숏게임 레슨 전문가", "싱글 스코어 최다 기록", "강남/분당 지역 숏게임레슨 1위"],
-                tags: ["숏게임", "초보레슨", "생크", "퍼터"] 
-            },
-            { 
-                id: 4, 
-                name: "석준형 스승",
-                phone: "01054263433",
-                style: "비거리, 드라이버, 파워스윙", 
-                price: 250000, 
-                location: "강남, 서초", 
-                rating: 5.0, 
-                review: 95, 
-                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/SJH.png", 
-                intro: "GTOUR 대회 선수, 비거리 30m 보장", 
-                career: "현역 GTOUR 선수",
-                lessonCount: 850,
-                specialty: "파워 드로우/장타",
-                priceRange: "20~30만원",
-                reviewHighlight: "드라이버 비거리 270m 달성",
-                reasons: ["GTOUR 선수의 구질교정", "장타를 위한 지면 반발력 활용법", "상급자용 정밀 데이터 분석"],
-                tags: ["드라이버", "비거리", "우드/유틸"] 
-            },
-            { 
-                id: 5, 
-                name: "홍주연 스승",
-                phone: "01039969628",
-                style: "숏아이언, 비거리증가, 배치기 교정", 
-                price: 150000, 
-                location: "강남, 서초", 
-                rating: 4.9, 
-                review: 178, 
-                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/HJY.png", 
-                intro: "숏아이언 전문, 예쁜 스윙의 정석", 
-                career: "11년 투어생활, 골프유튜버",
-                lessonCount: 370,
-                specialty: "기초 스윙 메커니즘",
-                priceRange: "15~20만원",
-                reviewHighlight: "인생에서 가장 예쁜 스윙",
-                reasons: ["기초가 탄탄한 스윙 궤도 형성", "유연성을 활용한 부드러운 스윙", "입문자 대상 최다 추천 기록"],
-                tags: ["초보레슨", "스윙교정", "키즈골프"] 
-            },
-            { 
-                id: 6, 
-                name: "양형철 스승",
-                phone: "01093996255",
-                style: "필드, 코스매니지먼트, 싱글도전", 
-                price: 170000, 
-                location: "강남, 서초", 
-                rating: 5.0, 
-                review: 56, 
-                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/YHC.png", 
-                intro: "전 투어 프로, 실전 라운딩 전문", 
-                career: "전 KPGA 투어 프로",
-                lessonCount: 230,
-                specialty: "필드 매니지먼트",
-                priceRange: "15~20만원",
-                reviewHighlight: "생애 첫 싱글 기록 성공",
-                reasons: ["실전 코스 공략 및 위기 관리", "프로급 라운딩 운영 기술 전수", "필드 집중 원포인트 레슨"],
-                tags: ["필드레슨", "숏게임", "9홀 필드레슨"] 
-            },
-            { 
-                id: 7, 
-                name: "조동요 스승",
-                phone: "01026578395",
-                style: "초보레슨, 드라이버, 비거리증가", 
-                price: 250000, 
-                location: "서초, 강남", 
-                rating: 4.8, 
-                review: 120, 
-                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/JDY.png", 
-                intro: "유튜브 속 레슨을 현실에서", 
-                career: "유튜브 구독자 13만명",
-                lessonCount: 2500,
-                specialty: "확실한 레슨 효과를 원하신다면",
-                priceRange: "25~30만원",
-                reviewHighlight: "눈높이 골프레슨의 최강자",
-                reasons: ["이론과 실전 병행", "직관적이며 열정적인 스타일", "결과로 보답하는 맞춤 레슨"],
-                tags: ["드라이버", "숏게임", "슬라이스교정"] 
-            },
-            { 
-                id: 8, 
-                name: "공나연 스승",
-                phone: "01036012385",
-                style: "드라이버, 일관성, 정확도", 
-                price: 180000, 
-                location: "송파, 강남", 
-                rating: 4.7, 
-                review: 88, 
-                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KNY.jpg", 
-                intro: "칼날 같은 아이언 샷, 정확도 향상", 
-                career: "KLPGA-1212",
-                lessonCount: 490,
-                specialty: "아이언 교정 전문가",
-                priceRange: "16~20만원",
-                reviewHighlight: "아이언 정타 확률 80% 향상",
-                reasons: ["정확한 임팩트 타이밍 교정", "아이언 비거리 조절 및 방향성", "데이터 기반 샷 분석 피드백"],
-                tags: ["숏아이언", "롱아이언", "스윙교정"] 
-            },
-            { 
-                id: 9, 
-                name: "이원영 스승",
-                phone: "01075397997",
-                style: "우드, 유틸리티, 여성골퍼", 
-                price: 150000, 
-                location: "강남, 분당, 용인", 
-                rating: 4.9, 
-                review: 154, 
-                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/lwy.webp", 
-                intro: "어려운 우드/유틸리티 쉽게 치기", 
-                career: "KLPGA, 강남구 리뷰 1등",
-                lessonCount: 2200,
-                specialty: "여성 골퍼 특화",
-                priceRange: "15~20만원",
-                reviewHighlight: "우드가 드라이버만큼 쉬워짐",
-                reasons: ["우드/유틸리티 컨택 및 리듬", "여성 골퍼 맞춤형 근력 활용법", "친절하고 체계적인 단계별 레슨"],
-                tags: ["우드/유틸", "비거리", "초보레슨"] 
-            },
-            { 
-                id: 10, 
-                name: "유민혁 스승",
-                phone: "01083924008",
-                style: "생크 교정, 드라이버, 비거리", 
-                price: 70000, 
-                location: "서초, 강남", 
-                rating: 5.0, 
-                review: 42, 
-                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/YMH.png", 
-                intro: "고질적인 슬라이스/생크 맞춤 해결", 
-                career: "스윙 분석 데이터 전문가",
-                lessonCount: 120,
-                specialty: "구질 교정 긴급 처방",
-                priceRange: "7~10만원",
-                reviewHighlight: "단 한 번의 레슨으로 문제 교정",
-                reasons: ["문제 원인 즉각 파악 및 교정", "슬라이스 궤도 수정 전문가", "원포인트 레슨 최고 만족도"],
-                tags: ["생크", "슬라이스 교정", "1:1 레슨"] 
-            },
-            { 
-                id: 11, 
-                name: "강도윤 스승",
-                phone: "01077587383",
-                style: "숏게임, 드라이버, 롱아이언", 
-                price: 150000, 
-                location: "강남, 분당, 용인", 
-                rating: 5.0, 
-                review: 73, 
-                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/kdy.webp", 
-                intro: "포기하지 않으면 누구나 할 수 있어요", 
-                career: "KPGA TOURPRO 맞춤 레슨",
-                lessonCount: 195,
-                specialty: "롱게임, 세컨 온그린 전문",
-                priceRange: "15~20만원",
-                reviewHighlight: "투 온에 자신감을 붙이는 레슨",
-                reasons: ["높이뜨는 공", "드라이버 및 세컨 샷 전문", "원포인트 회원 후기 증명"],
-                tags: ["비거리", "롱아이언 전문", "회원 만족 1위"] 
-            },
-            { 
-                id: 12, 
-                name: "김지영 스승",
-                phone: "01071595448",
-                style: "초보레슨, 퍼터, 드라이버", 
-                price: 150000, 
-                location: "강남, 분당", 
-                rating: 4.7, 
-                review: 143, 
-                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KTY.png", 
-                intro: "초보딱지는 이제 그만", 
-                career: "초보 및 자세교정 전문 스승",
-                lessonCount: 354,
-                specialty: "초보탈출, 비거리 증가",
-                priceRange: "15~20만원",
-                reviewHighlight: "소통을 중시하며 디테일한 레슨",
-                reasons: ["정확한 컨택", "완벽한 스윙", "초보자들의 선생님"],
-                tags: ["초보레슨", "정확한 방향성", "레슨의 방향성"] 
-            },
-            { 
-                id: 13, 
-                name: "이상준 스승",
-                phone: "01041900478",
-                style: "초보레슨, 우드/유틸, 드라이버", 
-                price: 130000, 
-                location: "강남, 송파", 
-                rating: 5.0, 
-                review: 422, 
-                img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/LSJ.png", 
-                intro: "우드와 유틸에 자신감과 만족스러운 임팩", 
-                career: "유튜브 운영 및 자신있는 레슨",
-                lessonCount: 691,
-                specialty: "우드/유틸 꿀팁, 타수 줄이기 전문",
-                priceRange: "15~20만원",
-                reviewHighlight: "감각을 중시하며 직관적이고 진지한 레슨",
-                reasons: ["긴 거리도 문제없이", "골린이 전문", "거리문제 해결"],
-                tags: ["초보레슨", "우드/유틸의 마법사", "우드 자신감"] 
-            },
-            { 
+    { 
+        id: 1, 
+        name: "곽시랑 스승", 
+        phone: "01039853985",
+        // 매칭용 데이터 배열화
+        lessonTypes: ["18홀 필드레슨", "파3 레슨", "숏게임레슨", "1:1 레슨"], 
+        activeLocations: ["강남", "서초", "대치", "도곡", "개포", "삼성", "역삼", "선릉", "압구정", "신사", "논현"], 
+        specialties: ["슬라이스", "구질교정", "드라이버", "비거리"],
+        
+        price: 100000, 
+        rating: 5.0, 
+        review: 142, 
+        img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KakaoTalk_20260327_165459882.png", 
+        intro: "KLPGA 준회원, 드로우 구질 변화 1위 전문가", 
+        career: "KLPGA 정회원 7년",
+        lessonCount: 1300,
+        priceRange: "10~12만원",
+        reviewHighlight: "한 달 만에 슬라이스 완쾌",
+        // 유저의 고민과 대조하여 출력할 동적 매칭 포인트
+        reasons: ["드라이버 슬라이스 교정 성공 케이스 600건+", "강남 지역 1:1 레슨 최다 만족도 기록", "트랙맨 기반 데이터 분석 최적화"],
+        tags: ["필드레슨", "슬라이스 교정", "드라이버"] 
+    },
+    { 
+        id: 2, 
+        name: "조이현 스승",
+        phone: "01056323190",
+        lessonTypes: ["1:1 레슨", "숏게임레슨", "9홀 레슨"],
+        activeLocations: ["송파", "강남", "분당", "용인", "잠실", "문정", "판교", "정자"],
+        specialties: ["비거리", "롱아이언", "스윙교정", "초보레슨"],
+        
+        price: 130000, 
+        rating: 4.9, 
+        review: 89, 
+        img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/JYH.jpg", 
+        intro: "여성 골퍼 비거리 및 폼 교정 전문", 
+        career: "KPGA 투어 프로 5년",
+        lessonCount: 450,
+        priceRange: "13~15만원",
+        reviewHighlight: "비거리 30m 실질적 향상",
+        reasons: ["여성 골퍼 특화 비거리 향상 프로그램", "송파 지역 90타대 입문자 탈출 후기 다수", "아이언 일관성 집중 레슨"],
+        tags: ["롱아이언", "숏게임", "스윙교정", "초보레슨"] 
+    },
+    { 
+        id: 3, 
+        name: "서수연 스승",
+        phone: "01094856241",
+        lessonTypes: ["숏게임레슨", "파3 레슨", "1:1 레슨"],
+        activeLocations: ["분당", "강남", "서초", "판교", "정자", "양재", "도곡"],
+        specialties: ["숏게임", "어프로치", "퍼팅", "생크", "슬라이스", "초보레슨"],
+        
+        price: 150000, 
+        rating: 5.0, 
+        review: 215, 
+        img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KakaoTalk_20260309_200933587.jpg", 
+        intro: "어프로치 입스 극복 및 퍼터 정밀 레슨", 
+        career: "숏게임 전문 스승님, 후기 다수 보유",
+        lessonCount: 880,
+        priceRange: "12~14만원",
+        reviewHighlight: "퍼팅 수 평균 8개 감소",
+        reasons: ["숏게임 레슨 전문가", "싱글 스코어 최다 기록", "강남/분당 지역 숏게임레슨 1위"],
+        tags: ["숏게임", "초보레슨", "생크", "퍼터"] 
+    },
+    { 
+        id: 4, 
+        name: "석준형 스승",
+        phone: "01054263433",
+        lessonTypes: ["1:1 레슨", "18홀 필드레슨"],
+        activeLocations: ["강남", "서초", "삼성", "역삼", "선릉"],
+        specialties: ["비거리", "드라이버", "우드/유틸", "장타", "상급자레슨"],
+        
+        price: 250000, 
+        rating: 5.0, 
+        review: 95, 
+        img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/SJH.png", 
+        intro: "GTOUR 대회 선수, 비거리 30m 보장", 
+        career: "현역 GTOUR 선수",
+        lessonCount: 850,
+        priceRange: "20~30만원",
+        reviewHighlight: "드라이버 비거리 270m 달성",
+        reasons: ["GTOUR 선수의 구질교정", "장타를 위한 지면 반발력 활용법", "상급자용 정밀 데이터 분석"],
+        tags: ["드라이버", "비거리", "우드/유틸"] 
+    },
+    { 
+        id: 5, 
+        name: "홍주연 스승",
+        phone: "01039969628",
+        lessonTypes: ["1:1 레슨", "숏게임레슨"],
+        activeLocations: ["강남", "서초", "압구정", "신사", "청담"],
+        specialties: ["숏아이언", "비거리", "스윙교정", "배치기교정", "초보레슨", "키즈골프"],
+        
+        price: 150000, 
+        rating: 4.9, 
+        review: 178, 
+        img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/HJY.png", 
+        intro: "숏아이언 전문, 예쁜 스윙의 정석", 
+        career: "11년 투어생활, 골프유튜버",
+        lessonCount: 370,
+        priceRange: "15~20만원",
+        reviewHighlight: "인생에서 가장 예쁜 스윙",
+        reasons: ["기초가 탄탄한 스윙 궤도 형성", "유연성을 활용한 부드러운 스윙", "입문자 대상 최다 추천 기록"],
+        tags: ["초보레슨", "스윙교정", "키즈골프"] 
+    },
+    { 
+        id: 6, 
+        name: "양형철 스승",
+        phone: "01093996255",
+        lessonTypes: ["18홀 필드레슨", "9홀 레슨", "숏게임레슨"],
+        activeLocations: ["강남", "서초", "반포", "방배", "잠원"],
+        specialties: ["필드레슨", "코스매니지먼트", "싱글도전", "숏게임"],
+        
+        price: 170000, 
+        rating: 5.0, 
+        review: 56, 
+        img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/YHC.png", 
+        intro: "전 투어 프로, 실전 라운딩 전문", 
+        career: "전 KPGA 투어 프로",
+        lessonCount: 230,
+        priceRange: "15~20만원",
+        reviewHighlight: "생애 첫 싱글 기록 성공",
+        reasons: ["실전 코스 공략 및 위기 관리", "프로급 라운딩 운영 기술 전수", "필드 집중 원포인트 레슨"],
+        tags: ["필드레슨", "숏게임", "9홀 필드레슨"] 
+    },
+    { 
+        id: 7, 
+        name: "조동요 스승",
+        phone: "01026578395",
+        lessonTypes: ["1:1 레슨", "숏게임레슨", "파3 레슨"],
+        activeLocations: ["서초", "강남", "교대", "방배", "서초"],
+        specialties: ["초보레슨", "드라이버", "비거리", "슬라이스교정", "숏게임"],
+        
+        price: 250000, 
+        rating: 4.8, 
+        review: 120, 
+        img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/JDY.png", 
+        intro: "유튜브 속 레슨을 현실에서", 
+        career: "유튜브 구독자 13만명",
+        lessonCount: 2500,
+        priceRange: "25~30만원",
+        reviewHighlight: "눈높이 골프레슨의 최강자",
+        reasons: ["이론과 실전 병행", "직관적이며 열정적인 스타일", "결과로 보답하는 맞춤 레슨"],
+        tags: ["드라이버", "숏게임", "슬라이스교정"] 
+    },
+    { 
+        id: 8, 
+        name: "공나연 스승",
+        phone: "01036012385",
+        lessonTypes: ["1:1 레슨", "캠프 레슨"],
+        activeLocations: ["송파", "강남", "잠실", "신천", "방이"],
+        specialties: ["드라이버", "일관성", "정확도", "숏아이언", "롱아이언", "스윙교정"],
+        
+        price: 180000, 
+        rating: 4.7, 
+        review: 88, 
+        img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KNY.jpg", 
+        intro: "칼날 같은 아이언 샷, 정확도 향상", 
+        career: "KLPGA-1212",
+        lessonCount: 490,
+        priceRange: "16~20만원",
+        reviewHighlight: "아이언 정타 확률 80% 향상",
+        reasons: ["정확한 임팩트 타이밍 교정", "아이언 비거리 조절 및 방향성", "데이터 기반 샷 분석 피드백"],
+        tags: ["숏아이언", "롱아이언", "스윙교정"] 
+    },
+    { 
+        id: 9, 
+        name: "이원영 스승",
+        phone: "01075397997",
+        lessonTypes: ["1:1 레슨", "숏게임레슨", "9홀 레슨"],
+        activeLocations: ["강남", "분당", "용인", "수지", "죽전", "기흥", "판교", "정자"],
+        specialties: ["우드", "유틸리티", "여성골퍼", "비거리", "초보레슨"],
+        
+        price: 150000, 
+        rating: 4.9, 
+        review: 154, 
+        img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/lwy.webp", 
+        intro: "어려운 우드/유틸리티 쉽게 치기", 
+        career: "KLPGA, 강남구 리뷰 1등",
+        lessonCount: 2200,
+        priceRange: "15~20만원",
+        reviewHighlight: "우드가 드라이버만큼 쉬워짐",
+        reasons: ["우드/유틸리티 컨택 및 리듬", "여성 골퍼 맞춤형 근력 활용법", "친절하고 체계적인 단계별 레슨"],
+        tags: ["우드/유틸", "비거리", "초보레슨"] 
+    },
+    { 
+        id: 10, 
+        name: "유민혁 스승",
+        phone: "01083924008",
+        lessonTypes: ["1:1 레슨", "원포인트"],
+        activeLocations: ["서초", "강남", "양재", "개포", "도곡"],
+        specialties: ["생크", "슬라이스", "드라이버", "비거리", "구질교정"],
+        
+        price: 70000, 
+        rating: 5.0, 
+        review: 42, 
+        img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/YMH.png", 
+        intro: "고질적인 슬라이스/생크 맞춤 해결", 
+        career: "스윙 분석 데이터 전문가",
+        lessonCount: 120,
+        priceRange: "7~10만원",
+        reviewHighlight: "단 한 번의 레슨으로 문제 교정",
+        reasons: ["문제 원인 즉각 파악 및 교정", "슬라이스 궤도 수정 전문가", "원포인트 레슨 최고 만족도"],
+        tags: ["생크", "슬라이스 교정", "1:1 레슨"] 
+    },
+    { 
+        id: 11, 
+        name: "강도윤 스승",
+        phone: "01077587383",
+        lessonTypes: ["1:1 레슨", "18홀 필드레슨", "숏게임레슨"],
+        activeLocations: ["강남", "분당", "용인", "수지", "죽전", "판교"],
+        specialties: ["비거리", "롱아이언", "드라이버", "숏게임", "상급자레슨"],
+        
+        price: 150000, 
+        rating: 5.0, 
+        review: 73, 
+        img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/kdy.webp", 
+        intro: "포기하지 않으면 누구나 할 수 있어요", 
+        career: "KPGA TOURPRO 맞춤 레슨",
+        lessonCount: 195,
+        priceRange: "15~20만원",
+        reviewHighlight: "투 온에 자신감을 붙이는 레슨",
+        reasons: ["높이뜨는 공", "드라이버 및 세컨 샷 전문", "원포인트 회원 후기 증명"],
+        tags: ["비거리", "롱아이언 전문", "회원 만족 1위"] 
+    },
+    { 
+        id: 12, 
+        name: "김지영 스승",
+        phone: "01071595448",
+        lessonTypes: ["1:1 레슨", "초보레슨"],
+        activeLocations: ["강남", "분당", "판교", "서현", "정자"],
+        specialties: ["초보레슨", "퍼터", "드라이버", "자세교정", "비거리"],
+        
+        price: 150000, 
+        rating: 4.7, 
+        review: 143, 
+        img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KTY.png", 
+        intro: "초보딱지는 이제 그만", 
+        career: "초보 및 자세교정 전문 스승",
+        lessonCount: 354,
+        priceRange: "15~20만원",
+        reviewHighlight: "소통을 중시하며 디테일한 레슨",
+        reasons: ["정확한 컨택", "완벽한 스윙", "초보자들의 선생님"],
+        tags: ["초보레슨", "정확한 방향성", "레슨의 방향성"] 
+    },
+    { 
+        id: 13, 
+        name: "이상준 스승",
+        phone: "01041900478",
+        lessonTypes: ["1:1 레슨", "초보레슨", "숏게임레슨"],
+        activeLocations: ["강남", "송파", "잠실", "신천", "삼성", "역삼"],
+        specialties: ["초보레슨", "우드/유틸", "드라이버", "타수줄이기"],
+        
+        price: 130000, 
+        rating: 5.0, 
+        review: 422, 
+        img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/LSJ.png", 
+        intro: "우드와 유틸에 자신감과 만족스러운 임팩", 
+        career: "유튜브 운영 및 자신있는 레슨",
+        lessonCount: 691,
+        priceRange: "15~20만원",
+        reviewHighlight: "감각을 중시하며 직관적이고 진지한 레슨",
+        reasons: ["긴 거리도 문제없이", "골린이 전문", "거리문제 해결"],
+        tags: ["초보레슨", "우드/유틸의 마법사", "우드 자신감"] 
+    },
+    { 
         id: 14, 
         name: "권두욱 스승",
         phone: "01040134484",
-        style: "웻지/숏게임, 퍼터, 드라이버", 
+        lessonTypes: ["숏게임레슨", "파3 레슨", "1:1 레슨"],
+        activeLocations: ["강남", "서초", "양재", "개포", "반포", "방배"],
+        specialties: ["숏게임", "퍼터", "드라이버", "어프로치", "에임포인트"],
+        
         price: 80000, 
-        location: "강남, 서초", 
         rating: 4.8, 
         review: 122, 
         img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KDW.jpg", 
         intro: "최종환 퍼팅아카데미 인증 교습가", 
         career: "AimPoint, Lynn Blake 인증 스승",
         lessonCount: 691,
-        specialty: "숏게임의 대가, 그린주변 타수 줄이기 전문",
         priceRange: "8~20만원",
         reviewHighlight: "이론과 실전을 병행하며 디테일하고 꼼꼼한 레슨",
         reasons: ["핀에 붙이는 어프로치", "싱글 만들기 전문", "스코어 해결"],
         tags: ["숏게임마스터", "에임포인트", "싱글골퍼"] 
-    }, // <-- 이 콤마가 중요합니다!
+    },
     { 
         id: 15, 
         name: "이근협 스승",
         phone: "01050278421",
-        style: "드라이버, 비거리증가, 바디스윙", 
+        lessonTypes: ["1:1 레슨", "18홀 필드레슨"],
+        activeLocations: ["분당", "수원", "영통", "광교", "판교", "정자"],
+        specialties: ["드라이버", "비거리", "바디스윙", "정타교정"],
+        
         price: 120000, 
-        location: "분당, 수원", 
         rating: 4.5, 
         review: 243, 
         img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/LGH.webp", 
         intro: "KLPGA TOUR PRO", 
         career: "KPGA CLASS A, 코리안투어 출전 경험, 챌린지투어 다수 입상",
         lessonCount: 191,
-        specialty: "드라이버 스윙의 완성본, 몸으로 하는 스윙",
         priceRange: "12~20만원",
         reviewHighlight: "분석을 중심으로 열정적인 스타일로 원하는 비거리를 만들어드립니다",
         reasons: ["임팩을 통한 완벽한 정타", "똑바로 멀리치는 드라이버"],
@@ -1980,40 +1997,74 @@ React.useEffect(() => {
     };
 
     const startAnalysis = () => {
-        setStep(5);
-        setLoadingIdx(0);
-        let idx = 0;
-        const interval = setInterval(() => {
-            idx++;
-            if (idx < loadingMessages.length) {
-                setLoadingIdx(idx);
-            } else {
-                clearInterval(interval);
-                setTimeout(() => {
-                    let filteredPros = pros.filter(p => p.location.includes(formData.location));
-                    
-                    if (filteredPros.length === 0) {
-                        filteredPros = [...pros];
-                    }
+    setStep(5); // 로딩 화면으로 이동
+    setLoadingIdx(0);
+    
+    let currentIdx = 0;
+    
+    // 1. 로딩 메시지를 순차적으로 보여주는 타이머
+    const interval = setInterval(() => {
+        currentIdx++;
+        if (currentIdx < loadingMessages.length) {
+            setLoadingIdx(currentIdx);
+        } else {
+            clearInterval(interval);
+            
+            // 2. 메시지 노출이 모두 끝나면 실제 매칭 알고리즘 실행
+            executeMatching();
+        }
+    }, 1000); // 1초 간격으로 메시지 전환
+};
 
-                    const scoredPros = filteredPros.map(p => {
-                        let score = 0;
-                        if (p.style.includes(formData.lessonType)) score += 5;
-                        if (p.tags.some(tag => formData.concern.some(c => tag.includes(c)))) score += 10;
-                        return { ...p, score: score + Math.random() };
-                    });
+const executeMatching = () => {
+    // 1. 지역 기반 필터링 (버튼 텍스트를 쪼개서 하나라도 일치하는지 확인)
+    let isLocationMatched = true;
+    
+    // 사용자가 선택한 지역(예: '대치·도곡·개포')을 '·' 기준으로 쪼갭니다.
+    const selectedLocs = formData.location.split('·'); 
 
-                    const matched = scoredPros.sort((a, b) => b.score - a.score).slice(0, 3).map((p, i) => ({
-                        ...p,
-                        displayScore: 99 - (i * 2) - Math.floor(Math.random() * 2)
-                    }));
+    let filteredPros = pros.filter(p => {
+        const proLocs = p.activeLocations || [];
+        // 프로의 지역 중 하나라도 사용자가 선택한 상세 지역명(대치, 도곡 등)을 포함하는지 확인
+        return proLocs.some(proLoc => 
+            selectedLocs.some(userLoc => proLoc.includes(userLoc) || userLoc.includes(proLoc))
+        );
+    });
+    
+    // 2. 지역 매칭 실패 시 전체 프로로 확장 (방법 A: 주변 지역 확장)
+    if (filteredPros.length === 0) {
+        isLocationMatched = false; // 지역 매칭 실패 플래그
+        filteredPros = [...pros];
+    }
 
-                    setResults(matched);
-                    setStep(6);
-                }, 800);
-            }
-        }, 1000);
-    };
+    // 3. 매칭 점수 계산 (고민 키워드 및 레슨 형태 중심)
+    const scoredPros = filteredPros.map(p => {
+        let score = 0;
+        const types = p.lessonTypes || [];
+        const tags = p.tags || [];
+
+        // 레슨 형태 일치 가중치 (+20점)
+        if (types.includes(formData.lessonType)) score += 20; 
+        
+        // 고민 태그 일치 가중치 (+30점)
+        const userConcerns = Array.isArray(formData.concern) ? formData.concern : [formData.concern];
+        if (tags.some(tag => userConcerns.some(c => tag.includes(c)))) score += 30; 
+        
+        return { ...p, score: score + (Math.random() * 10) }; 
+    });
+
+    // 4. 상위 3명 추출 및 확장 매칭 상태 기록
+    const matched = scoredPros.sort((a, b) => b.score - a.score).slice(0, 3).map((p, i) => ({
+        ...p,
+        displayScore: 99 - (i * 2) - Math.floor(Math.random() * 2),
+        isExpanded: !isLocationMatched // 지역 확장 매칭 여부 저장
+    }));
+
+    setResults(matched);
+    
+    // 로딩 연출 후 결과 페이지(Step 6)로 이동
+    setTimeout(() => setStep(6), 500);
+};
 
 const submitRequest = async () => {
     const currentName = (userInfo.name || "").trim();
@@ -2189,35 +2240,60 @@ if (step === 1) return html`
             </div>
         </div>
         <div className="space-y-8">
-            <!-- 지역 선택 -->
             <div>
-                <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest text-blue-600">지역 선택 (생활권)</p>
-                <div className="grid grid-cols-2 gap-3">
-                    ${[
-                        '압구정·신사·논현', '역삼·선릉·삼성', '양재·개포·도곡', 
-                        '반포·잠원·방배', '교대·서초·우면', '잠실·신천·방이', 
-                        '판교·분당·정자', '수지·죽전·기흥'
-                    ].map(l => html`
-                        <button key=${l} onClick=${() => updateData('location', l)} 
-                            className=${`py-4 rounded-2xl border-2 font-bold transition-all ${formData.location === l ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400 hover:border-slate-200 text-[13px]'}`}>
-                            ${l}
-                        </button>
-                    `)}
-                    
-                    <button 
-                        onClick=${() => {
-                            const val = window.prompt("레슨받기 편한 '동네 이름'이나 '역 이름'을 입력해주세요.\n(예: 한남동, 판교역, 대치동)");
-                            if (val && val.trim()) updateData('location', val.trim());
-                        }}
-                        className=${`col-span-2 py-3 rounded-2xl border-2 border-dashed font-bold transition-all ${
-                            formData.location && !['압구정·신사·논현', '역삼·선릉·삼성', '양재·개포·도곡', '반포·잠원·방배', '교대·서초·우면', '잠실·신천·방이', '판교·분당·정자', '수지·죽전·기흥'].includes(formData.location)
-                            ? 'border-brand-blue bg-blue-50 text-brand-blue' : 'border-slate-200 text-slate-400'
-                        }`}>
-                        ${formData.location && !['압구정·신사·논현', '역삼·선릉·삼성', '양재·개포·도곡', '반포·잠원·방배', '교대·서초·우면', '잠실·신천·방이', '판교·분당·정자', '수지·죽전·기흥'].includes(formData.location) 
-                            ? `📍 ${formData.location} (선택됨)` : '+ 이 외 지역 직접 입력'}
-                    </button>
-                </div>
-            </div>
+        <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest text-blue-600">
+            지역 선택 (생활권)
+        </p>
+
+        <div className="grid grid-cols-2 gap-3">
+            ${[
+                '대치·도곡·개포', '삼성·역삼·선릉', '압구정·청담·신사',
+                '서초·교대·방배', '잠실·송파·문정', '판교·정자·분당', '수지·죽전·기흥'
+            ].map(l => html`
+                <button
+                    key=${l}
+                    onClick=${() => updateData('location', l)}
+                    className=${`py-4 rounded-2xl border-2 font-bold transition-all text-[13px]
+                        ${formData.location === l 
+                            ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' 
+                            : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}
+                >
+                    ${l}
+                </button>
+            `)}
+
+            <!-- 직접 입력 버튼: 리스트에 없는 특수 지역 대응용 -->
+            <button
+                onClick=${() => {
+                    const val = window.prompt("레슨받기 편한 동네나 역명을 입력해주세요.\n예: 한남동, 망원역, 수지구청");
+                    if (val && val.trim()) {
+                        updateData('location', val.trim());
+                    }
+                }}
+                className=${`col-span-2 py-4 rounded-2xl border-2 border-dashed font-bold text-[13px] transition-all
+                    ${formData.location && ![
+                        '대치·도곡·개포', '삼성·역삼·선릉', '압구정·청담·신사',
+                        '서초·교대·방배', '잠실·송파·문정', '판교·분당·정자', '수지·죽전·기흥'
+                    ].includes(formData.location)
+                        ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-md'
+                        : 'border-slate-200 text-slate-400 hover:border-brand-blue'}`}
+            >
+                ${formData.location && ![
+                    '대치·도곡·개포', '삼성·역삼·선릉', '압구정·청담·신사',
+                    '서초·교대·방배', '잠실·송파·문정', '판교·분당·정자', '수지·죽전·기흥'
+                ].includes(formData.location)
+                    ? `📍 ${formData.location} (매칭 확인 중)`
+                    : '+ 이 외 지역 직접 입력'}
+            </button>
+        </div>
+
+        <div className="mt-4 p-4 bg-slate-50 rounded-2xl border border-slate-100">
+             <p className="text-[11px] text-slate-500 font-bold leading-tight">
+                <i className="fa-solid fa-circle-info mr-1 text-brand-blue"></i>
+                생활권 버튼을 선택하시면 <span className="text-brand-blue">해당 지역 전문 스승님</span>과 더 빠르게 매칭됩니다.
+            </p>
+        </div>
+    </div>
 
             <!-- 레슨 형태 -->
             <div>
@@ -2385,106 +2461,116 @@ if (step === 2) {
 }
 
 /* --- STEP 3: 레슨 조건 확정 (시간대 세분화 및 정찰가 가이드) --- */
-if (step === 3) return html`
-    <div className="animate-slide-up text-left relative pt-6">
-        <${CumulativeUI} />
-        <div className="flex justify-between items-center mb-8">
-            <div className="flex items-center">
-                <button onClick=${prevStep} className="mr-3 text-slate-400 hover:text-slate-800 transition-all"><i className="fa-solid fa-chevron-left text-xl"></i></button>
-                <div>
-                    <h3 className="text-2xl font-black text-slate-800 tracking-tight">STEP 3 / 3</h3>
-                    <p className="text-brand-blue font-black text-sm mt-1">⏰ 레슨 조건 및 연락처</p>
+if (step === 3) {
+    // 버튼 비활성화 조건: 필수 데이터 및 체크박스 동의 여부 확인
+    const isStep3Invalid = !formData.lessonDate || 
+                           !formData.schedule || 
+                           !userInfo.name || 
+                           !userInfo.contact || 
+                           (formData.lessonType !== '1:1 레슨' && (!formData.price || !formData.agreed));
+
+    return html`
+        <div className="animate-slide-up text-left relative pt-6">
+            <${CumulativeUI} />
+            <div className="flex justify-between items-center mb-8">
+                <div className="flex items-center">
+                    <button onClick=${prevStep} className="mr-3 text-slate-400 hover:text-slate-800 transition-all">
+                        <i className="fa-solid fa-chevron-left text-xl"></i>
+                    </button>
+                    <div>
+                        <h3 className="text-2xl font-black text-slate-800 tracking-tight">STEP 3 / 3</h3>
+                        <p className="text-brand-blue font-black text-sm mt-1">⏰ 레슨 조건 및 연락처</p>
+                    </div>
                 </div>
             </div>
+
+            <div className="space-y-8">
+                <!-- 희망 레슨 시작일 -->
+                <div>
+                    <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">희망 레슨 시작일</p>
+                    <input type="date" 
+                        min=${new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split('T')[0]}
+                        className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-slate-700 transition-all"
+                        value=${formData.lessonDate} onInput=${(e) => updateData('lessonDate', e.target.value)} />
+                </div>
+
+                <!-- 선호 시간대 -->
+                <div>
+                    <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest text-blue-600">선호 시간대</p>
+                    <div className="grid grid-cols-2 gap-3">
+                        ${['새벽 (06~10시)', '오전 (10~13시)', '낮 (13~16시)', '오후 (16~19시)', '저녁 (19~22시)', '무관'].map((s, idx, arr) => html`
+                            <button key=${s} onClick=${() => updateData('schedule', s)} 
+                                className=${`py-4 rounded-2xl border-2 font-bold text-[12px] transition-all 
+                                ${idx === arr.length - 1 ? 'col-span-2' : ''} 
+                                ${formData.schedule === s ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg' : 'border-slate-100 text-slate-400 bg-white'}`}>
+                                ${s}
+                            </button>
+                        `)}
+                    </div>
+                </div>
+
+                <div className="pt-8 border-t border-slate-100">
+                    ${formData.lessonType === '1:1 레슨' ? html`
+                        <div className="p-6 bg-blue-50 rounded-[2rem] border border-blue-100">
+                            <p className="text-xs font-bold text-brand-blue mb-2 uppercase tracking-widest flex items-center gap-2">
+                                <i className="fa-solid fa-circle-check"></i> 1:1 레슨 안내
+                            </p>
+                            <p className="text-[13px] font-bold text-slate-700 leading-tight">
+                                매칭된 스승님이 설정한 <span className="text-brand-blue">회당 정찰가</span>를 기준으로 안내드립니다.
+                            </p>
+                        </div>
+                    ` : html`
+                        <!-- 희망 레슨비 제안 -->
+                        <div className="flex justify-between items-end mb-4 ml-1">
+                            <p className="text-xs font-bold text-brand-blue uppercase tracking-widest flex items-center gap-2">
+                                <i className="fa-solid fa-won-sign"></i> 희망 레슨비 제안 (총액)
+                            </p>
+                        </div>
+                        <div className="relative mb-6">
+                            <input type="number" placeholder="예: 300000" 
+                                className="w-full p-5 bg-blue-50/50 border-2 border-blue-100 rounded-[2rem] outline-none focus:border-brand-blue font-black text-2xl text-slate-800 transition-all"
+                                value=${formData.price} onInput=${(e) => updateData('price', e.target.value)} />
+                            <span className="absolute right-6 top-1/2 -translate-y-1/2 font-black text-slate-400 text-xl">원</span>
+                        </div>
+                        <!-- 현장 별도 비용 확인 체크박스 -->
+                        <div className="space-y-3 bg-slate-50 p-5 rounded-[1.5rem] border border-slate-100">
+                            <label className="flex items-start gap-3 cursor-pointer group">
+                                <input type="checkbox" 
+                                    checked=${formData.agreed}
+                                    onChange=${(e) => updateData('agreed', e.target.checked)}
+                                    className="mt-1 w-5 h-5 accent-brand-blue rounded-lg" />
+                                <div className="flex-1 text-left">
+                                    <p className="text-[11px] font-bold text-slate-600">
+                                        위 제안가는 <span className="text-blue-600 font-black">총 레슨비</span>이며, <span className="underline">입장료 및 부대비용</span>은 현장 별도 결제함에 동의합니다. (필수)
+                                    </p>
+                                </div>
+                            </label>
+                        </div>
+                    `}
+                </div>
+
+                <!-- 이름 및 연락처 -->
+                <div className="space-y-3 pt-6 border-t border-slate-50">
+                    <input placeholder="요청자 성함" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold" 
+                        value=${userInfo.name} onInput=${(e) => setUserInfo(prev => ({...prev, name: e.target.value}))} />
+                    <input type="tel" placeholder="연락처 (- 없이 숫자만)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold" 
+                        value=${userInfo.contact} onInput=${(e) => setUserInfo(prev => ({...prev, contact: e.target.value.replace(/[^0-9]/g, '')}))} />
+                </div>
+            </div>
+
+            <!-- 버튼 영역 -->
+            <div className="flex gap-3 mt-12">
+                <button onClick=${() => setPolicyOpen(true)} className="flex-1 bg-slate-100 text-slate-500 font-bold py-5 rounded-3xl text-[11px]">환불정책</button>
+                <button 
+                    disabled=${isStep3Invalid} 
+                    onClick=${nextStep} 
+                    className="flex-[2.5] gradient-blue text-white font-black py-5 rounded-3xl shadow-xl disabled:opacity-30 text-lg active:scale-95 transition-all">
+                    입력 완료 (다음 단계)
+                </button>
+            </div>
         </div>
-
-        <div className="space-y-8">
-            <div>
-                <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">희망 레슨 시작일</p>
-                <input type="date" min=${new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split('T')[0]}
-                    className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-slate-700 transition-all"
-                    value=${formData.lessonDate} onInput=${(e) => updateData('lessonDate', e.target.value)} />
-            </div>
-
-            <div>
-    <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest text-blue-600">선호 시간대</p>
-    <div className="grid grid-cols-2 gap-3">
-        ${[
-            '새벽 (06~10시)',
-            '오전 (10~13시)', 
-            '낮 (13~16시)', 
-            '오후 (16~19시)', 
-            '저녁 (19~22시)',
-            '무관'
-        ].map((s, idx, arr) => html`
-            <button key=${s} onClick=${() => updateData('schedule', s)} 
-                className=${`py-4 rounded-2xl border-2 font-bold text-[12px] transition-all 
-                ${idx === arr.length - 1 ? 'col-span-2' : ''} 
-                ${formData.schedule === s ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg' : 'border-slate-100 text-slate-400 bg-white'}`}>
-                ${s}
-            </button>
-        `)}
-    </div>
-            </div>
-
-            <div className="pt-8 border-t border-slate-100">
-                ${formData.lessonType === '1:1 레슨' ? html`
-                    <div className="p-6 bg-blue-50 rounded-[2rem] border border-blue-100">
-                        <p className="text-xs font-bold text-brand-blue mb-2 uppercase tracking-widest flex items-center gap-2">
-                            <i className="fa-solid fa-circle-check"></i> 1:1 레슨 안내
-                        </p>
-                        <p className="text-[13px] font-bold text-slate-700 leading-tight">
-                            매칭된 스승님이 설정한 <span className="text-brand-blue">회당 정찰가</span>를 기준으로 안내드립니다.
-                        </p>
-                        <p className="text-[11px] text-slate-400 font-bold mt-3 leading-tight">
-                            ※ 스승님마다 레슨비가 상이하므로, 매칭 후 최종 금액을 확정하게 됩니다.
-                        </p>
-                    </div>
-                ` : html`
-                    <div className="flex justify-between items-end mb-4 ml-1">
-                        <p className="text-xs font-bold text-brand-blue uppercase tracking-widest flex items-center gap-2">
-                            <i className="fa-solid fa-won-sign"></i> 희망 레슨비 제안 (총액)
-                        </p>
-                    </div>
-                    <div className="relative mb-6">
-                        <input type="number" placeholder="예: 300000" className="w-full p-5 bg-blue-50/50 border-2 border-blue-100 rounded-[2rem] outline-none focus:border-brand-blue font-black text-2xl text-slate-800 transition-all"
-                            value=${formData.price} onInput=${(e) => updateData('price', e.target.value)} />
-                        <span className="absolute right-6 top-1/2 -translate-y-1/2 font-black text-slate-400 text-xl">원</span>
-                    </div>
-                    <div className="space-y-3 bg-slate-50 p-5 rounded-[1.5rem] border border-slate-100">
-                        <p className="text-[12px] font-black text-slate-800 mb-3 flex items-center gap-1">
-                            <i className="fa-solid fa-clipboard-check text-slate-400"></i> 현장 별도 비용 확인 (필수)
-                        </p>
-                        <label className="flex items-start gap-3 cursor-pointer group">
-                            <input type="checkbox" className="mt-1 w-4 h-4 rounded border-slate-300 text-brand-blue focus:ring-brand-blue" required />
-                            <div className="flex-1">
-                                <p className="text-[11px] font-bold text-slate-600">
-                                    위 제안가는 <span className="text-blue-600 font-black">총 레슨비</span>이며, <span className="underline">입장료 및 부대비용</span>은 현장 별도 결제함에 동의합니다.
-                                </p>
-                            </div>
-                        </label>
-                    </div>
-                `}
-            </div>
-
-            <div className="space-y-3 pt-6 border-t border-slate-50">
-                <input placeholder="요청자 성함" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold" 
-                    value=${userInfo.name} onInput=${(e) => setUserInfo(prev => ({...prev, name: e.target.value}))} />
-                <input type="tel" placeholder="연락처 (- 없이 숫자만)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold" 
-                    value=${userInfo.contact} onInput=${(e) => setUserInfo(prev => ({...prev, contact: e.target.value.replace(/[^0-9]/g, '')}))} />
-            </div>
-        </div>
-
-        <div className="flex gap-3 mt-12">
-            <button onClick=${() => setPolicyOpen(true)} className="flex-1 bg-slate-100 text-slate-500 font-bold py-5 rounded-3xl text-[11px]">환불정책</button>
-            <button disabled=${!formData.lessonDate || !formData.schedule || !userInfo.name || !userInfo.contact} 
-                onClick=${nextStep} 
-                className="flex-[2.5] gradient-blue text-white font-black py-5 rounded-3xl shadow-xl disabled:opacity-30 text-lg">
-                입력 완료 (다음 단계)
-            </button>
-        </div>
-    </div>
-`;
+    `;
+    }
 
 /* --- STEP 4: 최종 요약 및 분석 시작 --- */
 if (step === 4) return html`
@@ -2538,76 +2624,99 @@ if (step === 4) return html`
     `;
 
     if (step === 6) {
-        const isFixedPrice = formData.lessonType === '1:1 레슨';
+    const isFixedPrice = formData.lessonType === '1:1 레슨';
+    // 결과 중 하나라도 지역 확장 매칭인지 확인
+    const isExpandedMatch = results.some(p => p.isExpanded);
 
-        return html`
-            <div className="animate-slide-up text-left">
-                <h3 className="text-2xl font-black text-slate-800 mb-8 flex items-center gap-3 tracking-tight">
-                    AI 추천 스승님 <span className="text-brand-blue bg-blue-50 px-3 py-1 rounded-full text-[10px] uppercase">TOP3</span>
-                </h3>
-                
-                <div className="space-y-6 mb-8">
-                    ${results.map(p => html`
-                        <div key=${p.id} onClick=${() => { setSelectedPro(p); }} 
-                        className=${`p-5 md:p-6 rounded-[2.5rem] border-2 transition-all cursor-pointer flex flex-col relative overflow-hidden active:scale-95 ${selectedPro?.id === p.id ? 'selected-card bg-blue-50 ring-8 ring-blue-50/50' : 'border-slate-50 bg-white shadow-sm'}`}>
-                            
-                            <div className="flex justify-between items-center mb-2">
-                                <span className="text-[10px] bg-blue-100 text-blue-600 px-2 py-1 rounded-full font-black">AI 추천</span>
-                                ${!isFixedPrice && html`<span className="text-[10px] bg-amber-100 text-amber-600 px-2 py-1 rounded-full font-black">견적 요청 가능</span>`}
-                            </div>
+    return html`
+        <div className="animate-slide-up text-left">
+            <h3 className="text-2xl font-black text-slate-800 mb-2 flex items-center gap-3 tracking-tight">
+                AI 추천 스승님 <span className="text-brand-blue bg-blue-50 px-3 py-1 rounded-full text-[10px] uppercase">TOP3</span>
+            </h3>
 
-                            <div className="flex items-start gap-4">
-                                <img src=${p.img} className="w-20 h-20 rounded-3xl object-cover shadow-md shrink-0 border-2 border-white" />
-                                <div className="flex-1 min-w-0">
-                                    <h4 className="font-black text-slate-900 text-xl truncate">${p.name}</h4>
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <div className="flex items-center text-amber-400 font-black text-xs gap-0.5"><${Star} size=${14} fill="currentColor" /> ${p.rating}</div>
-                                        <span className="text-[11px] text-slate-400 font-bold">후기 ${p.review}개</span>
-                                    </div>
-                                    <p className="text-slate-600 text-[13px] leading-tight font-medium break-keep mb-1">"${p.intro}"</p>
-                                    <p className="text-[11px] font-black text-blue-600">AI 매칭 점수: ${p.displayScore}%</p>
+            <!-- 지역 확장 매칭 안내 (데이터가 없을 때만 노출) -->
+            ${isExpandedMatch ? html`
+                <div className="mb-6 p-4 bg-amber-50 rounded-2xl border border-amber-100 animate-pulse">
+                    <p className="text-amber-700 text-[11px] font-bold leading-tight">
+                        <i className="fa-solid fa-location-dot mr-1"></i> 
+                        선택하신 '${formData.location}' 지역에 현재 활동 가능한 스승님이 적어, <br/>
+                        <span className="text-amber-800 underline">회원님의 고민을 가장 잘 해결해줄 인근 지역 스승님</span>을 추천합니다!
+                    </p>
+                </div>
+            ` : null}
+            
+            <div className="space-y-6 mb-8">
+                ${results.map(p => html`
+                    <div key=${p.id} onClick=${() => { setSelectedPro(p); }} 
+                    className=${`p-5 md:p-6 rounded-[2.5rem] border-2 transition-all cursor-pointer flex flex-col relative overflow-hidden active:scale-95 ${selectedPro?.id === p.id ? 'selected-card bg-blue-50 ring-8 ring-blue-50/50' : 'border-slate-50 bg-white shadow-sm'}`}>
+                        
+                        <div className="flex justify-between items-center mb-2">
+                            <span className="text-[10px] bg-blue-100 text-blue-600 px-2 py-1 rounded-full font-black">AI 추천</span>
+                            ${!isFixedPrice && html`<span className="text-[10px] bg-amber-100 text-amber-600 px-2 py-1 rounded-full font-black">견적 요청 가능</span>`}
+                        </div>
+
+                        <div className="flex items-start gap-4">
+                            <img src=${p.img} className="w-20 h-20 rounded-3xl object-cover shadow-md shrink-0 border-2 border-white" />
+                            <div className="flex-1 min-w-0">
+                                <h4 className="font-black text-slate-900 text-xl truncate">${p.name}</h4>
+                                <div className="flex items-center gap-2 mb-2">
+                                    <div className="flex items-center text-amber-400 font-black text-xs gap-0.5"><${Star} size=${14} fill="currentColor" /> ${p.rating}</div>
+                                    <span className="text-[11px] text-slate-400 font-bold">후기 ${p.review}개</span>
                                 </div>
-                            </div>
-
-                            <div className="flex flex-wrap gap-2 mt-4">
-                                ${p.tags.map(tag => html`<span key=${tag} className="px-3 py-1.5 rounded-full border border-blue-100 text-blue-600 text-[11px] font-black bg-white shadow-sm">#${tag}</span>`)}
-                            </div>
-
-                            <div className="p-3 rounded-2xl bg-blue-50/50 border border-blue-100 mt-4">
-                                <p className="text-[10px] font-black text-blue-500 mb-2 uppercase tracking-widest">AI 분석 결과</p>
-                                <ul className="space-y-1">
-                                    ${p.reasons.map((r, i) => html`<li key=${i} className="text-[11px] font-bold text-slate-600 flex gap-1 items-start">
-                                        <span className="text-blue-500 shrink-0">•</span>
-                                        <span className="break-keep">${r}</span>
-                                    </li>`)}
-                                </ul>
+                                <p className="text-slate-600 text-[13px] leading-tight font-medium break-keep mb-1">"${p.intro}"</p>
+                                <p className="text-[11px] font-black text-blue-600">AI 매칭 점수: ${p.displayScore}%</p>
                             </div>
                         </div>
-                    `)}
-                </div>
-                
-                <div className="flex flex-col gap-3">
-    <button 
-        disabled=${!selectedPro} 
-        onClick=${() => isFixedPrice ? setStep(6.5) : submitRequest()} 
-        className="w-full gradient-blue text-white font-black py-5 text-lg rounded-3xl shadow-xl active:scale-95 transition-all disabled:opacity-50"
-    >
-        ${isFixedPrice ? "스승님 선택 및 플랜 보기" : "이 스승님께 레슨 요청하기"}
-    </button>
-    <button 
-    onClick=${startAnalysis} 
-    className="w-full border-2 border-blue-500 text-blue-600 font-black py-4 rounded-2xl flex items-center justify-center gap-2 text-sm active:scale-95 transition-all"
->
-    <${RefreshCcw} size=${16} /> AI 재매칭
-</button>
 
-    <p className="text-center text-[11px] text-slate-400 font-bold">
-        ${isFixedPrice ? "※ 1:1 레슨은 정찰제 패키지로 운영됩니다." : "※ 필드/숏게임 레슨은 인원수와 금액에 따라 스승님이 수락/거절을 할 수 있습니다."}
-    </p>
-</div>
+                        <div className="flex flex-wrap gap-2 mt-4">
+                            ${p.tags.map(tag => html`<span key=${tag} className="px-3 py-1.5 rounded-full border border-blue-100 text-blue-600 text-[11px] font-black bg-white shadow-sm">#${tag}</span>`)}
+                        </div>
+
+                        <!-- AI 분석 결과 리스트 -->
+                        <div className="p-3 rounded-2xl bg-blue-50/50 border border-blue-100 mt-4">
+                            <p className="text-[10px] font-black text-blue-500 mb-2 uppercase tracking-widest">AI 분석 결과</p>
+                            <ul className="space-y-1">
+                                <!-- 지역 확장 매칭 시 개별 프로 카드에 안내 문구 추가 -->
+                                ${p.isExpanded ? html`
+                                    <li className="text-[11px] font-bold text-amber-600 flex gap-1 items-start">
+                                        <span className="shrink-0">•</span>
+                                        <span className="break-keep">선택하신 지역 인근에서 활동 중이며, 현재 회원님의 '${formData.concern[0] || '스윙'}' 고민 해결에 가장 특화된 베테랑 스승님입니다.</span>
+                                    </li>
+                                ` : null}
+                                ${p.reasons.map((r, i) => html`
+                                    <li key=${i} className="text-[11px] font-bold text-slate-600 flex gap-1 items-start">
+                                        <span className="text-blue-500 shrink-0">•</span>
+                                        <span className="break-keep">${r}</span>
+                                    </li>
+                                `)}
+                            </ul>
+                        </div>
+                    </div>
+                `)}
             </div>
-        `;
-    }
+            
+            <div className="flex flex-col gap-3">
+                <button 
+                    disabled=${!selectedPro} 
+                    onClick=${() => isFixedPrice ? setStep(6.5) : submitRequest()} 
+                    className="w-full gradient-blue text-white font-black py-5 text-lg rounded-3xl shadow-xl active:scale-95 transition-all disabled:opacity-50"
+                >
+                    ${isFixedPrice ? "스승님 선택 및 플랜 보기" : "이 스승님께 레슨 요청하기"}
+                </button>
+                <button 
+                    onClick=${startAnalysis} 
+                    className="w-full border-2 border-blue-500 text-blue-600 font-black py-4 rounded-2xl flex items-center justify-center gap-2 text-sm active:scale-95 transition-all"
+                >
+                    <${RefreshCcw} size=${16} /> AI 재매칭
+                </button>
+
+                <p className="text-center text-[11px] text-slate-400 font-bold">
+                    ${isFixedPrice ? "※ 1:1 레슨은 정찰제 패키지로 운영됩니다." : "※ 필드/숏게임 레슨은 인원수와 금액에 따라 스승님이 수락/거절을 할 수 있습니다."}
+                </p>
+            </div>
+        </div>
+    `;
+}
 
             if (step === 6.5) {
     const options = getPriceOptions(selectedPro.price);
