@@ -841,7 +841,7 @@ const ReviewPhotoSlider = () => {
                     <span className="bg-brand-blue text-white text-[10px] font-black px-2 py-0.5 rounded-full">PRO</span>
                     <h4 className="text-white font-black text-lg">"스승님"으로 등록하기</h4>
                 </div>
-                <p className="text-slate-400 text-xs font-bold">스승님으로 등록하고 5만명의 회원을 만나보세요!</p>
+                <p className="text-slate-400 text-xs font-bold">스승님 등록하고 5만명의 회원을 만나보세요!</p>
             </div>
             <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
                 <i className="fa-solid fa-chevron-right text-white text-sm"></i>
@@ -1098,10 +1098,10 @@ const RealTimeStatus = () => {
                     스승님은 무슨 회사인가요?
                 </div>
                 <h3 className="text-2xl md:text-3xl font-black text-slate-850 tracking-tighter leading-tight mb-2">
-                    골프 레슨도 내 마음대로, 스마트하게!<br />
+                    이젠 내 마음대로, 스마트하게!<br />
                     <span className="text-brand-blue">스승님</span>만의 독보적 시스템
                 </h3>
-                <p className="text-slate-400 font-bold text-sm tracking-tight">이젠 직접 요청하고 선택하고 레슨을 받아보세요</p>
+                <p className="text-slate-400 font-bold text-sm tracking-tight">이젠 직접 요청하고, 선택하고 레슨을 받아보세요</p>
             </div>
 
             <!-- 4개 그리드 -->
@@ -1117,7 +1117,7 @@ const RealTimeStatus = () => {
                     </div>
                     <h4 className="text-[16px] font-black text-slate-800 mb-2">AI 정밀 맞춤 매칭</h4>
                     <p className="text-[11px] text-slate-500 font-bold leading-relaxed break-keep opacity-80">
-                        단순 연결이 아닌 요청서를<br />분석해 <span className="text-brand-blue">해결 확률이 가장 높은</span><br />맞춤 스승님을 정밀 추천합니다.
+                        단순 매칭이 아닌 요청서를 분석해 <span className="text-brand-blue">해결 확률이 가장 높은</span>맞춤 스승님을 정밀 추천합니다.
                     </p>
                     <div className="mt-4 h-1 w-0 bg-brand-blue group-hover:w-full transition-all duration-700 opacity-30"></div>
                 </div>
@@ -1132,7 +1132,7 @@ const RealTimeStatus = () => {
                     </div>
                     <h4 className="text-[16px] font-black text-slate-800 mb-2">법무 안심 결제</h4>
                     <p className="text-[11px] text-slate-500 font-bold leading-relaxed break-keep opacity-80">
-                        법무법인로투스 공식 파트너십<br /><span className="text-emerald-600">환불 분쟁 제로</span>를 지향하는<br />가장 안전한 에스크로 결제 시스템
+                        법무법인로투스 공식 파트너십<br /><span className="text-emerald-600">환불 분쟁 제로</span>를 지향하는 가장 안전한 에스크로 결제 시스템
                     </p>
                     <div className="mt-4 h-1 w-0 bg-emerald-500 group-hover:w-full transition-all duration-700 opacity-30"></div>
                 </div>
@@ -1162,7 +1162,7 @@ const RealTimeStatus = () => {
                     </div>
                     <h4 className="text-[16px] font-black text-slate-800 mb-2">1/N 조인 레슨</h4>
                     <p className="text-[11px] text-slate-500 font-bold leading-relaxed break-keep opacity-80">
-                        부담스러운 레슨비는 그만!<br /><span className="text-purple-600">인원이 모일수록</span> 단가는 낮아지고<br />레슨 만족도는 UP!
+                        부담스러운 레슨비는 그만!<br /><span className="text-purple-600">인원이 모일수록</span> 단가는 낮아지고 레슨 만족도는 UP!
                     </p>
                     <div className="mt-4 h-1 w-0 bg-purple-500 group-hover:w-full transition-all duration-700 opacity-30"></div>
                 </div>
@@ -1172,7 +1172,7 @@ const RealTimeStatus = () => {
     </section>
 `;
 
-       const BannerSlider = () => {
+      const BannerSlider = () => {
     return html`
         <section className="mb-8 px-5 w-full">
             <div className="swiper mySwiper rounded-xl shadow-sm border border-slate-100 bg-slate-900 overflow-hidden relative">
@@ -1192,16 +1192,16 @@ const RealTimeStatus = () => {
                             <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/tcm.png" className="w-full h-auto block" alt="회원권 하나로 일본 전역 사용" />
                             <div className="absolute bottom-2 right-2 bg-black/40 backdrop-blur-md px-1.5 py-0.5 rounded text-[8px] text-white/90 font-bold z-10">AD</div>
                         </a>
-                    </div> <!-- <-- 여기서 닫는 태그가 빠져있었습니다! -->
+                    </div>
 
-                    <!-- 세 번째 슬라이드: 광고주 모집 -->
+                    <!-- 세 번째 슬라이드: 광고주 모집 (높이 비율 최적화) -->
                     <div className="swiper-slide !h-auto">
-                        <a href="https://pf.kakao.com/_kxawRn/chat" target="_blank" className="relative block w-full aspect-[4/1] bg-zinc-100 border border-zinc-200 rounded-lg overflow-hidden">
-                            <div className="flex flex-col items-center justify-center h-full gap-1">
-                                <span className="text-[14px] font-bold text-zinc-900 tracking-tight">배너 광고 문의</span>
-                                <span className="text-[11px] text-zinc-500 font-medium">문의는 카카오톡 채널로 부탁드립니다</span>
+                        <a href="https://pf.kakao.com/_kxawRn/chat" target="_blank" className="relative block w-full aspect-[5.5/1] bg-zinc-100 border border-zinc-200">
+                            <div className="flex flex-col items-center justify-center h-full">
+                                <p className="text-[12px] font-bold text-zinc-900 tracking-tight leading-none mb-1">배너 광고 문의</p>
+                                <p className="text-[9px] text-zinc-500 font-medium leading-none">카카오톡 채널로 부탁드립니다</p>
                             </div>
-                            <div className="absolute bottom-2 right-2 bg-black/5 backdrop-blur-sm px-1.5 py-0.5 rounded text-[8px] text-black/40 font-bold z-10">
+                            <div className="absolute bottom-1.5 right-2 bg-black/5 backdrop-blur-sm px-1.5 py-0.5 rounded text-[7px] text-black/30 font-bold z-10">
                                 AD
                             </div>
                         </a>
