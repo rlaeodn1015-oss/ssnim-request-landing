@@ -2160,11 +2160,40 @@ const submitRequest = async () => {
         </div>
         <div className="space-y-8">
             <div>
-                <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">지역 선택</p>
+                <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">지역 선택 (생활권)</p>
                 <div className="grid grid-cols-2 gap-3">
-                    ${['강남', '서초', '송파', '분당', '용인'].map(l => html`
-                        <button key=${l} onClick=${() => updateData('location', l)} className=${`py-4 rounded-2xl border-2 font-bold transition-all ${formData.location === l ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}>${l}</button>
+                    ${[
+                        '압구정·신사·논현', 
+                        '역삼·선릉·삼성', 
+                        '양재·개포·도곡', 
+                        '반포·잠원·방배', 
+                        '교대·서초·우면', 
+                        '잠실·신천·방이', 
+                        '판교·분당·정자', 
+                        '수지·죽전·기흥'
+                    ].map(l => html`
+                        <button key=${l} 
+                            onClick=${() => updateData('location', l)} 
+                            className=${`py-4 rounded-2xl border-2 font-bold transition-all ${formData.location === l ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400 hover:border-slate-200 text-[13px]'}`}>
+                            ${l}
+                        </button>
                     `)}
+                    
+                    <!-- [직접 입력 버튼] 클릭 시 location 변수에 그대로 저장됨 -->
+                    <button 
+                        onClick=${() => {
+                            const val = window.prompt("레슨받기 편한 '동네 이름'이나 '역 이름'을 입력해주세요.\n(예: 한남동, 판교역, 대치동)");
+                            if (val && val.trim()) updateData('location', val.trim());
+                        }}
+                        className=${`col-span-2 py-3 rounded-2xl border-2 border-dashed font-bold transition-all ${
+                            formData.location && !['압구정·신사·논현', '역삼·선릉·삼성', '양재·개포·도곡', '반포·잠원·방배', '교대·서초·우면', '잠실·신천·방이', '판교·분당·정자', '수지·죽전·기흥'].includes(formData.location)
+                            ? 'border-brand-blue bg-blue-50 text-brand-blue'
+                            : 'border-slate-200 text-slate-400 hover:border-slate-300'
+                        }`}>
+                        ${formData.location && !['압구정·신사·논현', '역삼·선릉·삼성', '양재·개포·도곡', '반포·잠원·방배', '교대·서초·우면', '잠실·신천·방이', '판교·분당·정자', '수지·죽전·기흥'].includes(formData.location) 
+                            ? `📍 ${formData.location} (선택됨)` 
+                            : '+ 이 외 지역 직접 입력'}
+                    </button>
                 </div>
             </div>
 
