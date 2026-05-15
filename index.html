@@ -502,7 +502,7 @@
                         <h3 class="text-2xl md:text-4xl font-black text-slate-850 tracking-tight">
                             스승님 <span class="text-brand-blue">맞춤 레슨</span> 현장 스케치
                         </h3>
-                        <p class="text-slate-400 font-bold mt-2 text-sm md:text-base">연습장이 아닌 '실전'에서 일어나는 변화</p>
+                        <p class="text-slate-400 font-bold mt-2 text-sm md:text-base">연습장이 아닌 '실전'레슨</p>
                     </div>
                     <div class="hidden md:block">
                         <span class="text-[10px] text-slate-300 font-black uppercase tracking-widest">Captured by SSNIM Members</span>
@@ -1406,12 +1406,12 @@ const RealTimeStatus = () => {
                 ${[
                       { i: "📱", t: "집중 안 하는 레슨", d: "레슨 중간중간 휴대폰만 확인" },
     { i: "💸", t: "부담스러운 결제 유도", d: "1회 받고 바로 20회권 권유" },
-    { i: "🙄", t: "끝없는 기본기 반복", d: "몇 달째 같은 동작만 반복" },
+    { i: "🙄", t: "끝없는 기본기 반복", d: "계속 같은 동작만 반복" },
     { i: "💨", t: "남는 게 없는 레슨", d: "끝나면 기억나는 게 없음" },
     { i: "📅", t: "프로 중심 스케줄", d: "내 시간보다 프로 일정 우선" },
-    { i: "🚫", t: "어려운 환불", d: "그만두고 싶어도 환불 스트레스" },
-    { i: "📉", t: "획일적인 레슨", d: "체형·목표 상관없는 똑같은 방식" },
-    { i: "🤷", t: "검증되지 않은 실력", d: "유튜브보다 도움 안 되는 레슨" }
+    { i: "🚫", t: "어려운 환불", d: "사용하지 않은 레슨권 환불 스트레스" },
+    { i: "📉", t: "목적 없는 레슨", d: "체형·목표 상관없는 똑같은 방식" },
+    { i: "🤷", t: "신뢰 없는 프로필", d: "괜히 갔다가 돈 날리는 걱정" }
                 ].map((item, idx) => html`
                     <div key=${idx} className="p-5 md:p-8 bg-slate-50 rounded-[2rem] border border-slate-100 hover:bg-red-50 hover:border-red-100 transition-all duration-300 group reveal">
                         <div className="text-3xl md:text-4xl mb-4 group-hover:scale-110 transition-transform">${item.i}</div>
@@ -1426,7 +1426,7 @@ const RealTimeStatus = () => {
                 <div className="inline-flex flex-col items-center">
                     <div className="w-1 h-12 bg-gradient-to-b from-slate-200 to-brand-blue mb-6"></div>
                     <p className="px-8 py-4 bg-slate-900 text-white rounded-[2rem] font-black text-base md:text-xl shadow-2xl shadow-blue-200">
-                        이제 <span className="text-brand-blue underline underline-offset-4">스승님</span>이 레슨의 상식을 바꿉니다 🚀
+                        이제 <span className="text-brand-blue underline underline-offset-4">스승님</span>이 레슨의 구조을 바꿉니다 🚀
                     </p>
                 </div>
             </div>
@@ -1786,7 +1786,7 @@ const EventSection = () => html`
                         <div className="group relative">
                             <div className="flex justify-between mb-2 px-1">
                                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">System Processing</span>
-                                <span className="text-[10px] font-black text-brand-blue animate-pulse">96% READY</span>
+                                <span className="text-[10px] font-black text-brand-blue animate-pulse">96% MACHED</span>
                             </div>
                             <div className="h-3 md:h-4 bg-white/10 rounded-full overflow-hidden p-[2px]">
                                 <div className="h-full bg-brand-blue rounded-full relative w-[96%]">
@@ -2878,7 +2878,7 @@ const [visitorCount, setVisitorCount] = React.useState(142);
                 { q: "3펏은 이제 안해요!", a: "루틴 교정 후 평균 퍼트 8개 감소", u: "박x원 님", i: "📉" },
                 { q: "비거리 200m 돌파", a: "바디스윙 레슨 활용으로 230m 달성", u: "최x준 님", i: "🚀" },
                 { q: "우드/유틸 극복", a: "컨택 위주 레슨으로 2온 자신감 회복", u: "정x윤 님", i: "✨" },
-                { q: "100돌이 탈출", a: "그린 주변 어프로치 잡고 생애 첫 90타", u: "한x우 님", i: "🏆" }
+                { q: "80타 진입!", a: "그린 주변 어프로치 잡고 생애 첫 84타 라베 기록", u: "한x우 님", i: "🏆" }
             ].map((c, i) => html`
                 <div key=${i} className="bg-white p-5 md:p-8 rounded-[2rem] shadow-sm border border-slate-100 flex flex-col justify-between reveal card-hover">
                     <div>
