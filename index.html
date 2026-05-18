@@ -1389,9 +1389,10 @@ const RealTimeStatus = () => {
             </section>
         `;
 
-         const ProblemSection = () => html`
+          const ProblemSection = () => html`
     <section className="px-5 py-24 bg-white text-left overflow-hidden">
         <div className="max-w-screen-xl mx-auto">
+            <!-- 제목 영역 -->
             <div className="text-center mb-16 reveal">
                 <h2 className="text-2xl md:text-5xl font-black text-slate-850 leading-tight tracking-tighter">
                     골프 레슨, 왜 받아도 <span className="text-red-500">제자리걸음</span>일까?
@@ -1399,13 +1400,14 @@ const RealTimeStatus = () => {
                 <p className="text-slate-400 font-bold mt-4 text-sm md:text-lg italic">우리가 레슨을 받으며 흔히 겪는 불편한 진실들</p>
             </div>
 
+            <!-- 8개 그리드 박스 -->
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5">
                 ${[
-                    { i: "📱", t: "집중 안 하는 레슨", d: "레슨 중간중간 휴대폰만 확인" },
+                      { i: "📱", t: "집중 안 하는 레슨", d: "레슨 중간중간 휴대폰만 확인" },
     { i: "💸", t: "부담스러운 결제 유도", d: "1회 받고 바로 20회권 권유" },
     { i: "🙄", t: "끝없는 기본기 반복", d: "계속 같은 동작만 반복" },
     { i: "💨", t: "남는 게 없는 레슨", d: "끝나면 기억나는 게 없음" },
-    { i: "📅", t: "PRO 중심 스케줄", d: "내 시간보다 프로 일정 우선" },
+    { i: "📅", t: "프로 중심 스케줄", d: "내 시간보다 프로 일정 우선" },
     { i: "🚫", t: "어려운 환불", d: "사용하지 않은 레슨권 환불 스트레스" },
     { i: "📉", t: "목적 없는 레슨", d: "체형·목표 상관없는 똑같은 방식" },
     { i: "🤷", t: "신뢰 없는 프로필", d: "괜히 갔다가 돈 날리는 걱정" }
@@ -1418,9 +1420,10 @@ const RealTimeStatus = () => {
                 `)}
             </div>
             
+            <!-- 하단 반전 문구 -->
             <div className="mt-16 text-center reveal">
                 <div className="inline-flex flex-col items-center">
-                    <div className="w-12 h-12 bg-gradient-to-b from-slate-200 to-brand-blue mb-6"></div>
+                    <div className="w-1 h-12 bg-gradient-to-b from-slate-200 to-brand-blue mb-6"></div>
                     <p className="px-8 py-4 bg-slate-900 text-white rounded-[2rem] font-black text-base md:text-xl shadow-2xl shadow-blue-200">
                         이제 <span className="text-brand-blue underline underline-offset-4">스승님</span>이 레슨의 구조을 바꿉니다 🚀
                     </p>
