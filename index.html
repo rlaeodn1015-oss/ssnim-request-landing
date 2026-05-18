@@ -1461,6 +1461,7 @@ const HowItWorks = () => {
     <section className="px-5 pt-4 pb-16 md:pt-8 md:pb-24 bg-white overflow-hidden">
         <div className="max-w-screen-xl mx-auto flex flex-col items-center">
             
+            <!-- 헤더 하단 마진(mb-8)을 줄여 본문과 붙였습니다 -->
             <div className="text-center mb-8 md:mb-16">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-brand-blue text-[10px] font-black uppercase tracking-widest mb-3">
                     Smart Matching Process
@@ -1470,6 +1471,7 @@ const HowItWorks = () => {
                 </h2>
             </div>
 
+            <!-- 메인 콘텐츠 영역 -->
             <div className="flex flex-row items-center justify-center gap-4 md:gap-24 w-full max-w-[340px] md:max-w-[900px] mx-auto">
                 
                 <div className="relative w-[50%] md:w-[300px] space-y-1 md:space-y-3">
@@ -1485,8 +1487,8 @@ const HowItWorks = () => {
                     ${steps.map((item, idx) => html`
                         <div key=${idx} onClick=${() => setStep(idx)}
                              className=${`pl-4 md:pl-10 py-1.5 md:py-4 transition-all duration-500 cursor-pointer ${step === idx ? 'opacity-100 translate-x-1' : 'opacity-20'}`}>
-                            <h4 className=${`font-black text-[14px] md:text-2xl leading-tight ${step === idx ? 'text-brand-blue' : 'text-slate-800'}`}>{item.t}</h4>
-                            <p className=${`text-[10px] md:text-base font-bold mt-0.5 ${step === idx ? 'text-slate-500' : 'text-slate-400'}`}>{item.d}</p>
+                            <h4 className=${`font-black text-[14px] md:text-2xl leading-tight ${step === idx ? 'text-brand-blue' : 'text-slate-800'}`}>${item.t}</h4>
+                            <p className=${`text-[10px] md:text-base font-bold mt-0.5 ${step === idx ? 'text-slate-500' : 'text-slate-400'}`}>${item.d}</p>
                         </div>
                     `)}
                 </div>
@@ -1497,7 +1499,7 @@ const HowItWorks = () => {
                         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-10 md:w-28 h-4 md:h-8 bg-slate-900 z-30 rounded-b-lg md:rounded-b-2xl"></div>
                         <div className="relative w-full h-full bg-white overflow-hidden">
                             ${images.map((src, idx) => html`
-                                <img key=${idx} src=${src} className=${`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out ${step === idx ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`} loading="lazy" />
+                                <img key=${idx} src=${src} className=${`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out ${step === idx ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`} />
                             `)}
                         </div>
                     </div>
