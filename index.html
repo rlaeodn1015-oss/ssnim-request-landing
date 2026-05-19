@@ -2645,10 +2645,11 @@ if (step === 4) return html`
                 })}
             </div>
             
+            <div className="flex flex-col gap-4 text-center w-full">
             <button 
                 disabled=${!formData.lessonCount} 
                 onClick=${submitRequest} 
-                className="w-full gradient-blue text-white font-black py-4.5 text-base rounded-3xl shadow-xl active:scale-95 transition-all disabled:opacity-30"
+                className="w-full gradient-blue text-white font-black py-4 md:py-6 text-base md:text-xl rounded-3xl shadow-2xl shadow-blue-300 flex items-center justify-center gap-3 active:scale-95 transition-all btn-glow disabled:opacity-30 disabled:pointer-events-none disabled:shadow-none"
             >
                 매칭 요청 확정하기
             </button>
