@@ -2592,7 +2592,7 @@ if (step === 4) return html`
     `;
 }
 
-            if (step === 6.5) {
+          if (step === 6.5) {
     const options = getPriceOptions(selectedPro.price);
 
     return html`
@@ -2604,14 +2604,16 @@ if (step === 4) return html`
             
             <div className="grid grid-cols-1 gap-2.5 mb-8">
                 ${Object.keys(options).map(opt => {
-                    const isSelected = formData.lessonCount === opt;
+                    // 1. lessonCount가 아닌 lessonPlan 기준으로 선택 여부 판단 (UI 꼬임 완벽 방지)
+                    const isSelected = formData.lessonPlan === opt;
                     const hasEvent = opt.includes('8회') || opt.includes('10회');
                     
                     return html`
                         <button 
                             key=${opt} 
                             onClick=${() => {
-                                updateData('lessonCount', opt);
+                                // 2. lessonCount('1인')는 보존하고, 플랜 명칭과 가격만 깔끔하게 세팅
+                                updateData('lessonPlan', opt);
                                 updateData('price', options[opt].price);
                             }}
                             className=${`w-full p-4 rounded-[2rem] border-2 transition-all flex justify-between items-center ${
@@ -2646,13 +2648,15 @@ if (step === 4) return html`
             </div>
             
             <div className="flex flex-col gap-4 text-center w-full">
-            <button 
-                disabled=${!formData.lessonCount} 
-                onClick=${submitRequest} 
-                className="w-full gradient-blue text-white font-black py-4 md:py-6 text-base md:text-xl rounded-3xl shadow-2xl shadow-blue-300 flex items-center justify-center gap-3 active:scale-95 transition-all btn-glow disabled:opacity-30 disabled:pointer-events-none disabled:shadow-none"
-            >
-                매칭 요청 확정하기
-            </button>
+                {/* 3. lessonPlan이 선택되었을 때만 확정 버튼 활성화 */}
+                <button 
+                    disabled=${!formData.lessonPlan} 
+                    onClick=${submitRequest} 
+                    className="w-full gradient-blue text-white font-black py-4 md:py-6 text-base md:text-xl rounded-3xl shadow-2xl shadow-blue-300 flex items-center justify-center gap-3 active:scale-95 transition-all btn-glow disabled:opacity-30 disabled:pointer-events-none disabled:shadow-none"
+                >
+                    매칭 요청 확정하기
+                </button>
+            </div>
         </div>
     `;
 }
