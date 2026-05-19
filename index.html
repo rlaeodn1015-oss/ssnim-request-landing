@@ -636,7 +636,7 @@ const ReviewPhotoSlider = () => {
     };
 };
 
-     const JoinBoard = ({ setFormOpen }) => {
+const JoinBoard = ({ setFormOpen }) => {
     const joinData = [
         { 
             id: 1, tag: "신규🌟", loc: "비전힐스CC", pro: "곽시랑 스승", title: "파3레슨", 
@@ -664,25 +664,24 @@ const ReviewPhotoSlider = () => {
             include: "레슨비 포함", type: "2인"
         }
     ];
-           const proPhoneMap = {
-    "곽시랑 스승": "01082243434",
-    "서수연 스승": "01094856241", 
-    "조이현 스승": "01056323190",
-    "석준형 스승": "01054263433",
-    "홍주연 스승": "01039969628", 
-    "양형철 스승": "01093996255",
-    "조동요 스승": "01026578395",
-    "공나연 스승": "01036012385", 
-    "이원영 스승": "01075397997",
-    "유민혁 스승": "01083924008",
-    "강도윤 스승": "01077587383", 
-    "김지영 스승": "01071595448",
-    "이상준 스승": "01041900478",
-    "권두욱 스승": "01040134484",
-    "이근협 스승": "01050278421",
-};
 
-    const kakaoLink = "http://pf.kakao.com/_kxawRn/chat";
+    const proPhoneMap = {
+        "곽시랑 스승": "01082243434",
+        "서수연 스승": "01094856241", 
+        "조이현 스승": "01056323190",
+        "석준형 스승": "01054263433",
+        "홍주연 스승": "01039969628", 
+        "양형철 스승": "01093996255",
+        "조동요 스승": "01026578395",
+        "공나연 스승": "01036012385", 
+        "이원영 스승": "01075397997",
+        "유민혁 스승": "01083924008",
+        "강도윤 스승": "01077587383", 
+        "김지영 스승": "01071595448",
+        "이상준 스승": "01041900478",
+        "권두욱 스승": "01040134484",
+        "이근협 스승": "01050278421",
+    };
 
     return html`
         <section className="px-0 py-8 max-w-screen-xl mx-auto bg-white text-left overflow-hidden">
@@ -691,60 +690,38 @@ const ReviewPhotoSlider = () => {
                     <h3 className="text-xl font-black text-slate-900 tracking-tight mb-0.5">
                         참여 가능한 <span className="text-brand-blue font-black">조인 레슨</span>
                     </h3>
-                   <p className="text-slate-400 font-bold text-[12px]">
-         실시간 결제 시 즉시 확정 🤝<br /> 
-         친구에게 공유하고 같이 참여하세요!
-</p>
+                    <p className="text-slate-400 font-bold text-[12px]">
+                        실시간 결제 시 즉시 확정 🤝<br /> 
+                        친구에게 공유하고 같이 참여하세요!
+                    </p>
                 </div>
             </div>
 
             <div className="flex gap-3 px-6 overflow-x-auto no-scrollbar snap-x snap-mandatory">
-               ${joinData.map(item => {
-    const proPhone = proPhoneMap[item.pro] || "01025991095";
-    const userName = item.userName || "고객"; 
-    const requestId = `JOIN_${item.id}_${new Date().getTime()}`;
-    const payUrl = `pay.html?price=${item.price}&name=${encodeURIComponent(userName)}&type=${encodeURIComponent(item.title)}&requestId=${requestId}&LOCATION=${encodeURIComponent(item.loc)}&selectedPro=${encodeURIComponent(item.pro)}&proPhone=${proPhone}&schedule=${encodeURIComponent(item.time)}`;
+                ${joinData.map(item => {
+                    const proPhone = proPhoneMap[item.pro] || "01025991095";
+                    
+                    // 💡 [개선] 결제 누락 및 이탈자 정밀 아웃바운드 콜을 추적하기 위한 고유 고유키(requestId)를 여기서 미리 생성
+                    const requestId = `JOIN_${item.id}_${new Date().getTime()}`;
+                    
+                    // 💡 [비즈니스 로직 수정] pay.html로 넘길 때 가짜 고객명과 번호는 걷어내고, 시트 생성에 필요한 원본 메타데이터 항목(personCount, include)을 주소창에 태워 안전하게 토스합니다.
+                    const payUrl = `pay.html?price=${item.price}&type=${encodeURIComponent(item.title)}&requestId=${requestId}&LOCATION=${encodeURIComponent(item.loc)}&selectedPro=${encodeURIComponent(item.pro)}&proPhone=${proPhone}&schedule=${encodeURIComponent(item.time)}&personCount=${encodeURIComponent(item.type)}&include=${encodeURIComponent(item.include)}`;
 
-                   const handleJoinClick = async (e) => {
-        if (typeof gtag === 'function') {
-            gtag('event', 'click_join_pay', {
-                'lesson_title': item.title,
-                'pro_name': item.pro,
-                'location': item.loc,
-                'price': item.price
-            });
-        }
+                    const handleJoinClick = () => {
+                        if (typeof gtag === 'function') {
+                            gtag('event', 'click_join_pay', {
+                                'lesson_title': item.title,
+                                'pro_name': item.pro,
+                                'location': item.loc,
+                                'price': item.price
+                            });
+                        }
 
-                       const joinPayload = {
-            requestId: requestId,
-            name: userName,
-            contact: "010-0000-0000",
-            LOCATION: item.loc,
-            type: "조인레슨",
-            lessonCount: "1회",
-            club: "미지정",
-            concern: item.include,
-            selectedPro: item.pro,
-            proPhone: proPhone,
-            SCHEDULE: item.time,
-            price: item.price,
-            status: "결제 대기",
-            personCount: item.type
-        };
-
-        try {
-            await fetch("https://script.google.com/macros/s/AKfycbz8xIWYf5_zWUkzVFKQAThMHEsmZY74A0k7N6u7Kz4P0N-sgxldbpcqKiHGKcUPBdW6/exec", {
-                method: "POST",
-                mode: "no-cors",
-                body: JSON.stringify(joinPayload)
-            });
-        } catch (err) {
-            console.error("데이터 저장 실패:", err);
-        }
-        
-        window.location.href = payUrl;
-    };
-                   
+                        // 💡 [대형 사고 차단] 기존의 더미 데이터 적재용 fetch() 원천 삭제 처리
+                        // 버튼을 누르는 시점에는 서버 통신을 차단하고, 최종 결제창의 실명 입력 베이스로 데이터 무결성을 보장합니다.
+                        window.location.href = payUrl;
+                    };
+                    
                     return html`
                         <div key=${item.id} className="min-w-[240px] w-[240px] aspect-square bg-white p-5 rounded-[2.5rem] border border-slate-100 shadow-sm flex flex-col justify-between snap-center relative">
                             <div>
@@ -772,33 +749,15 @@ const ReviewPhotoSlider = () => {
                                 <div className="flex gap-1.5">
                                     <button 
                                         onClick=${handleJoinClick}
-                                        className="flex-[3] py-3.5 bg-slate-900 text-white rounded-2xl font-black text-[11px] text-center active:scale-95 transition-all shadow-sm"
+                                        className="w-full py-3.5 bg-slate-900 text-white rounded-2xl font-black text-[11px] text-center active:scale-95 transition-all shadow-sm"
                                     >
                                         결제 후 참여하기
                                     </button>
-                                    
-                                    <button 
-                                        onClick=${() => {
-    if (navigator.share) {
-        navigator.share({
-            title: `[스승님] ${item.pro} ${item.title}`,
-            text: `${item.loc} | ${item.time}`,
-            url: window.location.href,
-        });
-    } else {
-        navigator.clipboard.writeText(window.location.href);
-        alert("링크가 복사되었습니다. 같이 갈 친구에게 공유 해주세요!");
-    }
-}}
-    className="flex-1 py-3.5 bg-slate-100 text-slate-900 rounded-2xl font-black text-[11px] text-center flex items-center justify-center shadow-sm active:scale-95 transition-all"
->
-    <i className="fa-solid fa-share-nodes"></i>
-</button>
                                 </div>
                             </div>
                         </div>
                     `;
-})}
+                })}
                 
                 <div onClick=${() => setFormOpen(true)} className="min-w-[240px] w-[240px] aspect-square bg-slate-900 p-6 rounded-[2.5rem] flex flex-col justify-center items-center text-center cursor-pointer snap-center relative overflow-hidden">
                     <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-3">
