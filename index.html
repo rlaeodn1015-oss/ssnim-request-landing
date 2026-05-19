@@ -2044,7 +2044,7 @@ const submitRequest = async () => {
             body: JSON.stringify({ chat_id: CHAT_ID, text: telegramMessage })
         });
 
-        if (isDiscountApplied) {
+        if (payload.price < selectedPro.price) {
             localStorage.setItem("ssnim_coupon_reserved", "true");
         }
         
@@ -2052,6 +2052,7 @@ const submitRequest = async () => {
 
     } catch (err) {
         console.error("전송 에러 무시:", err);
+        // 에러 상황이 발생하더라도 유저 화면은 완료창(Step 7)으로 넘겨 이탈을 방지합니다.
         setStep(7);
     }
 };
