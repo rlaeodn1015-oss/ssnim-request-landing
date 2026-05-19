@@ -2037,12 +2037,12 @@ const submitRequest = async () => {
         requestId: currentRequestId,
         name: currentName,
         contact: currentContact,
-        type: formData.isJoinable ? `${formData.lessonType} [조인희망]` : formData.lessonType,
+        // 💡 1:1 레슨일 때 알림톡과 데이터베이스에 선택한 회차 플랜 정보가 명확히 명시되도록 수정
+        type: isFixedPrice ? `${formData.lessonType} [${formData.lessonPlan || '미선택'}]` : (formData.isJoinable ? `${formData.lessonType} [조인희망]` : formData.lessonType),
         location: formData.location,
         club: formData.club,
         concern: formData.concern.join(', '),
         schedule: `${formData.lessonDate} / ${formData.schedule}`,
-        selectedpro: selectedPro.name,   
         selectedPro: selectedPro.name,   
         proContact: selectedPro.phone,
         price: formData.price,
@@ -2050,7 +2050,8 @@ const submitRequest = async () => {
         status: "accepted" 
     };
 
-    const telegramMessage = `🔥 [${isFixedPrice ? '패키지' : '견적요청'}] 매칭 발생\n\n👤 이름: ${payload.name}\n📞 연락처: ${payload.contact}\n📍 지역: ${payload.location}\n⛳ 레슨: ${payload.type}\n🏌️ 클럽: ${payload.club}\n💥 문제: ${payload.concern}\n⏰ 시간: ${payload.schedule}\n🏆 선택 프로: ${payload.selectedpro}\n💰 가격: ${Moses(payload.price).toLocaleString()}원`;
+    // 💡 Moses 완벽 제거 및 정상적인 단가 포맷팅 반영
+    const telegramMessage = `🔥 [${isFixedPrice ? '패키지' : '견적요청'}] 매칭 발생\n\n👤 이름: ${payload.name}\n📞 연락처: ${payload.contact}\n📍 지역: ${payload.location}\n⛳ 레슨: ${payload.type}\n🏌️ 클럽: ${payload.club}\n💥 문제: ${payload.concern}\n⏰ 시간: ${payload.schedule}\n🏆 선택 프로: ${payload.selectedPro}\n💰 가격: ${Number(payload.price || 0).toLocaleString()}원`;
 
     try {
         fetch("https://script.google.com/macros/s/AKfycbwJ8jcshxR6HcNknmLkjRdeT0NMw8d4-o9Z1hAWxdryi8pzocXZveDp_pmF1PpnKkcF/exec", {
@@ -2059,7 +2060,7 @@ const submitRequest = async () => {
             body: JSON.stringify(payload)
         });
         
-        const ZAPIER_WEBHOOK_URL = (formData.lessonType || "").includes('1:1') 
+        const ZAPIER_WEBHOOK_URL = isFixedPrice 
             ? "https://hooks.zapier.com/hooks/catch/27197789/uj4iu7w/" 
             : "https://hooks.zapier.com/hooks/catch/27197789/uj4d9ko/";
 
@@ -2648,6 +2649,7 @@ if (step === 4) return html`
             </div>
             
             <div className="flex flex-col gap-4 text-center w-full">
+                {/* 3. lessonPlan이 선택되었을 때만 확정 버튼 활성화 */}
                 <button 
                     disabled=${!formData.lessonPlan} 
                     onClick=${submitRequest} 
