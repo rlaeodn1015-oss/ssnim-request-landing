@@ -2570,7 +2570,7 @@ if (step === 4) return html`
     `;
 }
 
-       if (step === 6.5) {
+     if (step === 6.5) {
     // 💡 [유저 오해 방지] 브라우저 저장소에서 이전에 쿠폰을 요청서에 탑승시켰는지 확인
     const isCouponReserved = localStorage.getItem("ssnim_coupon_reserved") === "true";
     
@@ -2609,8 +2609,10 @@ if (step === 4) return html`
                                     </div>
                                 </div>
                                 <div 
-                                    onClick=${() => {
-                                        // 유저가 쿠폰을 취소하고 다시 복구하고 싶을 때 조작
+                                    onClick=${(e) => {
+                                        // 💡 이벤트 버블링(이벤트 꼬임) 방지 처리
+                                        e.preventDefault();
+                                        e.stopPropagation();
                                         localStorage.removeItem("ssnim_coupon_reserved");
                                         setIsDiscountApplied(false);
                                         if (formData.lessonPlan) {
@@ -2619,7 +2621,7 @@ if (step === 4) return html`
                                         }
                                         alert("할인이 취소되고 쿠폰이 다시 복구되었습니다! 🎁");
                                     }}
-                                    className="px-2 py-1 bg-white border border-emerald-300 hover:bg-red-50 hover:text-red-500 hover:border-red-200 rounded-lg font-black text-[9px] shrink-0 ml-2 whitespace-nowrap text-emerald-600 transition-colors cursor-pointer"
+                                    className="px-2 py-1 bg-white border border-emerald-300 hover:bg-red-50 hover:text-red-500 hover:border-red-200 rounded-lg font-black text-[9px] shrink-0 ml-2 whitespace-nowrap text-emerald-600 transition-colors cursor-pointer relative z-10"
                                 >
                                     할인 취소/복구
                                 </div>
@@ -2629,7 +2631,9 @@ if (step === 4) return html`
                     : html`
                         <!-- 🎁 쿠폰을 아직 사용하지 않은 유저용 일반 토글 배너 -->
                         <div 
-                            onClick=${() => {
+                            onClick=${(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
                                 const nextState = !isDiscountApplied;
                                 setIsDiscountApplied(nextState);
                                 if (formData.lessonPlan) {
@@ -2644,18 +2648,22 @@ if (step === 4) return html`
                             }`}
                         >
                             <div className="flex items-center gap-2.5 min-w-0">
+                                <!-- 아이콘 박스 콤팩트화 -->
                                 <div className=${`w-7 h-7 rounded-full flex items-center justify-center shrink-0 text-xs ${isDiscountApplied ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white'}`}>
                                     <i className=${`fa-solid ${isDiscountApplied ? 'fa-check' : 'fa-gift'}`}></i>
                                 </div>
                                 <div className="min-w-0">
+                                    <!-- text-[13px] -> text-[12px] 축소 및 줄바꿈 절대 방지 -->
                                     <p className="text-[12px] font-black leading-tight whitespace-nowrap truncate">
                                         ${isDiscountApplied ? '✨ 첫 요청 5,000원 할인 적용 완료!' : '🎁 첫 매칭 요청 5,000원 할인'}
                                     </p>
+                                    <!-- text-[11px] -> text-[10px] 축소 -->
                                     <p className="text-[10px] font-bold opacity-80 whitespace-nowrap mt-0.5">
                                         클릭 시 전체 금액에서 즉시 차감됩니다
                                     </p>
                                 </div>
                             </div>
+                            <!-- 우측 버튼 텍스트 text-xs -> text-[10px] 및 패딩 압축 -->
                             <div className=${`px-2 py-1 rounded-lg font-black text-[10px] shrink-0 ml-2 whitespace-nowrap ${isDiscountApplied ? 'bg-white border border-emerald-300' : 'bg-red-500 text-white shadow-sm'}`}>
                                 ${isDiscountApplied ? '적용중' : '쿠폰적용'}
                             </div>
@@ -2673,7 +2681,9 @@ if (step === 4) return html`
                     return html`
                         <button 
                             key=${opt} 
-                            onClick=${() => {
+                            onClick=${(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
                                 updateData('lessonPlan', opt);
                                 updateData('price', options[opt].price);
                             }}
@@ -2711,10 +2721,14 @@ if (step === 4) return html`
             <div className="flex flex-col gap-4 text-center w-full">
                 <button 
                     disabled=${!formData.lessonPlan} 
-                    onClick=${() => {
+                    onClick=${(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
                         // 💡 요청이 최종 확정될 때 유저가 쿠폰을 켠 상태였다면 브라우저에 선점(reserved) 마크를 찍어 기이용자로 잠금 처리
                         if (isDiscountApplied) {
                             localStorage.setItem("ssnim_coupon_reserved", "true");
+                        } else {
+                            localStorage.removeItem("ssnim_coupon_reserved");
                         }
                         submitRequest();
                     }} 
@@ -2726,6 +2740,7 @@ if (step === 4) return html`
         </div>
     `;
 }
+            
     if (step === 7) return html`
     <div className="animate-slide-up text-center py-12">
         <div className="w-24 h-24 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-10 shadow-inner animate-bounce">
