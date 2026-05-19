@@ -83,6 +83,9 @@
     let requestId = "";
     let name = "";
     let globalProPhone = "";
+    
+    // 💡 [안정성 강화] 구글 앱스 스크립트 웹앱 API 주소 단일 변수 통일 관리
+    const GOOGLE_SCRIPT_API_URL = "https://script.google.com/macros/s/AKfycbwJ8jcshxR6HcNknmLkjRdeT0NMw8d4-o9Z1hAWxdryi8pzocXZveDp_pmF1PpnKkcF/exec";
 
     window.onload = async () => {
         const params = new URLSearchParams(window.location.search);
@@ -156,11 +159,27 @@
             location: params.get('LOCATION') || ""
         };
 
+        // 💡 [매핑 수정] 구글 앱스스크립트(시트) 전송용 객체 정렬 반영
+        const googleSheetPayload = {
+            action: "updatePayment", 
+            status: "paid",
+            requestId: requestId,
+            price: finalPayPrice,
+            name: nameInput,
+            contact: phoneInput,
+            type: params.get('type') || "레슨",
+            personCount: personCount + "인",
+            selectedPro: params.get('selectedPro') || "",
+            proPhone: globalProPhone,
+            schedule: params.get('schedule') || "",
+            location: params.get('LOCATION') || ""
+        };
+
         try {
-            // 1. 데이터베이스(구글 시트) 결제 상태값 승인 업데이트
-            await fetch("https://script.google.com/macros/s/AKfycbwJ8jcshxR6HcNknmLkjRdeT0NMw8d4-o9Z1hAWxdryi8pzocXZveDp_pmF1PpnKkcF/exec", { 
+            // 1. 데이터베이스(구글 시트) 결제 상태값 승인 업데이트 (💡 누락되었던 전송 데이터 완전 연동)
+            await fetch(GOOGLE_SCRIPT_API_URL, { 
                 method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ action: "updatePayment", status: "paid", requestId: requestId, price: finalPayPrice, name: nameInput }) 
+                body: JSON.stringify(googleSheetPayload) 
             });
 
             // 2. 메인 업무 자동화 웹훅 라우터 가동
@@ -195,7 +214,42 @@
         if (phoneInput.length < 10) return alert("알림톡을 받을 정확한 핸드폰 번호를 입력해주세요.");
         if (finalPayPrice < 100) return alert("결제 금액이 너무 낮습니다.");
         
-        // 💡 부트페이 v5 SDK 규격 정밀 설계 적용 (모바일 인앱 딥링크 바인딩 지원)
+        // 💡 [대표님 지시사항 반영] 결제창 모듈 뜨기 직전 가망고객 정보 결제대기 데이터 생성
+        const initialPayload = {
+            action: "createRequest", 
+            requestId: requestId,
+            name: nameInput,
+            contact: phoneInput,
+            type: params.get('type') || "조인레슨",
+            location: params.get('LOCATION') || "",
+            club: "미지정(조인)",
+            concern: params.get('include') || "조인 레슨 신청",
+            schedule: params.get('schedule') || "",
+            selectedPro: params.get('selectedPro') || "",
+            proPhone: globalProPhone,
+            price: rawPrice, 
+            personCount: params.get('personCount') || "1인",
+            status: "결제 대기" 
+        };
+
+        const payBtn = document.getElementById('pay-btn');
+        if (payBtn) {
+            payBtn.disabled = true;
+            payBtn.innerText = "보안 채널 연결 중...";
+        }
+
+        try {
+            // 구글 시트에 실명 신청 정보 적재
+            await fetch(GOOGLE_SCRIPT_API_URL, {
+                method: "POST",
+                mode: "no-cors",
+                body: JSON.stringify(initialPayload)
+            });
+            console.log("구글 시트에 가망고객 실명 정보 적재 성공");
+        } catch (err) {
+            console.error("시트 사전 적재 실패했으나 결제창 우선 오픈:", err);
+        }
+
         Bootpay.requestPayment({
             application_id: "67ecd171d9af4e5c6d21736b",
             price: finalPayPrice,
@@ -205,7 +259,7 @@
             methods: ["card", "kakaopay"],
             user: { username: nameInput, phone: phoneInput },
             extra: { 
-                open_type: "popup", // 👈 모바일 환경 앱카드 구동을 위해 popup으로 변경 보장
+                open_type: "popup",
                 display_success_result: false,
                 browser_open_type: [
                     { browser: "kakao", open_type: "popup" },
@@ -214,14 +268,16 @@
                 ]
             }
         }).then(function (response) {
-            // 💡 오직 실 결제 완료 신호(issued / done)가 떨어졌을 때만 성공 로직 작동 유도
             if (response.event === 'done' || response.event === 'issued') {
                 handlePaymentSuccess(nameInput, phoneInput, params);
             }
         }).catch(function (error) {
-            // 유저가 임의로 창을 닫거나, X 버튼을 누르는 등 취소 및 거절 이벤트는 여기서 완벽 방어
-            console.log("스승님 결제창 디스미스 또는 에러 처리:", error.message);
-            alert("결제가 완료되지 않았습니다. 취소 후 재시도 시 가급적 정석적인 절차를 지켜주세요.");
+            if (payBtn) {
+                payBtn.disabled = false;
+                payBtn.innerText = "지금 결제하기";
+            }
+            console.log("결제 취소 또는 창 닫힘:", error.message);
+            alert("결제가 취소되었습니다. 다시 결제를 시도해 주세요.");
         });
     }
 
