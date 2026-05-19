@@ -1624,10 +1624,17 @@ const EventSection = () => html`
                         </div>
                         <span class="text-blue-600 font-black text-[10px] uppercase tracking-widest">Event 02</span>
                         <h4 class="text-[18px] md:text-2xl font-black mt-1 mb-2 text-slate-850 leading-tight">지금 나의 고민은</h4>
-                        <p class="text-slate-500 text-[12px] font-bold leading-relaxed mb-4 break-keep">
-                            스윙 영상 올리고 매칭 신청하면 끝!<br/>
-                            <span class="text-slate-900 font-black italic">#지금나의고민은 챌린지</span>
-                        </p>
+                      <p class="text-slate-500 text-[12px] font-bold leading-relaxed mb-4 break-keep">
+    스윙 영상 올리고 매칭 신청하면 자동 응모! ⛳<br/>
+    <span class="text-brand-blue font-black bg-blue-50 px-2 py-0.5 rounded text-[11px] block w-max my-1.5">
+        #지금나의고민은 챌린지 🎁
+    </span>
+    🎁 <span class="text-slate-900 font-black">추첨을 통해 총 5분께</span> 선택하신 스승님의 <span class="text-brand-blue font-black">1회 무료 레슨권</span>을 지급합니다!<br/><br/>
+    
+    <span class="text-slate-900 font-black text-[13px] block mb-1">🔥 당첨 확률 3배 높이는 치트키</span>
+    1. 스승님 인스타그램(<span class="text-slate-800 font-black">@ssnim_official</span>) 팔로우<br/>
+    2. 챌린지 게시글에 <span class="text-slate-800 font-black">친구 소환 + 응원 댓글</span> 작성!
+</p>
                     </div>
                     <div class="pt-4">
                         <button 
@@ -2608,7 +2615,6 @@ if (step === 4) return html`
             </div>
             
             <div className="flex flex-col gap-4 text-center w-full">
-                {/* 3. lessonPlan이 선택되었을 때만 확정 버튼 활성화 */}
                 <button 
                     disabled=${!formData.lessonPlan} 
                     onClick=${submitRequest} 
