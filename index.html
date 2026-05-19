@@ -1821,6 +1821,9 @@ const EventSection = () => html`
 `;
 
         const InteractiveFlow = ({ setModalOpen }) => {
+    // 💡 [수정 포인트 1] 리액트 규칙에 맞게 상태 선언을 컴포넌트 최상단으로 이동시켰습니다.
+    const [isDiscountApplied, setIsDiscountApplied] = React.useState(false);
+
     const [step, setStep] = React.useState(1);
     const [loadingIdx, setLoadingIdx] = React.useState(0);
     const [results, setResults] = React.useState([]);
@@ -2008,7 +2011,6 @@ const submitRequest = async () => {
         requestId: currentRequestId,
         name: currentName,
         contact: currentContact,
-        // 💡 1:1 레슨일 때 알림톡과 데이터베이스에 선택한 회차 플랜 정보가 명확히 명시되도록 수정
         type: isFixedPrice ? `${formData.lessonType} [${formData.lessonPlan || '미선택'}]` : (formData.isJoinable ? `${formData.lessonType} [조인희망]` : formData.lessonType),
         location: formData.location,
         club: formData.club,
@@ -2021,7 +2023,6 @@ const submitRequest = async () => {
         status: "accepted" 
     };
 
-    // 💡 Moses 완벽 제거 및 정상적인 단가 포맷팅 반영
     const telegramMessage = `🔥 [${isFixedPrice ? '패키지' : '견적요청'}] 매칭 발생\n\n👤 이름: ${payload.name}\n📞 연락처: ${payload.contact}\n📍 지역: ${payload.location}\n⛳ 레슨: ${payload.type}\n🏌️ 클럽: ${payload.club}\n💥 문제: ${payload.concern}\n⏰ 시간: ${payload.schedule}\n🏆 선택 프로: ${payload.selectedPro}\n💰 가격: ${Number(payload.price || 0).toLocaleString()}원`;
 
     try {
@@ -2565,11 +2566,7 @@ if (step === 4) return html`
 }
 
         if (step === 6.5) {
-    // 💡 첫 요청 할인 쿠폰 상태 관리를 위한 로컬 상태 선언 (기존 선언부 있다면 통합 가능)
-    const [isDiscountApplied, setIsDiscountApplied] = React.useState(false);
     const discountAmount = isDiscountApplied ? 5000 : 0;
-    
-    // 할인가가 반영된 옵션 객체를 실시간 생성
     const options = getPriceOptions(selectedPro.price, discountAmount);
 
     return html`
@@ -2585,7 +2582,6 @@ if (step === 4) return html`
                     onClick=${() => {
                         const nextState = !isDiscountApplied;
                         setIsDiscountApplied(nextState);
-                        // 이미 선택된 플랜이 있다면 쿠폰 토글 시 가격도 실시간 재계산하여 페이로드 업데이트
                         if (formData.lessonPlan) {
                             const updatedOptions = getPriceOptions(selectedPro.price, nextState ? 5000 : 0);
                             updateData('price', updatedOptions[formData.lessonPlan].price);
@@ -2614,7 +2610,7 @@ if (step === 4) return html`
                 </div>
             </div>
             
-            <!-- 플랜 선택 리스트 (쿠폰 적용 유무에 따라 금액이 유동적으로 스위칭됨) -->
+            <!-- 플랜 선택 리스트 -->
             <div className="grid grid-cols-1 gap-2.5 mb-8">
                 ${Object.keys(options).map(opt => {
                     const isSelected = formData.lessonPlan === opt;
