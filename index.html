@@ -1990,8 +1990,33 @@ const submitRequest = async () => {
         return; 
     }
 
-    if (currentContact.length < 10) {
+    if (/(.)\1\1/.test(currentName)) {
+        alert("올바른 성함을 입력해 주세요. (반복된 글자 입력 불가)");
+        setStep(3);
+        return;
+    }
+
+    if (currentContact.length < 10 || currentContact.length > 11) {
         alert("올바른 연락처를 10~11자리로 입력해 주세요.");
+        setStep(3);
+        return;
+    }
+
+    // [4] 허수 연락처 차단 (010 패턴 검증)
+    if (!/^010\d{7,8}$/.test(currentContact)) {
+        alert("올바른 휴대폰 번호 형식(010으로 시작)을 입력해 주세요.");
+        setStep(3);
+        return;
+    }
+
+    // [5] 악성 연락처 패턴 (뒷자리 연속/반복/단순 나열 차단)
+    const lastDigits = currentContact.substring(3); 
+    const isConsecutive = /(.)\1{4,}/.test(lastDigits); 
+    const isRepetitive = lastDigits.length === 8 && lastDigits.substring(0, 4) === lastDigits.substring(4); 
+    const isFakeSequential = lastDigits === "12345678" || lastDigits === "87654321"; 
+
+    if (isConsecutive || isRepetitive || isFakeSequential) {
+        alert("유효하지 않은 연락처입니다. 정확한 번호를 입력해 주세요.");
         setStep(3);
         return;
     }
@@ -2025,6 +2050,17 @@ const submitRequest = async () => {
             </span>
         `;
     }
+
+    try {
+    } catch (error) {
+        // 에러 발생 시 버튼 복구 로직 필요
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.style.opacity = "1";
+            submitBtn.innerText = "다시 신청하기";
+        }
+    }
+};
 
     const isFixedPrice = (formData.lessonType || "").includes('1:1');
     const payload = {
