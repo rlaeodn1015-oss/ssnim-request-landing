@@ -2868,7 +2868,7 @@ if (step === 4) return html`
     `;
 }
 
-        if (step === 6.5) {
+         if (step === 6.5) {
     // 💡 [유저 오해 방지] 브라우저 저장소에서 이전에 쿠폰을 요청서에 탑승시켰는지 확인 (결제 전 소멸 오해 차단)
     const isCouponReserved = localStorage.getItem("ssnim_coupon_reserved") === "true";
     
@@ -2879,6 +2879,9 @@ if (step === 4) return html`
     // 할인가가 실시간으로 반영된 옵션 객체 생성
     const options = getPriceOptions(selectedPro.price, discountAmount);
 
+    // 💡 오류 차단 밸브: trial 상태가 없으면 기본값 false로 인식하게 세팅
+    const isTrialActive = formData.isTrialSelected === true;
+
     return html`
         <div className="animate-slide-up text-left">
             <div className="mb-4">
@@ -2886,11 +2889,9 @@ if (step === 4) return html`
                 <p className="text-brand-blue font-bold text-[13px]">원하시는 레슨 횟수를 선택해주세요</p>
             </div>
             
-            <!-- 🔥 첫 요청 5,000원 할인쿠폰 토글 배너 영역 (모바일 최적화 및 오해 차단 로직) -->
             <div className="mb-6">
                 ${isCouponReserved 
                     ? html`
-                        <!-- ⏳ 이미 이전 요청서에 쿠폰을 적용했던 유저용 안내 배너 (신뢰감 부여 및 복구 제공) -->
                         <div className="w-full p-3.5 rounded-2xl border-2 border-emerald-500 bg-emerald-50/50 text-slate-700 flex flex-col gap-2 shadow-sm animate-fade">
                             <div className="flex items-center justify-between min-w-0 w-full">
                                 <div className="flex items-center gap-2.5 min-w-0">
@@ -2926,7 +2927,6 @@ if (step === 4) return html`
                         </div>
                     `
                     : html`
-                        <!-- 🎁 쿠폰을 아직 사용하지 않은 유저용 일반 토글 배너 -->
                         <div 
                             onClick=${(e) => {
                                 e.preventDefault();
@@ -2948,7 +2948,7 @@ if (step === 4) return html`
                                 <div className=${`w-7 h-7 rounded-full flex items-center justify-center shrink-0 text-xs ${isDiscountApplied ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white'}`}>
                                     <i className=${`fa-solid ${isDiscountApplied ? 'fa-check' : 'fa-gift'}`}></i>
                                 </div>
-                                <div className="min-w-0">
+                                <div>
                                     <p className="text-[12px] font-black leading-tight whitespace-nowrap truncate">
                                         ${isDiscountApplied ? '✨ 첫 요청 5,000원 할인 적용 완료!' : '🎁 첫 매칭 요청 5,000원 할인'}
                                     </p>
@@ -2965,7 +2965,6 @@ if (step === 4) return html`
                 }
             </div>
             
-            <!-- 플랜 선택 리스트 -->
             <div className="grid grid-cols-1 gap-2.5 mb-8">
                 ${Object.keys(options).map(opt => {
                     const isSelected = formData.lessonPlan === opt;
@@ -2977,25 +2976,26 @@ if (step === 4) return html`
                             onClick=${(e) => {
                                 e.preventDefault();
                                 e.stopPropagation();
+                                updateData('isTrialSelected', false); // 패키지 선택 시 체험 모드 강제 해제
                                 updateData('lessonPlan', opt);
                                 updateData('price', options[opt].price);
                             }}
                             className=${`w-full p-4 rounded-[2rem] border-2 transition-all flex justify-between items-center ${
-                                isSelected 
+                                isSelected && !isTrialActive
                                     ? 'border-brand-blue bg-blue-50 ring-4 ring-blue-50/50' 
                                     : 'border-slate-100 bg-white'
                             }`}
                         >
                             <div className="text-left">
                                 <div className="flex items-center gap-1.5 mb-1">
-                                    <span className="text-[9px] font-black bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full inline-block">
+                                    <span className="text-[10px] font-black bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full inline-block">
                                         ${options[opt].tag}
                                     </span>
-                                    ${hasEvent && html`
+                                    ${hasEvent ? html`
                                         <span className="text-[9px] font-black bg-red-500 text-white px-2 py-0.5 rounded-full animate-pulse shadow-sm">
                                             런칭이벤트 +1회 추가
                                         </span>
-                                    `}
+                                    ` : ''}
                                 </div>
                                 <h4 className="text-[15px] font-black text-slate-800">${opt}</h4>
                                 <p className="text-[10px] text-slate-400 font-bold">${options[opt].desc}</p>
@@ -3010,10 +3010,47 @@ if (step === 4) return html`
                     `;
                 })}
             </div>
+
+            <div className="mb-8">
+                <button 
+                    onClick=${(e) => {
+                        e.preventDefault();
+                        const nextState = !isTrialActive;
+                        updateData('isTrialSelected', nextState);
+                        if(nextState) {
+                            updateData('lessonPlan', '1회 체험 신청');
+                            updateData('price', 0); // 직접 적기 전까지 초기값 0원
+                        } else {
+                            updateData('lessonPlan', '');
+                            updateData('price', '');
+                        }
+                    }} 
+                    className=${`w-full p-4 rounded-[2rem] border-2 font-black text-[15px] text-center transition-all ${
+                        isTrialActive ? 'border-brand-blue bg-blue-50 text-brand-blue' : 'border-slate-100 bg-white text-slate-700'
+                    }`}
+                >
+                    ${isTrialActive ? '✅ 1회 원포인트 체험 신청 적용 중' : '✨ 1회 원포인트 체험 신청하기'}
+                </button>
+                
+                ${isTrialActive ? html`
+                    <div className="mt-3 relative animate-slide-up">
+                        <input 
+                            type="number" 
+                            placeholder="원하는 체험 비용 입력 (예: 50000)" 
+                            className="w-full p-4 rounded-2xl border-2 border-brand-blue font-black text-lg outline-none"
+                            value=${formData.price || ''}
+                            onInput=${(e) => {
+                                updateData('price', parseInt(e.target.value) || 0);
+                            }}
+                        />
+                        <span className="absolute right-4 top-4 font-black text-slate-400">원</span>
+                    </div>
+                ` : ''}
+            </div>
             
             <div className="flex flex-col gap-4 text-center w-full">
                 <button 
-                    disabled=${!formData.lessonPlan} 
+                    disabled=${!formData.lessonPlan || (isTrialActive && !formData.price)} 
                     onClick=${(e) => {
                         e.preventDefault();
                         e.stopPropagation();
