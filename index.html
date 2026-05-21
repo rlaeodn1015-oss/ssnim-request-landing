@@ -1545,6 +1545,92 @@ const RealTimeStatus = () => {
             `;
         };
 
+      const FieldAdSection = () => {
+    const adImages = [
+        'https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/v1.webp',
+        'https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/v2.webp',
+        'https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/v3.webp',
+        'https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/v4.webp'
+    ];
+
+    return html`
+        <style>
+            @keyframes softFloat {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-6px); }
+            }
+            @keyframes pulseGlow {
+                0%, 100% { opacity: 0.8; box-shadow: 0 0 12px rgba(59, 130, 246, 0.15); }
+                50% { opacity: 1; box-shadow: 0 0 25px rgba(59, 130, 246, 0.4); border-color: rgba(59, 130, 246, 0.3); }
+            }
+            .animate-float-glow {
+                animation: softFloat 4s ease-in-out infinite, pulseGlow 3s ease-in-out infinite;
+            }
+        </style>
+
+        <div className="py-12 text-center bg-white rounded-[2rem] mt-8 border border-slate-100 shadow-sm">
+            <div className="mb-12">
+                <div className="inline-flex items-center gap-2 px-3 py-1 mb-4 bg-emerald-50 text-emerald-700 font-black rounded-md text-xs tracking-wider uppercase">
+                    <span className="flex h-1.5 w-1.5 relative">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                    </span>
+                    LIVE AD · 실제 골프장 광고 송출 중
+                </div>
+                
+                <h2 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight mb-2">
+                    실제 골프 현장에서 스승님을 만나보세요
+                </h2>
+                
+                <p className="text-slate-500 text-xs md:text-sm font-bold mb-8 tracking-tight break-keep max-w-xl mx-auto opacity-80">
+                    현재 용인플라자, 서서울, 에이치원 등 수도권 주요 골프장 및 현장 매체에서<br className="hidden sm:block" />
+                    스승님의 AI 맞춤 레슨 광고가 실제 송출되고 있습니다.
+                </p>
+
+                <div className="flex gap-4 overflow-x-auto pb-4 px-5 snap-x no-scrollbar justify-start md:justify-center">
+                    ${adImages.map(img => html`
+                        <div className="min-w-[260px] md:min-w-[320px] aspect-[3.5/1] bg-slate-900 rounded-xl overflow-hidden shadow-sm border border-slate-200/60 snap-center shrink-0">
+                            <img src=${img} alt="스승님 광고" className="w-full h-full object-cover opacity-90" />
+                        </div>
+                    `)}
+                </div>
+            </div>
+
+            <hr className="border-slate-100 max-w-xl mx-auto mb-10" />
+
+            <div>
+                <p className="text-[11px] font-black text-slate-400 tracking-widest uppercase mb-8">
+                    스승님은 다양한 골프 · 광고 파트너와 함께합니다
+                </p>
+                
+                <div className="flex flex-wrap items-center justify-center gap-4 max-w-3xl mx-auto px-4">
+                    <span className="animate-float-glow font-black text-sm md:text-base tracking-tight text-blue-600 bg-blue-50/40 px-4 py-2.5 rounded-xl border border-blue-100/40 transition-all">
+                        용인플라자A
+                    </span>
+                    <span className="animate-float-glow font-black text-sm md:text-base tracking-tight text-blue-600 bg-blue-50/40 px-4 py-2.5 rounded-xl border border-blue-100/40 transition-all [animation-delay:0.5s]">
+                        용인플라자B
+                    </span>
+                    <span className="animate-float-glow font-black text-sm md:text-base tracking-tight text-blue-600 bg-blue-50/40 px-4 py-2.5 rounded-xl border border-blue-100/40 transition-all [animation-delay:1.2s]">
+                        서서울CC
+                    </span>
+                    <span className="animate-float-glow font-black text-sm md:text-base tracking-tight text-blue-600 bg-blue-50/40 px-4 py-2.5 rounded-xl border border-blue-100/40 transition-all [animation-delay:0.3s]">
+                        에이치원클럽
+                    </span>
+                    <span className="animate-float-glow font-black text-sm md:text-base tracking-tighter text-blue-600 bg-blue-50/40 px-4 py-2.5 rounded-xl border border-blue-100/40 transition-all [animation-delay:1.7s]">
+                        MASTER GOLF
+                    </span>
+                    <span className="animate-float-glow font-black text-sm md:text-base tracking-widest text-blue-600 bg-blue-50/40 px-4 py-2.5 rounded-xl border border-blue-100/40 transition-all [animation-delay:0.8s]">
+                        KIZZLE
+                    </span>
+                    <span className="animate-float-glow font-bold text-xs md:text-sm font-serif text-blue-500 bg-blue-50/30 px-4 py-2.5 rounded-xl border border-blue-100/20 transition-all [animation-delay:1.4s]">
+                        법무법인 로투스
+                    </span>
+                </div>
+            </div>
+        </div>
+    `;
+};
+
           const ProblemSection = () => html`
     <section className="px-5 py-24 bg-white text-left overflow-hidden">
         <div className="max-w-screen-xl mx-auto">
@@ -3110,6 +3196,7 @@ if (step === 7) return html`
             <section className="px-5 -mt-12 md:-mt-20 mb-8 relative z-20 max-w-screen-xl mx-auto">
             <p className="text-[11px] font-bold text-slate-400 mb-4 animate-pulse">현재 ${visitorCount}명의 골퍼가 스승님을 찾고 있습니다</p>
                 <${RealTimeStatus} />
+                <${FieldAdSection} />
                 <${ServiceIntroSection} />
                 <${ProRecruitSection} setProFormOpen=${setProFormOpen} />
                 <${JoinBoard} setFormOpen=${setFormOpen} />
