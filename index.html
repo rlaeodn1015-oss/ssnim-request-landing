@@ -544,43 +544,43 @@
 
        const FieldReviewSection = () => {
     return html`
-        <section id="cases" class="py-16 md:py-24 bg-white overflow-hidden text-left">
+        <section id="cases" class="py-12 md:py-16 bg-white overflow-hidden text-left">
             <div class="max-w-screen-xl mx-auto">
-                <div class="px-5 flex flex-col md:flex-row justify-between items-end mb-8 gap-4 reveal">
+                <div class="px-5 flex flex-col md:flex-row justify-between items-end mb-8 gap-2 reveal">
                     <div>
-                        <h3 class="text-2xl md:text-4xl font-black text-slate-850 tracking-tight">
+                        <h3 class="text-2xl md:text-3xl font-black text-slate-850 tracking-tight">
                             스승님 <span class="text-brand-blue">맞춤 레슨</span> 현장 스케치
                         </h3>
-                        <p class="text-slate-400 font-bold mt-2 text-sm md:text-base">연습장이 아닌 '실전'레슨</p>
+                        <p class="text-slate-400 font-bold mt-1 text-xs md:text-sm">연습장이 아닌 '실전'레슨의 차이</p>
                     </div>
                     <div class="hidden md:block">
-                        <span class="text-[10px] text-slate-300 font-black uppercase tracking-widest">Captured by SSNIM Members</span>
+                        <span class="text-[9px] text-slate-300 font-black uppercase tracking-widest">Captured by SSNIM Members</span>
                     </div>
                 </div>
 
-                <div class="flex md:grid md:grid-cols-3 gap-4 md:gap-8 px-5 overflow-x-auto no-scrollbar snap-x snap-mandatory reveal">
-                    <div class="min-w-[280px] md:min-w-full snap-center group relative rounded-[2rem] overflow-hidden shadow-lg aspect-[4/5] md:aspect-square">
+                <div class="flex md:grid md:grid-cols-3 gap-3 md:gap-6 px-5 overflow-x-auto no-scrollbar snap-x snap-mandatory reveal">
+                    <div class="min-w-[240px] md:min-w-full snap-center group relative rounded-3xl overflow-hidden shadow-lg aspect-[4/5] md:aspect-square">
                         <img src="https://rlaeodn1015-oss.github.io/camp/images/KakaoTalk_20260311_150403004.png" 
                              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-6">
-                            <p class="text-white font-black text-lg">비전힐스CC 파3 레슨</p>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-5">
+                            <p class="text-white font-black text-sm md:text-base">비전힐스CC 파3 레슨</p>
                         </div>
                     </div>
 
-                    <div class="min-w-[280px] md:min-w-full snap-center group relative rounded-[2rem] overflow-hidden shadow-xl aspect-[4/5] md:aspect-square border-4 border-blue-50">
+                    <div class="min-w-[240px] md:min-w-full snap-center group relative rounded-3xl overflow-hidden shadow-xl aspect-[4/5] md:aspect-square border-4 border-blue-50">
                         <img src="https://rlaeodn1015-oss.github.io/camp/images/feild2.png" 
                              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-6">
-                            <p class="text-white font-black text-lg">실전 코스 공략 및 에이밍</p>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-5">
+                            <p class="text-white font-black text-sm md:text-base">실전 코스 공략 및 에이밍</p>
                         </div>
-                        <span class="absolute top-5 right-5 bg-brand-blue text-white text-[9px] font-black px-2.5 py-1 rounded-full animate-pulse shadow-lg">LIVE</span>
+                        <span class="absolute top-4 right-4 bg-brand-blue text-white text-[8px] font-black px-2 py-0.5 rounded-full animate-pulse shadow-lg">LIVE</span>
                     </div>
 
-                    <div class="min-w-[280px] md:min-w-full snap-center group relative rounded-[2rem] overflow-hidden shadow-lg aspect-[4/5] md:aspect-square">
+                    <div class="min-w-[240px] md:min-w-full snap-center group relative rounded-3xl overflow-hidden shadow-lg aspect-[4/5] md:aspect-square">
                         <img src="https://rlaeodn1015-oss.github.io/camp/images/KakaoTalk_20260311_151829297_04.png" 
                              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-6">
-                            <p class="text-white font-black text-lg">1:1 밀착 아이언 교정</p>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-5">
+                            <p class="text-white font-black text-sm md:text-base">1:1 밀착 아이언 교정</p>
                         </div>
                     </div>
                 </div>
@@ -1114,63 +1114,7 @@ if (step === 1) {
     }
     
     return html`<div></div>`;
-};
-    
-
-const RealTimeStatus = () => {
-    const mockData = [
-        { name: "김**", location: "강남", type: "1:1 레슨", contact: "010-****-6431", status: "요청 완료" },
-        { name: "이**", location: "분당", type: "숏게임 레슨", contact: "010-****-4818", status: "요청 완료" },
-        { name: "박**", location: "용인", type: "1:1 레슨", contact: "010-****-9012", status: "요청 완료" },
-        { name: "김**", location: "송파", type: "1:1 레슨", contact: "010-****-2415", status: "요청 완료" },
-        { name: "류**", location: "분당", type: "9홀 레슨", contact: "010-****-3241", status: "요청 완료" },
-        { name: "송**", location: "강남", type: "숏게임 레슨", contact: "010-****-7556", status: "요청 완료" },
-        { name: "안**", location: "강남", type: "1:1 레슨", contact: "010-****-9824", status: "요청 완료" },
-        { name: "이**", location: "서초", type: "파3 레슨", contact: "010-****-3532", status: "요청 완료" },
-        { name: "조**", location: "분당", type: "1:1 레슨", contact: "010-****-1259", status: "요청 완료" },
-        { name: "현**", location: "서초", type: "숏게임 레슨", contact: "010-****-2678", status: "요청 완료" }
-    ];
-
-    const rollingData = [...mockData, ...mockData];
-
-    return html`
-        <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden mb-8 text-left">
-            <div className="bg-slate-50 px-5 py-3 border-b border-slate-100 flex justify-between items-center relative z-10">
-                <span className="text-sm font-black text-slate-800 flex items-center gap-2">
-                    <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
-                    </span>
-                    실시간 매칭 신청 현황🚨
-                </span>
-                <span className="text-[11px] text-brand-blue font-black italic animate-pulse">LIVE</span>
-            </div>
-            
-            <div className="relative h-52 overflow-hidden">
-                <div className="rolling-container">
-                    <table className="w-full text-left">
-                        <tbody className="divide-y divide-slate-50">
-                            ${rollingData.map((item, idx) => html`
-                                <tr key=${idx}>
-                                    <td className="py-4 px-5 text-[13px] font-bold text-slate-700">${item.name}</td>
-                                    <td className="py-4 px-2 text-[13px] text-slate-500">${item.location}</td>
-                                    <td className="py-4 px-2 text-[13px] text-brand-blue font-black">${item.type}</td>
-                                    <td className="py-4 px-2 text-[12px] text-slate-400">${item.contact}</td>
-                                    <td className="py-4 px-5 text-right">
-                                        <span className="text-[10px] bg-emerald-50 text-emerald-600 px-2 py-1 rounded-full font-black ring-1 ring-emerald-100">
-                                            ${item.status}
-                                        </span>
-                                    </td>
-                                </tr>
-                            `)}
-                        </tbody>
-                    </table>
-                </div>
-                <div className="fade-mask"></div>
-            </div>
-        </div>
-    `;
-};
+}
 
         const ProFaceSlider = () => {
     const prosImg = [
@@ -1228,15 +1172,15 @@ const RealTimeStatus = () => {
 };
 
  const ServiceIntroSection = () => html`
-    <section className="px-5 py-8 bg-white overflow-hidden text-left">
-        <div className="max-w-screen-xl mx-auto">
+    <section className="px-5 py-8 bg-white overflow-hidden text-center">
+        <div className="max-w-screen-xl mx-auto flex flex-col items-center">
             
-            <div className="reveal max-w-3xl">
+            <div className="reveal max-w-3xl w-full flex flex-col items-center">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 text-brand-blue rounded-full text-[11px] font-black uppercase tracking-wider mb-4">
-                    ⛳ 스승님은 어떤 곳인가요?
+                    ⛳ 스승님은 무슨 회사인가요?
                 </div>
 
-                <div className="text-slate-400 text-[10px] md:text-[11px] font-black tracking-widest uppercase mb-1.5 block">
+                <div className="text-slate-400 text-[10px] md:text-[11px] font-black tracking-widest uppercase mb-1.5">
                     OUR MISSION
                 </div>
 
@@ -1244,13 +1188,13 @@ const RealTimeStatus = () => {
                     원하는 만큼만 받는 골프레슨
                 </h3>
                 
-                <div className="text-slate-500 text-base md:text-xl font-bold tracking-tight break-keep leading-relaxed space-y-1.5 opacity-95">
+                <div className="text-slate-500 text-base md:text-xl font-bold tracking-tight break-keep leading-relaxed space-y-1.5 opacity-95 mb-8">
                     <p>스승님은 소비자가 원하는 방식으로<br class="hidden sm:inline" /> 골프레슨을 받을 수 있도록 만든 플랫폼입니다.</p>
                     <p className="text-sm md:text-base text-slate-400 font-medium pt-0.5">AI 기반 요청 분석 시스템을 통해 조건에 맞는 검증된 스승님을 연결합니다.</p>
                 </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-2 bg-slate-50 p-5 rounded-[2rem] mt-8 text-center border border-slate-100 shadow-sm max-w-2xl">
+            <div className="grid grid-cols-3 gap-2 bg-slate-50 p-5 rounded-[2rem] text-center border border-slate-100 shadow-sm max-w-2xl w-full">
                 <div>
                     <p className="text-[10px] md:text-xs font-black text-slate-400 mb-1">서비스 이용 골퍼</p>
                     <p className="text-lg md:text-2xl font-black text-slate-800">2,600명+</p>
@@ -1432,7 +1376,7 @@ const RealTimeStatus = () => {
             <div className="text-center lg:text-left z-10">
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-6 bg-slate-50 text-slate-600 font-black rounded-full text-xs md:text-sm border border-slate-200/80 shadow-sm">
                     <span className="w-1.5 h-1.5 rounded-full bg-brand-blue animate-pulse"></span>
-                    검증된 프로 연결 · 부담 없는 맞춤 레슨
+                    검증된 스승 · 부담 없는 골프 레슨
                 </div>
                 
                 <h1 className="text-4xl md:text-6xl lg:text-[68px] font-black leading-[1.15] mb-6 tracking-tight text-slate-900 no-overflow-wrap">
@@ -1454,7 +1398,7 @@ const RealTimeStatus = () => {
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center w-full">
                     <button onClick=${() => setFormOpen(true)} className="w-full sm:w-auto bg-gradient-to-r from-brand-blue to-blue-700 text-white px-8 py-5 rounded-2xl font-black text-lg md:text-xl shadow-xl shadow-blue-500/20 hover:translate-y-[-4px] transition-all active:scale-95 flex items-center justify-center gap-2 btn-glow">
-                        내 맞춤 레슨 요청하기
+                        AI 맞춤 레슨 요청하기
                         <i className="fa-solid fa-chevron-right text-sm opacity-80 ml-1"></i>
                     </button>
                     
@@ -1512,7 +1456,7 @@ const RealTimeStatus = () => {
                                 <span className="text-[10px] text-slate-400 font-medium">3분 전</span>
                             </div>
                             <p className="text-[14px] font-black text-slate-800">2인 그룹 · 잠실</p>
-                            <p className="text-[12px] font-black text-slate-500 mt-1.5 bg-slate-100/60 px-2 py-1 rounded-lg inline-block">희망 예산 : 12만원</p>
+                            <p className="text-[12px] font-black text-slate-500 mt-1.5 bg-slate-100/60 px-2 py-1 rounded-lg inline-block">희망 예산 : 30만원</p>
                         </div>
                     </div>
                     
@@ -1677,79 +1621,62 @@ const RealTimeStatus = () => {
 
 const HowItWorks = () => {
     const [step, setStep] = React.useState(0);
+    // 3단계 핵심 이미지 (요청 시작 -> AI 분석 -> 매칭 완료)
     const images = [
-        "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/ai1.png",
-        "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/ai2.png",
-        "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/ai3.png",
-        "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/ai4.png",
-        "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/ai5.png",
-        "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/ai6.png"
+        "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/s1.webp", // 대화 시작
+        "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/s2.webp", // AI 분석 중
+        "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/s3.webp"  // 스승님 추천
     ];
 
     const steps = [
-        { t: "지역/레슨", d: "지역 및 형태" },
-        { t: "클럽/고민", d: "클럽과 고민" },
-        { t: "일정/금액", d: "시간과 가격" },
-        { t: "요청서 완료", d: "최종 확인" },
-        { t: "AI 분석", d: "데이터 매칭" },
-        { t: "스승 추천", d: "프로 3인 추천" }
+        { t: "간편 요청", d: "고민을 대화로 툭!" },
+        { t: "AI 정밀 분석", d: "승이가 요청서 분석" },
+        { t: "맞춤 스승 매칭", d: "검증된 맞춤 스승님 3인 추천" }
     ];
 
     React.useEffect(() => {
         const interval = setInterval(() => {
             setStep(prev => (prev + 1) % images.length);
-        }, 3000);
+        }, 2500);
         return () => clearInterval(interval);
     }, []);
 
     return html`
-    <section className="px-5 pt-4 pb-16 md:pt-8 md:pb-24 bg-white overflow-hidden">
+    <section className="px-5 pt-16 pb-20 bg-white overflow-hidden">
         <div className="max-w-screen-xl mx-auto flex flex-col items-center">
             
-            <!-- 헤더 하단 마진(mb-8)을 줄여 본문과 붙였습니다 -->
-            <div className="text-center mb-8 md:mb-16">
+            <div className="text-center mb-16">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-brand-blue text-[10px] font-black uppercase tracking-widest mb-3">
-                    Smart Matching Process
+                    EASY AI MATCHING
                 </div>
                 <h2 className="text-[24px] md:text-5xl font-black text-slate-850 leading-tight tracking-tighter">
-                   이제는 직접 찾지 말고 <span className="text-brand-blue underline underline-offset-8 decoration-blue-100">요청</span>하세요
+                    복잡한 검색 없이<br /> 승이와 <span className="text-brand-blue underline underline-offset-8 decoration-blue-100">대화</span>하세요
                 </h2>
             </div>
 
-            <!-- 메인 콘텐츠 영역 -->
-            <div className="flex flex-row items-center justify-center gap-4 md:gap-24 w-full max-w-[340px] md:max-w-[900px] mx-auto">
+            <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 w-full max-w-[900px] mx-auto">
                 
-                <div className="relative w-[50%] md:w-[300px] space-y-1 md:space-y-3">
-                    <div className="absolute left-0 top-0 w-[2px] h-full bg-slate-100 rounded-full">
-                        <div 
-                            className="absolute left-0 w-full bg-brand-blue transition-all duration-700 rounded-full shadow-[0_0_10px_#0066FF]"
-                            style=${{ 
-                                height: 'calc(100% / 6)', 
-                                transform: `translateY(calc(${step} * 100%))` 
-                            }}
-                        ></div>
-                    </div>
+                <div className="w-full md:w-1/2 space-y-6 md:space-y-12">
                     ${steps.map((item, idx) => html`
-                        <div key=${idx} onClick=${() => setStep(idx)}
-                             className=${`pl-4 md:pl-10 py-1.5 md:py-4 transition-all duration-500 cursor-pointer ${step === idx ? 'opacity-100 translate-x-1' : 'opacity-20'}`}>
-                            <h4 className=${`font-black text-[14px] md:text-2xl leading-tight ${step === idx ? 'text-brand-blue' : 'text-slate-800'}`}>${item.t}</h4>
-                            <p className=${`text-[10px] md:text-base font-bold mt-0.5 ${step === idx ? 'text-slate-500' : 'text-slate-400'}`}>${item.d}</p>
+                        <div key=${idx} className=${`flex items-center gap-6 transition-all duration-700 ${step === idx ? 'opacity-100 scale-100' : 'opacity-30 scale-95'}`}>
+                            <div className=${`w-12 h-12 md:w-16 md:h-16 rounded-3xl flex items-center justify-center font-black text-lg md:text-2xl shadow-lg ${step === idx ? 'bg-brand-blue text-white' : 'bg-slate-100 text-slate-400'}`}>
+                                0${idx + 1}
+                            </div>
+                            <div>
+                                <h4 className="font-black text-lg md:text-3xl text-slate-900 leading-tight">${item.t}</h4>
+                                <p className="text-xs md:text-lg font-bold text-slate-500 mt-1">${item.d}</p>
+                            </div>
                         </div>
                     `)}
                 </div>
 
-                <div className="relative shrink-0 flex justify-center items-center">
-                    <div className="absolute inset-0 bg-brand-blue/10 blur-[30px] md:blur-[80px] rounded-full animate-pulse"></div>
-                    <div className="relative w-[140px] h-[290px] md:w-[280px] md:h-[580px] rounded-[1.8rem] md:rounded-[3.5rem] overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] border-[5px] md:border-[12px] border-slate-900 bg-slate-900 z-10">
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-10 md:w-28 h-4 md:h-8 bg-slate-900 z-30 rounded-b-lg md:rounded-b-2xl"></div>
-                        <div className="relative w-full h-full bg-white overflow-hidden">
+                <div className="relative shrink-0">
+                    <div className="relative w-[180px] h-[370px] md:w-[260px] md:h-[540px] rounded-[2rem] overflow-hidden shadow-2xl border-[8px] border-slate-900 bg-slate-900 z-10">
+                        <div className="relative w-full h-full bg-white">
                             ${images.map((src, idx) => html`
-                                <img key=${idx} src=${src} className=${`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out ${step === idx ? 'opacity-100 scale-100' : 'opacity-0 scale-105'}`} />
+                                <img key=${idx} src=${src} className=${`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ease-in-out ${step === idx ? 'opacity-100' : 'opacity-0'}`} />
                             `)}
                         </div>
-                    </div>
-                    <div className="absolute -bottom-2 -right-1 w-9 h-9 md:w-16 md:h-16 bg-white rounded-xl md:rounded-2xl shadow-xl z-20 flex items-center justify-center border border-slate-100">
-                        <span className="text-[12px] md:text-2xl font-black text-brand-blue">0${step + 1}</span>
                     </div>
                 </div>
 
@@ -1796,40 +1723,38 @@ const HowItWorks = () => {
     </section>
 `;
 
-        const TicketBanner = () => html`
-    <section className="px-5 py-12 bg-white">
-        <div className="max-w-screen-xl mx-auto">
-            <a href="https://rlaeodn1015-oss.github.io/lessonticket/" 
-               className="group block relative overflow-hidden rounded-[2.5rem] bg-slate-900 p-8 md:p-16 shadow-2xl transition-all hover:scale-[1.01]">
-                
-                <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-blue/20 to-transparent"></div>
-                <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-brand-blue opacity-20 blur-3xl animate-pulse"></div>
+       const TicketBanner = () => html`
+    <section className="bg-white">
+        <a href="https://rlaeodn1015-oss.github.io/lessonticket/" 
+           className="group block relative overflow-hidden bg-slate-900 p-8 md:p-20 shadow-2xl transition-all hover:scale-[1.005]">
+            
+            <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-brand-blue/20 to-transparent"></div>
+            <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-brand-blue opacity-20 blur-3xl animate-pulse"></div>
 
-                <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-                    <div className="text-center md:text-left">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-blue text-white rounded-full text-[10px] font-black uppercase tracking-widest mb-6">
-                            Launch Event +1회
-                        </div>
-                        <h2 className="text-xl md:text-3xl font-black text-white leading-tight mb-4 tracking-tight">
-    이제 레슨권도 <span className="text-brand-blue">스승님 특별할인</span> 받고<br />
-    저렴하게 원하는 만큼만 구매하세요
-</h2>
-                        <p className="text-slate-400 font-bold text-sm md:text-base">
-                            카드 무이자 할부 혜택부터<br /> 법무법인 로투스 결제 보증까지 한 번에
-                        </p>
+            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 max-w-screen-xl mx-auto">
+                <div className="text-center md:text-left">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-blue text-white rounded-full text-[9px] font-black uppercase tracking-widest mb-4">
+                        Launch Event +1회
                     </div>
+                    <h2 className="text-lg md:text-2xl font-black text-white leading-snug mb-3 tracking-tight">
+                        이제 레슨권도 <span className="text-brand-blue">스승님 특별할인</span> 받고<br />
+                        원하는 만큼만 알뜰하게 구매하세요
+                    </h2>
+                    <p className="text-slate-400 font-bold text-xs md:text-sm">
+                        무이자 할부 혜택부터 법무법인 결제 보증까지 안전하게
+                    </p>
+                </div>
 
-                    <div className="shrink-0">
-                        <div className="bg-white text-slate-900 px-8 py-5 rounded-2xl font-black text-lg shadow-xl group-hover:bg-brand-blue group-hover:text-white transition-all flex items-center gap-3">
-                            수강권 할인가 확인하기
-                            <${ArrowRight} size=${20} />
-                        </div>
+                <div className="shrink-0">
+                    <div className="bg-white text-slate-900 px-6 py-4 rounded-2xl font-black text-base shadow-xl group-hover:bg-brand-blue group-hover:text-white transition-all flex items-center gap-2">
+                        수강권 할인가 확인하기
+                        <${ArrowRight} size=${16} />
                     </div>
                 </div>
-                
-                <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r from-transparent via-brand-blue to-transparent opacity-50"></div>
-            </a>
-        </div>
+            </div>
+            
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-brand-blue to-transparent opacity-50"></div>
+        </a>
     </section>
 `;
 
@@ -1853,7 +1778,7 @@ const EventSection = () => html`
             <div class="mb-16 text-center reveal">
                 <span class="inline-block px-4 py-1.5 bg-brand-blue/10 text-brand-blue font-black rounded-full text-xs mb-4 tracking-widest">LAUNCHING EVENT</span>
                 <h3 class="text-3xl md:text-5xl font-black text-slate-900 tracking-tighter">
-                    AI 매칭 요청만 해도,<br /> 혜택이 쏟아집니다 🤑
+                    AI 레슨 요청만 해도,<br /> 혜택이 쏟아집니다 🤑
                 </h3>
             </div>
 
@@ -1872,7 +1797,7 @@ const EventSection = () => html`
                         7월 7일 당첨자를 확인해보세요 🎁
                     </p>
                     <div class="bg-slate-50 p-4 rounded-xl text-[11px] font-black text-slate-700 border border-slate-100">
-                        🎁 경품: 부쉬넬 V7 (1명)
+                        🎁 경품: 최신형 부쉬넬 V7 (1명)
                     </div>
                 </div>
 
@@ -1903,7 +1828,7 @@ const EventSection = () => html`
                     </div>
                     <p class="text-xs font-bold text-slate-500 mb-6 flex-1">
                         5월·6월 한정! <br />
-                        실력은 더 빠르게, 부담은 더 가볍게 시작해보세요.
+                        실력은 더 빠르게, 비용은 더 가볍게 시작하세요!
                     </p>
                     <a href="https://rlaeodn1015-oss.github.io/lessonticket/" class="w-full bg-slate-900 text-white font-black py-3 rounded-xl text-xs text-center hover:bg-black transition-all">
                         할인가 구매하기
@@ -1914,147 +1839,98 @@ const EventSection = () => html`
     </section>
 `;
 
-      const SystemSection = () => html`
-    <section id="features" className="px-5 py-20 md:py-32 bg-slate-850 text-white overflow-hidden relative text-left">
-        <div className="max-w-screen-xl mx-auto grid lg:grid-cols-2 gap-12 md:gap-20 items-center relative z-10">
-            
-            <div className="reveal">
-                <h2 className="text-[24px] md:text-4xl font-black mb-8 md:mb-12 leading-[1.3] tracking-tighter">
-                    "스승님은 아무나 연결하지 않습니다<br />
-                    <span className="text-brand-blue">최적의 스승님을 추천</span>합니다."
-                </h2>
-                
-                <div className="space-y-8 md:space-y-12">
-                    <div className="flex gap-5 md:gap-6">
-                        <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-brand-blue flex items-center justify-center shrink-0 font-black text-lg md:text-2xl shadow-xl shadow-blue-900/50 text-white">1</div>
-                        <div>
-                            <h4 className="text-[17px] md:text-2xl font-black mb-1.5 md:mb-2 text-white">문제 진단 요청</h4>
-                            <p className="text-slate-400 text-[13px] md:text-[16px] font-medium leading-relaxed break-keep">
-                                단순한 리스트 노출이 아닙니다. 회원의 요청서와 스승님의 레슨 데이터를 분석해 <span className="text-slate-200">요청에 95%이상 적합한 스승님</span>을 선별합니다.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="flex gap-5 md:gap-6">
-                        <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-brand-blue flex items-center justify-center shrink-0 font-black text-lg md:text-2xl shadow-xl shadow-blue-900/50 text-white">2</div>
-                        <div>
-                            <h4 className="text-[17px] md:text-2xl font-black mb-1.5 md:mb-2 text-white">스승님 탐색 및 매칭</h4>
-                            <p className="text-slate-400 text-[13px] md:text-[16px] font-medium leading-relaxed break-keep">
-                                AI 알고리즘이 <span className="text-slate-200">문제 해결 경험이 가장 많은 TOP 3</span>를 우선 추천하며, 스승님에게 회원의 고민을 미리 전달합니다.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="flex gap-5 md:gap-6">
-                        <div className="w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-brand-blue flex items-center justify-center shrink-0 font-black text-lg md:text-2xl shadow-xl shadow-blue-900/50 text-white">3</div>
-                        <div>
-                            <h4 className="text-[17px] md:text-2xl font-black mb-1.5 md:mb-2 text-white">데이터 기반 레슨</h4>
-                            <p className="text-slate-400 text-[13px] md:text-[16px] font-medium leading-relaxed break-keep">
-                                매칭된 스승님은 회원의 스윙 고민을 완벽히 숙지한 상태로 레슨에 임합니다. <span className="text-slate-200">불필요한 시간 낭비 없는 효율적 레슨</span>이 시작됩니다.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="relative reveal mt-10 lg:mt-0">
-                <div className="clay-card p-8 md:p-10 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2.5rem] md:rounded-[3rem] relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-brand-blue/10 blur-[50px] rounded-full"></div>
-                    
-                    <div className="flex items-center gap-3 md:gap-4 mb-8 relative z-10">
-                        <div className="w-12 h-12 md:w-16 md:h-16 bg-brand-blue rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/40">
-                            <i className="fas fa-microchip text-white text-xl md:text-2xl"></i>
-                        </div>
-                        <div className="font-black text-xl md:text-3xl italic tracking-tighter text-white">Matching AI v1.0</div>
-                    </div>
-                    
-                    <div className="space-y-8 relative z-10">
-                        <div className="group relative">
-                            <div className="flex justify-between mb-2 px-1">
-                                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">System Processing</span>
-                                <span className="text-[10px] font-black text-brand-blue animate-pulse">96% MACHED</span>
-                            </div>
-                            <div className="h-3 md:h-4 bg-white/10 rounded-full overflow-hidden p-[2px]">
-                                <div className="h-full bg-brand-blue rounded-full relative w-[96%]">
-                                    <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent)] animate-shimmer" style=${{ backgroundSize: '200% 100%' }}></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="grid grid-cols-2 gap-4 md:gap-6">
-                            <div className="relative p-5 md:p-7 bg-white/5 rounded-3xl border border-white/10 text-center group hover:border-brand-blue/50 transition-colors">
-                                <div className="w-2 h-2 rounded-full bg-brand-blue absolute top-4 right-4 animate-ping"></div>
-                                <p className="text-[9px] md:text-[11px] text-slate-400 font-black uppercase mb-2 tracking-widest">분석 데이터</p>
-                                <p className="text-2xl md:text-3xl font-black text-white">4.2K<span className="text-brand-blue text-sm ml-0.5">+</span></p>
-                            </div>
-
-                            <div className="relative p-5 md:p-7 bg-white/5 rounded-3xl border border-white/10 text-center group hover:border-cyan-400/50 transition-colors">
-                                <div className="absolute inset-0 bg-gradient-to-b from-cyan-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-3xl"></div>
-                                <p className="text-[9px] md:text-[11px] text-slate-400 font-black uppercase mb-2 tracking-widest">매칭 정확도</p>
-                                <p className="text-2xl md:text-3xl font-black text-white">95.3<span className="text-cyan-400 text-sm ml-0.5">%</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-`;
-
-        const TrustSection = () => html`
-    <section id="trust" class="px-5 py-16 md:py-24 bg-white text-left">
+ const SystemSection = () => html`
+    <section id="features" className="px-5 py-14 md:py-18 bg-white overflow-hidden text-left">
         <div className="max-w-screen-xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 md:gap-20 items-center">
-                
-                <div className="order-2 lg:order-1 reveal">
-                    <img 
-                        src="https://raw.githubusercontent.com/rlaeodn1015-oss/ssnim-request-landing/main/images/legal.jpg"
-                        className="rounded-3xl md:rounded-4xl shadow-2xl w-full"
-                        alt="Legal Partnership" loading="lazy"
-                    />
-                </div>
-
-                <div className="order-1 lg:order-2 reveal">
-                    <div className="flex flex-col items-start">
-                        <${ShieldCheck} size=${48} className="text-brand-blue mb-6 md:mb-8 md:scale-125" />
-                        <p className="text-[12px] md:text-sm text-brand-blue font-black mb-3 tracking-tight uppercase">
-                            No.1 Trust-Based Platform
-                        </p>
-                        <h2 className="text-[24px] md:text-5xl font-black text-slate-850 mb-6 md:mb-8 leading-[1.3] tracking-tighter">
-                            대한민국 최초,<br />
-                            <span className="text-brand-blue">법무·특허 기반 매칭 시스템</span>
-                        </h2>
-                        <p className="text-slate-500 text-[14px] md:text-xl font-bold mb-8 md:mb-10 leading-relaxed break-keep">
-                            스승님은 ‘법무법인 로투스’와의 파트너십과 등록 특허 기반 매칭 시스템을 통해 단순 연결이 아닌, <span className="text-slate-800">소비자의 권익 보호와 확실한 결과</span>를 약속합니다.
-                        </p>
             
-                        <div className="space-y-3 md:space-y-4 w-full">
-                            <div className="flex items-center gap-3 md:gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 font-black text-[13px] md:text-lg text-slate-700">
-                                <${CheckCircle2} size=${20} className="text-brand-blue shrink-0" /> 
-                                <span>법무법인 로투스 공식 파트너십</span>
-                            </div>
-                            <div className="flex items-center gap-3 md:gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 font-black text-[13px] md:text-lg text-slate-700">
-                                <${CheckCircle2} size=${20} className="text-brand-blue shrink-0" /> 
-                                <span>특허 기반 AI 매칭 시스템 적용</span>
-                            </div>
-                            <div className="flex items-center gap-3 md:gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 font-black text-[13px] md:text-lg text-slate-700">
-                                <${CheckCircle2} size=${20} className="text-brand-blue shrink-0" /> 
-                                <span>분쟁·환불까지 고려한 안전한 구조</span>
-                            </div>
-                        </div>
+            <div className="mb-12 md:mb-16 reveal text-center md:text-left">
+                <h2 className="text-3xl md:text-5xl font-black text-slate-900 leading-[1.1] tracking-tighter mb-4">
+                    좋은 레슨 경험은<br />
+                    진행 방식부터 다릅니다.
+                </h2>
+                <p className="text-slate-500 font-bold text-lg md:text-xl tracking-tight">
+                    처음 요청하는 순간부터 레슨이 끝나는 순간까지 함께합니다.
+                </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6 reveal">
+                <div className="h-full flex flex-col p-7 md:p-8 rounded-[2rem] bg-slate-50 border border-slate-200/60 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                    <div className="w-12 h-12 bg-white text-slate-900 rounded-2xl flex items-center justify-center text-xl mb-6 shadow-sm">
+                        <i className="fas fa-shield-alt"></i>
                     </div>
+                    <h4 className="font-black text-lg mb-3 text-slate-900">불편사항 직접 조율</h4>
+                    <p className="text-slate-500 font-bold text-sm leading-relaxed">
+                        레슨 중 문제가 생기면,<br/>
+                        운영팀이 직접 확인하고<br/>
+                        빠르게 도와드립니다.
+                    </p>
                 </div>
 
+                <div className="h-full flex flex-col p-7 md:p-8 rounded-[2rem] bg-blue-600 text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                    <div className="w-12 h-12 bg-white/20 text-white rounded-2xl flex items-center justify-center text-xl mb-6">
+                        <i className="fas fa-headset"></i>
+                    </div>
+                    <h4 className="font-black text-lg mb-3 text-white">24시간 밀착 관리</h4>
+                    <p className="text-blue-100 font-bold text-sm leading-relaxed">
+                        레슨 전 안내부터 일정까지,<br/>
+                        운영팀이 실시간으로<br/>
+                        함께 케어해드립니다.
+                    </p>
+                </div>
+
+                <div className="h-full flex flex-col p-7 md:p-8 rounded-[2rem] bg-slate-50 border border-slate-200/60 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                    <div className="w-12 h-12 bg-white text-slate-900 rounded-2xl flex items-center justify-center text-xl mb-6 shadow-sm">
+                        <i className="fas fa-calendar-check"></i>
+                    </div>
+                    <h4 className="font-black text-lg mb-3 text-slate-900">간편 예약 시스템</h4>
+                    <p className="text-slate-500 font-bold text-sm leading-relaxed">
+                        복잡한 연락 없이,<br/>
+                        요청부터 결제까지<br/>
+                        한 번에 끝내세요.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 `;
 
-        const InteractiveFlow = ({ setModalOpen }) => {
-    // 💡 [수정 포인트 1] 리액트 규칙에 맞게 상태 선언을 컴포넌트 최상단으로 이동시켰습니다.
-    const [isDiscountApplied, setIsDiscountApplied] = React.useState(false);
+       const TrustSection = () => html`
+    <section id="trust" class="px-5 py-20 bg-[#0F172A] text-white overflow-hidden text-center">
+        <div class="max-w-screen-md mx-auto">
+            
+            <div class="inline-flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full text-[10px] font-black uppercase tracking-widest mb-8 text-blue-400/90">
+                <i class="fas fa-shield-alt"></i> TRUST & SAFETY
+            </div>
 
-    const [step, setStep] = React.useState(1);
+            <h2 class="text-2xl md:text-4xl font-black mb-16 leading-tight tracking-tight">
+                안전하고 만족스러운 레슨을 위해<br />
+                법무·특허 기반 시스템으로 운영합니다.
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+
+                <div class="p-5 md:p-6 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center gap-3 font-black text-xs md:text-sm text-slate-300">
+                    <i class="fas fa-gavel text-blue-400/90"></i>
+                    법무법인 로투스 파트너십
+                </div>
+
+                <div class="p-5 md:p-6 rounded-2xl bg-white/10 border border-brand-blue/30 flex items-center justify-center gap-3 font-black text-xs md:text-sm text-white scale-[1.02] shadow-xl">
+                    <i class="fas fa-file-contract text-blue-400/90"></i>
+                    특허 기반 추천 시스템
+                </div>
+
+                <div class="p-5 md:p-6 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center gap-3 font-black text-xs md:text-sm text-slate-300">
+                    <i class="fas fa-user-check text-blue-400/90"></i>
+                    운영팀 24시간 1:1 케어
+                </div>
+            </div>
+        </div>
+    </section>
+`;
+
+  const InteractiveFlow = ({ setModalOpen }) => {
+    // [보존] 기존 상태 선언 및 변수명 100% 원형 보존
+    const [step, setStep] = React.useState(1); 
     const [loadingIdx, setLoadingIdx] = React.useState(0);
     const [results, setResults] = React.useState([]);
     const [selectedPro, setSelectedPro] = React.useState(null);
@@ -2062,1110 +1938,736 @@ const EventSection = () => html`
     const [formData, setFormData] = React.useState({
         location: '', lessonType: '', isJoinable: false,
         personCount: '1인', club: '', concern: [],
-        schedule: '', price: '', lessonDate: ''
+        schedule: '', price: '', lessonDate: '',
+        activeTab: '', showAllTags: false, isDiscountClicked: false, isTrialSelected: false
     });
-React.useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        
-        if (params.has('location') || params.has('selectedPro')) {
-            console.log("거절/재진입 데이터 복구 시작...");
-            
-            const recoveredProName = params.get('selectedPro');
-            const foundPro = pros.find(p => p.name === recoveredProName);
 
-            const recoveredData = {
-                location: params.get('location') || '',
-                lessonType: params.get('type') || '',
-                lessonCount: params.get('personCount') || '1인',
-                isJoinable: params.get('personCount')?.includes('조인') || false,
-                club: params.get('club') || '',
-                concern: params.get('note') ? params.get('note').split(',') : [], 
-                schedule: params.get('schedule') || '',
-                price: params.get('price') || '',
-                lessonDate: params.get('date') || ''
-            };
-            
-            setFormData(prev => ({ ...prev, ...recoveredData }));
-            if (foundPro) setSelectedPro(foundPro);
-            
-            startAnalysis(); 
-        }
-    }, []);
+    // 챗봇 내부 트랜잭션 전용 로컬 상태 변수
+    const [chatInput, setChatInput] = React.useState('');
+    const [isLocationMissing, setIsLocationMissing] = React.useState(false);
+    const [savedConcernText, setSavedConcernText] = React.useState('');
 
-            const handleShare = async () => {
-    const shareData = {
-        title: '스승님 - 내 요청 맞춤 골프레슨',
-        text: '내 고민에 딱 맞는 골프 스승님을 찾았어! 여기서 1분 만에 매칭해봐.',
-        url: 'https://rlaeodn1015-oss.github.io/ssnim-request-landing/'
-    };
-
-    if (navigator.share) {
-        try {
-            await navigator.share(shareData);
-        } catch (err) {
-            console.log('공유 취소 또는 에러:', err);
-        }
-    } else {
-        navigator.clipboard.writeText(shareData.url);
-        alert("링크가 복사되었습니다. 친구에게 전달해주세요! ⛳");
-    }
-};
+    // 소비자 친화형 숏컷 고민 키워드 샌드박스
+    // [UI 고도화] 사회적 증거(Social Proof)를 강조한 TOP 4 리스트
+    const quickKeywords = [
+        { text: "📍 역삼, 선릉 근처 | 롱아이언 생크 및 비거리 레슨", location: "삼성·역삼·선릉", type: "1:1 레슨", club: "롱아이언", concern: ["생크 교정", "비거리 증가"] },
+        { text: "📍 한티,대치 근처 | 드라이버 악성 슬라이스 및 구질 레슨", location: "대치·도곡·개포", type: "1:1 레슨", club: "드라이버", concern: ["슬라이스 교정", "드라이버 방향성"] },
+        { text: "📍 판교/분당 주변 | 숏게임 그린주변 어프로치 레슨", location: "판교·정자·분당", type: "숏게임레슨", club: "웨지/숏게임", concern: ["어프로치 거리감", "뒤땅/탑볼"] },
+        { text: "📍 용인 주변 | 2인 파3레슨", location: "용인·수원·분당", type: "파3 레슨", club: "웨지/숏게임", concern: ["파3 레슨"], isJoin: true }
+    ];
 
     const loadingMessages = [
-        "✔ 사용자 요청 데이터 확인 중...",
-        "✔ 스승님 데이터 및 문제 유형 분석 중...",
-        "✔ 요청서 기반 맞춤 스승님 탐색 중...",
-        "✔ AI 매칭 결과 도출 중..."
+        "✔ 요청서 내용 확인 및 분석 중...",
+        "✔ 요청한 레슨 형태 자동 판별 중...",
+        "✔ 요청서에 가장 적합한 스승님 찾는 중...",
+        "✔ 요청 최적화 스승님 TOP3 매칭 완료!"
     ];
 
     const updateData = (key, val) => setFormData(prev => ({ ...prev, [key]: val }));
     const nextStep = () => setStep(prev => prev + 1);
     const prevStep = () => setStep(prev => prev - 1);
 
-    const updateConcern = (value) => {
-        setFormData(prev => {
-            const exists = prev.concern.includes(value);
-            return {
-                ...prev,
-                concern: exists ? prev.concern.filter(v => v !== value) : [...prev.concern, value]
+    // [공통 텍스트 마이닝 매퍼 함수] 데이터 구조 무결성 가드 레이어
+    const analyzeTextAndBuildData = (targetText, targetLocation) => {
+        const safeText = typeof targetText === 'string' ? targetText : '';
+        let detectedType = "1:1 레슨";
+        let detectedClub = "드라이버";
+        let detectedConcerns = [];
+
+        if (safeText.includes("숏게임") || safeText.includes("어프로치") || safeText.includes("어프") || safeText.includes("웻지") || safeText.includes("웨지") || safeText.includes("벙커") || safeText.includes("입스")) {
+            detectedType = "숏게임레슨"; 
+            detectedClub = "웨지/숏게임"; 
+            if (safeText.includes("벙커")) { detectedConcerns.push("벙커샷 탈출"); }
+            else if (safeText.includes("입스")) { detectedConcerns.push("어프로치 입스"); }
+            else { detectedConcerns.push("어프로치 거리감"); }
+        } 
+        else if (safeText.includes("파3") || safeText.includes("파쓰리") || safeText.includes("파삼")) {
+            detectedType = "파3 레슨"; 
+            detectedClub = "웨지/숏게임"; 
+            detectedConcerns.push("파3 실전 레슨");
+        } 
+        else if (safeText.includes("필드") || safeText.includes("라운딩") || safeText.includes("머리") || safeText.includes("코스") || safeText.includes("동반")) {
+            detectedType = "18홀 필드레슨"; 
+            detectedClub = "드라이버"; 
+            if (safeText.includes("머리")) { detectedConcerns.push("100타 깨기"); }
+            else { detectedConcerns.push("코스 매니지먼트"); }
+        } 
+        else {
+            detectedType = "1:1 레슨";
+            if (safeText.includes("아이언")) {
+                detectedClub = safeText.includes("숏") ? "숏아이언" : "롱아이언";
+            }
+            else if (safeText.includes("우드") || safeText.includes("유틸") || safeText.includes("고구마") || safeText.includes("하이브리드")) {
+                detectedClub = "우드/유틸";
+            }
+            else if (safeText.includes("퍼터") || safeText.includes("퍼팅") || safeText.includes("그린")) {
+                detectedClub = "퍼터";
+            }
+            else if (safeText.includes("드라이버") || safeText.includes("티샷")) {
+                detectedClub = "드라이버";
+            }
+
+            if (safeText.includes("생크") || safeText.includes("안쪽") || safeText.includes("넥")) detectedConcerns.push("생크 교정");
+            if (safeText.includes("슬라이스") || safeText.includes("터짐") || safeText.includes("우측") || safeText.includes("푸시") || safeText.includes("페이드")) detectedConcerns.push("슬라이스 교정");
+            if (safeText.includes("훅") || safeText.includes("좌측") || safeText.includes("말림") || safeText.includes("풀") || safeText.includes("드로우")) detectedConcerns.push("훅 교정");
+            if (safeText.includes("와이파이") || safeText.includes("난사") || safeText.includes("사방") || safeText.includes("정확도")) detectedConcerns.push("드라이버 정확도");
+            if (safeText.includes("비거리") || safeText.includes("거리") || safeText.includes("장타") || safeText.includes("멀리") || safeText.includes("스피드") || safeText.includes("지면") || safeText.includes("반발력")) detectedConcerns.push("비거리 증가");
+            if (safeText.includes("뒤땅") || safeText.includes("뒷땅") || safeText.includes("탑볼") || safeText.includes("탑핑") || safeText.includes("정타") || safeText.includes("임팩") || safeText.includes("정타율")) detectedConcerns.push("뒤땅/탑볼");
+            if (safeText.includes("스웨이") || safeText.includes("밀림") || safeText.includes("체중이동") || safeText.includes("리버스")) detectedConcerns.push("체중이동");
+            if (safeText.includes("배치기") || safeText.includes("얼리익스텐션") || safeText.includes("척추각") || safeText.includes("익스텐션")) detectedConcerns.push("바디스윙"); 
+            if (safeText.includes("샬로윙") || safeText.includes("레깅") || safeText.includes("수직낙하") || safeText.includes("궤도") || safeText.includes("아웃인") || safeText.includes("인아웃") || safeText.includes("엎어")) detectedConcerns.push("스윙 궤도");
+            if (safeText.includes("캐스팅") || safeText.includes("풀림") || safeText.includes("커핑") || safeText.includes("보잉") || safeText.includes("힌징") || safeText.includes("코킹")) detectedConcerns.push("임팩트 교정");
+            if (safeText.includes("치킨윙") || safeText.includes("당김") || safeText.includes("릴리즈") || safeText.includes("피니시") || safeText.includes("밸런스")) detectedConcerns.push("자세 교정");
+            if (safeText.includes("자세") || safeText.includes("폼") || safeText.includes("스윙")) detectedConcerns.push("자세 교정");
+            if (safeText.includes("초보") || safeText.includes("골린이") || safeText.includes("입문") || safeText.includes("똑딱이") || safeText.includes("머리털")) detectedConcerns.push("초보 레슨");
+            if (safeText.includes("아픔") || safeText.includes("허리") || safeText.includes("디스크") || safeText.includes("엘보") || safeText.includes("부상") || safeText.includes("안아픈")) detectedConcerns.push("몸 안 아픈 스윙");
+        }
+
+        if (detectedConcerns.length === 0) detectedConcerns.push("자세 교정");
+
+        return {
+            location: targetLocation,
+            lessonType: detectedType,
+            club: detectedClub,
+            concern: detectedConcerns,
+            isJoinable: safeText.includes("조인") || safeText.includes("같이"),
+            personCount: (safeText.includes("조인") || safeText.includes("같이")) ? "2인" : "1인"
+        };
+    };
+
+    // [핵심 인터페이스 통제 마스터 함수]
+    const handleChatSubmit = (keywordObj) => {
+        let inputText = chatInput.trim();
+
+        // 2차 위치 입력 단계 제어 가드 밸브
+        if (isLocationMissing) {
+            if (!inputText) {
+                alert("레슨을 원하시는 동네나 역명을 말씀해주세요!");
+                return;
+            }
+
+            let finalLocation = inputText;
+            if (inputText.includes("역삼") || inputText.includes("삼성") || inputText.includes("선릉") || inputText.includes("강남역")) finalLocation = "삼성·역삼·선릉";
+            else if (inputText.includes("대치") || inputText.includes("도곡") || inputText.includes("개포")) finalLocation = "대치·도곡·개포";
+            else if (inputText.includes("압구정") || inputText.includes("청담") || inputText.includes("신사")) finalLocation = "압구정·청담·신사";
+            else if (inputText.includes("서초") || inputText.includes("교대") || inputText.includes("방배") || inputText.includes("반포")) finalLocation = "서초·교대·방배";
+            else if (inputText.includes("잠실") || inputText.includes("송파") || inputText.includes("문정")) finalLocation = "잠실·송파·문정";
+            else if (inputText.includes("판교") || inputText.includes("정자") || inputText.includes("분당") || inputText.includes("야탑")) finalLocation = "판교·정자·분당";
+            else if (inputText.includes("수지") || inputText.includes("죽전") || inputText.includes("기흥") || inputText.includes("용인")) finalLocation = "수지·죽전·기흥";
+
+            const cleanFinalData = analyzeTextAndBuildData(savedConcernText, finalLocation);
+
+            setFormData(prev => ({ ...prev, ...cleanFinalData }));
+            setIsLocationMissing(false);
+            setChatInput('');
+            setSavedConcernText(''); 
+
+            startAnalysis(cleanFinalData); 
+            return;
+        }
+
+        if (keywordObj) {
+            const shortcutData = {
+                location: keywordObj.location,
+                lessonType: keywordObj.type,
+                club: keywordObj.club,
+                concern: keywordObj.concern,
+                isJoinable: keywordObj.isJoin || false,
+                personCount: keywordObj.isJoin ? "2인" : "1인"
             };
-        });
-    };
-
-    const startAnalysis = () => {
-    setStep(5);
-    setLoadingIdx(0);
-    
-    let currentIdx = 0;
-    
-    const interval = setInterval(() => {
-        currentIdx++;
-        if (currentIdx < loadingMessages.length) {
-            setLoadingIdx(currentIdx);
-        } else {
-            clearInterval(interval);
-            executeMatching();
+            setFormData(prev => ({ ...prev, ...shortcutData }));
+            startAnalysis(shortcutData);
+            return;
         }
-    }, 1000);
-};
 
-const executeMatching = () => {
-    let isLocationMatched = true;
-    const selectedLocs = formData.location.split('·'); 
+        if (!inputText) {
+            alert("스트레스 받는 골프 문제를 승이에게 말씀해주세요!");
+            return;
+        }
 
-    let filteredPros = pros.filter(p => {
-        const proLocs = p.activeLocations || [];
-        return proLocs.some(proLoc => 
-            selectedLocs.some(userLoc => proLoc.includes(userLoc) || userLoc.includes(proLoc))
-        );
-    });
-    
-    if (filteredPros.length === 0) {
-        isLocationMatched = false;
-        filteredPros = [...pros];
-    }
-
-    const scoredPros = filteredPros.map(p => {
-        let score = 0;
-        const types = p.lessonTypes || [];
-        const tags = p.tags || [];
-
-        if (types.includes(formData.lessonType)) score += 20; 
+        let detectedLocation = "";
+        if (inputText.includes("역삼") || inputText.includes("삼성") || inputText.includes("선릉") || inputText.includes("강남역")) detectedLocation = "삼성·역삼·선릉";
+        else if (inputText.includes("대치") || inputText.includes("도곡") || inputText.includes("개포")) detectedLocation = "대치·도곡·개포";
+        else if (inputText.includes("압구정") || inputText.includes("청담") || inputText.includes("신사")) detectedLocation = "압구정·청담·신사";
+        else if (inputText.includes("서초") || inputText.includes("교대") || inputText.includes("방배") || inputText.includes("반포")) detectedLocation = "서초·교대·방배";
+        else if (inputText.includes("잠실") || inputText.includes("송파") || inputText.includes("문정")) detectedLocation = "잠실·송파·문정";
+        else if (inputText.includes("판교") || inputText.includes("정자") || inputText.includes("분당") || inputText.includes("야탑")) detectedLocation = "판교·정자·분당";
+        else if (inputText.includes("수지") || inputText.includes("죽전") || inputText.includes("기흥") || inputText.includes("용인")) detectedLocation = "수지·죽전·기흥";
         
-        const userConcerns = Array.isArray(formData.concern) ? formData.concern : [formData.concern];
-        if (tags.some(tag => userConcerns.some(c => tag.includes(c)))) score += 30; 
-        
-        return { ...p, score: score + (Math.random() * 10) }; 
-    });
+        if (!detectedLocation) {
+            const genericLocationMatch = inputText.match(/([가-힣]+동|[가-힣]+역|[가-힣]+구|[가-힣]+시)/);
+            if (genericLocationMatch) {
+                detectedLocation = genericLocationMatch[0];
+            }
+        }
 
-    const matched = scoredPros.sort((a, b) => b.score - a.score).slice(0, 3).map((p, i) => ({
-        ...p,
-        displayScore: 99 - (i * 2) - Math.floor(Math.random() * 2),
-        isExpanded: !isLocationMatched 
-    }));
+        if (!detectedLocation) {
+            setSavedConcernText(inputText); 
+            setIsLocationMissing(true);     
+            setChatInput('');
+            return;
+        }
 
-    setResults(matched);
-    setTimeout(() => setStep(6), 500);
-};
-
-const submitRequest = async () => {
-    const currentName = (userInfo.name || "").trim();
-    const currentContact = (userInfo.contact || "").replace(/[^0-9]/g, '');
-    const currentRequestId = `REQ_${new Date().getTime()}`;
-
-    // 1. 성함 기본 검증 (한글 실명 2~5자)
-    if (!/^[가-힣]{2,5}$/.test(currentName)) { 
-        alert("성함은 한글 실명(2~5자)으로 정확히 입력해 주세요."); 
-        setStep(3); 
-        return; 
-    }
-
-    // 🔥 [추가] 이름 장난질 차단: 동일 글자 3번 연속 반복 (예: 아아아, 홍홍홍)
-    if (/(.)\1\1/.test(currentName)) {
-        alert("올바른 성함을 입력해 주세요. (반복된 글자 입력 불가)");
-        setStep(3);
-        return;
-    }
-
-    // 2. 연락처 기본 길이 검증 (10~11자리)
-    if (currentContact.length < 10 || currentContact.length > 11) {
-        alert("올바른 연락처를 10~11자리로 입력해 주세요.");
-        setStep(3);
-        return;
-    }
-
-    // 🔥 [추가] 허수 연락처 차단: 010 패턴 검증
-    if (!/^010\d{7,8}$/.test(currentContact)) {
-        alert("올바른 휴대폰 번호 형식(010으로 시작)을 입력해 주세요.");
-        setStep(3);
-        return;
-    }
-
-    // 🔥 [추가] 악성 연락처 패턴 차단 (뒷자리 5자 연속 동일, 12341234 반복, 12345678 순차열)
-    const lastDigits = currentContact.substring(3); 
-    const isConsecutive = /(.)\1{4,}/.test(lastDigits); 
-    const isRepetitive = lastDigits.length === 8 && lastDigits.substring(0, 4) === lastDigits.substring(4); 
-    const isFakeSequential = lastDigits === "12345678" || lastDigits === "87654321"; 
-
-    if (isConsecutive || isRepetitive || isFakeSequential) {
-        alert("유효하지 않은 연락처입니다. 정확한 번호를 입력해 주세요.");
-        setStep(3);
-        return;
-    }
-
-    // 3. 금지 키워드 검증
-    const forbiddenKeywords = [
-        '카톡', '카카오', '인스타', 'insta', '인별', '잉스타', '스타', '인스타그램', '잉스타그램', '익스타', '임스타', 'instagram', 'dm', 'link', 'kakao', '라인', 'line', 
-        '공일공', '오픈채팅', '옵챗', '텔레그램', '영일영', '전화', '카.톡', '연락처', '리틀리', 'littly', 
-        '링크트리', '.com', 'http', '유튜브', 'youtube', '번호', '공1공', 'o1o', '영1영', '0l0', 
-        '아이디', '검색', '친추', '팔로우', '.kr', '.me', '.link', '계좌', '입금', '이체', '현결', '현금', 'ID',
-        '시발', '지랄', '개새', '병신', '미친', '대표', '프로', '스승', '선생', '사장', '관리자', '운영자'
-    ];
-
-    if (forbiddenKeywords.some(keyword => currentName.includes(keyword))) {
-        alert("성함 입력란에 적절하지 않은 단어나 외부 연락처 유도 키워드를 포함할 수 없습니다.");
-        setStep(3);
-        return;
-    }
-
-    // 4. 버튼 로딩 제어 (기존 코드 안전성 보완 마이너 체인지)
-    const submitBtn = document.querySelector('button[onClick*="submitRequest"]') || 
-                      document.querySelector('button[onclick*="submitRequest"]') || 
-                      (typeof event !== 'undefined' && event ? event.target.closest('button') : null);
-    
-    if (submitBtn) {
-        submitBtn.disabled = true; 
-        submitBtn.style.opacity = "0.7";
-        submitBtn.innerHTML = `
-            <span class="flex items-center justify-center gap-2">
-                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                매칭 요청 중...
-            </span>
-        `;
-    }
-
-    const isFixedPrice = (formData.lessonType || "").includes('1:1');
-    const payload = {
-        action: "createRequest",
-        requestId: currentRequestId,
-        name: currentName,
-        contact: currentContact,
-        type: isFixedPrice ? `${formData.lessonType} [${formData.lessonPlan || '미선택'}]` : (formData.isJoinable ? `${formData.lessonType} [조인희망]` : formData.lessonType),
-        location: formData.location,
-        club: formData.club,
-        concern: formData.concern.join(', '),
-        schedule: `${formData.lessonDate} / ${formData.schedule}`,
-        selectedPro: selectedPro.name,   
-        proContact: selectedPro.phone,
-        price: formData.price,
-        personCount: formData.lessonCount || "1인",
-        status: "accepted" 
+        const finalCalculatedData = analyzeTextAndBuildData(inputText, detectedLocation);
+        setFormData(prev => ({ ...prev, ...finalCalculatedData }));
+        setChatInput('');
+        startAnalysis(finalCalculatedData);
     };
 
-    const telegramMessage = `🔥 [${isFixedPrice ? '패키지' : '견적요청'}] 매칭 발생\n\n👤 이름: ${payload.name}\n📞 연락처: ${payload.contact}\n📍 지역: ${payload.location}\n⛳ 레슨: ${payload.type}\n🏌️ 클럽: ${payload.club}\n💥 문제: ${payload.concern}\n⏰ 시간: ${payload.schedule}\n🏆 선택 프로: ${payload.selectedPro}\n💰 가격: ${Number(payload.price || 0).toLocaleString()}원`;
+    // [로딩 엔진 및 타이머 프로세서]
+    const startAnalysis = (passedData) => {
+        const currentData = passedData || formData;
+        
+        if (!currentData.location) {
+            currentData.location = "강남"; 
+        }
 
-   try {
-        // 1. 구글 스프레드시트(GAS) 전송
-        fetch("https://script.google.com/macros/s/AKfycbwJ8jcshxR6HcNknmLkjRdeT0NMw8d4-o9Z1hAWxdryi8pzocXZveDp_pmF1PpnKkcF/exec", {
-            method: "POST",
-            mode: "no-cors",
-            body: JSON.stringify(payload)
+        setStep(5); 
+        setLoadingIdx(0);
+        let currentIdx = 0;
+        
+        const interval = setInterval(() => {
+            currentIdx++;
+            if (currentIdx < loadingMessages.length) {
+                setLoadingIdx(currentIdx);
+            } else {
+                clearInterval(interval);
+                executeMatching(currentData);
+            }
+        }, 600); 
+    };
+
+    // [소팅 매퍼 매칭 엔진]
+    const executeMatching = (currentMatchingData) => {
+        const finalActiveData = currentMatchingData || formData;
+        let isLocationMatched = true;
+        const selectedLocs = (finalActiveData.location || "강남").split('·'); 
+
+        let filteredPros = pros.filter(p => {
+            const proLocs = p.activeLocations || [];
+            return proLocs.some(proLoc => 
+                selectedLocs.some(userLoc => proLoc.includes(userLoc) || userLoc.includes(proLoc))
+            );
         });
         
-        // 2. Zapier 웨브훅 전송
-        const ZAPIER_WEBHOOK_URL = isFixedPrice 
-            ? "https://hooks.zapier.com/hooks/catch/27197789/uj4iu7w/" 
-            : "https://hooks.zapier.com/hooks/catch/27197789/uj4d9ko/";
-
-        fetch(ZAPIER_WEBHOOK_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
-
-        // 3. 텔레그램 봇 알림 전송
-        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ chat_id: CHAT_ID, text: telegramMessage })
-        });
-
-        // 💡 [해결책] 함수 내부에서 에러가 안 나도록 payload에 담긴 최종 가격을 원본 가격과 비교합니다.
-        // 원본 정찰가보다 금액이 낮다면 유저가 5,000원 할인을 먹이고 보낸 것이 확실하므로 사용 완료 낙인을 찍습니다.
-        if (payload.price < selectedPro.price) {
-            localStorage.setItem("ssnim_coupon_used", "true");
+        if (filteredPros.length === 0) {
+            isLocationMatched = false;
+            filteredPros = [...pros];
         }
-        
-        // 💡 [필수] 전송이 완료되면 완료 화면(Step 7)으로 정상 이동시킵니다.
-        setStep(7);
 
-    } catch (err) {
-        console.error("전송 에러 무시:", err);
-        // 에러가 나더라도 유저 화면은 매칭 완료 창으로 넘겨서 이탈을 막습니다.
-        setStep(7);
-    }
-};
+        const scoredPros = filteredPros.map(p => {
+            let score = 0;
+            const types = p.lessonTypes || [];
+            const tags = p.tags || [];
 
-    const acceptRequest = async () => {
-        const ZAPIER_ACCEPT_URL = "https://hooks.zapier.com/hooks/catch/27197789/uj4iu7w/";
-        const payload = {
-    name: userInfo.name,
-    contact: userInfo.contact,
-    selectedPro: selectedPro.name, 
-    proContact: selectedPro.phone, 
-
-    location: formData.location,   
-    type: formData.lessonType,     
-    lessonCount: formData.lessonCount, 
-    club: formData.club,           
-    concern: (formData.concern || []).join(', '), 
-    schedule: `${formData.lessonDate} / ${formData.schedule}`, 
-
-    finalPrice: formData.price,    
-    personCount: formData.lessonCount || "1인", 
-
-    requestId: requestId           
-};
-        try {
-            await fetch(ZAPIER_ACCEPT_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
-            alert("수락 완료! 고객에게 결제 카톡이 발송되었습니다.");
-        } catch (err) {
-            console.error(err);
-            alert("수락 처리 중 오류가 발생했습니다.");
-        }
-    };
-
-    const CumulativeUI = () => {
-        if (step > 4) return null;
-        const items = [];
-        if (formData.location) items.push(`📍 ${formData.location}`);
-        if (formData.lessonType) items.push(`⛳ ${formData.lessonType}`);
-        if (formData.club) items.push(`🏌️ ${formData.club}`);
-        if (formData.concern.length > 0) items.push(`💥 ${formData.concern.join(', ')}`);
-        return html`
-            <div className="mb-6 flex flex-wrap gap-2 animate-slide-up bg-slate-50/50 p-3 rounded-2xl min-h-[48px] text-left">
-                ${items.length === 0 ? html`<p className="text-[11px] text-slate-300 font-bold self-center ml-2">요청 내용이 여기에 쌓입니다</p>` : items.map((item, idx) => html`<span key=${idx} className="summary-chip animate-slide-up">${item}</span>`)}
-            </div>
-        `;
-    };
-
-if (step === 1) return html`
-    <div className="animate-slide-up text-left">
-        <${CumulativeUI} />
-        <div className="flex justify-between items-center mb-8">
-            <div>
-                <h3 className="text-2xl font-black text-slate-800 tracking-tight">STEP 1 / 3</h3>
-                <p className="text-brand-blue font-black text-sm mt-1">📍 레슨 환경 설정</p>
-            </div>
-        </div>
-        <div className="space-y-8">
-            <div>
-        <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest text-blue-600">
-            지역 선택 (생활권)
-        </p>
-
-        <div className="grid grid-cols-2 gap-3">
-            ${[
-                '대치·도곡·개포', '삼성·역삼·선릉', '압구정·청담·신사',
-                '서초·교대·방배', '잠실·송파·문정', '판교·정자·분당', '수지·죽전·기흥'
-            ].map(l => html`
-                <button
-                    key=${l}
-                    onClick=${() => updateData('location', l)}
-                    className=${`py-4 rounded-2xl border-2 font-bold transition-all text-[13px]
-                        ${formData.location === l 
-                            ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' 
-                            : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}
-                >
-                    ${l}
-                </button>
-            `)}
-
-            <button
-                onClick=${() => {
-                    const val = window.prompt("레슨받기 편한 동네나 역명을 입력해주세요.\n예: 한남동, 망원역, 수지구청");
-                    if (val && val.trim()) {
-                        updateData('location', val.trim());
-                    }
-                }}
-                className=${`col-span-2 py-4 rounded-2xl border-2 border-dashed font-bold text-[13px] transition-all
-                    ${formData.location && ![
-                        '대치·도곡·개포', '삼성·역삼·선릉', '압구정·청담·신사',
-                        '서초·교대·방배', '잠실·송파·문정', '판교·분당·정자', '수지·죽전·기흥'
-                    ].includes(formData.location)
-                        ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-md'
-                        : 'border-slate-200 text-slate-400 hover:border-brand-blue'}`}
-            >
-                ${formData.location && ![
-                    '대치·도곡·개포', '삼성·역삼·선릉', '압구정·청담·신사',
-                    '서초·교대·방배', '잠실·송파·문정', '판교·분당·정자', '수지·죽전·기흥'
-                ].includes(formData.location)
-                    ? `📍 ${formData.location} (매칭 확인 중)`
-                    : '+ 이 외 지역 직접 입력'}
-            </button>
-        </div>
-
-        <div className="mt-4 p-4 bg-slate-50 rounded-2xl border border-slate-100">
-             <p className="text-[11px] text-slate-500 font-bold leading-tight">
-                <i className="fa-solid fa-circle-info mr-1 text-brand-blue"></i>
-                생활권 버튼을 선택하시면 <span className="text-brand-blue">해당 지역 전문 스승님</span>과 더 빠르게 매칭됩니다.
-            </p>
-        </div>
-    </div>
-
-            <div>
-                <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">레슨 형태</p>
-                <div className="grid grid-cols-2 gap-3">
-                    ${['18홀 필드레슨', '9홀 레슨', '숏게임레슨', '파3 레슨', '1:1 레슨', '캠프 레슨'].map(t => html`
-                        <button key=${t} 
-                            onClick=${() => {
-                                updateData('lessonType', t);
-                                if (t === '1:1 레슨') updateData('lessonCount', '1인');
-                                else updateData('lessonCount', '');
-                                updateData('isJoinable', false);
-                            }} 
-                            className=${`py-4 rounded-2xl border-2 font-bold transition-all ${formData.lessonType === t ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg shadow-blue-100' : 'border-slate-100 text-slate-400 hover:border-slate-200'}`}>${t}</button>
-                    `)}
-                </div>
-            </div>
-
-            ${formData.lessonType && formData.lessonType !== '1:1 레슨' ? html`
-            <div className="animate-slide-up pt-4 border-t border-slate-50">
-                <p className="text-xs font-bold text-blue-600 mb-4 ml-1 uppercase tracking-widest">동반 인원 선택 (본인 포함)</p>
-                <div className="grid grid-cols-3 gap-3">
-                    ${['1인', '2인', '3인'].map(num => html`
-                        <button key=${num} onClick=${() => {
-                            updateData('lessonCount', num);
-                            if (num !== '1인') updateData('isJoinable', false);
-                        }} 
-                        className=${`py-4 rounded-2xl border-2 font-bold transition-all ${formData.lessonCount === num ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg' : 'border-slate-100 text-slate-400'}`}>
-                            ${num}
-                        </button>
-                    `)}
-                </div>
-                
-                ${formData.lessonCount === '1인' ? html`
-                <div className="mt-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 animate-fadeIn">
-                    <label className="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" checked=${formData.isJoinable} onChange=${(e) => updateData('isJoinable', e.target.checked)} className="mt-1 w-5 h-5 accent-brand-blue rounded-lg" />
-                        <div className="text-left">
-                            <span className="text-[14px] font-black text-slate-800">다른 회원과 조인 희망 (할인 혜택) 🤝</span>
-                            <p className="text-[11px] text-slate-500 font-bold mt-1 leading-tight">
-                                인원이 모이면 레슨비가 저렴해집니다.<br/>
-                                <span className="text-brand-blue">* 매칭 대기 시간(24~48시간)이 발생할 수 있습니다.</span>
-                            </p>
-                        </div>
-                    </label>
-                </div>
-                ` : null}
-            </div>
-            ` : null}
-        </div>
-
-        <button disabled=${!formData.location || !formData.lessonType || !formData.lessonCount} 
-            onClick=${nextStep} 
-            className="w-full mt-12 gradient-blue text-white font-black py-5 rounded-2xl shadow-xl disabled:opacity-30 transition-all flex items-center justify-center gap-2 btn-glow">
-            다음 단계로 이동 <${ChevronRight} size=${18} />
-        </button>
-    </div>
-`;
-
-if (step === 2) {
-    const type = formData.lessonType || "";
-    let categories = {};
-
-    if (type.includes("숏게임") || type.includes("파3")) {
-        categories = {
-            "웨지/어프로치": ['100m 이내 거리 조절', '어프로치 거리감', '로브샷/피치샷', '웨지 스핀 컨트롤', '짧은 거리 뒤땅', '붙이는 어프로치', '다운블로 컨택', '거리별 탄도 조절', '핀 주변 공략', '웨지 정확도'],
-            "그린 주변": ['벙커샷 탈출', '러프/트러블 대응', '굴리는 칩샷', '어프로치 입스', '짧은 거리 실수', '실전 숏게임', '내리막/오르막 어프로치', '런닝어프로치', '잔디별 대응', '붙이는 숏게임'],
-            "퍼팅/스코어": ['3퍼트 줄이기', '퍼팅 거리감', '짧은 퍼트 불안', '실전 스코어 감소', '파3 실전 레슨', '퍼팅 방향성', '롱퍼트 거리감', '숏퍼트 성공률', '라인 읽기', '실전 퍼팅 루틴']
-        };
-    } else if (type.includes("필드") || type.includes("라운딩")) {
-        categories = {
-            "티샷/드라이버": ['악성 슬라이스', '악성 훅', '드라이버 비거리', '티샷 방향성', 'OB 줄이기', '티샷 자신감', '페이드/드로우 구사', '드라이버 탄도', '페어웨이 안착률', '드라이버 정확도'],
-            "실전 플레이": ['경사면 대응', '트러블샷', '코스 매니지먼트', '클럽 선택', '필드 멘탈', '라운딩 운영', '유틸/우드 활용', '바람 대응 샷', '라이별 공략', '실전 루틴'],
-            "스코어/퍼팅": ['100타 깨기', '90타 도전', '퍼팅 거리감', '3퍼트 방지', '실전 스코어 관리', '숏퍼트 불안', '위기관리/리커버리', '퍼팅 라인 읽기', '실전 집중력', '스코어 줄이기']
-        };
-    } else {
-        categories = {
-            "구질/비거리": ['슬라이스 교정', '훅 교정', '비거리 증가', '탄도 조절', '드라이버 방향성', '아이언 거리', '구질 안정화', '발사각 교정', '드라이버 정확도', '비거리 편차'],
-            "스윙 교정": ['바디스윙', '체중이동', '스윙 궤도', '임팩트 교정', '힘 빼는 스윙', '헤드 스피드', '치킨윙 교정', '릴리즈 타이밍', '헤드업 교정', '샬로윙', '레깅', '다운스윙 순서', '손목 사용 교정', '캐스팅 교정', '얼리익스텐션'],
-            "정확도/기초": ['뒤땅/탑볼', '생크 교정', '자세 교정', '그립 교정', '초보 레슨', '몸 안 아픈 스윙', '오버스윙 교정', '피니시 밸런스', '템포/리듬', '아이언 정확도']
-        };
-    }
-
-    const activeTab = formData.activeTab || Object.keys(categories)[0];
-    const isShowAll = formData.showAllTags || false;
-    const currentTags = categories[activeTab];
-    const displayTags = isShowAll ? currentTags : currentTags.slice(0, 6);
-
-    return html`
-    <div class="animate-slide-up text-left">
-        <${CumulativeUI} />
-        <div class="flex justify-between items-center mb-6">
-            <div class="flex items-center">
-                <button onClick=${prevStep} className="mr-3 text-slate-400 hover:text-slate-800 transition-all"><i className="fa-solid fa-chevron-left text-xl"></i></button>
-                <h3 class="text-2xl font-black text-slate-800 tracking-tight">STEP 2 / 3</h3>
-            </div>
-        </div>
-
-        <div class="mb-8 p-4 bg-blue-50 rounded-2xl border border-blue-100/50">
-            <p class="text-slate-600 text-xs font-bold leading-relaxed">
-                <i class="fa-solid fa-robot text-brand-blue mr-1"></i> 고민을 <span class="text-brand-blue">상세히 선택</span>할수록 매칭 정밀도가 올라갑니다.
-            </p>
-        </div>
+            if (types.includes(finalActiveData.lessonType)) score += 20; 
             
-        <div class="space-y-10">
-            <div>
-                <p class="text-[11px] font-black text-slate-400 mb-3 uppercase tracking-widest">교정 클럽</p>
-                <div class="grid grid-cols-3 gap-2">
-                    ${['드라이버', '우드/유틸', '롱아이언', '숏아이언', '웨지/숏게임', '퍼터'].map(c => html`
-                        <button key=${c} onClick=${() => updateData('club', c)} 
-                            class=${`py-3 rounded-xl border-2 font-bold text-xs transition-all ${formData.club === c ? 'border-brand-blue bg-white text-brand-blue shadow-md' : 'border-slate-50 bg-slate-50/50 text-slate-400'}`}>
-                            ${c}
-                        </button>
-                    `)}
-                </div>
-            </div>
+            const userConcerns = Array.isArray(finalActiveData.concern) ? finalActiveData.concern : [finalActiveData.concern];
+            if (tags.some(tag => userConcerns.some(c => tag.includes(c)))) score += 30; 
+            
+            return { ...p, score: score + (Math.random() * 10) }; 
+        });
 
-            <div>
-                <p class="text-xs font-bold text-slate-400 mb-4 uppercase tracking-widest">상세 고민 (중복 가능)</p>
-                <div class="flex border-b border-slate-100 mb-5 overflow-x-auto whitespace-nowrap no-scrollbar space-x-5">
-                    ${Object.keys(categories).map(tab => html`
-                        <button onClick=${() => { updateData('activeTab', tab); updateData('showAllTags', false); }}
-                            class=${`pb-2 font-black text-sm transition-all ${activeTab === tab ? 'text-brand-blue border-b-2 border-brand-blue' : 'text-slate-300'}`}>
-                            ${tab}
-                        </button>
-                    `)}
-                </div>
+        const matched = scoredPros.sort((a, b) => b.score - a.score).slice(0, 3).map((p, i) => ({
+            ...p,
+            displayScore: 99 - (i * 2) - Math.floor(Math.random() * 2),
+            isExpanded: !isLocationMatched 
+        }));
 
-                <div class="flex flex-wrap gap-2 min-h-[160px] content-start">
-                    ${displayTags.map(con => html`
-                        <button key=${con} onClick=${() => updateConcern(con)} 
-                            class=${`py-2.5 px-4 rounded-xl border-2 font-bold text-xs transition-all ${formData.concern.includes(con) ? 'border-brand-blue bg-blue-50 text-brand-blue' : 'border-slate-100 bg-white text-slate-500'}`}>
-                            # ${con}
-                        </button>
-                    `)}
-                    
-                    ${!isShowAll && currentTags.length > 6 ? html`
-                        <button onClick=${() => updateData('showAllTags', true)} class="py-2.5 px-4 rounded-xl border-2 border-dashed border-slate-200 text-slate-400 font-bold text-xs">
-                            + 더보기 (${currentTags.length - 6})
-                        </button>
-                    ` : null}
-
-                    <button type="button" onClick=${() => {
-                        const val = window.prompt("고민 중인 내용을 상세히 입력해주세요.");
-                        if (val && val.trim()) updateConcern(val.trim());
-                    }} class="py-2.5 px-4 rounded-xl border-2 border-dashed border-brand-blue/30 text-brand-blue font-bold text-xs">
-                        + 직접 입력
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <div class="flex gap-4 mt-12">
-            <button onClick=${prevStep} class="flex-1 bg-slate-100 text-slate-500 font-black py-4 rounded-2xl">이전</button>
-            <button disabled=${!formData.club || formData.concern.length === 0} onClick=${nextStep} 
-                class="flex-[2] gradient-blue text-white font-black py-4 rounded-2xl shadow-xl disabled:opacity-30">
-                다음 단계로 이동
-            </button>
-        </div>
-    </div>
-    `;
-}
-
-if (step === 3) {
-    const currentName = (userInfo.name || "").trim();
-    const currentContact = (userInfo.contact || "").replace(/[^0-9]/g, '');
-
-    // 🛡️ 1. 성함 정밀 검증 알고리즘
-    const hasValidNameLength = /^[가-힣]{2,5}$/.test(currentName);
-    const hasRepetitiveName = /(.)\1\1/.test(currentName); // 아아아 차단
-
-    // [대표님 피드백 반영] '김이박', '이박김' 같은 성씨 단순 나열 허수 전면 차단
-    const isFakeNameSequence = /^[김이박최정강조윤장임유한신오서황전문양손배백고홍신팽]{3,5}$/.test(currentName) && 
-                               (currentName.includes('김') && currentName.includes('이') && currentName.includes('박'));
-
-    const forbiddenKeywords = [
-        '카톡', '카카오', '인스타', 'insta', '인별', '잉스타', '스타', '인스타그램', '잉스타그램', '익스타', '임스타', 'instagram', 'dm', 'link', 'kakao', '라인', 'line', 
-        '공일공', '오픈채팅', '옵챗', '텔레그램', '영일영', '전화', '카.톡', '연락처', '리틀리', 'littly', 
-        '링크트리', '.com', 'http', '유튜브', 'youtube', '번호', '공1공', 'o1o', '영1영', '0l0', 
-        '아이디', '검색', '친추', '팔로우', '.kr', '.me', '.link', '계좌', '입금', '이체', '현결', '현금', 'ID',
-        '시발', '지랄', '개새', '병신', '미친', '대표', '프로', '스승', '선생', '사장', '관리자', '운영자'
-    ];
-    const hasForbiddenKeyword = forbiddenKeywords.some(keyword => currentName.includes(keyword));
-    
-    // 성함 통과 마스터 조건
-    const isRealName = hasValidNameLength && !hasRepetitiveName && !hasForbiddenKeyword && !isFakeNameSequence;
-
-    // 🛡️ 2. 연락처 정밀 검증 알고리즘
-    const hasValidContactPattern = /^010[0-9]{8}$/.test(currentContact);
-    
-    const lastDigits = currentContact.substring(3); 
-    const isConsecutive = /(.)\1{4,}/.test(lastDigits); // 01011111111 차단
-    const isRepetitive = lastDigits.length === 8 && lastDigits.substring(0, 4) === lastDigits.substring(4); // 01012341234 차단
-    const isFakeSequential = lastDigits === "12345678" || lastDigits === "87654321"; // 12345678 차단
-    
-    // [대표님 피드백 반영] '01010100101' 같은 반복 도배 수열 정밀 타격 차단
-    const isDobePattern = currentContact === "01010101010" || currentContact === "01001010101" || /^(010)(1010|0101)/.test(currentContact);
-
-    // 연락처 통과 마스터 조건
-    const isRealContact = hasValidContactPattern && !isConsecutive && !isRepetitive && !isFakeSequential && !isDobePattern;
-    
-    // 🛡️ 3. 버튼 활성화 가드
-  const isBaseValid = formData.lessonDate && formData.schedule && isRealName && isRealContact;
-    
-    // 1:1 레슨 여부에 따른 추가 필수항목 검증 로직 명확화
-    const isExtraValid = formData.lessonType === '1:1 레슨' 
-        ? true 
-        : (formData.price && formData.agreed);
-
-    const isStep3Invalid = !isBaseValid || !isExtraValid;
-
-    const handleInputFocus = (e) => {
-        setTimeout(() => {
-            e.target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 300);
+        setResults(matched);
+        setTimeout(() => setStep(6), 200);
     };
 
-    // 🔥 [CTO 핵심 긴급 수술] 버튼 클릭 시 작동하는 최종 물리 차단 밸브
-    const handleNextStepClick = (e) => {
-        e.preventDefault();
+    // [보존] Webhook 트랜잭션 마감 함수
+    const submitRequest = async () => {
+        const currentName = (userInfo.name || "").trim();
+        const currentContact = (userInfo.contact || "").replace(/[^0-9]/g, '');
+        const currentRequestId = `REQ_${new Date().getTime()}`;
 
-        // 실시간 검증 실패 시 즉시 차단 및 피드백
-        if (!isRealName) {
-            alert("성함 입력란에 허수가 감지되었습니다. 정확한 실명을 입력해 주세요.");
-            return;
+        if (!/^[가-힣]{2,5}$/.test(currentName) || /(.)\1\1/.test(currentName)) { 
+            alert("성함은 한글 실명(2~5자)으로 정확히 입력해 주세요."); 
+            return; 
         }
-        if (!isRealContact) {
-            alert("유효하지 않은 연락처입니다. 010으로 시작하는 실제 휴대폰 번호를 입력해 주세요.");
-            return;
-        }
-        if (!formData.lessonDate || !formData.schedule) {
-            alert("희망 시작일과 선호 시간대를 선택해 주세요.");
-            return;
-        }
-        if (formData.lessonType !== '1:1 레슨' && (!formData.price || !formData.agreed)) {
-            alert("희망 레슨비 입력 및 안내사항 동의가 필요합니다.");
+        if (!/^010\d{7,8}$/.test(currentContact)) {
+            alert("올바른 휴대폰 번호 형식을 입력해 주세요.");
             return;
         }
 
-        nextStep();
+        const isFixedPrice = formData.lessonType === '1:1 레슨';
+        const payload = {
+            action: "createRequest",
+            requestId: currentRequestId,
+            name: currentName,
+            contact: currentContact,
+            type: isFixedPrice ? `${formData.lessonType} [${formData.lessonPlan || '미선택'}]` : (formData.isJoinable ? `${formData.lessonType} [조인희망]` : formData.lessonType),
+            location: formData.location || "강남",
+            club: formData.club,
+            concern: formData.concern.join(', '),
+            schedule: `${formData.lessonDate} / ${formData.schedule}`,
+            selectedPro: selectedPro.name,   
+            proContact: selectedPro.phone,
+            price: formData.price,
+            personCount: formData.personCount || "1인",
+            status: "accepted" 
+        };
+
+        const telegramMessage = `🔥 [${isFixedPrice ? '패키지 정찰' : '실전 현장견적'}] 매칭 발생\n\n👤 이름: ${payload.name}\n📞 연락처: ${payload.contact}\n📍 지역: ${payload.location}\n⛳ 레슨: ${payload.type}\n🏌️ 클럽: ${payload.club}\n💥 문제: ${payload.concern}\n⏰ 시간: ${payload.schedule}\n🏆 선택 프로: ${payload.selectedPro}\n💰 가격: ${Number(payload.price || 0).toLocaleString()}원`;
+
+        try {
+            fetch("https://script.google.com/macros/s/AKfycbwJ8jcshxR6HcNknmLkjRdeT0NMw8d4-o9Z1hAWxdryi8pzocXZveDp_pmF1PpnKkcF/exec", {
+                method: "POST", mode: "no-cors", body: JSON.stringify(payload)
+            });
+            
+            const ZAPIER_WEBHOOK_URL = isFixedPrice 
+                ? "https://hooks.zapier.com/hooks/catch/27197789/uj4iu7w/" 
+                : "https://hooks.zapier.com/hooks/catch/27197789/uj4d9ko/";
+
+            fetch(ZAPIER_WEBHOOK_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
+
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ chat_id: CHAT_ID, text: telegramMessage })
+            });
+
+            if (payload.price < selectedPro.price) {
+                localStorage.setItem("ssnim_coupon_used", "true");
+            }
+            setStep(7);
+        } catch (err) {
+            setStep(7);
+        }
     };
 
-    return html`
-        <div className="animate-slide-up text-left relative pt-6 pb-24">
-            <${CumulativeUI} />
-            <div className="flex justify-between items-center mb-8">
-                <div className="flex items-center">
-                    <button onClick=${prevStep} className="mr-3 text-slate-400 hover:text-slate-800 transition-all">
-                        <i className="fa-solid fa-chevron-left text-xl"></i>
-                    </button>
-                    <div>
-                        <h3 className="text-2xl font-black text-slate-800 tracking-tight">STEP 3 / 3</h3>
-                        <p className="text-brand-blue font-black text-sm mt-1">⏰ 레슨 조건 및 연락처</p>
-                    </div>
+    const handleShare = async () => {
+        const shareData = {
+            title: '스승님 - 내 요청 맞춤 골프레슨',
+            text: '내 고민에 딱 맞는 골프 스승님을 찾았어! 여기서 1분 만에 매칭해봐.',
+            url: 'https://rlaeodn1015-oss.github.io/ssnim-request-landing/'
+        };
+        if (navigator.share) {
+            try { await navigator.share(shareData); } catch (err) { console.log(err); }
+        } else {
+            navigator.clipboard.writeText(shareData.url);
+            alert("링크가 복사되었습니다. 친구에게 전달해주세요! ⛳");
+        }
+    };
+
+    // --- 🛠️ 렌더링 스크린 리턴 분기 정렬 (중중괄호 가두기 완료) ---
+
+    // 분기 1: AI 레이더 로딩 스크린
+    if (step === 5) {
+        return html`
+            <div className="py-24 text-center animate-slide-up relative overflow-hidden rounded-[3rem]">
+                <div className="data-flow"></div>
+                <div className="relative w-36 h-36 mx-auto mb-12">
+                    <div className="absolute inset-0 border-8 border-brand-blue/10 rounded-full"></div>
+                    <div className="absolute inset-0 border-8 border-brand-blue border-t-transparent rounded-full animate-spin"></div>
+                    <div className="absolute inset-0 flex items-center justify-center ai-glow rounded-full"><${Search} size=${48} className="text-brand-blue animate-pulse" /></div>
+                </div>
+                <h3 className="text-2xl font-black text-slate-800 mb-8 tracking-tight">승이가 분석된 레슨 형태에 맞춰<br/>최적의 스승님을 선별 중입니다</h3>
+                <div className="space-y-4 max-w-xs mx-auto text-left">
+                    ${loadingMessages.map((msg, idx) => html`<div key=${idx} className=${`flex items-center gap-3 font-black text-sm transition-all duration-700 ${loadingIdx >= idx ? 'text-brand-blue opacity-100' : 'text-slate-200 opacity-30'}`}><${CheckCircle2} size=${18} /><span>${msg}</span></div>`)}
                 </div>
             </div>
+        `;
+    }
 
-            <div className="space-y-8">
-                <div>
-                    <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest">희망 레슨 시작일</p>
-                    <input type="date" 
-                        min=${new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split('T')[0]}
-                        className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-brand-blue font-bold text-slate-700 transition-all"
-                        value=${formData.lessonDate} onInput=${(e) => updateData('lessonDate', e.target.value)} />
-                </div>
-
-                <div>
-                    <p className="text-xs font-bold text-slate-400 mb-4 ml-1 uppercase tracking-widest text-blue-600">선호 시간대</p>
-                    <div className="grid grid-cols-2 gap-3">
-                        ${['새벽 (06~10시)', '오전 (10~13시)', '낮 (13~16시)', '오후 (16~19시)', '저녁 (19~22시)', '무관'].map((s, idx, arr) => html`
-                            <button key=${s} onClick=${() => updateData('schedule', s)} 
-                                className=${`py-4 rounded-2xl border-2 font-bold text-[12px] transition-all 
-                                ${idx === arr.length - 1 ? 'col-span-2' : ''} 
-                                ${formData.schedule === s ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-lg' : 'border-slate-100 text-slate-400 bg-white'}`}>
-                                ${s}
-                            </button>
-                        `)}
-                    </div>
-                </div>
-
-                <div className="pt-8 border-t border-slate-100">
-                    ${formData.lessonType === '1:1 레슨' ? html`
-                        <div className="p-6 bg-blue-50 rounded-[2rem] border border-blue-100">
-                            <p className="text-xs font-bold text-brand-blue mb-2 uppercase tracking-widest flex items-center gap-2">
-                                <i className="fa-solid fa-circle-check"></i> 1:1 레슨 안내
-                            </p>
-                            <p className="text-[13px] font-bold text-slate-700 leading-tight">
-                                매칭된 스승님이 설정한 <span className="text-brand-blue">회당 정찰가</span>를 기준으로 안내드립니다.
-                            </p>
-                        </div>
-                    ` : html`
-                        <div className="flex justify-between items-end mb-4 ml-1">
-                            <p className="text-xs font-bold text-brand-blue uppercase tracking-widest flex items-center gap-2">
-                                <i className="fa-solid fa-won-sign"></i> 희망 레슨비 제안 (총액)
-                            </p>
-                        </div>
-                        <div className="relative mb-6">
-                            <input type="number" placeholder="예: 300000" 
-                                onFocus=${handleInputFocus}
-                                className="w-full p-5 bg-blue-50/50 border-2 border-blue-100 rounded-[2rem] outline-none focus:border-brand-blue font-black text-2xl text-slate-800 transition-all"
-                                value=${formData.price} onInput=${(e) => updateData('price', e.target.value)} />
-                            <span className="absolute right-6 top-1/2 -translate-y-1/2 font-black text-slate-400 text-xl">원</span>
-                        </div>
-                        <div className="space-y-3 bg-slate-50 p-5 rounded-[1.5rem] border border-slate-100">
-                            <label className="flex items-start gap-3 cursor-pointer group">
-                                <input type="checkbox" 
-                                    checked=${formData.agreed}
-                                    onChange=${(e) => updateData('agreed', e.target.checked)}
-                                    className="mt-1 w-5 h-5 accent-brand-blue rounded-lg" />
-                                <div className="flex-1 text-left">
-                                    <p className="text-[11px] font-bold text-slate-600">
-                                        위 제안가는 <span className="text-blue-600 font-black">총 레슨비</span>이며, <span className="underline">입장료 및 부대비용</span>은 현장 별도 결제함에 동의합니다. (필수)
-                                    </p>
-                                </div>
-                            </label>
-                        </div>
-                    `}
-                </div>
-
-                <div className="space-y-4 pt-6 border-t border-slate-100">
-                    <div>
-                        <p className="text-[11px] font-bold text-slate-400 mb-1.5 ml-1">요청자 성함 (실명)</p>
-                        <input placeholder="홍길동 (한글 2~5자)" 
-                            onFocus=${handleInputFocus}
-                            className=${`w-full p-4 border-2 rounded-2xl font-bold transition-colors outline-none focus:border-brand-blue ${
-                                userInfo.name && !isRealName ? 'border-red-300 bg-red-50/30 text-red-900' : 'border-slate-100 bg-slate-50 text-slate-800'
-                            }`}
-                            value=${userInfo.name} onInput=${(e) => setUserInfo(prev => ({...prev, name: e.target.value}))} />
-                        ${userInfo.name && !isRealName ? html`<p className="text-red-500 text-[11px] font-bold mt-1 ml-1 animate-pulse">⚠️ 올바른 한글 실명(반복/금지어/자음나열 불가)을 입력해주세요.</p>` : null}
-                    </div>
-
-                    <div>
-                        <p className="text-[11px] font-bold text-slate-400 mb-1.5 ml-1">연락처 (숫자만)</p>
-                        <input type="tel" maxLength="11" placeholder="01012345678" 
-                            onFocus=${handleInputFocus}
-                            className=${`w-full p-4 border-2 rounded-2xl font-bold transition-colors outline-none focus:border-brand-blue ${
-                                userInfo.contact && !isRealContact ? 'border-red-300 bg-red-50/30 text-red-900' : 'border-slate-100 bg-slate-50 text-slate-800'
-                            }`}
-                            value=${userInfo.contact} onInput=${(e) => setUserInfo(prev => ({...prev, contact: e.target.value.replace(/[^0-9]/g, '')}))} />
-                        ${userInfo.contact && !isRealContact ? html`<p className="text-red-500 text-[11px] font-bold mt-1 ml-1 animate-pulse">⚠️ 유효한 정상 휴대폰 번호 형식이 아닙니다.</p>` : null}
-                    </div>
-                </div>
-            </div>
-
-            <div className="flex gap-3 mt-12">
-                <button onClick=${() => setPolicyOpen(true)} className="flex-1 bg-slate-100 text-slate-500 font-bold py-5 rounded-3xl text-[11px]">환불정책</button>
-                
-                <button 
-                    disabled=${isStep3Invalid} 
-                    onClick=${handleNextStepClick} 
-                    className="flex-[2.5] gradient-blue text-white font-black py-5 rounded-3xl shadow-xl disabled:opacity-30 text-lg active:scale-95 transition-all">
-                    ${isStep3Invalid ? "내용을 정확히 입력해 주세요" : "입력 완료 (다음 단계)"}
-                </button>
-            </div>
-        </div>
-    `;
-}
-
-if (step === 4) return html`
-    <div className="animate-slide-up text-center">
-        <div className="w-20 h-20 bg-blue-50 text-brand-blue rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner"><${ClipboardList} size=${40} /></div>
-        <h3 className="text-3xl font-black text-slate-800 mb-2">요청서 완성!</h3>
-        <p className="text-slate-500 font-bold mb-10 text-lg">🔥 회원님의 요청을 스승님들께 전달할게요</p>
-        
-        <div className="bg-slate-50 rounded-[2.5rem] p-8 text-left mb-10 space-y-4 border border-slate-100">
-            <div className="flex justify-between items-center text-sm">
-                <span className="text-slate-400 font-bold">신청인</span>
-                <span className="font-black text-slate-700">${userInfo.name}님</span>
-            </div>
-            <div className="flex justify-between items-center text-sm border-t border-slate-200/50 pt-4">
-                <span className="text-slate-400 font-bold">지역 및 형태</span>
-                <span className="font-black text-slate-700">${formData.location} / ${formData.lessonType}</span>
-            </div>
-            <div className="flex justify-between items-center text-sm border-t border-slate-200/50 pt-4">
-                <span className="text-slate-400 font-bold">제안 금액</span>
-                <span className="font-black text-brand-blue text-lg">${Number(formData.price).toLocaleString()}원</span>
-            </div>
-            <div className="flex justify-between items-center text-sm border-t border-slate-200/50 pt-4">
-                <span className="text-slate-400 font-bold">희망 시간</span>
-                <span className="font-black text-slate-700">${formData.lessonDate} / ${formData.schedule}</span>
-            </div>
-        </div>
-
-        <div className="flex flex-col gap-4 text-center">
-            <p className="text-brand-blue text-[11px] font-black tracking-tighter flex items-center justify-center gap-1"><${ShieldCheck} size=${14} /> 스승님이 수락하면 매칭이 즉시 완료됩니다</p>
-            <button onClick=${startAnalysis} className="w-full gradient-blue text-white font-black py-4 md:py-6 text-base md:text-xl rounded-3xl shadow-2xl shadow-blue-300 flex items-center justify-center gap-3 active:scale-95 transition-all btn-glow">
-                맞춤 스승님 찾기 시작
-            </button>
-            <button onClick=${prevStep} className="text-slate-400 font-bold text-sm">수정하기</button>
-        </div>
-    </div>
-`;
-
-    if (step === 5) return html`
-        <div className="py-24 text-center animate-slide-up relative overflow-hidden rounded-[3rem]">
-            <div className="data-flow"></div>
-            <div className="relative w-36 h-36 mx-auto mb-12">
-                <div className="absolute inset-0 border-8 border-brand-blue/10 rounded-full"></div>
-                <div className="absolute inset-0 border-8 border-brand-blue border-t-transparent rounded-full animate-spin"></div>
-                <div className="absolute inset-0 flex items-center justify-center ai-glow rounded-full"><${Search} size=${48} className="text-brand-blue animate-pulse" /></div>
-            </div>
-            <h3 className="text-2xl font-black text-slate-800 mb-8 tracking-tight">회원님을 위한 스승님 분석 중</h3>
-            <div className="space-y-4 max-w-xs mx-auto text-left">
-                ${loadingMessages.map((msg, idx) => html`<div key=${idx} className=${`flex items-center gap-3 font-black text-sm transition-all duration-700 ${loadingIdx >= idx ? 'text-brand-blue opacity-100' : 'text-slate-200 opacity-30'}`}><${CheckCircle2} size=${18} /><span>${msg}</span></div>`)}
-            </div>
-        </div>
-    `;
-
+    // 분기 2: 프로 추천 결과 리스트 스크린
     if (step === 6) {
-    const isFixedPrice = formData.lessonType === '1:1 레슨';
-    const isExpandedMatch = results.some(p => p.isExpanded);
-
-    return html`
-        <div className="animate-slide-up text-left">
-            <h3 className="text-2xl font-black text-slate-800 mb-2 flex items-center gap-3 tracking-tight">
-                AI 추천 스승님 <span className="text-brand-blue bg-blue-50 px-3 py-1 rounded-full text-[10px] uppercase">TOP3</span>
-            </h3>
-
-            ${isExpandedMatch ? html`
-                <div className="mb-6 p-4 bg-amber-50 rounded-2xl border border-amber-100 animate-pulse">
-                    <p className="text-amber-700 text-[11px] font-bold leading-tight">
-                        <i className="fa-solid fa-location-dot mr-1"></i> 
-                        선택하신 '${formData.location}' 지역에 현재 활동 가능한 스승님이 적어, <br/>
-                        <span className="text-amber-800 underline">회원님의 고민을 가장 잘 해결해줄 인근 지역 스승님</span>을 추천합니다!
+        const isFixedPrice = formData.lessonType === '1:1 레슨';
+        return html`
+            <div className="animate-slide-up text-left max-h-[85vh] overflow-y-auto no-scrollbar pb-10">
+                <div className="mb-4">
+                    <h3 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-2">
+                        🤖 AI TOP3 추천 스승님 <span className="text-brand-blue bg-blue-50 px-2.5 py-0.5 rounded-full text-[10px] uppercase font-black">TOP 3</span>
+                    </h3>
+                    <p className="text-slate-400 font-bold text-xs mt-1">
+                        ${isFixedPrice ? "🎯 문제를 바로 해결할 수 있는 [1:1 레슨] 스승님 TOP3에요" : "⛳ 스코어를 확실히 줄일 수 있는 [외부 실전 레슨] 스승님 TOP3에요."}
                     </p>
                 </div>
-            ` : null}
-            
-            <div className="space-y-6 mb-8">
-                ${results.map(p => html`
-                    <div key=${p.id} onClick=${() => { setSelectedPro(p); }} 
-                    className=${`p-5 md:p-6 rounded-[2.5rem] border-2 transition-all cursor-pointer flex flex-col relative overflow-hidden active:scale-95 ${selectedPro?.id === p.id ? 'selected-card bg-blue-50 ring-8 ring-blue-50/50' : 'border-slate-50 bg-white shadow-sm'}`}>
-                        
-                        <div className="flex justify-between items-center mb-2">
-                            <span className="text-[10px] bg-blue-100 text-blue-600 px-2 py-1 rounded-full font-black">AI 추천</span>
-                            ${!isFixedPrice && html`<span className="text-[10px] bg-amber-100 text-amber-600 px-2 py-1 rounded-full font-black">견적 요청 가능</span>`}
-                        </div>
-
-                        <div className="flex items-start gap-4">
-                            <img src=${p.img} className="w-20 h-20 rounded-3xl object-cover shadow-md shrink-0 border-2 border-white" loading="lazy" />
-                            <div className="flex-1 min-w-0">
-                                <h4 className="font-black text-slate-900 text-xl truncate">${p.name}</h4>
-                                <div className="flex items-center gap-2 mb-2">
-                                    <div className="flex items-center text-amber-400 font-black text-xs gap-0.5"><${Star} size=${14} fill="currentColor" /> ${p.rating}</div>
-                                    <span className="text-[11px] text-slate-400 font-bold">후기 ${p.review}개</span>
+                
+                <div className="space-y-5 mb-6">
+                    ${results.map(p => html`
+                        <div key=${p.id} onClick=${() => { setSelectedPro(p); }} 
+                        className=${`p-5 md:p-6 rounded-[2.5rem] border-2 transition-all cursor-pointer flex flex-col relative overflow-hidden active:scale-95 ${selectedPro?.id === p.id ? 'selected-card bg-blue-50 ring-8 ring-blue-50/50 border-brand-blue' : 'border-slate-100 bg-white shadow-sm'}`}>
+                            <div className="flex justify-between items-center mb-3">
+                                <div className="flex gap-1">
+                                    <span className="text-[9px] bg-blue-600 text-white px-2 py-0.5 rounded-full font-black">적합도 ${p.displayScore}%</span>
+                                    <span className="text-[9px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-bold">${p.career}</span>
                                 </div>
-                                <p className="text-slate-600 text-[13px] leading-tight font-medium break-keep mb-1">"${p.intro}"</p>
-                                <p className="text-[11px] font-black text-blue-600">AI 매칭 점수: ${p.displayScore}%</p>
+                                ${isFixedPrice ? html`
+                                    <span className="text-sm font-black text-brand-blue">회당 ${p.price.toLocaleString()}원~</span>
+                                ` : html`
+                                    <span className="text-[10px] bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-black">맞춤견적 제안</span>
+                                `}
+                            </div>
+                            <div className="flex items-start gap-4">
+                                <img src=${p.img} className="w-20 h-20 rounded-3xl object-cover shadow-sm shrink-0 border-2 border-white" loading="lazy" />
+                                <div className="flex-1 min-w-0">
+                                    <h4 className="font-black text-slate-900 text-xl truncate">${p.name}</h4>
+                                    <div className="flex items-center gap-2 mb-1.5">
+                                        <div className="flex items-center text-amber-400 font-black text-xs gap-0.5"><${Star} size=${12} fill="currentColor" /> ${p.rating}</div>
+                                        <span className="text-[11px] text-slate-400 font-bold">리뷰 ${p.review}개</span>
+                                    </div>
+                                    <p className="text-slate-600 text-[13px] leading-tight font-medium break-keep">"${p.intro}"</p>
+                                </div>
+                            </div>
+                            <div className="flex flex-wrap gap-1.5 mt-3.5">
+                                ${p.tags.slice(0, 3).map(tag => html`<span key=${tag} className="px-2.5 py-1 rounded-full border border-blue-100 text-blue-600 text-[10px] font-black bg-white">#${tag}</span>`)}
+                            </div>
+                            <div className="p-3 rounded-2xl bg-slate-50/80 border border-slate-100 mt-4 text-left">
+                                <p className="text-[9px] font-black text-slate-400 mb-1.5 uppercase tracking-widest">승이의 추천 솔루션</p>
+                                <ul className="space-y-1">
+                                    ${p.reasons.map((r, i) => html`
+                                        <li key=${i} className="text-[11px] font-bold text-slate-600 flex gap-1 items-start">
+                                            <span className="text-blue-500 shrink-0">•</span>
+                                            <span className="break-keep leading-tight">${r}</span>
+                                        </li>
+                                    `)}
+                                </ul>
                             </div>
                         </div>
+                    `)}
+                </div>
+                
+                <div className="flex flex-col gap-2">
+                    <button 
+                        disabled=${!selectedPro} 
+                        onClick=${() => {
+                            if (isFixedPrice) { setStep(6.5); } else { setStep(6.6); }
+                        }}
+                        className="w-full gradient-blue text-white font-black py-5 text-base rounded-3xl shadow-xl active:scale-95 transition-all disabled:opacity-50"
+                    >
+                        선택한 스승님과 조건 설정 및 매칭 요청하기
+                    </button>
+                    <button onClick=${() => startAnalysis(null)} className="text-center text-xs font-bold text-slate-400 py-2">🔄 AI 조건 다시 분석하기</button>
+                </div>
+            </div>
+        `;
+    }
 
-                        <div className="flex flex-wrap gap-2 mt-4">
-                            ${p.tags.map(tag => html`<span key=${tag} className="px-3 py-1.5 rounded-full border border-blue-100 text-blue-600 text-[11px] font-black bg-white shadow-sm">#${tag}</span>`)}
+    // 분기 3: 1:1 패키지 조건 명세서 입력창
+    // STEP 6.5: 1:1 레슨 패키지 플랜 선택 + [완벽 복구] 1회 맞춤 체험 가격 제안 폼
+    if (step === 6.5) {
+        const options = getPriceOptions(selectedPro.price, formData.isDiscountClicked ? 5000 : 0);
+        
+        // 유효성 가드 레이어 정밀 재정비
+        const hasName = (userInfo.name || "").trim().length >= 2;
+        const hasContact = (userInfo.contact || "").trim().length >= 10;
+        const hasDate = formData.lessonDate ? true : false;
+        
+        // 오류 차단 가드: 맞춤 체험 Selected 상태값 안전망 확보
+        const isTrialActive = formData.isTrialSelected === true;
+        
+        // 일반 패키지 플랜이 선택되었거나, 혹은 맞춤 체험이 활성화되고 유저 제안 가격이 찍혔을 때만 가드 해제
+        const hasPlanOrTrialPrice = isTrialActive ? (formData.price && Number(formData.price) > 0) : formData.lessonPlan;
+        const isStep3Invalid = !(hasName && hasContact && hasDate && hasPlanOrTrialPrice);
+
+        return html`
+            <div className="animate-slide-up text-left space-y-6 max-h-[85vh] overflow-y-auto no-scrollbar pb-8">
+                <div>
+                    <h3 className="text-xl font-black text-slate-800">🎯 ${selectedPro.name} 1:1 레슨 금액</h3>
+                    <p className="text-brand-blue font-bold text-xs mt-1">정찰제 패키지 플랜을 선택하거나, 하단 맞춤 체험 레슨을 신청해 주세요.</p>
+                </div>
+
+                <div onClick=${() => {
+                    const nextDiscountState = !formData.isDiscountClicked;
+                    updateData('isDiscountClicked', nextDiscountState);
+                    if (formData.lessonPlan && !isTrialActive) {
+                        const updatedOptions = getPriceOptions(selectedPro.price, nextDiscountState ? 5000 : 0);
+                        updateData('price', updatedOptions[formData.lessonPlan].price);
+                    }
+                }}
+                    className=${`p-3.5 rounded-2xl border-2 flex items-center justify-between cursor-pointer transition-all ${formData.isDiscountClicked ? 'border-emerald-500 bg-emerald-50 text-emerald-700' : 'border-red-200 bg-red-50 text-red-600 animate-pulse'}`}>
+                    <span className="text-xs font-black">🎁 런칭 기념 첫 매칭 5,000원 즉시 할인 쿠폰</span>
+                    <span className="text-[10px] font-black uppercase">${formData.isDiscountClicked ? "적용완료 ✨" : "터치하여 적용"}</span>
+                </div>
+
+                <div className="space-y-2">
+                    ${Object.keys(options).map(opt => {
+                        // '1회 체험' 텍스트를 정찰제 '1회 정상가 단품' 포맷으로 변경 표출
+                        const displayName = opt === '1회 체험' ? '1회 정상가 단품' : opt;
+                        const isSelected = formData.lessonPlan === opt && !isTrialActive;
+                        
+                        return html`
+                            <button type="button" key=${opt} onClick=${() => { 
+                                updateData('isTrialSelected', false); // 패키지 선택 시 맞춤 체험 제안 모드 자동 해제
+                                updateData('lessonPlan', opt); 
+                                updateData('price', options[opt].price); 
+                            }}
+                                className=${`w-full p-4 rounded-2xl border-2 transition-all flex justify-between items-center ${isSelected ? 'border-brand-blue bg-blue-50/50 font-black ring-2 ring-blue-500/20' : 'border-slate-100 bg-white'}`}>
+                                <div className="text-left">
+                                    <span className="text-[9px] bg-blue-100 text-blue-600 px-1.5 py-0.5 rounded-full font-black block w-max mb-1">${options[opt].tag}</span>
+                                    <p className="text-sm font-black text-slate-800">${displayName}</p>
+                                    <p className="text-[10px] text-slate-400 mt-0.5">${options[opt].desc}</p>
+                                </div>
+                                <span className="text-base font-black text-slate-900">${options[opt].price.toLocaleString()}원</span>
+                            </button>
+                        `;
+                    })}
+                </div>
+
+                <div className="mb-8 border-t border-dashed border-slate-200 pt-4">
+                    <button
+                        type="button"
+                        onClick=${(e) => {
+                            e.preventDefault();
+                            const nextState = !isTrialActive;
+                            updateData('isTrialSelected', nextState);
+                            if(nextState) {
+                                updateData('lessonPlan', '1회 체험 신청 (가격제안)');
+                                updateData('price', 0); // 제안가 초기화
+                            } else {
+                                updateData('lessonPlan', '');
+                                updateData('price', '');
+                            }
+                        }} 
+                        className=${`w-full p-4 rounded-[2rem] border-2 font-black text-[15px] text-center transition-all ${
+                            isTrialActive ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-md' : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
+                        }`}
+                    >
+                        ${isTrialActive ? '✅ 1회 원포인트 체험 신청 적용 중' : '✨ 내가 원하는 금액으로 1회 체험 신청하기'}
+                    </button>
+                    
+                    ${isTrialActive ? html`
+                        <div className="mt-3 relative animate-slide-up">
+                            <input 
+                                type="number" 
+                                placeholder="원하는 체험 비용 입력 (예: 50000)" 
+                                className="w-full p-4 rounded-2xl border-2 border-brand-blue font-black text-lg outline-none text-slate-800 bg-white"
+                                value=${formData.price || ''}
+                                onInput=${(e) => {
+                                    updateData('price', parseInt(e.target.value) || 0);
+                                }}
+                            />
+                            <span className="absolute right-4 top-4 font-black text-slate-400">원</span>
                         </div>
+                    ` : ''}
+                </div>
 
-                        <div className="p-3 rounded-2xl bg-blue-50/50 border border-blue-100 mt-4">
-                            <p className="text-[10px] font-black text-blue-500 mb-2 uppercase tracking-widest">AI 분석 결과</p>
-                            <ul className="space-y-1">
-                                ${p.isExpanded ? html`
-                                    <li className="text-[11px] font-bold text-amber-600 flex gap-1 items-start">
-                                        <span className="shrink-0">•</span>
-                                        <span className="break-keep">선택하신 지역 인근에서 활동 중이며, 현재 회원님의 '${formData.concern[0] || '스윙'}' 고민 해결에 가장 특화된 베테랑 스승님입니다.</span>
-                                    </li>
-                                ` : null}
-                                ${p.reasons.map((r, i) => html`
-                                    <li key=${i} className="text-[11px] font-bold text-slate-600 flex gap-1 items-start">
-                                        <span className="text-blue-500 shrink-0">•</span>
-                                        <span className="break-keep">${r}</span>
-                                    </li>
-                                `)}
-                            </ul>
+                <div className="space-y-4 border-t border-slate-100 pt-5">
+                    <div className="grid grid-cols-2 gap-2">
+                        <div>
+                            <p className="text-[11px] font-black text-slate-400 mb-1">희망 시작 날짜 <span className="text-red-500">*</span></p>
+                            <input type="date" 
+                                min=${new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split('T')[0]}
+                                className="w-full p-3.5 bg-slate-50 border rounded-xl font-bold text-sm outline-none focus:border-brand-blue" 
+                                value=${formData.lessonDate || ''} 
+                                onInput=${(e) => updateData('lessonDate', e.target.value)} 
+                            />
+                        </div>
+                        <div>
+                            <p className="text-[11px] font-black text-slate-400 mb-1">선호 시간대</p>
+                            <select className="w-full p-3.5 bg-slate-50 border rounded-xl font-bold text-sm outline-none focus:border-brand-blue" 
+                                value=${formData.schedule || '시간 무관'} 
+                                onChange=${(e) => updateData('schedule', e.target.value)}
+                            >
+                                <option value="시간 무관">시간 무관 (추천 🌟)</option>
+                                <option value="오전 (10~13시)">오전 (10~13시)</option>
+                                <option value="낮 (13~16시)">낮 시간 (13~16시)</option>
+                                <option value="저녁 (19~22시)">퇴근 후 저녁 (19~22시)</option>
+                            </select>
                         </div>
                     </div>
-                `)}
+                    
+                    <div className="grid grid-cols-2 gap-2">
+                        <div>
+                            <p className="text-[11px] font-black text-slate-400 mb-1">성함 (실명) <span className="text-red-500">*</span></p>
+                            <input placeholder="성함 입력" className="w-full p-3.5 bg-slate-50 border rounded-xl font-bold text-sm outline-none focus:border-brand-blue" value=${userInfo.name || ''} onInput=${(e) => setUserInfo(prev => ({...prev, name: e.target.value}))} />
+                        </div>
+                        <div>
+                            <p className="text-[11px] font-black text-slate-400 mb-1">연락처 <span className="text-red-500">*</span></p>
+                            <input type="tel" maxLength="11" placeholder="01012345678" className="w-full p-3.5 bg-slate-50 border rounded-xl font-bold text-sm outline-none focus:border-brand-blue" value=${userInfo.contact || ''} onInput=${(e) => setUserInfo(prev => ({...prev, contact: e.target.value.replace(/[^0-9]/g, '')}))} />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="flex gap-2 pt-2">
+                    <button type="button" onClick=${() => setStep(6)} className="flex-1 bg-slate-100 font-bold text-slate-500 rounded-xl py-4 text-xs">스승 다시 고르기</button>
+                    <button 
+                        disabled=${isStep3Invalid} 
+                        onClick=${(e) => {
+                            e.preventDefault();
+                            if (!formData.schedule) { formData.schedule = "시간 무관"; }
+                            submitRequest();
+                        }} 
+                        className="flex-[3] gradient-blue text-white font-black py-4 rounded-xl text-sm shadow-md disabled:opacity-30 disabled:pointer-events-none transition-all"
+                    >
+                        ${isStep3Invalid ? "수강 플랜 또는 제안 가격을 작성해주세요" : "1:1 매칭 요청 확정하기 🚀"}
+                    </button>
+                </div>
             </div>
-            
-            <div className="flex flex-col gap-3">
-                <button 
-                    disabled=${!selectedPro} 
-                    onClick=${() => {
-    if (isFixedPrice) {
-        // 1:1 레슨이면 체험/일반 선택 단계(6.5)로 이동
-        setStep(6.5); 
-    } else {
-        // 기존 외부 레슨은 바로 신청
-        submitRequest();
+        `;
     }
-    }}
-                    className="w-full gradient-blue text-white font-black py-5 text-lg rounded-3xl shadow-xl active:scale-95 transition-all disabled:opacity-50"
-                >
-                    ${isFixedPrice ? "스승님 선택 및 플랜 보기" : "이 스승님께 레슨 요청하기"}
-                </button>
-                <button 
-                    onClick=${startAnalysis} 
-                    className="w-full border-2 border-blue-500 text-blue-600 font-black py-4 rounded-2xl flex items-center justify-center gap-2 text-sm active:scale-95 transition-all"
-                >
-                    <${RefreshCcw} size=${16} /> AI 재매칭
-                </button>
 
-                <p className="text-center text-[11px] text-slate-400 font-bold">
-                    ${isFixedPrice ? "※ 1:1 레슨은 정찰제 패키지로 운영됩니다." : "※ 필드/숏게임 레슨은 인원수와 금액에 따라 스승님이 수락/거절을 할 수 있습니다."}
-                </p>
+    // 분기 4: 외부 필드/숏게임 견적 조율 스크린
+    if (step === 6.6) {
+        const isBaseValid = formData.lessonDate && formData.schedule && (userInfo.name || "").trim().length >= 2 && (userInfo.contact || "").trim().length >= 10;
+        const isStepInvalid = !isBaseValid || !formData.price || !formData.agreed;
+
+        return html`
+            <div className="animate-slide-up text-left space-y-6 max-h-[85vh] overflow-y-auto no-scrollbar pb-8">
+                <div>
+                    <h3 className="text-xl font-black text-slate-800">⛳ ${selectedPro.name} 현장 레슨 조율</h3>
+                    <p className="text-slate-400 font-bold text-xs mt-1">실전 코스 및 숏게임 레슨을 위한 희망 일정과 제안비를 입력해주세요.</p>
+                </div>
+
+                <div className="space-y-4">
+                    <div>
+                        <p className="text-[11px] font-black text-slate-500 mb-1">희망 레슨비 제안 (참여 인원의 총 합계 금액)</p>
+                        <div className="relative">
+                            <input type="number" placeholder="예: 250000" className="w-full p-4 bg-blue-50/30 border-2 border-blue-100 rounded-2xl font-black text-xl" value=${formData.price} onInput=${(e) => updateData('price', e.target.value)} />
+                            <span className="absolute right-4 top-4 font-black text-slate-400">원</span>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2">
+                        <div>
+                            <p className="text-[11px] font-black text-slate-500 mb-1">동반 인원 설정</p>
+                            <select className="w-full p-3.5 bg-slate-50 border rounded-xl font-bold text-sm" value=${formData.personCount} onChange=${(e) => updateData('personCount', e.target.value)}>
+                                <option value="1인">본인 1인</option>
+                                <option value="2인">2인 동반</option>
+                                <option value="3인">3인 동반</option>
+                            </select>
+                        </div>
+                        <div>
+                            <p className="text-[11px] font-black text-slate-500 mb-1">다른 회원과 조인 희망</p>
+                            <select className="w-full p-3.5 bg-slate-50 border rounded-xl font-bold text-sm" value=${formData.isJoinable} onChange=${(e) => updateData('isJoinable', e.target.value === 'true')}>
+                                <option value="false">단독 레슨</option>
+                                <option value="true">조인 희망 (N분의1 할인)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2">
+                        <div>
+                            <p className="text-[11px] font-black text-slate-500 mb-1">희망 날짜</p>
+                            <input type="date" className="w-full p-3.5 bg-slate-50 border rounded-xl font-bold text-sm" value=${formData.lessonDate} onInput=${(e) => updateData('lessonDate', e.target.value)} />
+                        </div>
+                        <div>
+                            <p className="text-[11px] font-black text-slate-500 mb-1">선호 시간대</p>
+                            <select className="w-full p-3.5 bg-slate-50 border rounded-xl font-bold text-sm" value=${formData.schedule} onChange=${(e) => updateData('schedule', e.target.value)}>
+                                <option value="">선택해주세요</option>
+                                <option value="새벽 (06~10시)">새벽 티오프</option>
+                                <option value="오전 (10~13시)">오전</option>
+                                <option value="낮 (13~16시)">낮 시간</option>
+                                <option value="무관">무관</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2 border-t border-slate-100 pt-4">
+                        <input placeholder="성함 (실명)" className="w-full p-3.5 bg-slate-50 border rounded-xl font-bold text-sm" value=${userInfo.name} onInput=${(e) => setUserInfo(prev => ({...prev, name: e.target.value}))} />
+                        <input type="tel" placeholder="연락처 (숫자만)" className="w-full p-3.5 bg-slate-50 border rounded-xl font-bold text-sm" value=${userInfo.contact} onInput=${(e) => setUserInfo(prev => ({...prev, contact: e.target.value.replace(/[^0-9]/g, '')}))} />
+                    </div>
+
+                    <label className="flex items-start gap-2.5 cursor-pointer bg-slate-50 p-3 rounded-xl border border-slate-100 mt-2">
+                        <input type="checkbox" checked=${formData.agreed} onChange=${(e) => updateData('agreed', e.target.checked)} className="mt-0.5 accent-brand-blue" />
+                        <span className="text-[11px] font-bold text-slate-500 leading-tight">위 제안가는 스승님 레슨 총액비이며, 골프장 실비(그린피/카트비/입장료)는 현장 별도 결제 조건임에 동의합니다. (필수)</span>
+                    </label>
+                </div>
+
+                <div className="flex gap-2">
+                    <button onClick=${() => setStep(6)} className="flex-1 bg-slate-100 font-bold text-slate-500 rounded-xl py-4 text-xs">이전으로</button>
+                    <button disabled=${isStepInvalid} onClick={submitRequest} className="flex-[3] gradient-blue text-white font-black py-4 rounded-xl text-sm shadow-md disabled:opacity-30">
+                        스승님께 실전 레슨 견적 제안하기
+                    </button>
+                </div>
             </div>
-        </div>
-    `;
-}
+        `;
+    }
 
-  if (step === 6.5) {
-    // 💡 [유저 오해 방지] 브라우저 저장소에서 이전에 쿠폰을 요청서에 탑승시켰는지 확인 (결제 전 소멸 오해 차단)
-    const isCouponReserved = localStorage.getItem("ssnim_coupon_reserved") === "true";
-    
-    // 이전에 예약했거나 현재 유저가 클릭한 상태인지 판단 (useState 금기 규칙 우회)
-    const isDiscountApplied = isCouponReserved || formData.isDiscountClicked === true;
-    const discountAmount = isDiscountApplied ? 5000 : 0;
-    
-    // 할인가가 실시간으로 반영된 옵션 객체 생성
-    const options = getPriceOptions(selectedPro.price, discountAmount);
+    // 분기 5: 최종 완료 피드백 결과창
+    if (step === 7) {
+        return html`
+            <div className="text-center py-8 animate-slide-up">
+                <div className="w-20 h-20 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner animate-bounce">
+                    <${MessageSquareText} size=${40} />
+                </div>
+                <h3 className="text-2xl font-black text-slate-800 mb-2">승이 매칭 요청 완료!</h3>
+                <p className="text-slate-500 font-bold text-sm leading-relaxed">
+                    회원님이 작성하신 디테일한 골프 고민 명세서 분석 후,<br />
+                    선택하신 <span className="text-brand-blue font-black">${selectedPro?.name}</span> 스승님께 안전하게 서류 송신을 마쳤습니다. 😊<br />
+                    스승님이 수락하는 즉시 발송될 카카오 알림톡을 기다려주세요!
+                </p>
+                <div className="mt-10 flex flex-col gap-3">
+                    <button onClick=${handleShare} className="w-full bg-[#FEE500] text-slate-900 font-black py-4 rounded-2xl flex items-center justify-center gap-2 text-sm shadow-md">
+                        골프 메이트 친구에게 공유하기
+                    </button>
+                    <button onClick=${() => setModalOpen(false)} className="text-xs text-slate-400 font-bold mt-2">창 닫고 홈으로 가기</button>
+                </div>
+            </div>
+        `;
+    }
 
-    // 💡 오류 차단 밸브: trial 상태가 없으면 기본값 false로 인식하게 세팅
-    const isTrialActive = formData.isTrialSelected === true;
-
+    // 🌟 [최종 종결 가드] 디폴트 챗봇 승이 메인 인터페이스 보드 (중괄호 탈출 차단 완벽 정렬)
     return html`
         <div className="animate-slide-up text-left">
-            <div className="mb-4">
-                <h3 className="text-xl font-black text-slate-800">${selectedPro.name}님</h3>
-                <p className="text-brand-blue font-bold text-[13px]">원하시는 레슨 횟수를 선택해주세요</p>
-            </div>
-            
-            <div className="mb-6">
-                ${isCouponReserved 
-                    ? html`
-                        <div className="w-full p-3.5 rounded-2xl border-2 border-emerald-500 bg-emerald-50/50 text-slate-700 flex flex-col gap-2 shadow-sm animate-fade">
-                            <div className="flex items-center justify-between min-w-0 w-full">
-                                <div className="flex items-center gap-2.5 min-w-0">
-                                    <div className="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 text-xs">
-                                        <i class="fa-solid fa-clock-rotate-left"></i>
-                                    </div>
-                                    <div className="min-w-0">
-                                        <p className="text-[12px] font-black text-emerald-800 leading-tight whitespace-nowrap truncate">
-                                            첫 요청 5,000원 할인이 요청서에 적용되었습니다!
-                                        </p>
-                                        <p className="text-[10px] font-bold text-emerald-600/90 whitespace-nowrap mt-0.5">
-                                            매칭 수락 후 진행되는 최종 결제창에서 할인가로 진행됩니다. (적용 중 ⏳)
-                                        </p>
-                                    </div>
-                                </div>
-                                <div 
-                                    onClick=${(e) => {
-                                        e.preventDefault();
-                                        e.stopPropagation();
-                                        localStorage.removeItem("ssnim_coupon_reserved");
-                                        updateData('isDiscountClicked', false);
-                                        if (formData.lessonPlan) {
-                                            const updatedOptions = getPriceOptions(selectedPro.price, 0);
-                                            updateData('price', updatedOptions[formData.lessonPlan].price);
-                                        }
-                                        alert("할인이 취소되고 쿠폰이 다시 복구되었습니다! 🎁");
-                                    }}
-                                    className="px-2 py-1 bg-white border border-emerald-300 hover:bg-red-50 hover:text-red-500 hover:border-red-200 rounded-lg font-black text-[9px] shrink-0 ml-2 whitespace-nowrap text-emerald-600 transition-colors cursor-pointer relative z-10"
-                                >
-                                    할인 취소/복구
-                                </div>
-                            </div>
-                        </div>
-                    `
-                    : html`
-                        <div 
-                            onClick=${(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                const nextState = !isDiscountApplied;
-                                updateData('isDiscountClicked', nextState);
-                                if (formData.lessonPlan) {
-                                    const updatedOptions = getPriceOptions(selectedPro.price, nextState ? 5000 : 0);
-                                    updateData('price', updatedOptions[formData.lessonPlan].price);
-                                }
-                            }}
-                            className=${`w-full p-3.5 rounded-2xl border-2 flex items-center justify-between cursor-pointer transition-all ${
-                                isDiscountApplied 
-                                    ? 'border-emerald-500 bg-emerald-50 text-emerald-700 shadow-md shadow-emerald-100' 
-                                    : 'border-red-200 bg-red-50 text-red-600 animate-pulse'
-                            }`}
-                        >
-                            <div className="flex items-center gap-2.5 min-w-0">
-                                <div className=${`w-7 h-7 rounded-full flex items-center justify-center shrink-0 text-xs ${isDiscountApplied ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white'}`}>
-                                    <i className=${`fa-solid ${isDiscountApplied ? 'fa-check' : 'fa-gift'}`}></i>
-                                </div>
-                                <div>
-                                    <p className="text-[12px] font-black leading-tight whitespace-nowrap truncate">
-                                        ${isDiscountApplied ? '✨ 첫 요청 5,000원 할인 적용 완료!' : '🎁 첫 매칭 요청 5,000원 할인'}
-                                    </p>
-                                    <p className="text-[10px] font-bold opacity-80 whitespace-nowrap mt-0.5">
-                                        클릭 시 전체 금액에서 즉시 차감됩니다
-                                    </p>
-                                </div>
-                            </div>
-                            <div className=${`px-2 py-1 rounded-lg font-black text-[10px] shrink-0 ml-2 whitespace-nowrap ${isDiscountApplied ? 'bg-white border border-emerald-300' : 'bg-red-500 text-white shadow-sm'}`}>
-                                ${isDiscountApplied ? '적용중' : '쿠폰적용'}
-                            </div>
-                        </div>
-                    `
-                }
-            </div>
-            
-            <div className="grid grid-cols-1 gap-2.5 mb-8">
-                ${Object.keys(options).map(opt => {
-                    const isSelected = formData.lessonPlan === opt;
-                    const hasEvent = opt.includes('8회') || opt.includes('10회');
-                    
-                    return html`
-                        <button 
-                            key=${opt} 
-                            onClick=${(e) => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                updateData('isTrialSelected', false); // 패키지 선택 시 체험 모드 강제 해제
-                                updateData('lessonPlan', opt);
-                                updateData('price', options[opt].price);
-                            }}
-                            className=${`w-full p-4 rounded-[2rem] border-2 transition-all flex justify-between items-center ${
-                                isSelected && !isTrialActive
-                                    ? 'border-brand-blue bg-blue-50 ring-4 ring-blue-50/50' 
-                                    : 'border-slate-100 bg-white'
-                            }`}
-                        >
-                            <div className="text-left">
-                                <div className="flex items-center gap-1.5 mb-1">
-                                    <span className="text-[10px] font-black bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full inline-block">
-                                        ${options[opt].tag}
-                                    </span>
-                                    ${hasEvent ? html`
-                                        <span className="text-[9px] font-black bg-red-500 text-white px-2 py-0.5 rounded-full animate-pulse shadow-sm">
-                                            런칭이벤트 +1회 추가
-                                        </span>
-                                    ` : ''}
-                                </div>
-                                <h4 className="text-[15px] font-black text-slate-800">${opt}</h4>
-                                <p className="text-[10px] text-slate-400 font-bold">${options[opt].desc}</p>
-                            </div>
-
-                            <div className="text-right">
-                                <p className="text-[17px] font-black text-slate-900">
-                                    ${options[opt].price.toLocaleString()}원
-                                </p>
-                            </div>
-                        </button>
-                    `;
-                })}
+            <div className="flex items-center gap-3 mb-6 bg-slate-50 p-4 rounded-3xl border border-slate-100">
+                <img 
+                    src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/seung.webp" 
+                    alt="AI 매니저 승이 프로필" 
+                    className="w-10 h-10 rounded-full object-cover shrink-0 shadow-md border-2 border-white"
+                    onError=${(e) => {
+                        e.target.style.display = 'none';
+                        const fallback = e.target.nextSibling;
+                        if(fallback) fallback.style.display = 'flex';
+                    }}
+                />
+                <div style=${{ display: 'none' }} className="w-10 h-10 rounded-full gradient-blue flex items-center justify-center text-white font-black shrink-0 shadow-md">승</div>
+                <div>
+                    <h4 className="font-black text-slate-800 text-sm">AI 추천 매니저 승이</h4>
+                    <p className="text-[11px] text-slate-400 font-bold mt-0.5">지역과 고민을 정밀 분석하여 매칭을 시작합니다.</p>
+                </div>
             </div>
 
-            <div className="mb-8">
-                <button 
-                    onClick=${(e) => {
-                        e.preventDefault();
-                        const nextState = !isTrialActive;
-                        updateData('isTrialSelected', nextState);
-                        if(nextState) {
-                            updateData('lessonPlan', '1회 체험 신청');
-                            updateData('price', 0); // 직접 적기 전까지 초기값 0원
-                        } else {
-                            updateData('lessonPlan', '');
-                            updateData('price', '');
-                        }
-                    }} 
-                    className=${`w-full p-4 rounded-[2rem] border-2 font-black text-[15px] text-center transition-all ${
-                        isTrialActive ? 'border-brand-blue bg-blue-50 text-brand-blue' : 'border-slate-100 bg-white text-slate-700'
-                    }`}
-                >
-                    ${isTrialActive ? '✅ 1회 원포인트 체험 신청 적용 중' : '✨ 1회 원포인트 체험 신청하기'}
-                </button>
-                
-                ${isTrialActive ? html`
-                    <div className="mt-3 relative animate-slide-up">
-                        <input 
-                            type="number" 
-                            placeholder="원하는 체험 비용 입력 (예: 50000)" 
-                            className="w-full p-4 rounded-2xl border-2 border-brand-blue font-black text-lg outline-none"
-                            value=${formData.price || ''}
-                            onInput=${(e) => {
-                                updateData('price', parseInt(e.target.value) || 0);
-                            }}
-                        />
-                        <span className="absolute right-4 top-4 font-black text-slate-400">원</span>
+            <div className="space-y-4 mb-6">
+                ${!isLocationMissing ? html`
+                    <div className="bg-slate-900 text-white p-4 rounded-2xl rounded-tl-none font-bold text-sm max-w-[85%] shadow-md leading-relaxed animate-fade">
+                        안녕하세요! AI 맞춤 골프레슨 '승이'에요! 🙌<br />
+                        원하시는 지역(동네/역이름)과 골프 고민을 자유롭게 작성해주시면 요청 내용에 딱 맞는 골프 스승님 혹은 레슨을 찾아드릴게요⛳
                     </div>
-                ` : ''}
+                ` : html`
+                    <div className="bg-amber-600 text-white p-4 rounded-2xl rounded-tl-none font-black text-sm max-w-[85%] shadow-md leading-relaxed animate-bounce">
+                        고민을 완벽하게 접수했어요! 🔍<br />
+                        혹시 회원님, 레슨을 어느 동네나 지하철역 근처에서 받기 편하신가요? 위치를 말씀해주시면 딱 맞는 근처의 스승님으로 연결해 드릴게요!📍
+                    </div>
+                `}
             </div>
-            
-            <div className="flex flex-col gap-4 text-center w-full">
-                <button 
-                    disabled=${!formData.lessonPlan || (isTrialActive && !formData.price)} 
-                    onClick=${(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        // 💡 [확정 선점 고정] 최종 버튼 클릭 시 쿠폰이 켜져 있었다면 ssnim_coupon_reserved 낙인을 브라우저에 등록
-                        if (isDiscountApplied) {
-                            localStorage.setItem("ssnim_coupon_reserved", "true");
-                        } else {
-                            localStorage.removeItem("ssnim_coupon_reserved");
-                        }
-                        submitRequest();
-                    }} 
-                    className="w-full gradient-blue text-white font-black py-4 md:py-6 text-base md:text-xl rounded-3xl shadow-2xl shadow-blue-300 flex items-center justify-center gap-3 active:scale-95 transition-all btn-glow disabled:opacity-30 disabled:pointer-events-none disabled:shadow-none"
-                >
-                    매칭 요청 확정하기
+
+            ${!isLocationMissing ? html`
+            <div className="mb-6">
+                <div className="flex items-center gap-2 mb-3 text-slate-800">
+                    <span className="text-sm font-black italic text-brand-blue animate-pulse">🔥최다 요청</span>
+                    <span className="text-xs font-black">골퍼들이 가장 많이 요청한 AI 레슨 TOP 4</span>
+                </div>
+                <div className="space-y-2">
+                    ${quickKeywords.map((kw, i) => html`
+                        <button key=${i} onClick=${() => handleChatSubmit(kw)}
+                            className="w-full text-left p-3.5 bg-white hover:bg-blue-50 border-2 border-slate-100 hover:border-brand-blue text-slate-700 font-bold text-xs rounded-2xl transition-all flex items-center justify-between group shadow-sm">
+                            <span className="truncate">${kw.text}</span>
+                            <i className="fa-solid fa-arrow-right text-[10px] text-slate-300 group-hover:text-brand-blue transition-colors"></i>
+                        </button>
+                    `)}
+                </div>
+            </div>
+        ` : null}
+
+            <div className="relative border-t border-slate-100 pt-4 flex gap-2">
+                <input 
+                    type="text" 
+                    placeholder=${isLocationMissing ? "예) 역삼역 근처, 정자동, 강남구청역" : "예) 역삼역 근처 드라이버 구질 교정"} 
+                    className=${`flex-1 p-4 border rounded-2xl outline-none font-black text-sm transition-all ${isLocationMissing ? 'border-amber-400 bg-amber-50/20 focus:border-amber-500' : 'bg-slate-50 border-slate-100 focus:border-brand-blue'}`}
+                    value=${chatInput}
+                    onInput=${(e) => setChatInput(e.target.value)}
+                    onKeyDown=${(e) => e.key === 'Enter' && handleChatSubmit(null)}
+                />
+                <button onClick=${() => handleChatSubmit(null)} className=${`text-white px-5 rounded-2xl font-black text-sm active:scale-95 shadow-md transition-all ${isLocationMissing ? 'bg-amber-500 hover:bg-amber-600' : 'gradient-blue'}`}>
+                    ${isLocationMissing ? "위치확인" : "분석요청"}
                 </button>
             </div>
         </div>
     `;
-}
-
-if (step === 7) return html`
-    <div className="animate-slide-up text-center py-12">
-        <div className="w-24 h-24 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-10 shadow-inner animate-bounce">
-            <${MessageSquareText} size=${48} />
-        </div>
-        <h3 className="text-3xl font-black text-slate-800 mb-4 tracking-tight">매칭 요청 성공!</h3>
-        <p className="text-slate-500 font-bold mb-12 text-lg text-center">
-            입력하신 내용은 담당 스승님에게<br />
-            성공적으로 전달되었습니다.<br />
-            카카오 알림톡을 확인해주세요✨
-        </p>
-        
-        <div className="flex flex-col gap-4 text-center">
-            <button 
-                onClick=${handleShare} 
-                className="block w-full bg-[#FEE500] text-slate-850 font-black py-4 md:py-6 text-base md:text-xl rounded-3xl shadow-xl hover:scale-105 transition-all flex items-center justify-center gap-3 active:scale-95"
-            >
-                <i className="fa-solid fa-comment text-xl"></i> 골프 친구에게 스승님 공유하기
-            </button>
-            
-            <button onClick=${() => setModalOpen(false)} className="text-slate-400 font-bold text-sm hover:text-slate-600 transition-colors">
-                홈으로 돌아가기
-            </button>
-        </div>
-    </div>
-`;
 };
         
             const App = () => {
@@ -3191,31 +2693,28 @@ if (step === 7) return html`
     <div className="min-h-screen">
         <${Header} visitorCount=${visitorCount} />
         <main>
-            <${HeroSection} setFormOpen=${setFormOpen} setProFormOpen=${setProFormOpen} />
-            
-            <section className="px-5 -mt-12 md:-mt-20 mb-8 relative z-20 max-w-screen-xl mx-auto">
-            <p className="text-[11px] font-bold text-slate-400 mb-4 animate-pulse">현재 ${visitorCount}명의 골퍼가 스승님을 찾고 있습니다</p>
-                <${RealTimeStatus} />
-                <${FieldAdSection} />
-                <${ServiceIntroSection} />
-                <${ProRecruitSection} setProFormOpen=${setProFormOpen} />
-                <${JoinBoard} setFormOpen=${setFormOpen} />
-                ${ProFaceSlider()}
-                
-                <div className="mt-8">
-                    <${BannerSlider} />
-                </div>
-            </section>
+    <${HeroSection} setFormOpen=${setFormOpen} setProFormOpen=${setProFormOpen} />
+     <${ProblemSection} />
+     <${HowItWorks} />
+    <${SystemSection} />
 
-            <${ProblemSection} />
-            <${HowItWorks} />
-            <${UnlimitedBenefit} />
-            <${EventSection} />
-            <${TicketBanner} />
-            <${SystemSection} />
-            <${FieldReviewSection} />
-            <${ReviewPhotoSlider} />
-            <${TrustSection} />
+    <section className="px-5 -mt-12 md:-mt-20 mb-8 relative z-20 max-w-screen-xl mx-auto">
+        <${FieldAdSection} />
+        <${ReviewPhotoSlider} />
+        <${ServiceIntroSection} />
+        <${ProRecruitSection} setProFormOpen=${setProFormOpen} />
+        <${JoinBoard} setFormOpen=${setFormOpen} />
+        ${ProFaceSlider()}
+        
+        <div className="mt-8">
+            <${BannerSlider} />
+        </div>
+    </section>
+
+    <${UnlimitedBenefit} />
+    <${TicketBanner} />
+    <${EventSection} />
+    <${TrustSection} />
                
                       <section className="px-5 py-24 bg-slate-50">
     <div className="max-w-screen-xl mx-auto">
