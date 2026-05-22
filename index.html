@@ -1846,48 +1846,56 @@ const EventSection = () => html`
 `;
 
  const SystemSection = () => html`
-    <section id="features" className="px-5 py-10 bg-white overflow-hidden text-left">
+    <section id="features" className="px-5 py-20 bg-white overflow-hidden text-left">
         <div className="max-w-screen-xl mx-auto">
             
-            <div className="mb-8 reveal text-center md:text-left">
-                <h2 className="text-2xl md:text-5xl font-black text-slate-900 leading-[1.2] tracking-tighter mb-3">
-                    좋은 레슨 경험은<br />
-                    진행 방식부터 다릅니다.
+            <div className="flex items-center gap-2 mb-6 justify-center md:justify-start">
+                <div className="w-2 h-2 rounded-full bg-brand-blue"></div>
+                <span className="text-brand-blue font-black text-[11px] tracking-widest uppercase">
+                    SSNIM SYSTEM
+                </span>
+            </div>
+
+            <div className="mb-16 reveal text-center md:text-left">
+                <h2 className="text-[28px] md:text-5xl font-black text-slate-900 leading-[1.2] tracking-tighter mb-6">
+                    요청은 <span className="relative inline-block">
+                        <span className="relative z-10 text-brand-blue">간단하게</span>
+                        <span className="absolute bottom-1 left-0 w-full h-3 bg-blue-50 rounded-sm"></span>
+                    </span>.<br />
+                    레슨 경험은 더 확실하게!
                 </h2>
-                <p className="text-slate-500 font-bold text-sm md:text-xl tracking-tight">
-                    처음 요청하는 순간부터 레슨이 끝나는 순간까지 함께합니다.
+                <p className="text-slate-500 font-bold text-base md:text-xl tracking-tight leading-relaxed">
+                    원하는대로 요청서를 주시면<br />
+                    최적의 스승님을 찾아드릴게요.
                 </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-4 reveal">
-                <!-- 1. 불편사항 -->
-                <div className="flex flex-col p-6 rounded-[2rem] bg-slate-50 border border-slate-200/60 transition-all hover:shadow-lg">
-                    <div className="w-10 h-10 bg-white text-slate-900 rounded-2xl flex items-center justify-center text-lg mb-4 shadow-sm">
+            <div className="grid md:grid-cols-3 gap-6 reveal">
+                <div className="flex flex-col p-8 rounded-[2rem] bg-slate-50 border border-slate-100 transition-all hover:shadow-lg hover:border-blue-100">
+                    <div className="w-12 h-12 bg-white text-slate-900 rounded-3xl flex items-center justify-center text-lg mb-6 shadow-sm border border-slate-100">
                         <i className="fas fa-shield-alt"></i>
                     </div>
-                    <h4 className="font-black text-base mb-2 text-slate-900">불편사항 직접 조율</h4>
+                    <h4 className="font-black text-lg mb-3 text-slate-900">불편사항 직접 조율</h4>
                     <p className="text-slate-500 font-bold text-[13px] leading-relaxed">
                         결제 후 문제가 생기면 운영팀이 직접 확인하고 신속하게 도와드립니다.
                     </p>
                 </div>
 
-                <!-- 2. 밀착 관리 -->
-                <div className="flex flex-col p-6 rounded-[2rem] bg-blue-600 text-white transition-all hover:shadow-lg">
-                    <div className="w-10 h-10 bg-white/20 text-white rounded-2xl flex items-center justify-center text-lg mb-4">
+                <div className="flex flex-col p-8 rounded-[2rem] bg-brand-blue text-white shadow-xl shadow-blue-200 transition-all hover:shadow-2xl">
+                    <div className="w-12 h-12 bg-white/20 text-white rounded-3xl flex items-center justify-center text-lg mb-6">
                         <i className="fas fa-headset"></i>
                     </div>
-                    <h4 className="font-black text-base mb-2 text-white">24시간 밀착 관리</h4>
+                    <h4 className="font-black text-lg mb-3 text-white">24시간 밀착 관리</h4>
                     <p className="text-blue-100 font-bold text-[13px] leading-relaxed">
                         레슨 전 안내부터 당일까지, 운영팀이 실시간으로 24시간 케어합니다.
                     </p>
                 </div>
 
-                <!-- 3. 간편 예약 -->
-                <div className="flex flex-col p-6 rounded-[2rem] bg-slate-50 border border-slate-200/60 transition-all hover:shadow-lg">
-                    <div className="w-10 h-10 bg-white text-slate-900 rounded-2xl flex items-center justify-center text-lg mb-4 shadow-sm">
+                <div className="flex flex-col p-8 rounded-[2rem] bg-slate-50 border border-slate-100 transition-all hover:shadow-lg hover:border-blue-100">
+                    <div className="w-12 h-12 bg-white text-slate-900 rounded-3xl flex items-center justify-center text-lg mb-6 shadow-sm border border-slate-100">
                         <i className="fas fa-calendar-check"></i>
                     </div>
-                    <h4 className="font-black text-base mb-2 text-slate-900">간편 예약 시스템</h4>
+                    <h4 className="font-black text-lg mb-3 text-slate-900">간편 예약 시스템</h4>
                     <p className="text-slate-500 font-bold text-[13px] leading-relaxed">
                         불필요한 연락 없이, 요청부터 결제까지 한 번에! 간편하게!
                     </p>
