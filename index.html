@@ -2593,49 +2593,41 @@ const EventSection = () => html`
 
     // 🌟 [최종 종결 가드] 디폴트 챗봇 승이 메인 인터페이스 보드 (중괄호 탈출 차단 완벽 정렬)
     return html`
-        <div className="animate-slide-up text-left">
-            <div className="flex items-center gap-3 mb-6 bg-slate-50 p-4 rounded-3xl border border-slate-100">
+    <div className="animate-slide-up text-left">
+        <!-- 승이 대화창 영역 -->
+        <div className="flex items-start gap-4 mb-8">
+            <!-- 캐릭터 (20x20 크기 유지) -->
+            <div className="w-20 h-20 shrink-0 overflow-hidden flex items-center justify-center pt-1">
                 <img 
                     src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/seung.webp" 
-                    alt="AI 매니저 승이 프로필" 
-                    className="w-10 h-10 rounded-full object-cover shrink-0 shadow-md border-2 border-white"
-                    onError=${(e) => {
-                        e.target.style.display = 'none';
-                        const fallback = e.target.nextSibling;
-                        if(fallback) fallback.style.display = 'flex';
-                    }}
+                    alt="승이" 
+                    className="w-full h-full object-contain"
                 />
-                <div style=${{ display: 'none' }} className="w-10 h-10 rounded-full gradient-blue flex items-center justify-center text-white font-black shrink-0 shadow-md">승</div>
-                <div>
-                    <h4 className="font-black text-slate-800 text-sm">AI 추천 매니저 승이</h4>
-                    <p className="text-[11px] text-slate-400 font-bold mt-0.5">지역과 고민을 정밀 분석하여 매칭을 시작합니다.</p>
-                </div>
             </div>
 
-            <div className="space-y-4 mb-6">
+            <!-- 진짜 말풍선 형태 (뾰족한 꼬리 추가) -->
+            <div className=${`relative p-4 rounded-2xl rounded-tl-none font-bold text-sm shadow-md leading-relaxed animate-fade ${isLocationMissing ? 'bg-amber-500 text-white animate-bounce' : 'bg-slate-900 text-white'}`}>
+                <!-- 뾰족한 꼬리 (CSS 삼각형) -->
+                <div className=${`absolute -left-2 top-0 w-0 h-0 border-t-[8px] border-t-transparent border-r-[12px] border-r-${isLocationMissing ? 'amber-500' : 'slate-900'} border-b-[8px] border-b-transparent`}></div>
+                
                 ${!isLocationMissing ? html`
-                    <div className="bg-slate-900 text-white p-4 rounded-2xl rounded-tl-none font-bold text-sm max-w-[85%] shadow-md leading-relaxed animate-fade">
-                        안녕하세요! AI 맞춤 골프레슨 '승이'에요! 🙌<br />
-                        원하시는 지역(동네/역이름)과 골프 고민을 자유롭게 작성해주시면 요청 내용에 딱 맞는 골프 스승님 혹은 레슨을 찾아드릴게요⛳
-                    </div>
+                    안녕하세요! AI 맞춤 골프레슨 '승이'에요! 🙌<br />
+                    원하시는 지역과 골프 고민을 작성해주시면 딱 맞는 스승님을 찾아드릴게요⛳
                 ` : html`
-                    <div className="bg-amber-600 text-white p-4 rounded-2xl rounded-tl-none font-black text-sm max-w-[85%] shadow-md leading-relaxed animate-bounce">
-                        고민을 완벽하게 접수했어요! 🔍<br />
-                        혹시 회원님, 레슨을 어느 동네나 지하철역 근처에서 받기 편하신가요? 위치를 말씀해주시면 딱 맞는 근처의 스승님으로 연결해 드릴게요!📍
-                    </div>
+                    고민을 완벽하게 접수했어요! 🔍<br />
+                    레슨을 어느 동네나 지하철역 근처에서 받기 편하신가요? 위치를 말씀해주시면 바로 연결해 드릴게요!📍
                 `}
             </div>
+        </div>
 
-            ${!isLocationMissing ? html`
+        <!-- 퀵 키워드 섹션 (이하 동일) -->
+        ${!isLocationMissing ? html`
             <div className="mb-6">
-                <div className="flex items-center gap-2 mb-3 text-slate-800">
-                    <span className="text-sm font-black italic text-brand-blue animate-pulse">🔥최다 요청</span>
-                    <span className="text-xs font-black">골퍼들이 가장 많이 요청한 AI 레슨 TOP 4</span>
-                </div>
+                <p className="text-[10px] font-black text-slate-400 mb-3 ml-1 uppercase tracking-wider">🔥 가장 많이 찾는 고민 TOP 4</p>
                 <div className="space-y-2">
                     ${quickKeywords.map((kw, i) => html`
                         <button key=${i} onClick=${() => handleChatSubmit(kw)}
-                            className="w-full text-left p-3.5 bg-white hover:bg-blue-50 border-2 border-slate-100 hover:border-brand-blue text-slate-700 font-bold text-xs rounded-2xl transition-all flex items-center justify-between group shadow-sm">
+                            className="w-full text-left p-3.5 bg-white border-2 border-slate-100 hover:border-brand-blue text-slate-700 font-bold text-xs rounded-2xl transition-all flex items-center justify-between group shadow-sm">
                             <span className="truncate">${kw.text}</span>
                             <i className="fa-solid fa-arrow-right text-[10px] text-slate-300 group-hover:text-brand-blue transition-colors"></i>
                         </button>
@@ -2644,21 +2636,22 @@ const EventSection = () => html`
             </div>
         ` : null}
 
-            <div className="relative border-t border-slate-100 pt-4 flex gap-2">
-                <input 
-                    type="text" 
-                    placeholder=${isLocationMissing ? "예) 역삼역 근처, 정자동, 강남구청역" : "예) 역삼역 근처 드라이버 구질 교정"} 
-                    className=${`flex-1 p-4 border rounded-2xl outline-none font-black text-sm transition-all ${isLocationMissing ? 'border-amber-400 bg-amber-50/20 focus:border-amber-500' : 'bg-slate-50 border-slate-100 focus:border-brand-blue'}`}
-                    value=${chatInput}
-                    onInput=${(e) => setChatInput(e.target.value)}
-                    onKeyDown=${(e) => e.key === 'Enter' && handleChatSubmit(null)}
-                />
-                <button onClick=${() => handleChatSubmit(null)} className=${`text-white px-5 rounded-2xl font-black text-sm active:scale-95 shadow-md transition-all ${isLocationMissing ? 'bg-amber-500 hover:bg-amber-600' : 'gradient-blue'}`}>
-                    ${isLocationMissing ? "위치확인" : "분석요청"}
-                </button>
-            </div>
+        <!-- 입력창 (이하 동일) -->
+        <div className="relative border-t border-slate-100 pt-4 flex gap-2">
+            <input 
+                type="text" 
+                placeholder=${isLocationMissing ? "예) 역삼역 근처, 정자동" : "예) 드라이버 슬라이스 교정"} 
+                className=${`flex-1 p-4 border rounded-2xl outline-none font-black text-sm transition-all ${isLocationMissing ? 'border-amber-400 bg-amber-50/20 focus:border-amber-500' : 'bg-slate-50 border-slate-100 focus:border-brand-blue'}`}
+                value=${chatInput}
+                onInput=${(e) => setChatInput(e.target.value)}
+                onKeyDown=${(e) => e.key === 'Enter' && handleChatSubmit(null)}
+            />
+            <button onClick=${() => handleChatSubmit(null)} className=${`text-white px-5 rounded-2xl font-black text-sm active:scale-95 transition-all ${isLocationMissing ? 'bg-amber-500' : 'gradient-blue'}`}>
+                ${isLocationMissing ? "확인" : "전송"}
+            </button>
         </div>
-    `;
+    </div>
+`;
 };
         
             const App = () => {
