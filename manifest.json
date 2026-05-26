@@ -7,12 +7,12 @@
   "theme_color": "#0051ff",
   "icons": [
     {
-      "src": "images/app.png", 
+      "src": "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/aap1.png", 
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "images/app1.png",
+      "src": "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/app.png",
       "sizes": "512x512",
       "type": "image/png"
     }
