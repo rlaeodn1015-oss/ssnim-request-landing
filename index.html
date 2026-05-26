@@ -241,18 +241,26 @@
   });
 
   document.getElementById('install-action-btn').addEventListener('click', () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          document.getElementById('pwa-install-banner').style.display = 'none';
-        }
-      });
-    } else {
-      // 방문 횟수 부족 등으로 브라우저가 아직 설치 기능을 안 열어줬을 때 나오는 강제 가이드
-      alert("아이폰(Safari): 하단 공유 버튼(네모+화살표)을 눌러 [홈 화면에 추가]를 선택해 주세요!\n\n갤럭시(크롬): 브라우저 우측 상단 메뉴(점 3개)를 눌러 [앱 설치] 또는 [홈 화면에 추가]를 눌러주세요!");
-    }
-  });
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        document.getElementById('pwa-install-banner').style.display = 'none';
+      }
+    });
+  } else {
+    // [최종 수정] 대표님이 직접 검증하신 삼성 브라우저 정답 경로 전면 배치
+    alert(
+      "⛳ 스승님 3초 바탕화면 앱 설치 방법\n\n" +
+      "1. 갤럭시 (삼성 인터넷):\n" +
+      "👉 오른쪽 아래 [점 3개(설정)] ➔ [현재 페이지 추가] ➔ [홈 화면] 누르면 끝!\n\n" +
+      "2. 갤럭시 (크롬 브라우저):\n" +
+      "👉 우측 상단 [점 3개] ➔ [앱 설치] 또는 [홈 화면에 추가] 선택!\n\n" +
+      "3. 아이폰 (사파리):\n" +
+      "👉 하단 [공유(네모+화살표)] ➔ [홈 화면에 추가] 선택!"
+    );
+  }
+});
 </script>
 
     <div id="root"></div>
