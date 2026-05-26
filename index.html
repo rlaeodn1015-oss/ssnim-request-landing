@@ -203,15 +203,15 @@
 
 <body class="overflow-x-hidden bg-white text-left">
 
-    <div id="pwa-install-banner" class="fixed bottom-0 left-0 right-0 z-50 p-6 bg-white rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.1)] transform translate-y-full transition-transform duration-500 ease-out hidden">
+    <div id="pwa-install-banner" class="fixed bottom-0 left-0 right-0 z-[9999] p-6 bg-white rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.1)] transform translate-y-full transition-transform duration-500 ease-out" style="display: none;">
   <div class="flex flex-col items-center gap-4">
     <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center overflow-hidden">
-  <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/app.png" alt="스승님 로고" class="w-full h-full object-cover">
-</div>
+      <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/app.png" alt="스승님 로고" class="w-full h-full object-cover">
+    </div>
     
     <div class="text-center">
       <h3 class="text-lg font-bold text-gray-900">홈 화면에 추가하고 레슨 혜택받기</h3>
-      <p class="text-sm text-gray-500 mt-1">앱처럼 간편하게 실행하고, 무료 레슨 당첨 확률도 2배로 높이세요!</p>
+      <p class="text-sm text-gray-500 mt-1">골프레슨 찾을 때, 항상 간편하게 홈 화면에서 스승님을 찾으세요!</p>
     </div>
 
     <button id="install-action-btn" class="w-full py-3.5 bg-brand-blue text-white font-bold rounded-xl active:scale-95 transition-transform">
@@ -222,17 +222,18 @@
 </div>
 
 <script>
-  // 페이지 로드 1초 후 바텀 시트 등장
+  // 페이지 로드 1초 후 브라우저 눈치 안 보고 '강제로' 팝업 등장시킵니다
   window.addEventListener('load', () => {
     setTimeout(() => {
       const banner = document.getElementById('pwa-install-banner');
-      banner.style.display = 'block';
-      // 약간의 지연 후 translate 해제하여 애니메이션 발생
-      setTimeout(() => banner.classList.remove('translate-y-full'), 50);
+      if (banner) {
+        banner.style.display = 'block'; // display: none 해제
+        setTimeout(() => banner.classList.remove('translate-y-full'), 50); // 위로 스르륵 올라오는 애니메이션
+      }
     }, 1000);
   });
 
-  // 설치 로직
+  // PWA 설치 조건 충족 시 브라우저 기본 팝업 연동 로직
   let deferredPrompt;
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
@@ -242,9 +243,14 @@
   document.getElementById('install-action-btn').addEventListener('click', () => {
     if (deferredPrompt) {
       deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          document.getElementById('pwa-install-banner').style.display = 'none';
+        }
+      });
     } else {
-      // 아이폰/이미 설치된 경우 안내
-      alert("아이폰은 하단 공유 버튼(네모+화살표)을 눌러 [홈 화면에 추가]를 눌러주세요!");
+      // 방문 횟수 부족 등으로 브라우저가 아직 설치 기능을 안 열어줬을 때 나오는 강제 가이드
+      alert("아이폰(Safari): 하단 공유 버튼(네모+화살표)을 눌러 [홈 화면에 추가]를 선택해 주세요!\n\n갤럭시(크롬): 브라우저 우측 상단 메뉴(점 3개)를 눌러 [앱 설치] 또는 [홈 화면에 추가]를 눌러주세요!");
     }
   });
 </script>
