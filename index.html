@@ -19,6 +19,13 @@
   gtag('config', 'G-3YC9WJBPMZ');
 </script>
 
+    <link rel="manifest" href="manifest.json">
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js');
+      }
+    </script>
+
     <meta name="description" content="스마트한 골프레슨의 시작, 내 요청에 딱 맞는 검증된 스승님을 AI가 정밀 매칭합니다">
     <meta property="og:type" content="website">
     <meta property="og:title" content="스승님 - AI 맞춤 요청 레슨 매칭">
