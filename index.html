@@ -17,14 +17,11 @@
   gtag('js', new Date());
 
   gtag('config', 'G-3YC9WJBPMZ');
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/ssnim-request-landing/sw.js');
+  }
 </script>
-
-    <link rel="manifest" href="manifest.json">
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js');
-      }
-    </script>
 
     <meta name="description" content="스마트한 골프레슨의 시작, 내 요청에 딱 맞는 검증된 스승님을 AI가 정밀 매칭합니다">
     <meta property="og:type" content="website">
@@ -205,6 +202,53 @@
 </head>
 
 <body class="overflow-x-hidden bg-white text-left">
+
+    <div id="pwa-install-banner" class="fixed bottom-0 left-0 right-0 z-50 p-6 bg-white rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.1)] transform translate-y-full transition-transform duration-500 ease-out hidden">
+  <div class="flex flex-col items-center gap-4">
+    <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center">
+      <img src="images/app.png" alt="스승님 로고" class="w-10 h-10">
+    </div>
+    
+    <div class="text-center">
+      <h3 class="text-lg font-bold text-gray-900">홈 화면에 추가하고 레슨 혜택받기</h3>
+      <p class="text-sm text-gray-500 mt-1">앱처럼 간편하게 실행하고, 무료 레슨 당첨 확률도 2배로 높이세요!</p>
+    </div>
+
+    <button id="install-action-btn" class="w-full py-3.5 bg-brand-blue text-white font-bold rounded-xl active:scale-95 transition-transform">
+      홈 화면에 추가하기
+    </button>
+    <button onclick="document.getElementById('pwa-install-banner').style.display='none'" class="text-gray-400 text-sm font-medium">나중에 할게요</button>
+  </div>
+</div>
+
+<script>
+  // 페이지 로드 1초 후 바텀 시트 등장
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const banner = document.getElementById('pwa-install-banner');
+      banner.style.display = 'block';
+      // 약간의 지연 후 translate 해제하여 애니메이션 발생
+      setTimeout(() => banner.classList.remove('translate-y-full'), 50);
+    }, 1000);
+  });
+
+  // 설치 로직
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+  });
+
+  document.getElementById('install-action-btn').addEventListener('click', () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+    } else {
+      // 아이폰/이미 설치된 경우 안내
+      alert("아이폰은 하단 공유 버튼(네모+화살표)을 눌러 [홈 화면에 추가]를 눌러주세요!");
+    }
+  });
+</script>
+
     <div id="root"></div>
 
     <script type="module">
