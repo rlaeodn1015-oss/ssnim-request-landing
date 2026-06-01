@@ -221,48 +221,6 @@
   </div>
 </div>
 
-<script>
-  // 페이지 로드 1초 후 브라우저 눈치 안 보고 '강제로' 팝업 등장시킵니다
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      const banner = document.getElementById('pwa-install-banner');
-      if (banner) {
-        banner.style.display = 'block'; // display: none 해제
-        setTimeout(() => banner.classList.remove('translate-y-full'), 50); // 위로 스르륵 올라오는 애니메이션
-      }
-    }, 1000);
-  });
-
-  // PWA 설치 조건 충족 시 브라우저 기본 팝업 연동 로직
-  let deferredPrompt;
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-  });
-
-  document.getElementById('install-action-btn').addEventListener('click', () => {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === 'accepted') {
-        document.getElementById('pwa-install-banner').style.display = 'none';
-      }
-    });
-  } else {
-    // [최종 수정] 대표님이 직접 검증하신 삼성 브라우저 정답 경로 전면 배치
-    alert(
-      "⛳ 스승님 3초 바탕화면 앱 설치 방법\n\n" +
-      "1. 갤럭시 (삼성 인터넷):\n" +
-      "👉 오른쪽 아래 [점 3개(설정)] ➔ [현재 페이지 추가] ➔ [홈 화면] 누르면 끝!\n\n" +
-      "2. 카카오톡 링크 (크롬 브라우저):\n" +
-      "👉 우측 [점 3개] ➔ [다른 브라우저로 열기] ➔ [홈 화면에 추가] 선택!\n\n" +
-      "3. 아이폰 (사파리):\n" +
-      "👉 하단 [공유(네모+화살표)] ➔ [홈 화면에 추가] 선택!"
-    );
-  }
-});
-</script>
-
     <div id="root"></div>
 
     <script type="module">
@@ -1384,7 +1342,7 @@ if (step === 1) {
     const handleMainShare = async () => {
         const shareData = {
             title: '스승님 - 결과로 증명하는 맞춤 골프레슨',
-            text: '나에게 딱 맞는 골프 스승님을 5분 만에 찾아보세요.',
+            text: '나에게 딱 맞는 골프 스승님을 1분 만에 찾아보세요.',
             url: window.location.href
         };
         if (navigator.share) {
@@ -1471,16 +1429,16 @@ if (step === 1) {
                     검증된 스승 · 부담 없는 골프 레슨
                 </div>
                 
-                <h1 className="text-4xl md:text-6xl lg:text-[68px] font-black leading-[1.15] mb-6 tracking-tight text-slate-900 no-overflow-wrap">
-                    골프레슨,<br />
-                    이제 <span className="text-brand-blue bg-gradient-to-r from-brand-blue to-blue-700 bg-clip-text text-transparent">100만원씩 끊지 마세요</span>
-                </h1>
+               <h1 className="text-4xl md:text-6xl lg:text-[68px] font-black leading-[1.15] mb-6 tracking-tight text-slate-900 no-overflow-wrap">
+    어제도 골프 스코어,<br />
+    <span className="text-brand-blue bg-gradient-to-r from-brand-blue to-blue-700 bg-clip-text text-transparent">망치고 오셨나요?</span>
+</h1>
 
                 <div className="mb-10 text-slate-600 text-base md:text-xl font-bold leading-[1.6] tracking-tight break-keep opacity-90">
                     <p>
-                        원하는 레슨만, 원하는 만큼 받아보세요.<br />
-                        검증된 스승님에게 요청해보세요.
-                    </p>
+        당신의 골프 고민을 알려주세요.<br />
+        스승님이 함께 해결해드립니다.
+    </p>
                     
                     <div className="inline-flex items-center gap-2 mt-4 px-3.5 py-1.5 bg-emerald-50 text-emerald-700 font-black rounded-xl text-xs md:text-sm border border-emerald-100 shadow-sm">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -1488,16 +1446,16 @@ if (step === 1) {
                     </div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center w-full">
-                    <button onClick=${() => setFormOpen(true)} className="w-full sm:w-auto bg-gradient-to-r from-brand-blue to-blue-700 text-white px-8 py-5 rounded-2xl font-black text-lg md:text-xl shadow-xl shadow-blue-500/20 hover:translate-y-[-4px] transition-all active:scale-95 flex items-center justify-center gap-2 btn-glow">
-                        AI 맞춤 레슨 요청하기
-                        <i className="fa-solid fa-chevron-right text-sm opacity-80 ml-1"></i>
-                    </button>
-                    
-                    <button onClick=${() => setProFormOpen(true)} className="w-full sm:w-auto bg-emerald-50 text-emerald-600 hover:bg-emerald-100 px-6 py-4 rounded-2xl font-black text-base transition-all active:scale-95 border border-emerald-200/60 shadow-sm shrink-0">
-                        스승님으로 등록하기
-                    </button>
-                </div>
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start items-center w-full px-2 sm:px-0">
+    <button onClick=${() => setFormOpen(true)} className="w-full sm:w-auto bg-gradient-to-r from-brand-blue to-blue-700 text-white px-5 sm:px-8 py-4 sm:py-5 rounded-2xl font-black text-sm sm:text-base md:text-xl shadow-xl shadow-blue-500/20 hover:translate-y-[-4px] transition-all active:scale-95 flex items-center justify-center gap-2 btn-glow ssn-pulse whitespace-nowrap">
+        <span>🎯 1분만에 스승 찾기! (무료)</span>
+        <i className="fa-solid fa-chevron-right text-xs sm:text-sm opacity-80 ml-0.5 shrink-0"></i>
+    </button>
+    
+    <button onClick=${() => setProFormOpen(true)} className="w-full sm:w-auto bg-slate-50 text-slate-400 hover:text-slate-500 hover:bg-slate-100 px-5 sm:px-6 py-3.5 sm:py-4 rounded-2xl font-bold text-xs sm:text-sm transition-all active:scale-95 border border-slate-200/40 shadow-sm shrink-0 whitespace-nowrap">
+        스승님으로 등록
+    </button>
+</div>
                 
                 <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3.5 max-w-xl mx-auto lg:mx-0 text-slate-700 font-bold text-[13px] md:text-[14px] border-t border-slate-100 pt-8 text-left">
                     <div className="flex items-center gap-2.5 group">
@@ -1506,15 +1464,15 @@ if (step === 1) {
                     </div>
                     <div className="flex items-center gap-2.5 group">
                         <i className="fa-solid fa-circle-check text-brand-blue text-base transition-transform group-hover:scale-110"></i> 
-                        <span>내가 원하는 가격으로 스승님에게 직접 요청</span>
+                        <span>내가 원하는 가격으로 맞춤 스승님에게 직접 요청</span>
                     </div>
                     <div className="flex items-center gap-2.5 group">
                         <i className="fa-solid fa-circle-check text-brand-blue text-base transition-transform group-hover:scale-110"></i> 
-                        <span>수백만 원짜리 다회권 결제 유도·영업 없음</span>
+                        <span>백만원 이상의 다회권 결제 유도·영업 없음</span>
                     </div>
                     <div className="flex items-center gap-2.5 group">
                         <i className="fa-solid fa-circle-check text-brand-blue text-base transition-transform group-hover:scale-110"></i> 
-                        <span>원포인트 · 숏게임 · 파3 · 실전 필드레슨까지</span>
+                        <span>1:1 · 숏게임 · 파3 · 필드레슨까지</span>
                     </div>
                 </div>
             </div>
@@ -2028,6 +1986,12 @@ const EventSection = () => html`
         schedule: '', price: '', lessonDate: '',
         activeTab: '', showAllTags: false, isDiscountClicked: false, isTrialSelected: false
     });
+    
+    React.useEffect(() => {
+        if (typeof gtag === 'function') {
+            gtag('event', 'request_start');
+        }
+    }, []);
 
     // 챗봇 내부 트랜잭션 전용 로컬 상태 변수
     const [chatInput, setChatInput] = React.useState('');
@@ -2149,6 +2113,8 @@ const EventSection = () => html`
             setChatInput('');
             setSavedConcernText(''); 
 
+            if (typeof gtag === 'function') { gtag('event', 'step_2_complete'); }
+
             startAnalysis(cleanFinalData); 
             return;
         }
@@ -2163,6 +2129,12 @@ const EventSection = () => html`
                 personCount: keywordObj.isJoin ? "2인" : "1인"
             };
             setFormData(prev => ({ ...prev, ...shortcutData }));
+
+            if (typeof gtag === 'function') {
+                gtag('event', 'step_1_complete');
+                gtag('event', 'step_2_complete');
+            }
+
             startAnalysis(shortcutData);
             return;
         }
@@ -2192,6 +2164,7 @@ const EventSection = () => html`
             setSavedConcernText(inputText); 
             setIsLocationMissing(true);     
             setChatInput('');
+            if (typeof gtag === 'function') { gtag('event', 'step_1_complete'); }
             return;
         }
 
@@ -2301,7 +2274,8 @@ const EventSection = () => html`
         const telegramMessage = `🔥 [${isFixedPrice ? '패키지 정찰' : '실전 현장견적'}] 매칭 발생\n\n👤 이름: ${payload.name}\n📞 연락처: ${payload.contact}\n📍 지역: ${payload.location}\n⛳ 레슨: ${payload.type}\n🏌️ 클럽: ${payload.club}\n💥 문제: ${payload.concern}\n⏰ 시간: ${payload.schedule}\n🏆 선택 프로: ${payload.selectedPro}\n💰 가격: ${Number(payload.price || 0).toLocaleString()}원`;
 
         try {
-            fetch("https://script.google.com/macros/s/AKfycbwJ8jcshxR6HcNknmLkjRdeT0NMw8d4-o9Z1hAWxdryi8pzocXZveDp_pmF1PpnKkcF/exec", {
+            // 구글 시트 데이터 안전 전송
+            await fetch("https://script.google.com/macros/s/AKfycbwJ8jcshxR6HcNknmLkjRdeT0NMw8d4-o9Z1hAWxdryi8pzocXZveDp_pmF1PpnKkcF/exec", {
                 method: "POST", mode: "no-cors", body: JSON.stringify(payload)
             });
             
@@ -2309,16 +2283,27 @@ const EventSection = () => html`
                 ? "https://hooks.zapier.com/hooks/catch/27197789/uj4iu7w/" 
                 : "https://hooks.zapier.com/hooks/catch/27197789/uj4d9ko/";
 
-            fetch(ZAPIER_WEBHOOK_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
+            // 재피어 웹훅 연동
+            await fetch(ZAPIER_WEBHOOK_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
 
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            // 텔레그램 알림 전송 (유실 차단 완료)
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: "POST", headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ chat_id: CHAT_ID, text: telegramMessage })
             });
 
+            // 📊 구글 GA4 최종 매칭 완료 이벤트 로깅
+            if (typeof gtag === 'function') {
+                gtag('event', 'request_submit', {
+                    'selected_pro': selectedPro?.name,
+                    'lesson_type': formData.lessonType
+                });
+            }
+
             if (payload.price < selectedPro.price) {
                 localStorage.setItem("ssnim_coupon_used", "true");
             }
+            
             setStep(7);
         } catch (err) {
             setStep(7);
@@ -2805,12 +2790,12 @@ const EventSection = () => html`
         <main>
     <${HeroSection} setFormOpen=${setFormOpen} setProFormOpen=${setProFormOpen} />
      <${ProblemSection} />
+     <${ReviewPhotoSlider} />
      <${HowItWorks} />
     <${SystemSection} />
 
     <section className="px-5 -mt-12 md:-mt-20 mb-8 relative z-20 max-w-screen-xl mx-auto">
         <${FieldAdSection} />
-        <${ReviewPhotoSlider} />
         <${ServiceIntroSection} />
         <${ProRecruitSection} setProFormOpen=${setProFormOpen} />
         <${JoinBoard} setFormOpen=${setFormOpen} />
@@ -2824,55 +2809,7 @@ const EventSection = () => html`
     <${UnlimitedBenefit} />
     <${TicketBanner} />
     <${EventSection} />
-    <${TrustSection} />
                
-                      <section className="px-5 py-24 bg-slate-50">
-    <div className="max-w-screen-xl mx-auto">
-        <div className="text-center mb-12 reveal">
-            <h2 className="text-2xl md:text-5xl font-black mb-4 text-slate-850 tracking-tight">
-                실제 요청 레슨으로 <span className="text-brand-blue">증명된 후기</span>
-            </h2>
-            <p className="text-slate-400 font-bold text-sm md:text-lg">스승님과 함께 만든 기분 좋은 변화들</p>
-        </div>
-
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
-            ${[
-                { q: "드라이버 슬라이스 해결", a: "드로우 구질로 변경, 비거리 30m 증가", u: "김x현 님", i: "🎯" },
-                { q: "웻지/9,P 생크 교정", a: "파3 레슨 1회로 원인 파악 및 즉각 해결", u: "이x구 님", i: "⛳" },
-                { q: "3펏은 이제 안해요!", a: "루틴 교정 후 평균 퍼트 8개 감소", u: "박x원 님", i: "📉" },
-                { q: "비거리 200m 돌파", a: "바디스윙 레슨 활용으로 230m 달성", u: "최x준 님", i: "🚀" },
-                { q: "우드/유틸 극복", a: "컨택 위주 레슨으로 2온 자신감 회복", u: "정x윤 님", i: "✨" },
-                { q: "80타 진입!", a: "그린 주변 어프로치 잡고 생애 첫 84타 라베 기록", u: "한x우 님", i: "🏆" }
-            ].map((c, i) => html`
-                <div key=${i} className="bg-white p-5 md:p-8 rounded-[2rem] shadow-sm border border-slate-100 flex flex-col justify-between reveal card-hover">
-                    <div>
-                        <div className="flex justify-between items-start mb-4">
-                            <span className="text-2xl md:text-3xl">${c.i}</span>
-                            <div className="flex text-amber-400">
-                                <${Star} size=${10} fill="currentColor" />
-                                <${Star} size=${10} fill="currentColor" />
-                                <${Star} size=${10} fill="currentColor" />
-                                <${Star} size=${10} fill="currentColor" />
-                                <${Star} size=${10} fill="currentColor" />
-                            </div>
-                        </div>
-                        <h4 className="text-[13px] md:text-[17px] font-black text-slate-850 mb-2 leading-tight break-keep">
-                            "${c.q}"
-                        </h4>
-                        <p className="text-[11px] md:text-sm text-brand-blue font-bold leading-snug break-keep">
-                            ${c.a}
-                        </p>
-                    </div>
-                    
-                    <div className="mt-6 pt-4 border-t border-slate-50 flex justify-between items-center">
-                        <span className="text-[10px] md:text-xs font-bold text-slate-300">${c.u}</span>
-                        <span className="text-[9px] md:text-[11px] font-black text-emerald-500 bg-emerald-50 px-2 py-0.5 rounded-full">MATCHED</span>
-                    </div>
-                </div>
-            `)}
-        </div>
-    </div>
-</section>
                        <section className="py-24 px-6 bg-white border-t border-slate-100">
     <div className="max-w-md mx-auto">
         <h2 className="text-2xl font-black text-slate-800 mb-10 text-center">자주 묻는 질문 🙋‍♂️</h2>
@@ -2946,7 +2883,7 @@ ${proFormOpen && html`
 
         <div className="fixed bottom-8 left-6 right-6 z-50 md:hidden">
             <button onClick=${() => setFormOpen(true)} className="w-full gradient-blue py-6 rounded-3xl text-white font-black text-xl shadow-[0_20px_50px_rgba(0,102,255,0.4)] flex items-center justify-center gap-3 active:scale-95 transition-all btn-glow">
-                <${Zap} size=${24} fill="white" /> 30초 AI 요청서 작성
+                <${Zap} size=${24} fill="white" /> 1분 AI 추천 받기!
             </button>
         </div>
 
