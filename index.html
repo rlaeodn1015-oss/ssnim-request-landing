@@ -10,18 +10,25 @@
 </script>
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3YC9WJBPMZ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-3YC9WJBPMZ');
-</script> <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/ssnim-request-landing/sw.js');
-  }
-</script>
+   <script async src="https://www.googletagmanager.com/gtag/js?id=G-3YC9WJBPMZ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3YC9WJBPMZ');
+    </script>
+    
+    <!-- 지독한 캐시 고정 현상을 깨부수기 위한 서비스 워커 강제 해제 스크립트 -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for(let registration of registrations) {
+            registration.unregister();
+            console.log('기존 서비스 워커 해제 완료');
+          }
+        });
+      }
+    </script>
 
     <meta name="description" content="스마트한 골프레슨의 시작, 내 요청에 딱 맞는 검증된 스승님을 AI가 정밀 매칭합니다">
     <meta property="og:type" content="website">
