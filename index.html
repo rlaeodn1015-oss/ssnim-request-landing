@@ -2609,17 +2609,17 @@ const EventSection = () => html`
 };
 
     // 분기 2: 프로 추천 결과 리스트 스크린
-   if (step === 6) {
-    const isFixedPrice = formData.lessonType === '1:1 편';
+if (step === 6) {
+    const isFixedPrice = formData.lessonType === '1:1 레슨';
     return html`
         <div className="animate-slide-up text-left max-h-[85vh] overflow-y-auto no-scrollbar pb-10">
             <div className="mb-4">
                 <h3 className="text-lg md:text-2xl font-black text-slate-800 tracking-tight flex items-center flex-wrap gap-1.5 leading-tight">
-    <span>🤖 AI TOP3 정밀 매칭 스승님</span> 
-    <span className="text-brand-blue bg-blue-50 px-2 py-0.5 rounded-full text-[9px] md:text-[10px] uppercase font-black tracking-tighter inline-block align-middle">소비자 만족도 순</span>
-</h3>
+                    <span>🤖 AI TOP3 정밀 매칭 스승님</span> 
+                    <span className="text-brand-blue bg-blue-50 px-2 py-0.5 rounded-full text-[9px] md:text-[10px] uppercase font-black tracking-tighter inline-block align-middle">소비자 만족도 순</span>
+                </h3>
                 <p className="text-slate-400 font-bold text-xs mt-1">
-                    ${isFixedPrice ? "🎯 입력하신 골프 고민을 '최단기간'에 해결할 수 있는 스승님입니다." : "⛳ 스코어를 확실히 줄일 수 있는 [외부 실전 레슨] 전문가 선별 완료"}
+                    ${isFixedPrice ? "🎯 입력하신 골프 고민을 '최단기간'에 해결할 수 있는 스승님입니다." : "⛳ 스코어를 확실히 줄일 수 있는 [실전 레슨] 스승님 선별 완료"}
                 </p>
             </div>
             
@@ -2634,7 +2634,7 @@ const EventSection = () => html`
                                     적합도 ${p.displayScore}%
                                 </span>
                                 <span className="text-[9px] bg-emerald-50 text-emerald-700 border border-emerald-200/60 px-2 py-0.5 rounded-full font-black flex items-center gap-0.5">
-                                    <i className="fa-solid fa-badge-check"></i> 소속 자격 검증완료
+                                    <i className="fa-solid fa-badge-check"></i> 자격 검증완료✔️
                                 </span>
                             </div>
                             <div className="flex items-center gap-1 bg-amber-50 px-2 py-0.5 rounded-full">
@@ -2651,12 +2651,17 @@ const EventSection = () => html`
                                     누적 ${p.lessonCount.toLocaleString()}회+
                                 </div>
                             </div>
+                            
                             <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-1.5">
-                                    <h4 className="font-black text-slate-900 text-xl truncate">${p.name}</h4>
-                                    <span className="text-[11px] text-slate-400 font-bold">${p.career.split(',')[0]}</span>
+                                <div className="flex flex-wrap items-baseline gap-x-1.5 gap-y-1">
+                                    <h4 className="font-black text-slate-900 text-lg md:text-xl tracking-tight whitespace-nowrap">
+                                        ${p.name}
+                                    </h4>
+                                    <span className="text-[10px] md:text-[11px] text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded-md font-bold tracking-tight whitespace-nowrap inline-block">
+                                        ${p.career.split(',')[0]}
+                                    </span>
                                 </div>
-                                <p className="text-slate-600 text-[13px] leading-tight font-medium break-keep mt-1.5">"${p.intro}"</p>
+                                <p className="text-slate-600 text-[13px] leading-tight font-medium break-keep mt-2">"${p.intro}"</p>
                             </div>
                         </div>
 
