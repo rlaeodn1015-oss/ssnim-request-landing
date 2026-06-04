@@ -10,25 +10,18 @@
 </script>
 
     <!-- Google tag (gtag.js) -->
-   <script async src="https://www.googletagmanager.com/gtag/js?id=G-3YC9WJBPMZ"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-3YC9WJBPMZ');
-    </script>
-    
-    <!-- 지독한 캐시 고정 현상을 깨부수기 위한 서비스 워커 강제 해제 스크립트 -->
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function(registrations) {
-          for(let registration of registrations) {
-            registration.unregister();
-            console.log('기존 서비스 워커 해제 완료');
-          }
-        });
-      }
-    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3YC9WJBPMZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-3YC9WJBPMZ');
+</script> <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/ssnim-request-landing/sw.js');
+  }
+</script>
 
     <meta name="description" content="스마트한 골프레슨의 시작, 내 요청에 딱 맞는 검증된 스승님을 AI가 정밀 매칭합니다">
     <meta property="og:type" content="website">
@@ -240,12 +233,12 @@
         rating: 5.0, 
         review: 142, 
         img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KakaoTalk_20260327_165459882.png", 
-        intro: "KLPGA 준회원, 드로우 구질 변화 1위 전문가", 
+        intro: "KLPGA 정회원, 초보 슬라이스 및 깎여 맞는 스윙 교정 전문", 
         career: "KLPGA 정회원 7년",
         lessonCount: 1300,
         priceRange: "10~12만원",
         reviewHighlight: "한 달 만에 슬라이스 완쾌",
-        reasons: ["드라이버 슬라이스 교정 성공 케이스 600건+", "강남 지역 1:1 레슨 최다 만족도 기록", "트랙맨 기반 데이터 분석 최적화"],
+        reasons: ["초보 골퍼의 터지는 슬라이스 구질 즉시 교정", "직관적인 1:1 스윙 상하체 회전 타이밍 피드백", "강남권 실전 원포인트 매칭 및 교습 경험 다수"],
         tags: ["슬라이스 교정", "드라이버 방향성", "필드 레슨"] 
     },
     { 
@@ -259,12 +252,12 @@
         rating: 4.9, 
         review: 89, 
         img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/JYH.jpg", 
-        intro: "여성 골퍼 비거리 및 폼 교정 전문", 
+        intro: "여성 골퍼 체형 맞춤형 바디턴 스윙 및 비거리 향상 전문", 
         career: "KPGA 투어 프로 5년",
         lessonCount: 450,
         priceRange: "13~15만원",
         reviewHighlight: "비거리 30m 실질적 향상",
-        reasons: ["여성 골퍼 특화 비거리 향상 프로그램", "송파 지역 90타대 입문자 탈출 후기 다수", "아이언 일관성 집중 레슨"],
+        reasons: ["여성 골퍼 특화 정타율 개선 프로그램 운영", "근력에 맞춘 무리 없는 바디턴 스윙 리듬 전수", "아이언 컨택 일관성 향상 및 백돌이 탈출 타겟 레슨"],
         tags: ["비거리 증가", "롱아이언", "초보 레슨"] 
     },
     { 
@@ -278,12 +271,12 @@
         rating: 5.0, 
         review: 215, 
         img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KakaoTalk_20260309_200933587.jpg", 
-        intro: "어프로치 입스 극복 및 퍼터 정밀 레슨", 
+        intro: "그린 주변 어프로치 입스 극복 및 퍼터 정밀 교습 전문가", 
         career: "숏게임 전문 스승님, 후기 다수 보유",
         lessonCount: 880,
         priceRange: "12~14만원",
         reviewHighlight: "퍼팅 수 평균 8개 감소",
-        reasons: ["숏게임 레슨 전문가", "싱글 스코어 최다 기록", "강남/분당 지역 숏게임레슨 1위"],
+        reasons: ["30m 이내 웨지 거리감 세팅 및 뒤땅 방지 교정", "그린 에이밍 정렬 오류 조율 및 쓰리퍼트 방지 루틴", "파3 골프장 현장 동반 숏게임 밀착 교습"],
         tags: ["어프로치 거리감", "퍼팅 거리감", "생크 교정", "초보 레슨"] 
     },
     { 
@@ -297,12 +290,12 @@
         rating: 5.0, 
         review: 95, 
         img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/SJH.png", 
-        intro: "GTOUR 대회 선수, 비거리 30m 보장", 
+        intro: "현역 GTOUR 대회 선수, 스윙 스피드 최적화 비거리 전문", 
         career: "현역 GTOUR 선수",
         lessonCount: 850,
         priceRange: "20~30만원",
         reviewHighlight: "드라이버 비거리 270m 달성",
-        reasons: ["GTOUR 선수의 구질교정", "장타를 위한 지면 반발력 활용법", "상급자용 정밀 데이터 분석"],
+        reasons: ["현역 프로가 직접 진단하는 헤드 스피드 정체 해결", "다운스윙 시 올바른 하체 리드와 체중 이동 피드백", "싱글 진입을 목표로 하는 상급자용 구질 제어 솔루션"],
         tags: ["비거리 증가", "드라이버 정확도", "체중이동"] 
     },
     { 
@@ -316,12 +309,12 @@
         rating: 4.9, 
         review: 178, 
         img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/HJY.png", 
-        intro: "숏아이언 전문, 예쁜 스윙의 정석", 
+        intro: "예쁜 스윙 궤도 형성 및 배치기 습관 교정 전문", 
         career: "11년 투어생활, 골프유튜버",
         lessonCount: 370,
         priceRange: "15~20만원",
         reviewHighlight: "인생에서 가장 예쁜 스윙",
-        reasons: ["기초가 탄탄한 스윙 궤도 형성", "유연성을 활용한 부드러운 스윙", "입문자 대상 최다 추천 기록"],
+        reasons: ["어드레스 자세 유지를 통한 정교한 아이언 임팩트 개선", "부상을 방지하고 몸에 힘을 빼는 바디턴 스윙 구축", "골프 입문자를 위한 그립부터 풀스윙 단계별 교습"],
         tags: ["초보 레슨", "스윙 궤도", "자세 교정"] 
     },
     { 
@@ -335,12 +328,12 @@
         rating: 5.0, 
         review: 56, 
         img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/YHC.png", 
-        intro: "전 투어 프로, 실전 라운딩 전문", 
+        intro: "전 KPGA 투어 프로, 실전 라운딩 코스 매니지먼트 전문", 
         career: "전 KPGA 투어 프로",
         lessonCount: 230,
         priceRange: "15~20만원",
         reviewHighlight: "생애 첫 싱글 기록 성공",
-        reasons: ["실전 코스 공략 및 위기 관리", "프로급 라운딩 운영 기술 전수", "필드 집중 원포인트 레슨"],
+        reasons: ["실전 필드 경사면 라이별 클럽 선택 및 컨택 요령", "티샷 OB 방지를 위한 에이밍 정렬 및 코스 공략법", "미스 샷 발생 시 타수를 방어하는 실전 위기대응 루틴"],
         tags: ["필드 레슨", "코스 매니지먼트", "실전 루틴"] 
     },
     { 
@@ -354,12 +347,12 @@
         rating: 4.8, 
         review: 120, 
         img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/JDY.png", 
-        intro: "유튜브 속 레슨을 현실에서", 
+        intro: "구독자 13만 골프 크리에이터, 쉽고 직관적인 눈높이 교습", 
         career: "유튜브 구독자 13만명",
         lessonCount: 2500,
         priceRange: "25~30만원",
         reviewHighlight: "눈높이 골프레슨의 최강자",
-        reasons: ["이론과 실전 병행", "직관적이며 열정적인 스타일", "결과로 보답하는 맞춤 레슨"],
+        reasons: ["어려운 용어 없는 직관적인 신체 감각 중심 설명", "스윙 핵심 문제점 파악 및 즉각적인 원포인트 피드백", "독학 골퍼들이 놓치기 쉬운 잘못된 스윙 패턴 정형화"],
         tags: ["드라이버 방향성", "슬라이스 교정", "비거리 증가"] 
     },
     { 
@@ -373,12 +366,12 @@
         rating: 4.7, 
         review: 88, 
         img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KNY.jpg", 
-        intro: "칼날 같은 아이언 샷, 정확도 향상", 
-        career: "KLPGA-1212",
+        intro: "KLPGA 프로, 아이언 정타 확률 및 방향성 제어 전문", 
+        career: "KLPGA 정회원",
         lessonCount: 490,
         priceRange: "16~20만원",
         reviewHighlight: "아이언 정타 확률 80% 향상",
-        reasons: ["정확한 임팩트 타이밍 교정", "아이언 비거리 조절 및 방향성", "데이터 기반 샷 분석 피드백"],
+        reasons: ["정확한 임팩트 타이밍 교정을 통한 정타율 증가", "롱아이언 탄도 저하 및 우측 밀림 현상 즉각 해결", "일관성 있는 아이언 샷을 위한 스윙 궤도 정립"],
         tags: ["아이언 정확도", "임팩트 교정", "스윙 궤도"] 
     },
     { 
@@ -392,12 +385,12 @@
         rating: 4.9, 
         review: 154, 
         img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/lwy.webp", 
-        intro: "어려운 우드/유틸리티 쉽게 치기", 
-        career: "KLPGA, 강남구 리뷰 1등",
+        intro: "KLPGA 프로, 다루기 어려운 페어웨이 우드 및 유틸리티 특화 교습", 
+        career: "KLPGA 정회원",
         lessonCount: 2200,
         priceRange: "15~20만원",
         reviewHighlight: "우드가 드라이버만큼 쉬워짐",
-        reasons: ["우드/유틸리티 컨택 및 리듬", "여성 골퍼 맞춤형 근력 활용법", "친절하고 체계적인 단계별 레슨"],
+        reasons: ["우드와 유틸리티의 깔끔한 쓸어치기 타격 각도 세팅", "지면 타격 실패로 인한 탑볼 및 헤드업 현상 교정", "여성 초보 골퍼 대상 클럽별 기초 스윙 궤도 정립"],
         tags: ["비거리 증가", "초보 레슨", "우드/유틸리티 활용"] 
     },
     { 
@@ -411,12 +404,12 @@
         rating: 5.0, 
         review: 42, 
         img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/YMH.png", 
-        intro: "고질적인 슬라이스/생크 맞춤 해결", 
-        career: "스윙 분석 데이터 전문가",
+        intro: "고질적인 생크 현상 및 갑작스러운 스윙 붕괴 해결 전문", 
+        career: "스윙 분석 전문가",
         lessonCount: 120,
         priceRange: "7~10만원",
         reviewHighlight: "단 한 번의 레슨으로 problem 교정",
-        reasons: ["problem 원인 즉각 파악 및 교정", "슬라이스 궤도 수정 전문가", "원포인트 레슨 최고 만족도"],
+        reasons: ["갑자기 발생하는 생크 현상 원인 즉각 진단 및 해결", "손목 풀림으로 발생하는 리딩에지 타격 문제 교정", "부담 없는 가성비 1회 집중 원포인트 세션 진행"],
         tags: ["생크 교정", "슬라이스 교정", "임팩트 교정"] 
     },
     { 
@@ -430,12 +423,12 @@
         rating: 5.0, 
         review: 73, 
         img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/kdy.webp", 
-        intro: "포기하지 않으면 누구나 할 수 있어요", 
-        career: "KPGA TOURPRO 맞춤 레슨",
+        intro: "KPGA 투어프로, 세컨샷 정확도 향상 및 아이언 거리감 교정", 
+        career: "KPGA 투어프로 정회원",
         lessonCount: 195,
         priceRange: "15~20만원",
         reviewHighlight: "투 온에 자신감을 붙이는 레슨",
-        reasons: ["높이뜨는 공", "드라이버 및 세컨 샷 전문", "원포인트 회원 후기 증명"],
+        reasons: ["백스윙 탑 오류 교정을 통한 일관된 정타 타이밍 확보", "페어웨이 우드 및 유틸리티 세컨 샷 안착률 증가 트레이닝", "실전 필드 동반을 통한 코스 공략 실시간 피드백"],
         tags: ["비거리 증가", "롱아이언", "드라이버 정확도"] 
     },
     { 
@@ -449,12 +442,12 @@
         rating: 4.7, 
         review: 143, 
         img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KTY.png", 
-        intro: "초보딱지는 이제 그만", 
+        intro: "골프 입문 3개월 이내 골린이 맞춤 풀스윙 형성 전문가", 
         career: "초보 및 자세교정 전문 스승",
         lessonCount: 354,
         priceRange: "15~20만원",
         reviewHighlight: "소통을 중시하며 디테일한 레슨",
-        reasons: ["정확한 컨택", "완벽한 스윙", "초보자들의 선생님"],
+        reasons: ["기초 어드레스부터 하체 리드 풀스윙까지 단계별 교습", "신체 조건에 맞춘 정석적인 스윙 궤도 형성 및 자세 교정", "입문 골퍼의 부상 방지를 위한 바디 메커니즘 가이드"],
         tags: ["초보 레슨", "자세 교정", "퍼팅 방향성"] 
     },
     { 
@@ -468,12 +461,12 @@
         rating: 5.0, 
         review: 422, 
         img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/LSJ.png", 
-        intro: "우드와 유틸에 자신감과 만족스러운 임팩", 
-        career: "유튜브 운영 및 자신있는 레슨",
+        intro: "직관적이고 쉬운 이미지 기법을 활용한 백돌이 탈출 전문", 
+        career: "유튜브 운영 및 레슨 프로",
         lessonCount: 691,
         priceRange: "15~20만원",
         reviewHighlight: "감각을 중시하며 직관적이고 진지한 레슨",
-        reasons: ["긴 거리도 problem없이", "골린이 전문", "거리problem 해결"],
+        reasons: ["엎어치는 스윙을 고쳐 자연스러운 드로우 구질로 수정", "드라이버 헤드 무게를 느끼게 하는 손목 풀림 현상 교정", "100타 및 90타대 정체 구간 돌파를 위한 실전 원포인트"],
         tags: ["초보 레슨", "드라이버 비거리", "우드/유틸 활용"] 
     },
     { 
@@ -487,12 +480,12 @@
         rating: 4.8, 
         review: 122, 
         img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KDW.jpg", 
-        intro: "최종환 퍼팅아카데미 인증 교습가", 
-        career: "AimPoint, Lynn Blake 인증 스승",
+        intro: "유명 퍼팅 아카데미 정식 수료, 그린 주변 전문 스승님", 
+        career: "퍼팅 및 숏게임 인증 프로",
         lessonCount: 691,
         priceRange: "8~20만원",
         reviewHighlight: "이론과 실전을 병행하며 디테일하고 꼼꼼한 레슨",
-        reasons: ["핀에 붙이는 어프로치", "싱글 만들기 전문", "스코어 해결"],
+        reasons: ["그린 경사 정밀 판별 및 일관된 스트로크 정렬 교정", "퍼터 페이스 각도 수정을 통한 퍼팅 방향성 개선", "핀에 바로 붙이는 실전 어프로치 및 웨지 샷 조율"],
         tags: ["어프로치 거리감", "퍼팅 라인 읽기", "실전 스코어"] 
     },
     { 
@@ -506,12 +499,12 @@
         rating: 4.5, 
         review: 243, 
         img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/LGH.webp", 
-        intro: "KLPGA TOUR PRO", 
-        career: "KPGA CLASS A, 코리안투어 출전 경험, 챌린지투어 다수 입상",
+        intro: "KPGA 정회원, 투어 출전 경험 기반 바디스윙 및 정타 전문", 
+        career: "KPGA CLASS A 정회원, 코리안투어 출전 경험",
         lessonCount: 191,
         priceRange: "12~20만원",
         reviewHighlight: "분석을 중심으로 열정적인 스타일로 원하는 비거리를 만들어드립니다",
-        reasons: ["임팩을 통한 완벽한 정타", "똑바로 멀리치는 드라이버"],
+        reasons: ["투어 경험 기반 실전형 상하체 체중이동 타이밍 분석", "팔로만 치는 스윙을 교정하여 묵직한 몸통 회전 스윙 안착", "드라이버 정타 확률 증가를 위한 어드레스 자세 교정"],
         tags: ["드라이버 정확도", "비거리 증가", "임팩트 교정"] 
     },
     { 
@@ -525,12 +518,12 @@
         rating: 4.5, 
         review: 124, 
         img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/ksy.png", 
-        intro: "유튜브속 레슨의 실전 솔루션, 함께 경험해보세요", 
-        career: "팀 테일러메이드, 정규투어 멤버, 투어 통산 3승, 뉴질랜드 전국체전 금/동메달",
+        intro: "KLPGA 정규투어 3승 챔피언, 프리미엄 하이엔드 1:1 교습", 
+        career: "정규투어 멤버, 투어 통산 3승, 뉴질랜드 전국체전 금메달",
         lessonCount: 506,
         priceRange: "35~50만원",
         reviewHighlight: "레슨비는 비싸지만 확실한 레슨 효과로 100%만족",
-        reasons: ["수 많은 사람들이 찾는 이유", "돈이 아깝지 않은 골프 비법", "완벽주의 원포인트 레슨"],
+        reasons: ["정규투어 우승 경험 기반 실전 구질 컨트롤 노하우 전수", "상급자 및 싱글 지향 골퍼를 위한 정밀 스윙 궤도 미세 조정", "체형 조건별 힘 손실을 유발하는 지점 원포인트 스캔"],
         tags: ["드라이버 정확도", "롱아이언", "비거리 증가", "슬라이스 교정"] 
     },
     {
@@ -544,14 +537,261 @@
         rating: 5.0,
         review: 58,
         img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/kmg.jpg", 
-        intro: "열정 가득한 레슨으로 최고의 만족을 선물합니다",
-        career: "KPGA 준회원, KPGA 준회원선발전 2위, 미국 문라이트/허리케인 투어 우승 등 다수 입상",
+        intro: "KPGA 프로, 정교한 드라이버 방향성 교정 및 구질 최적화 전문가", 
+        career: "KPGA 프로, 미국 투어 활동 및 다수 대회 입상",
         lessonCount: 110,
         priceRange: "18~40만원", 
         reviewHighlight: "매의 눈으로 스윙의 기본적인 문제점을 확실하게 교정해주십니다",
-        reasons: ["슬라이스 교정", "비거리 증가", "드라이버", "롱아이언"],
+        reasons: ["티샷 미스 훅과 슬라이스를 방지하는 그립 및 손목 각도 교정", "해외 투어 무대 경험 기반의 정교한 다운스윙 타이밍 매칭", "아이언 컨택 일관성 확보 및 코어 회전을 이용한 장타 유도"],
         tags: ["슬라이스 교정", "비거리 증가", "드라이버 정확도"]
-    }
+    },
+   { 
+    id: 18, 
+    name: "허민형 스승", 
+    phone: "01020601838",
+    lessonTypes: ["1:1 레슨", "숏게임레슨", "18홀 필드레슨"], 
+    activeLocations: ["서초", "교대", "방배", "반포", "강남"], 
+    specialties: ["슬라이스", "비거리", "숏게임", "자세교정"],
+    price: 130000, 
+    rating: 4.9, 
+    review: 39, 
+    img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/hmh.webp", 
+    intro: "KPGA 프로, 체형 맞춤형 스윙 디자인 및 실전 숏게임 전문", 
+    career: "KPGA 프로, 15년 레슨 경력, 테일러메이드 인증 교습가",
+    lessonCount: 280,
+    priceRange: "11~13만원",
+    reviewHighlight: "체형에 맞는 스윙 궤도 안착",
+    reasons: ["골퍼 개인별 신체 조건에 맞춘 스윙 자세 교정", "드라이버 슬라이스 교정 및 비거리 증가 피드백", "필드와 숏게임 현장에서 즉각적인 타수 줄이기 솔루션"],
+    tags: ["자세 교정", "슬라이스 교정", "숏게임 레슨"] 
+},
+{ 
+    id: 19, 
+    name: "강희진 스승", 
+    phone: "01050622964",
+    lessonTypes: ["1:1 레슨"], 
+    activeLocations: ["역삼", "삼성", "선릉", "강남역", "강남"], 
+    specialties: ["드라이버", "초보레슨", "체중이동", "슬라이스"],
+    price: 70000, 
+    rating: 4.9, 
+    review: 114, 
+    img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/khj.webp", 
+    intro: "KPGA CLASS A, 스포츠의학 석사 기반 신체 맞춤 스윙 교정 전문", 
+    career: "KPGA CLASS A 정회원, 스포츠의학 석사, BMW 차이나 오픈 7위",
+    lessonCount: 361,
+    priceRange: "5~7만원",
+    reviewHighlight: "몸 안 아프고 정교한 스윙 안착",
+    reasons: ["스포츠의학 기반 부상 없는 체중이동 및 스윙 자세 교정", "드라이버 슬라이스 및 배치기 습관 즉각 원인 진단", "입문 골퍼와 주니어를 위한 단계별 체계적 커리큘럼 교습"],
+    tags: ["초보 레슨", "체중이동", "슬라이스 교정"] 
+},
+{ 
+    id: 20, 
+    name: "김숙정 스승", 
+    phone: "01033559555",
+    lessonTypes: ["1:1 레슨", "숏게임레슨"], 
+    activeLocations: ["도곡", "대치", "개포", "강남"], 
+    specialties: ["바디스윙", "체중이동", "훅교정", "오버스윙"],
+    price: 150000, 
+    rating: 4.9, 
+    review: 92, 
+    img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/ksj.webp", 
+    intro: "KLPGA 프로, 국가대표 상비군 출신의 하체 리드 바디스윙 전문", 
+    career: "KLPGA 정회원, 육상 세단뛰기 국가대표 상비군, 트레이너 경력",
+    lessonCount: 160,
+    priceRange: "12~15만원",
+    reviewHighlight: "유쾌하고 간결한 스윙 교정",
+    reasons: ["육상 상비군 출신의 정교한 지면 활용 체중이동 피드백", "드라이버 오버스윙 및 악성 훅 구질 즉시 교정", "팔로만 치는 스윙을 고쳐 타수를 줄이는 몸통 회전 안착"],
+    tags: ["체중이동", "훅 교정", "자세 교정"] 
+},
+{ 
+    id: 21, 
+    name: "김혜연 스승", 
+    phone: "01056993889",
+    lessonTypes: ["1:1 레슨"], 
+    activeLocations: ["신사", "압구정", "청담", "강남"], 
+    specialties: ["롱아이언", "바디스윙", "비거리증가", "자세교정"],
+    price: 130000, 
+    rating: 4.9, 
+    review: 78, 
+    img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/khy.webp", 
+    intro: "KLPGA 프로, 점프투어 상위 입상 기반 통증 없는 바디스윙 전문", 
+    career: "KLPGA 정회원, 점프투어 4위/8위 입상, 더프라자 전속 레슨",
+    lessonCount: 95,
+    priceRange: "12~13만원",
+    reviewHighlight: "일관된 실전 스윙 루틴 확립",
+    reasons: ["골퍼 개인별 체형에 맞춘 부상 없는 풀스윙 궤도 형성", "롱아이언 컨택 실패 및 손목 풀림 현상 집중 교정", "몸통 회전을 이용한 하체 리드 중심의 비거리 증가 솔루션"],
+    tags: ["롱아이언", "비거리 증가", "자세 교정"] 
+},
+{ 
+    id: 22, 
+    name: "김도한 스승", 
+    phone: "01040239665",
+    lessonTypes: ["1:1 레슨"], 
+    activeLocations: ["신사", "압구정", "청담", "강남"], 
+    specialties: ["롱아이언", "생크교정", "비거리", "슬라이스"],
+    price: 60000, 
+    rating: 4.8, 
+    review: 14, 
+    img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/kdh.webp", 
+    intro: "KPGA 프로, 롱아이언 컨택 정타 및 고질적 생크 즉시 교정", 
+    career: "KPGA 정회원 자격 인증, 신사권 인도어 및 스튜디오 레슨",
+    lessonCount: 70,
+    priceRange: "5~6만원",
+    reviewHighlight: "답답했던 롱아이언 정타율 개선",
+    reasons: ["다루기 힘든 롱아이언의 일관된 진입 궤도 및 컨택 집중 조율", "갑자기 터지는 악성 생크와 드라이버 슬라이스 원인 즉각 해결", "이론과 실전을 연계한 빠르고 체계적인 스윙 자세 교정"],
+    tags: ["롱아이언", "생크 교정", "슬라이스 교정"] 
+},
+{ 
+    id: 23, 
+    name: "박민성 스승", 
+    phone: "01038672441",
+    lessonTypes: ["1:1 레슨"], 
+    activeLocations: ["역삼", "삼성", "선릉", "강남역", "강남"], 
+    specialties: ["우드/유틸", "자세교정", "오버스윙", "배치기교정"],
+    price: 100000, 
+    rating: 4.9, 
+    review: 64, 
+    img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/pms.webp", 
+    intro: "KGF 투어프로, 역삼 대형 스튜디오 수석 프로 출신의 스윙 교정 전문가", 
+    career: "KGF 한국골프연맹 정회원 투어프로, KPGA 챌린지 투어 활동, 현 티랩골프 수석 프로",
+    lessonCount: 189,
+    priceRange: "5~10만원",
+    reviewHighlight: "오버스윙 및 배치기 습관 교정",
+    reasons: ["임팩트 순간 타구가 뜨는 배치기 및 탑핑 현상 즉시 교정", "백스윙 탑에서 축이 무너지는 오버스윙 구간 제어", "드라이버와 다루기 힘든 페어웨이 우드 정타율 증가 솔루션"],
+    tags: ["우드/유틸 활용", "자세 교정", "초보 레슨"] 
+},
+{ 
+    id: 24, 
+    name: "김형준 스승", 
+    phone: "01046210766",
+    lessonTypes: ["1:1 레슨"], 
+    activeLocations: ["수지", "죽전", "기흥", "용인"], 
+    specialties: ["드라이버", "초보레슨", "비거리", "슬라이스"],
+    price: 60000, 
+    rating: 4.9, 
+    review: 72, 
+    img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/khj1.webp", 
+    intro: "KPGA 투어프로, 코리안투어 출전 경험 기반 드라이버 및 정타 전문", 
+    career: "KPGA 정회원 투어프로, 챌린지투어 준우승, 코리안투어 출전",
+    lessonCount: 221,
+    priceRange: "5~6만원",
+    reviewHighlight: "답답했던 뒤땅, 탑볼 미스 해결",
+    reasons: ["헤드가 밀려 맞아 발생하는 드라이버 슬라이스 궤도 수정", "아이언 임팩트 순간 일어나는 뒤땅 및 탑핑 현상 즉시 교정", "골프 입문자의 기초 스윙 아크 형성을 위한 실전 원포인트"],
+    tags: ["드라이버 정확도", "초보 레슨", "임팩트 교정"] 
+},
+{ 
+    id: 25, 
+    name: "정우진 스승", 
+    phone: "01086668619",
+    lessonTypes: ["1:1 레슨", "숏게임레슨", "파3 레슨", "18홀 필드레슨"], 
+    activeLocations: ["강남", "서초", "분당", "용인"], 
+    specialties: ["트러블샷", "드라이버", "비거리", "배치기교정"],
+    price: 120000, 
+    rating: 5.0, 
+    review: 105, 
+    img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/jwj.webp", 
+    intro: "국가대표 상비군 출신, DP월드투어 및 한국오픈 출전 실전 타수 관리 전문", 
+    career: "국가대표 상비군, 중국 투어 우승, DP월드투어 및 코오롱 한국오픈 출전",
+    lessonCount: 244,
+    priceRange: "11~12만원",
+    reviewHighlight: "필드 트러블샷 및 미스샷 즉시 해결",
+    reasons: ["국가대표 상비군 출신의 코스 라이별 실전 트러블샷 요령 전수", "헤드가 열려 맞거나 밀려 나가는 드라이버 슬라이스 교정", "타구가 뜨고 정타가 안 나는 배치기 및 뒤땅 현상 원인 해결"],
+    tags: ["필드 레슨", "비거리 증가", "임팩트 교정"] 
+},
+{ 
+    id: 26, 
+    name: "소민수 스승", 
+    phone: "01080609497",
+    lessonTypes: ["1:1 레슨"], 
+    activeLocations: ["대치", "도곡", "개포", "강남"], 
+    specialties: ["비거리증가", "슬라이스", "캐스팅", "뒤땅/탑볼"],
+    price: 180000, 
+    rating: 4.9, 
+    review: 258, 
+    img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/sms.webp", 
+    intro: "18년 교습 경력, 다른 곳에서 고치지 못한 고질적인 스윙 오류 교정 전문", 
+    career: "PGA 프로 자격 인증, 18년 레슨 경력, 입문부터 싱글까지 다수 배출",
+    lessonCount: 420,
+    priceRange: "16~18만원",
+    reviewHighlight: "오래된 안 좋은 스윙 습관 교정",
+    reasons: ["18년 베테랑의 안 고쳐지는 고질적인 백스윙 및 다운스윙 원인 분석", "드라이버 슬라이스 교정 및 손목 풀림 현상 즉각 해결", "웨지 샷 뒤땅 방지 및 퍼팅 정렬 오류 집중 조율"],
+    tags: ["자세 교정", "슬라이스 교정", "비거리 증가"] 
+},
+{ 
+    id: 27, 
+    name: "김민성 스승", 
+    phone: "01057380816",
+    lessonTypes: ["1:1 레슨"], 
+    activeLocations: ["송파", "잠실", "문정", "강남"], 
+    specialties: ["드라이버", "우드/유틸", "체중이동", "슬라이스"],
+    price: 60000, 
+    rating: 4.9, 
+    review: 128, 
+    img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/kms.webp", 
+    intro: "KPGA 투어프로, 나이키 장타대회 우승 출신의 비거리 및 구질 교정 전문", 
+    career: "KPGA 정회원 투어프로, 나이키골프 코리아 장타대회 우승, 넥스트 오픈 우승",
+    lessonCount: 210,
+    priceRange: "6만원",
+    reviewHighlight: "체중이동 오류 및 배치기 습관 교정",
+    reasons: ["장타대회 우승 노하우 기반 올바른 하체 체중이동 시퀀스 전수", "헤드가 밀려 맞아 발생하는 드라이버 슬라이스 및 훅 구질 해결", "임팩트 순간 몸이 일어서는 배치기 현상 원인 차단"],
+    tags: ["비거리 증가", "체중이동", "슬라이스 교정"] 
+},
+{ 
+    id: 28, 
+    name: "이준우 스승", 
+    phone: "01086965977",
+    lessonTypes: ["1:1 레슨"], 
+    activeLocations: ["청담", "압구정", "신사", "강남"], 
+    specialties: ["자세교정", "오버스윙", "캐스팅", "배치기교정"],
+    price: 150000, 
+    rating: 4.7, 
+    review: 28, 
+    img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/ljw.webp", 
+    intro: "USGTF 티칭프로, 신체 조건 맞춤 스윙 자세 및 오버스윙 교정 전문", 
+    career: "USGTF 티칭프로 자격 인증, 최초 1회 무료 원포인트 이벤트 진행 중",
+    lessonCount: 61,
+    priceRange: "첫회무료 / 15만원",
+    reviewHighlight: "부담 없는 첫 회 무료 테스트 레슨 만족",
+    reasons: ["플랫폼 한정 최초 1회 무료 세션을 통한 스윙 성향 정밀 진단", "백스윙 탑에서 축이 무너지는 오버스윙 및 손목 풀림 교정", "임팩트 시 몸이 일어서는 배치기 현상 신체 맞춤형 피드백"],
+    tags: ["자세 교정", "초보 레슨", "우드/유틸 활용"] 
+},
+{ 
+    id: 29, 
+    name: "강예빈 스승", 
+    phone: "01083590533",
+    lessonTypes: ["1:1 레슨", "숏게임레슨", "파3 레슨"], 
+    activeLocations: ["잠실", "송파", "문정", "강남"], 
+    specialties: ["바디스윙", "오버스윙", "체중이동", "슬라이스"],
+    price: 50000, 
+    rating: 4.8, 
+    review: 52, 
+    img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/kyb.webp", 
+    intro: "USGTF 티칭프로, 주니어 및 입문 골퍼 대상 스윙 자세 교정 전문", 
+    career: "USGTF 티칭프로 자격 인증, 최초 1회 체험 3만원 이벤트 진행",
+    lessonCount: 680,
+    priceRange: "3~5만원",
+    reviewHighlight: "입문 골퍼 눈높이에 맞춘 쉬운 레슨",
+    reasons: ["골린이 및 주니어 골퍼를 위한 단계별 스윙 아크 정립", "백스윙 탑 축이 흔들리는 오버스윙 및 체중이동 오류 교정", "그린 주변 웨지 샷 조율 및 외부 실전 필드 매칭"],
+    tags: ["초보 레슨", "자세 교정", "체중이동"] 
+},
+{ 
+    id: 30, 
+    name: "안병현 스승", 
+    phone: "01066421234",
+    lessonTypes: ["1:1 레슨", "숏게임레슨"], 
+    activeLocations: ["분당", "판교", "정자", "용인"], 
+    specialties: ["생크교정", "뒤땅/탑볼", "숏게임", "퍼터"],
+    price: 150000, 
+    rating: 4.9, 
+    review: 86, 
+    img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/abh.webp", 
+    intro: "티칭프로, 퍼팅 아카데미 지도자 출신의 숏게임 및 타수 관리 전문", 
+    career: "티칭프로 자격 인증, 팀글로리어스 골프퍼포먼스 지도자과정 수료",
+    lessonCount: 1400,
+    priceRange: "14~15만원",
+    reviewHighlight: "그린 주변 웨지 샷 및 퍼팅 실전 감각 개선",
+    reasons: ["그린 주변 웨지 터치 정밀 수정을 통한 뒤땅 및 탑볼 교정", "퍼터 페이스 앵글 정렬 오류 조율 및 꼼꼼한 실전 피드백", "갑자기 터지는 고질적인 아이언 생크 현상 즉각 원인 해결"],
+    tags: ["숏게임 레슨", "퍼팅 거리감", "생크 교정"] 
+}
 ];
 
        const FieldReviewSection = () => {
@@ -725,24 +965,37 @@ const JoinBoard = ({ setFormOpen }) => {
     ];
 
     const proPhoneMap = {
-        "곽시랑 스승": "01039853985",
-        "서수연 스승": "01094856241", 
-        "조이현 스승": "01056323190",
-        "석준형 스승": "01054263433",
-        "홍주연 스승": "01039969628", 
-        "양형철 스승": "01093996255",
-        "조동요 스승": "01026578395",
-        "공나연 스승": "01036012385", 
-        "이원영 스승": "01075397997",
-        "유민혁 스승": "01083924008",
-        "강도윤 스승": "01077587383", 
-        "김지영 스승": "01071595448",
-        "이상준 스승": "01041900478",
-        "권두욱 스승": "01040134484",
-        "이근협 스승": "01050278421",
-        "강소율 스승": "01099348472",
-        "권민규 스승": "01093377132",
-    };
+    "곽시랑 스승": "01039853985",
+    "서수연 스승": "01094856241", 
+    "조이현 스승": "01056323190",
+    "석준형 스승": "01054263433",
+    "홍주연 스승": "01039969628", 
+    "양형철 스승": "01093996255",
+    "조동요 스승": "01026578395",
+    "공나연 스승": "01036012385", 
+    "이원영 스승": "01075397997",
+    "유민혁 스승": "01083924008",
+    "강도윤 스승": "01077587383", 
+    "김지영 스승": "01071595448",
+    "이상준 스승": "01041900478",
+    "권두욱 스승": "01040134484",
+    "이근협 스승": "01050278421",
+    "강소율 스승": "01099348472",
+    "권민규 스승": "01093377132",
+    "허민형 스승": "01020601838",
+    "강희진 스승": "01050622964",
+    "김숙정 스승": "01033559555",
+    "김혜연 스승": "01056993889",
+    "김도한 스승": "01040239665",
+    "박민성 스승": "01038672441",
+    "김형준 스승": "01046210766",
+    "정우진 스승": "01086668619",
+    "소민수 스승": "01080609497",
+    "김민성 스승": "01057380816",
+    "이준우 스승": "01086965977",
+    "강예빈 스승": "01083590533",
+    "안병현 스승": "01066421234"
+};
 
     return html`
         <section className="px-0 py-8 max-w-screen-xl mx-auto bg-white text-left overflow-hidden">
@@ -1214,7 +1467,7 @@ if (step === 1) {
     <section className="px-5 py-8 bg-white overflow-hidden text-center">
         <div className="max-w-screen-xl mx-auto flex flex-col items-center">
             
-          <div className="reveal max-w-3xl w-full flex flex-col items-center">
+        <div className="reveal max-w-3xl w-full flex flex-col items-center">
     <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 text-brand-blue rounded-full text-[11px] font-black uppercase tracking-wider mb-4">
         ⛳ 스승님은 무슨 회사인가요?
     </div>
@@ -1223,23 +1476,21 @@ if (step === 1) {
         OUR MISSION
     </div>
 
-  <h3 className="text-xl md:text-3xl font-black text-slate-900 tracking-tight leading-tight mb-4 text-center break-keep">
-    내가 필요한 골프레슨을 찾는 가장 쉬운 방법<br />
-    <span className="text-brand-blue block sm:inline mt-1 sm:mt-0">실력 향상에 필요한 레슨만 요청하세요</span>
-</h3>
+    <h3 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight leading-[1.3] mb-5 text-center break-all sm:break-keep">
+        내가 필요한 골프레슨을 찾는 가장 쉬운 방법<br />
+        <span className="text-brand-blue">실력 향상에 필요한 레슨만 요청하세요</span>
+    </h3>
     
-<div className="text-slate-500 text-sm md:text-base font-bold tracking-tight break-keep leading-relaxed opacity-95 mb-6 text-center px-5">
-    <p>AI 추천을 통해 나에게 딱 맞는 검증된 스승님을 만나보세요.</p>
-    <p className="text-xs md:text-sm text-slate-400 font-medium pt-1.5">
-        합리적인 비용으로 더 높은 만족도를 만드는 새로운 골프레슨 플랫폼입니다.
-    </p>
-  </div>
+    <div className="text-slate-500 text-base md:text-xl font-bold tracking-tight break-keep leading-relaxed opacity-95 mb-8 text-center px-4">
+        <p>AI 추천을 통해 나에게 딱 맞는 검증된 스승님을 만나보세요.</p>
+        <p className="text-sm md:text-base text-slate-400 font-medium pt-2">합리적인 비용으로 더 높은 만족도를 만드는 새로운 골프레슨 플랫폼입니다.</p>
+    </div>
 </div>
 
             <div className="grid grid-cols-3 gap-2 bg-slate-50 p-5 rounded-[2rem] text-center border border-slate-100 shadow-sm max-w-2xl w-full">
                 <div>
                     <p className="text-[10px] md:text-xs font-black text-slate-400 mb-1">서비스 이용 골퍼</p>
-                    <p className="text-lg md:text-2xl font-black text-slate-800">3,260명+</p>
+                    <p className="text-lg md:text-2xl font-black text-slate-800">2,600명+</p>
                 </div>
                 <div className="border-x border-slate-200">
                     <p className="text-[10px] md:text-xs font-black text-slate-400 mb-1">검증된 스승</p>
@@ -1456,7 +1707,7 @@ if (step === 1) {
                     </div>
                     <div className="flex items-center gap-2.5 group">
                         <i className="fa-solid fa-circle-check text-brand-blue text-base transition-transform group-hover:scale-110"></i> 
-                        <span>내가 원하는대로 스승님에게 맞춤 요청</span>
+                        <span>내가 원하는 가격으로 맞춤 스승님에게 직접 요청</span>
                     </div>
                     <div className="flex items-center gap-2.5 group">
                         <i className="fa-solid fa-circle-check text-brand-blue text-base transition-transform group-hover:scale-110"></i> 
@@ -1568,10 +1819,10 @@ if (step === 1) {
                     실제 골프 현장에서 스승님을 만나보세요
                 </h2>
                 
-               <p class="text-slate-500 text-xs md:text-sm font-bold mb-8 tracking-tight max-w-xl mx-auto opacity-80 text-center break-all sm:break-keep">
-    현재 용인플라자, 서서울, H1 등 수도권 주요 골프장 매체에서 
-    <br/>
-    스승님 AI 맞춤 레슨 광고가 실시간 송출되고 있습니다.
+                <p class="text-slate-500 text-xs md:text-sm font-bold mb-8 tracking-tight max-w-xl mx-auto opacity-80 text-center break-all sm:break-keep">
+    현재 용인플라자, 서서울, 에이치원 등 수도권 주요 골프장 및 현장 매체에서 
+    <br class="hidden sm:inline" />
+    스승님의 AI 맞춤 레슨 광고가 실제 송출되고 있습니다.
 </p>
 
                 <div className="flex gap-4 overflow-x-auto pb-4 px-5 snap-x no-scrollbar justify-start md:justify-center">
@@ -1624,7 +1875,7 @@ if (step === 1) {
             <!-- 제목 영역 (대표님 피드백 100% 반영) -->
             <div class="text-center mb-6 md:mb-10 reveal">
                 <h2 class="text-2xl md:text-5xl font-black text-slate-850 leading-tight tracking-tight">
-                    내 골프 실력,<br/> 왜 레슨을 받아도 <span class="text-red-500">제자리걸음</span>일까?
+                    내 골프 실력, 왜 레슨을 받아도 <span class="text-red-500">제자리걸음</span>일까?
                 </h2>
                 <div class="text-slate-500 font-bold mt-2 text-sm md:text-xl tracking-tight leading-relaxed text-center">
                     <p>돈도 시간도 쓰고 있는데,<br class="inline sm:hidden" /> 왜 스코어는 그대로일까요?</p>
@@ -1885,12 +2136,12 @@ const EventSection = () => html`
                     요청은 <span className="relative inline-block">
                         <span className="relative z-10 text-brand-blue">간단하게</span>
                         <span className="absolute bottom-0.5 left-0 w-full h-2 bg-blue-50 rounded-sm"></span>
-                    </span>!<br />
-                    레슨 만족은 더 확실하게!
+                    </span>.<br />
+                    레슨 경험은 더 확실하게!
                 </h2>
                 <p className="text-slate-500 font-bold text-[13px] tracking-tight leading-relaxed">
                     원하는대로 요청서를 주시면<br />
-                    최적의 스승님을 찾아드릴게요
+                    최적의 스승님을 찾아드릴게요.
                 </p>
             </div>
 
@@ -1900,7 +2151,7 @@ const EventSection = () => html`
                         <i className="fas fa-shield-alt"></i>
                     </div>
                     <div>
-                        <h4 className="font-black text-[13px] mb-0.5 text-slate-900">불편사항 운영팀 조율</h4>
+                        <h4 className="font-black text-[13px] mb-0.5 text-slate-900">불편사항 직접 조율</h4>
                         <p className="text-slate-500 font-bold text-[11px] leading-snug">
                             결제 후 문제가 생기면 운영팀이 직접 확인하고 신속하게 도와드립니다.
                         </p>
@@ -2358,83 +2609,95 @@ const EventSection = () => html`
 };
 
     // 분기 2: 프로 추천 결과 리스트 스크린
-    if (step === 6) {
-        const isFixedPrice = formData.lessonType === '1:1 레슨';
-        return html`
-            <div className="animate-slide-up text-left max-h-[85vh] overflow-y-auto no-scrollbar pb-10">
-                <div className="mb-4">
-                    <h3 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-2">
-                        🤖 AI TOP3 추천 스승님 <span className="text-brand-blue bg-blue-50 px-2.5 py-0.5 rounded-full text-[10px] uppercase font-black">TOP 3</span>
-                    </h3>
-                    <p className="text-slate-400 font-bold text-xs mt-1">
-                        ${isFixedPrice ? "🎯 문제를 빠르게 해결할 수 있는 [1:1 레슨] 스승님 TOP3에요" : "⛳ 스코어를 확실히 줄일 수 있는 [외부 실전 레슨] 스승님 TOP3에요."}
-                    </p>
-                </div>
-                
-               <div className="space-y-5 mb-6">
-
-    ${results.map(p => html`
-        <div key=${p.id} onClick=${() => { setSelectedPro(p); }} 
-        className=${`p-5 md:p-6 rounded-[2.5rem] border-2 transition-all cursor-pointer flex flex-col relative overflow-hidden active:scale-95 ${selectedPro?.id === p.id ? 'selected-card bg-blue-50 ring-8 ring-blue-50/50 border-brand-blue' : 'border-slate-100 bg-white shadow-sm'}`}>
+   if (step === 6) {
+    const isFixedPrice = formData.lessonType === '1:1 편';
+    return html`
+        <div className="animate-slide-up text-left max-h-[85vh] overflow-y-auto no-scrollbar pb-10">
+            <div className="mb-4">
+                <h3 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-2">
+                    🤖 AI TOP3 정밀 매칭 스승님 <span className="text-brand-blue bg-blue-50 px-2.5 py-0.5 rounded-full text-[10px] uppercase font-black">소비자 만족도 순</span>
+                </h3>
+                <p className="text-slate-400 font-bold text-xs mt-1">
+                    ${isFixedPrice ? "🎯 입력하신 골프 고민을 '최단기간'에 해결할 수 있는 스승님입니다." : "⛳ 스코어를 확실히 줄일 수 있는 [외부 실전 레슨] 전문가 선별 완료"}
+                </p>
+            </div>
             
-            <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
-                <div className="flex gap-1.5">
-                    <span className="text-[9px] bg-blue-600 text-white px-2 py-0.5 rounded-full font-black">
-                        AI 매칭 ${p.displayScore}%
-                    </span>
-                    <span className="text-[9px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full font-bold">
-                        ${p.career.split(',')[0].split('|')[0].trim()}
-                    </span>
-                </div>
-                <div className="flex items-center gap-1 bg-amber-50 px-2 py-0.5 rounded-full">
-                    <${Star} size=${10} fill="#fbbf24" className="text-amber-400" />
-                    <span className="text-[10px] font-black text-amber-700">${p.rating}</span>
-                    <span className="text-[10px] font-bold text-amber-600/70">(${p.review.toLocaleString()}개)</span>
-                </div>
-            </div>
+            <div className="space-y-5 mb-6">
+                ${results.map(p => html`
+                    <div key=${p.id} onClick=${() => { setSelectedPro(p); }} 
+                    className=${`p-5 md:p-6 rounded-[2.5rem] border-2 transition-all cursor-pointer flex flex-col relative overflow-hidden active:scale-95 ${selectedPro?.id === p.id ? 'selected-card bg-blue-50 ring-8 ring-blue-50/50 border-brand-blue' : 'border-slate-100 bg-white shadow-sm'}`}>
+                        
+                        <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
+                            <div className="flex gap-1.5 items-center">
+                                <span className="text-[9px] bg-blue-600 text-white px-2 py-0.5 rounded-full font-black">
+                                    적합도 ${p.displayScore}%
+                                </span>
+                                <span className="text-[9px] bg-emerald-50 text-emerald-700 border border-emerald-200/60 px-2 py-0.5 rounded-full font-black flex items-center gap-0.5">
+                                    <i className="fa-solid fa-badge-check"></i> 소속 자격 검증완료
+                                </span>
+                            </div>
+                            <div className="flex items-center gap-1 bg-amber-50 px-2 py-0.5 rounded-full">
+                                <${Star} size=${10} fill="#fbbf24" className="text-amber-400" />
+                                <span className="text-[10px] font-black text-amber-700">${p.rating}</span>
+                                <span className="text-[10px] font-bold text-amber-600/70">(${p.review}개 핵심 후기)</span>
+                            </div>
+                        </div>
 
-            <div className="flex items-start gap-4">
-                <img src=${p.img} className="w-20 h-20 rounded-3xl object-cover shadow-sm shrink-0 border-2 border-white" loading="lazy" />
-                <div className="flex-1 min-w-0">
-                    <h4 className="font-black text-slate-900 text-xl truncate">${p.name}</h4>
-                    <p className="text-slate-600 text-[13px] leading-tight font-medium break-keep mt-2">"${p.intro}"</p>
-                </div>
-            </div>
+                        <div className="flex items-start gap-4">
+                            <div className="relative shrink-0">
+                                <img src=${p.img} className="w-20 h-20 rounded-3xl object-cover shadow-sm border-2 border-white" loading="lazy" />
+                                <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[8px] font-black px-1.5 py-0.5 rounded-md whitespace-nowrap tracking-tighter">
+                                    누적 ${p.lessonCount.toLocaleString()}회+
+                                </div>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-1.5">
+                                    <h4 className="font-black text-slate-900 text-xl truncate">${p.name}</h4>
+                                    <span className="text-[11px] text-slate-400 font-bold">${p.career.split(',')[0]}</span>
+                                </div>
+                                <p className="text-slate-600 text-[13px] leading-tight font-medium break-keep mt-1.5">"${p.intro}"</p>
+                            </div>
+                        </div>
 
-            <div className="flex flex-wrap gap-1.5 mt-4">
-                ${p.tags.slice(0, 3).map(tag => html`<span key=${tag} className="px-2.5 py-1 rounded-full border border-blue-100 text-blue-600 text-[10px] font-black bg-white">#${tag}</span>`)}
-            </div>
+                        <div className="flex flex-wrap gap-1.5 mt-4">
+                            ${p.tags.slice(0, 3).map(tag => html`<span key=${tag} className="px-2.5 py-1 rounded-full border border-blue-100 text-blue-600 text-[10px] font-black bg-white">👍 ${tag} 해결</span>`)}
+                        </div>
 
-            <div className="p-3 rounded-2xl bg-slate-50/80 border border-slate-100 mt-4 text-left">
-                <p className="text-[9px] font-black text-slate-400 mb-1.5 uppercase tracking-widest">승이의 추천 솔루션</p>
-                <ul className="space-y-1">
-                    ${p.reasons.map((r, i) => html`
-                        <li key=${i} className="text-[11px] font-bold text-slate-600 flex gap-1 items-start">
-                            <span className="text-blue-500 shrink-0">•</span>
-                            <span className="break-keep leading-tight">${r}</span>
-                        </li>
-                    `)}
-                </ul>
+                        <div className="p-3.5 rounded-2xl bg-slate-50/80 border border-slate-100 mt-4 text-left">
+                            <p className="text-[9px] font-black text-slate-400 mb-1.5 uppercase tracking-widest">승이의 추천 이유</p>
+                            <ul className="space-y-1">
+                                ${p.reasons.map((r, i) => html`
+                                    <li key=${i} className="text-[11px] font-bold text-slate-600 flex gap-1 items-start">
+                                        <span className="text-blue-500 shrink-0">✓</span>
+                                        <span className="break-keep leading-tight text-slate-700">${r}</span>
+                                    </li>
+                                `)}
+                            </ul>
+                        </div>
+
+                        <div className="mt-3 px-3 py-2 bg-blue-50/40 rounded-xl border border-blue-100/30 flex items-center gap-1.5 text-[10px] font-bold text-blue-600">
+                            <i className="fa-solid fa-shield-check"></i>
+                            <span>스승님 안심보장: 첫 레슨 후 불만족 시 100% 환불됩니다.</span>
+                        </div>
+                    </div>
+                `)}
+            </div>
+            
+            <div className="flex flex-col gap-2">
+                <button 
+                    disabled=${!selectedPro} 
+                    onClick=${() => {
+                        if (isFixedPrice) { setStep(6.5); } else { setStep(6.6); }
+                    }}
+                    className="w-full gradient-blue text-white font-black py-5 text-base rounded-3xl shadow-xl active:scale-95 transition-all disabled:opacity-50"
+                >
+                    선택한 스승님께 레슨 신청하기
+                </button>
+                <button onClick=${() => startAnalysis(null)} className="text-center text-xs font-bold text-slate-400 py-2">🔄 다른 스승님 매칭 리스트 보기</button>
             </div>
         </div>
-    `)}
-</div>
-                
-                <div className="flex flex-col gap-2">
-                    <button 
-                        disabled=${!selectedPro} 
-                        onClick=${() => {
-                            if (isFixedPrice) { setStep(6.5); } else { setStep(6.6); }
-                        }}
-                        className="w-full gradient-blue text-white font-black py-5 text-base rounded-3xl shadow-xl active:scale-95 transition-all disabled:opacity-50"
-                    >
-                        선택한 스승님 상세 요청하기
-                    </button>
-                    <button onClick=${() => startAnalysis(null)} className="text-center text-xs font-bold text-slate-400 py-2">🔄 마음에 드는 스승님이 없어요</button>
-                </div>
-            </div>
-        `;
-    }
+    `;
+}
 
     // 분기 3: 1:1 패키지 조건 명세서 입력창
     // STEP 6.5: 1:1 레슨 패키지 플랜 선택 + [완벽 복구] 1회 맞춤 체험 가격 제안 폼
