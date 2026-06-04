@@ -2614,9 +2614,10 @@ const EventSection = () => html`
     return html`
         <div className="animate-slide-up text-left max-h-[85vh] overflow-y-auto no-scrollbar pb-10">
             <div className="mb-4">
-                <h3 className="text-2xl font-black text-slate-800 tracking-tight flex items-center gap-2">
-                    🤖 AI TOP3 정밀 매칭 스승님 <span className="text-brand-blue bg-blue-50 px-2.5 py-0.5 rounded-full text-[10px] uppercase font-black">소비자 만족도 순</span>
-                </h3>
+                <h3 className="text-lg md:text-2xl font-black text-slate-800 tracking-tight flex items-center flex-wrap gap-1.5 leading-tight">
+    <span>🤖 AI TOP3 정밀 매칭 스승님</span> 
+    <span className="text-brand-blue bg-blue-50 px-2 py-0.5 rounded-full text-[9px] md:text-[10px] uppercase font-black tracking-tighter inline-block align-middle">소비자 만족도 순</span>
+</h3>
                 <p className="text-slate-400 font-bold text-xs mt-1">
                     ${isFixedPrice ? "🎯 입력하신 골프 고민을 '최단기간'에 해결할 수 있는 스승님입니다." : "⛳ 스코어를 확실히 줄일 수 있는 [외부 실전 레슨] 전문가 선별 완료"}
                 </p>
