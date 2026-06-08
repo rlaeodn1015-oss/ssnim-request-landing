@@ -9,7 +9,6 @@
   window.karrotPixel.track('ViewPage');
 </script>
 
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3YC9WJBPMZ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -301,7 +300,7 @@
     { 
         id: 5, 
         name: "홍주연 스승",
-        phone: "01039969628",
+        phone: "01033969628",
         lessonTypes: ["1:1 레슨", "숏게임레슨"],
         activeLocations: ["강남", "서초", "압구정", "신사", "청담"],
         specialties: ["숏아이언", "비거리", "스윙교정", "배치기교정", "초보레슨", "키즈골프"],
@@ -490,7 +489,7 @@
     },
     { 
         id: 15, 
-        name: "이근협 스승",
+        name: "이근협 스승", 
         phone: "01050278421",
         lessonTypes: ["1:1 레슨", "18홀 필드레슨"],
         activeLocations: ["분당", "수원", "영통", "광교", "판교", "정자"],
@@ -509,7 +508,7 @@
     },
     { 
         id: 16, 
-        name: "강소율 스승",
+        name: "강소율 스승", 
         phone: "01099348472",
         lessonTypes: ["1:1 레슨", "파3 레슨", "숏게임 레슨"],
         activeLocations: ["분당", "용인", "판교", "정자", "수지"],
@@ -855,7 +854,7 @@ const ReviewPhotoSlider = () => {
                 <span class="inline-block px-3 py-1 bg-brand-blue/10 text-brand-blue font-black rounded-full text-[10px] mb-3 tracking-widest uppercase">Real Reviews</span>
                 <h3 class="text-[20px] font-black text-slate-850 tracking-tight leading-snug mb-2">
                     이미 많은 골퍼들이 승이와 함께<br/>
-                    <span class="text-brand-blue">골프의 즐거움</span>을 찾고 있어요♥️
+                    핵심 골프고민을 시원하게 해결하고 있어요♥️
                 </h3>
                 <p class="text-[12px] font-bold text-slate-400">레슨 만족도 99%, 직접 경험하세요</p>
             </div>
@@ -964,7 +963,7 @@ const JoinBoard = ({ setFormOpen }) => {
     "서수연 스승": "01094856241", 
     "조이현 스승": "01056323190",
     "석준형 스승": "01054263433",
-    "홍주연 스승": "01039969628", 
+    "홍주연 스승": "01033969628", 
     "양형철 스승": "01093996255",
     "조동요 스승": "01026578395",
     "공나연 스승": "01036012385", 
@@ -1009,11 +1008,7 @@ const JoinBoard = ({ setFormOpen }) => {
             <div className="flex gap-3 px-6 overflow-x-auto no-scrollbar snap-x snap-mandatory">
                 ${joinData.map(item => {
                     const proPhone = proPhoneMap[item.pro] || "01025991095";
-                    
-                    // 💡 [개선] 결제 누락 및 이탈자 정밀 아웃바운드 콜을 추적하기 위한 고유 고유키(requestId)를 여기서 미리 생성
                     const requestId = `JOIN_${item.id}_${new Date().getTime()}`;
-                    
-                    // 💡 [비즈니스 로직 수정] pay.html로 넘길 때 가짜 고객명과 번호는 걷어내고, 시트 생성에 필요한 원본 메타데이터 항목(personCount, include)을 주소창에 태워 안전하게 토스합니다.
                     const payUrl = `pay.html?price=${item.price}&type=${encodeURIComponent(item.title)}&requestId=${requestId}&LOCATION=${encodeURIComponent(item.loc)}&selectedPro=${encodeURIComponent(item.pro)}&proPhone=${proPhone}&schedule=${encodeURIComponent(item.time)}&personCount=${encodeURIComponent(item.type)}&include=${encodeURIComponent(item.include)}`;
 
                     const handleJoinClick = () => {
@@ -1025,9 +1020,6 @@ const JoinBoard = ({ setFormOpen }) => {
                                 'price': item.price
                             });
                         }
-
-                        // 💡 [대형 사고 차단] 기존의 더미 데이터 적재용 fetch() 원천 삭제 처리
-                        // 버튼을 누르는 시점에는 서버 통신을 차단하고, 최종 결제창의 실명 입력 베이스로 데이터 무결성을 보장합니다.
                         window.location.href = payUrl;
                     };
                     
@@ -1052,7 +1044,7 @@ const JoinBoard = ({ setFormOpen }) => {
                             <div>
                                 <div className="flex items-baseline gap-1.5 mb-3 bg-slate-50 p-2.5 rounded-2xl justify-center">
                                     <span className="text-slate-800 font-black text-xl">${(item.price / 10000)}만</span>
-                                    <span className="text-slate-300 text-[10px] line-through font-bold">${item.origin}</span>
+                                    <span className="text-slate-333 text-[10px] line-through font-bold">${item.origin}</span>
                                 </div>
                                 
                                 <div className="flex gap-1.5">
@@ -1169,7 +1161,6 @@ const ProApplyFlow = ({ setModalOpen }) => {
     const [step, setStep] = React.useState(1);
     const [proData, setProData] = React.useState({ 
         name: '', phone: '', 
-        // 🛠️ style(주력레슨) 제거 후 5단계 가격 상태 유지
         price1: '', price3: '', price5: '', price8: '', price10: '',
         location: '', intro: '', career: '', 
         lessonCount: '', specialty: '', 
@@ -1180,7 +1171,6 @@ const ProApplyFlow = ({ setModalOpen }) => {
         const currentName = (proData.name || "").trim();
         const currentContact = (proData.phone || "").replace(/[^0-9]/g, '');
 
-        // 🛡️ 1단계: 성함 검증
         if (!/^[가-힣]{2,5}$/.test(currentName)) { 
             alert("성함은 한글 실명(2~5자)으로 정확히 입력해 주세요."); 
             return; 
@@ -1190,7 +1180,6 @@ const ProApplyFlow = ({ setModalOpen }) => {
             return;
         }
 
-        // 🛡️ 2단계: 연락처 검증
         if (currentContact.length < 10 || currentContact.length > 11) {
             alert("올바른 연락처를 10~11자리로 입력해 주세요.");
             return;
@@ -1210,7 +1199,6 @@ const ProApplyFlow = ({ setModalOpen }) => {
             return;
         }
 
-        // 🛡️ 3단계: 금지 키워드 필터링
         const forbiddenKeywords = [
             '카톡', '카카오', '인스타', 'insta', '인별', '잉스타', '스타', '인스타그램', '잉스타그램', '익스타', '임스타', 'instagram', 'dm', 'link', 'kakao', '라인', 'line', 
             '공일공', '오픈채팅', '옵챗', '텔레그램', '영일영', '전화', '카.톡', '연락처', '리틀리', 'littly', 
@@ -1224,14 +1212,11 @@ const ProApplyFlow = ({ setModalOpen }) => {
             return;
         }
 
-        const BOT_TOKEN = "8696133005:AAF8Uh6gK0hufHuQyufAkmZhUcjGpYCAxzE";
-        const CHAT_ID = "5955006042";
-
         const msg = `🚩 [신규 스승님 등록 데이터]\n\n` +
                     `{ \n` +
                     `  name: "${currentName}",\n` +
                     `  phone: "${currentContact}",\n` +
-                    `  style: "1:1 레슨",\n` + // 고정값으로 정비 완료
+                    `  style: "1:1 레슨",\n` + 
                     `  prices: {\n` +
                     `    1회: "${proData.price1 ? (proData.price1/10000) + '만원' : '미입력'}",\n` +
                     `    3회: "${proData.price3 ? (proData.price3/10000) + '만원' : '미입력'}",\n` +
@@ -1261,7 +1246,25 @@ const ProApplyFlow = ({ setModalOpen }) => {
         } catch (e) { alert("전송 실패"); }
     };
 
-if (step === 1) {
+    if (step === 2) {
+        return html`
+            <div className="text-center py-10">
+                <div className="w-20 h-20 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i className="fa-solid fa-check text-4xl"></i>
+                </div>
+                <h3 className="text-2xl font-black text-slate-800 mb-2">스승 등록 요청 성공</h3>
+                <p className="text-slate-500 font-bold">스승님 운영팀에게<br/>프로필 정보가 전달되었습니다.</p>
+                <button onClick=${() => setModalOpen(false)} className="w-full mt-10 bg-slate-900 text-white font-black py-4 rounded-2xl">닫기</button>
+            </div>
+        `;
+    }
+
+    if (step === 0) {
+        setModalOpen(false);
+        return html`<div></div>`;
+    }
+
+    // 디폴트 매핑 기조 정비 (step === 1)
     const clubs = ['드라이버', '우드/유틸', '롱아이언', '숏아이언', '웨지/숏게임', '퍼터'];
     const categories = {
         "웨지/어프로치": ['100m 이내 거리 조절', '어프로치 거리감', '로브샷/피치샷', '웨지 스핀 컨트롤', '짧은 거리 뒤땅', '붙이는 어프로치', '다운블로 컨택', '웨지 정확도'],
@@ -1288,11 +1291,10 @@ if (step === 1) {
         else alert("전문 분야는 최대 5개까지만 선택 가능합니다.");
     };
 
-    // 필수 항목 검증: 이름, 연락처, 지역, 가격, 클럽(최소1개), 태그(최소1개)
     const isFormValid = 
     (proData.name || "").trim().length >= 2 && 
     (proData.phone || "").trim().length >= 10 && 
-    (proData.licenseNumber || "").trim().length >= 5 && // 자격증 번호 필수 검증 (최소 5글자 이상)
+    (proData.licenseNumber || "").trim().length >= 5 && 
     (proData.location || "").trim().length > 0 && 
     (proData.price1 || "").toString().trim().length > 0 &&
     (proData.clubs || []).length > 0 &&
@@ -1306,17 +1308,16 @@ if (step === 1) {
             
             <div class="space-y-8 max-h-[65vh] overflow-y-auto pr-3 no-scrollbar pb-10">
                 <div className="space-y-3">
-    <p className="text-[12px] font-black text-brand-blue flex items-center gap-1">
-        <i className="fa-solid fa-user"></i> 누구신가요? <span className="text-rose-500">*필수</span>
-    </p>
-    <div className="grid grid-cols-2 gap-2">
-        <input placeholder="성함 (예: 김대우)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-sm" onInput=${(e) => setProData({...proData, name: e.target.value})} />
-        <input placeholder="연락처 (예: 01012345678)" type="tel" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-sm" onInput=${(e) => setProData({...proData, phone: e.target.value})} />
-    </div>
-    <input placeholder="공식 자격증 번호 (예: KPGA-123456)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-sm" onInput=${(e) => setProData({...proData, licenseNumber: e.target.value})} />
-    
-    <input placeholder="활동 지역 (예: 강남, 서초, 송파)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-sm" onInput=${(e) => setProData({...proData, location: e.target.value})} />
-</div>
+                    <p className="text-[12px] font-black text-brand-blue flex items-center gap-1">
+                        <i className="fa-solid fa-user"></i> 누구신가요? <span className="text-rose-500">*필수</span>
+                    </p>
+                    <div className="grid grid-cols-2 gap-2">
+                        <input placeholder="성함 (예: 김대우)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-sm" onInput=${(e) => setProData({...proData, name: e.target.value})} />
+                        <input placeholder="연락처 (예: 01012345678)" type="tel" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-sm" onInput=${(e) => setProData({...proData, phone: e.target.value})} />
+                    </div>
+                    <input placeholder="공식 자격증 번호 (예: KPGA-123456)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-sm" onInput=${(e) => setProData({...proData, licenseNumber: e.target.value})} />
+                    <input placeholder="활동 지역 (예: 강남, 서초, 송파)" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-sm" onInput=${(e) => setProData({...proData, location: e.target.value})} />
+                </div>
 
                 <div class="space-y-3">
                     <p class="text-[12px] font-black text-brand-blue">자신있는 클럽 (최대 2개 선택) <span class="text-rose-500">*필수</span></p>
@@ -1339,34 +1340,33 @@ if (step === 1) {
                     `)}
                 </div>
 
-                // [1회 단가 입력 하나로 줄인 UI]
-<div class="space-y-3">
-    <p class="text-[12px] font-black text-brand-blue">
-        <i class="fa-solid fa-won-sign"></i> 1회 레슨 정찰제 금액 <span class="text-rose-500">*필수</span>
-    </p>
-    <div className="relative">
-        <input 
-            placeholder="1회 레슨비 (원)" 
-            type="number" 
-            className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-black text-sm" 
-            onInput=${(e) => {
-                const val = parseInt(e.target.value) || 0;
-                setProData({
-                    ...proData, 
-                    price1: val,
-                    price3: Math.floor(val * 3 * 0.97),
-                    price5: Math.floor(val * 5 * 0.95),
-                    price8: Math.floor(val * 8 * 0.92),
-                    price10: Math.floor(val * 10 * 0.90)
-                });
-            }} 
-        />
-        <span className="absolute right-4 top-4 font-black text-slate-400 text-sm">원</span>
-    </div>
-    <p class="text-[10px] text-slate-400 font-bold px-1">
-        * 1회 금액만 입력하시면, 패키지 할인이 자동 적용되어 프로필에 반영됩니다.
-    </p>
-</div>
+                <div class="space-y-3">
+                    <p class="text-[12px] font-black text-brand-blue">
+                        <i class="fa-solid fa-won-sign"></i> 1회 레슨 정찰제 금액 <span class="text-rose-500">*필수</span>
+                    </p>
+                    <div className="relative">
+                        <input 
+                            placeholder="1회 레슨비 (원)" 
+                            type="number" 
+                            className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-2xl font-black text-sm" 
+                            onInput=${(e) => {
+                                const val = parseInt(e.target.value) || 0;
+                                setProData({
+                                    ...proData, 
+                                    price1: val,
+                                    price3: Math.floor(val * 3 * 0.97),
+                                    price5: Math.floor(val * 5 * 0.95),
+                                    price8: Math.floor(val * 8 * 0.92),
+                                    price10: Math.floor(val * 10 * 0.90)
+                                });
+                            }} 
+                        />
+                        <span className="absolute right-4 top-4 font-black text-slate-400 text-sm">원</span>
+                    </div>
+                    <p class="text-[10px] text-slate-400 font-bold px-1">
+                        * 1회 금액만 입력하시면, 패키지 할인이 자동 적용되어 프로필에 반영됩니다.
+                    </p>
+                </div>
 
                 <div class="space-y-3">
                     <p class="text-[12px] font-black text-brand-blue">경력 및 스승님 소개</p>
@@ -1381,27 +1381,7 @@ if (step === 1) {
             </button>
         </div>
     `;
-}
-
-    if (step === 2) {
-        return html`
-            <div className="text-center py-10">
-                <div className="w-20 h-20 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <i className="fa-solid fa-check text-4xl"></i>
-                </div>
-                <h3 className="text-2xl font-black text-slate-800 mb-2">스승 등록 요청 성공</h3>
-                <p className="text-slate-500 font-bold">스승님 운영팀에게<br/>프로필 정보가 전달되었습니다.</p>
-                <button onClick=${() => setModalOpen(false)} className="w-full mt-10 bg-slate-900 text-white font-black py-4 rounded-2xl">닫기</button>
-            </div>
-        `;
-    }
-
-    if (step === 0) {
-        setModalOpen(false);
-    }
-    
-    return html`<div></div>`;
-}
+};
 
         const ProFaceSlider = () => {
     const prosImg = [
@@ -1674,9 +1654,9 @@ if (step === 1) {
 
                 <div className="mb-10 text-slate-600 text-base md:text-xl font-bold leading-[1.6] tracking-tight break-keep opacity-90">
                     <p>
-        당신의 골프 고민을 알려주세요.<br />
-        스승님이 함께 해결해드립니다.
-    </p>
+                당신의 골프 고민을 알려주세요.<br />
+                스승님이 함께 해결해드립니다.
+            </p>
                     
                     <div className="inline-flex items-center gap-2 mt-4 px-3.5 py-1.5 bg-emerald-50 text-emerald-700 font-black rounded-xl text-xs md:text-sm border border-emerald-100 shadow-sm">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -1815,10 +1795,9 @@ if (step === 1) {
                 </h2>
                 
                 <p class="text-slate-500 text-xs md:text-sm font-bold mb-8 tracking-tight max-w-xl mx-auto opacity-80 text-center break-all sm:break-keep">
-    현재 용인플라자, 서서울, 에이치원 등 수도권 주요 골프장 및 현장 매체에서 
-    <br />
-    스승님의 AI 맞춤 레슨 광고가 실제 송출되고 있습니다.
-</p>
+            현재 용인플라자, 서서울, 에이치원 등 수도권 주요 골프장 및 현장 매체에서 <br />
+            스승님의 AI 맞춤 레슨 광고가 실제 송출되고 있습니다.
+        </p>
 
                 <div className="flex gap-4 overflow-x-auto pb-4 px-5 snap-x no-scrollbar justify-start md:justify-center">
                     ${adImages.map(img => html`
@@ -1864,10 +1843,9 @@ if (step === 1) {
     `;
 };
 
-         const ProblemSection = () => html`
+          const ProblemSection = () => html`
     <section class="px-5 py-6 md:py-16 bg-white text-left overflow-hidden">
         <div class="max-w-screen-xl mx-auto">
-            <!-- 제목 영역 (대표님 피드백 100% 반영) -->
             <div class="text-center mb-6 md:mb-10 reveal">
                 <h2 class="text-2xl md:text-5xl font-black text-slate-850 leading-tight tracking-tight">
                     내 골프 실력,<br /> 왜 레슨을 받아도 <span class="text-red-500">제자리걸음</span>일까?
@@ -1877,7 +1855,6 @@ if (step === 1) {
                 </div>
             </div>
 
-            <!-- 8개 그리드 박스 (현실 공감 믹스 버전) -->
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 md:gap-5">
                 ${[
                     { i: "💸", t: "레슨권 금액 부담", d: "1회 후 레슨권 결제 영업" },
@@ -1897,7 +1874,6 @@ if (step === 1) {
                 `)}
             </div>
             
-            <!-- 하단 반전 문구 (소비자 관점 전환 완료) -->
             <div class="mt-5 md:mt-10 text-center reveal">
                 <div class="inline-flex flex-col items-center">
                     <div class="w-1 h-5 md:h-8 bg-gradient-to-b from-slate-200 to-brand-blue mb-3"></div>
@@ -2143,7 +2119,7 @@ const EventSection = () => html`
             <div className="grid md:grid-cols-3 gap-3 reveal">
                 <div className="flex items-center gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-100">
                     <div className="w-10 h-10 flex-shrink-0 bg-white text-slate-900 rounded-xl flex items-center justify-center text-sm shadow-sm border border-slate-100">
-                        <i className="fas fa-shield-alt"></i>
+                        <i class="fas fa-shield-alt"></i>
                     </div>
                     <div>
                         <h4 className="font-black text-[13px] mb-0.5 text-slate-900">불편사항 직접 조율</h4>
@@ -2155,7 +2131,7 @@ const EventSection = () => html`
 
                 <div className="flex items-center gap-4 p-5 rounded-2xl bg-brand-blue text-white shadow-lg shadow-blue-100">
                     <div className="w-10 h-10 flex-shrink-0 bg-white/20 text-white rounded-xl flex items-center justify-center text-sm">
-                        <i className="fas fa-headset"></i>
+                        <i class="fas fa-headset"></i>
                     </div>
                     <div>
                         <h4 className="font-black text-[13px] mb-0.5 text-white">24시간 밀착 관리</h4>
@@ -2167,7 +2143,7 @@ const EventSection = () => html`
 
                 <div className="flex items-center gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-100">
                     <div className="w-10 h-10 flex-shrink-0 bg-white text-slate-900 rounded-xl flex items-center justify-center text-sm shadow-sm border border-slate-100">
-                        <i className="fas fa-calendar-check"></i>
+                        <i class="fas fa-calendar-check"></i>
                     </div>
                     <div>
                         <h4 className="font-black text-[13px] mb-0.5 text-slate-900">간편 예약 시스템</h4>
@@ -2215,7 +2191,6 @@ const EventSection = () => html`
 `;
 
   const InteractiveFlow = ({ setModalOpen }) => {
-    // [보존] 기존 상태 선언 및 변수명 100% 원형 보존
     const [step, setStep] = React.useState(1); 
     const [loadingIdx, setLoadingIdx] = React.useState(0);
     const [results, setResults] = React.useState([]);
@@ -2234,13 +2209,10 @@ const EventSection = () => html`
         }
     }, []);
 
-    // 챗봇 내부 트랜잭션 전용 로컬 상태 변수
     const [chatInput, setChatInput] = React.useState('');
     const [isLocationMissing, setIsLocationMissing] = React.useState(false);
     const [savedConcernText, setSavedConcernText] = React.useState('');
 
-    // 소비자 친화형 숏컷 고민 키워드 샌드박스
-    // [UI 고도화] 사회적 증거(Social Proof)를 강조한 TOP 4 리스트
     const quickKeywords = [
         { text: "📍 역삼, 선릉 근처 | 롱아이언 생크 및 비거리 레슨", location: "삼성·역삼·선릉", type: "1:1 레슨", club: "롱아이언", concern: ["생크 교정", "비거리 증가"] },
         { text: "📍 한티,대치 근처 | 드라이버 악성 슬라이스 및 구질 레슨", location: "대치·도곡·개포", type: "1:1 레슨", club: "드라이버", concern: ["슬라이스 교정", "드라이버 방향성"] },
@@ -2259,7 +2231,6 @@ const EventSection = () => html`
     const nextStep = () => setStep(prev => prev + 1);
     const prevStep = () => setStep(prev => prev - 1);
 
-    // [공통 텍스트 마이닝 매퍼 함수] 데이터 구조 무결성 가드 레이어
     const analyzeTextAndBuildData = (targetText, targetLocation) => {
         const safeText = typeof targetText === 'string' ? targetText : '';
         let detectedType = "1:1 레슨";
@@ -2327,11 +2298,9 @@ const EventSection = () => html`
         };
     };
 
-    // [핵심 인터페이스 통제 마스터 함수]
     const handleChatSubmit = (keywordObj) => {
         let inputText = chatInput.trim();
 
-        // 2차 위치 입력 단계 제어 가드 밸브
         if (isLocationMissing) {
             if (!inputText) {
                 alert("레슨을 원하시는 동네나 역명을 말씀해주세요!");
@@ -2415,7 +2384,6 @@ const EventSection = () => html`
         startAnalysis(finalCalculatedData);
     };
 
-    // [로딩 엔진 및 타이머 프로세서]
     const startAnalysis = (passedData) => {
         const currentData = passedData || formData;
         
@@ -2438,7 +2406,6 @@ const EventSection = () => html`
         }, 1200); 
     };
 
-    // [소팅 매퍼 매칭 엔진]
     const executeMatching = (currentMatchingData) => {
         const finalActiveData = currentMatchingData || formData;
         let isLocationMatched = true;
@@ -2479,7 +2446,6 @@ const EventSection = () => html`
         setTimeout(() => setStep(6), 200);
     };
 
-    // [보존] Webhook 트랜잭션 마감 함수
     const submitRequest = async () => {
         const currentName = (userInfo.name || "").trim();
         const currentContact = (userInfo.contact || "").replace(/[^0-9]/g, '');
@@ -2515,25 +2481,21 @@ const EventSection = () => html`
         const telegramMessage = `🔥 [${isFixedPrice ? '패키지 정찰' : '실전 현장견적'}] 매칭 발생\n\n👤 이름: ${payload.name}\n📞 연락처: ${payload.contact}\n📍 지역: ${payload.location}\n⛳ 레슨: ${payload.type}\n🏌️ 클럽: ${payload.club}\n💥 문제: ${payload.concern}\n⏰ 시간: ${payload.schedule}\n🏆 선택 프로: ${payload.selectedPro}\n💰 가격: ${Number(payload.price || 0).toLocaleString()}원`;
 
         try {
-            // 구글 시트 데이터 안전 전송
             await fetch("https://script.google.com/macros/s/AKfycbwJ8jcshxR6HcNknmLkjRdeT0NMw8d4-o9Z1hAWxdryi8pzocXZveDp_pmF1PpnKkcF/exec", {
                 method: "POST", mode: "no-cors", body: JSON.stringify(payload)
             });
             
             const ZAPIER_WEBHOOK_URL = isFixedPrice 
                 ? "https://hooks.zapier.com/hooks/catch/27197789/uj4iu7w/" 
-                : "https://hooks.zapier.com/hooks/catch/27197789/uj4d9ko/";
+                : "https://hooks.zapier.com/hooks/catch/27197789/uj4t9ko/";
 
-            // 재피어 웹훅 연동
             await fetch(ZAPIER_WEBHOOK_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
 
-            // 텔레그램 알림 전송 (유실 차단 완료)
             await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: "POST", headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ chat_id: CHAT_ID, text: telegramMessage })
             });
 
-            // 📊 구글 GA4 최종 매칭 완료 이벤트 로깅
             if (typeof gtag === 'function') {
                 gtag('event', 'request_submit', {
                     'selected_pro': selectedPro?.name,
@@ -2565,16 +2527,12 @@ const EventSection = () => html`
         }
     };
 
-    // --- 🛠️ 렌더링 스크린 리턴 분기 정렬 (중중괄호 가두기 완료) ---
-
-    // 분기 1: AI 레이더 로딩 스크린
    if (step === 5) {
     return html`
         <div className="py-16 text-center animate-slide-up relative overflow-hidden rounded-[3rem]">
             <div className="data-flow"></div>
             
             <div className="relative w-36 h-36 mx-auto mb-8 flex items-center justify-center">
-
                 <div className="absolute inset-0 border-[6px] border-slate-100 rounded-full"></div>
                 <div className="absolute inset-0 border-[6px] border-brand-blue border-t-transparent rounded-full animate-spin"></div>
                 
@@ -2603,7 +2561,6 @@ const EventSection = () => html`
     `;
 };
 
-    // 분기 2: 프로 추천 결과 리스트 스크린
 if (step === 6) {
     const isFixedPrice = formData.lessonType === '1:1 레슨';
     return html`
@@ -2623,7 +2580,7 @@ if (step === 6) {
             <div className="space-y-5 mb-6">
                 ${results.map(p => html`
                     <div key=${p.id} onClick=${() => { setSelectedPro(p); }} 
-                    className=${`p-5 md:p-6 rounded-[2.5rem] border-2 transition-all cursor-pointer flex flex-col relative overflow-hidden active:scale-95 ${selectedPro?.id === p.id ? 'selected-card bg-blue-50 ring-8 ring-blue-50/50 border-brand-blue' : 'border-slate-100 bg-white shadow-sm'}`}>
+                    className=${`p-5 md:p-6 rounded-[2.5rem] border-2 transition-all cursor-pointer flex flex-col relative overflow-hidden active:scale-95 ${selectedPro?.id === p.id ? 'selected-card bg-blue-50 ring-2 ring-blue-500 border-brand-blue' : 'border-slate-100 bg-white shadow-sm'}`}>
                         
                         <div className="flex justify-between items-center mb-4 pb-3 border-b border-slate-100">
                             <div className="flex gap-1.5 items-center">
@@ -2702,23 +2659,14 @@ if (step === 6) {
     `;
 }
 
-    // 분기 3: 1:1 패키지 조건 명세서 입력창
-    // STEP 6.5: 1:1 레슨 패키지 플랜 선택 + [완벽 복구] 1회 맞춤 체험 가격 제안 폼
    if (step === 6.5) {
     const options = getPriceOptions(selectedPro.price, formData.isDiscountClicked ? 5000 : 0);
-    
-    // 유효성 가드 레이어 정밀 재정비
     const hasName = (userInfo.name || "").trim().length >= 2;
     const hasContact = (userInfo.contact || "").trim().length >= 10;
     const hasDate = formData.lessonDate ? true : false;
-    
-    // 오류 차단 가드: 맞춤 체험 Selected 상태값 안전망 확보
     const isTrialActive = formData.isTrialSelected === true;
-    
-    // 일반 패키지 플랜이 선택되었거나, 혹은 맞춤 체험이 활성화되고 유저 제안 가격이 찍혔을 때만 가드 해제
     const hasPlanOrTrialPrice = isTrialActive ? (formData.price && Number(formData.price) > 0) : formData.lessonPlan;
     
-    // 💡 [정밀 수정] 중복 제출 중(isSubmitting)일 때도 버튼을 비활성화(Invalid) 상태로 만듭니다.
     const isStep3Invalid = !(hasName && hasContact && hasDate && hasPlanOrTrialPrice) || formData.isSubmitting;
 
     return html`
@@ -2729,7 +2677,7 @@ if (step === 6) {
             </div>
 
             <div onClick=${() => {
-                if (formData.isSubmitting) return; // 💡 제출 중일 땐 인터랙션 차단
+                if (formData.isSubmitting) return; 
                 const nextDiscountState = !formData.isDiscountClicked;
                 updateData('isDiscountClicked', nextDiscountState);
                 if (formData.lessonPlan && !isTrialActive) {
@@ -2856,20 +2804,18 @@ if (step === 6) {
                 <button 
                     disabled=${isStep3Invalid} 
                     onClick=${(e) => {
-    e.preventDefault();
-    if (formData.isSubmitting) return; // 💡 중복 클릭 차단
-    
-    // 💡 클릭 즉시 스토어 상태를 바꾸어 UI 전체를 잠가버림
-    updateData('isSubmitting', true); 
-    
-    // 💡 [안전망 추가] 전송 중 에러가 나거나 먹통이 되더라도 5초 뒤에는 유저가 다시 누를 수 있게 자동으로 락 해제
-    setTimeout(() => {
-        updateData('isSubmitting', false);
-    }, 5000); 
-    
-    if (!formData.schedule) { formData.schedule = "시간 무관"; }
-    submitRequest();
-}}
+                        e.preventDefault();
+                        if (formData.isSubmitting) return; 
+                        
+                        updateData('isSubmitting', true); 
+                        
+                        setTimeout(() => {
+                            updateData('isSubmitting', false);
+                        }, 5000); 
+                        
+                        if (!formData.schedule) { formData.schedule = "시간 무관"; }
+                        submitRequest();
+                    }} 
                     className="flex-[3] gradient-blue text-white font-black py-3.5 rounded-xl text-[13px] shadow-md disabled:opacity-30 disabled:pointer-events-none transition-all"
                 >
                     ${formData.isSubmitting ? "확정 요청 중... ⏳" : (isStep3Invalid ? "정보를 모두 입력해주세요" : "1:1 매칭 요청 확정하기 🚀")}
@@ -2879,7 +2825,6 @@ if (step === 6) {
     `;
 }
 
-    // 분기 4: 외부 필드/숏게임 견적 조율 스크린
     if (step === 6.6) {
         const isBaseValid = formData.lessonDate && formData.schedule && (userInfo.name || "").trim().length >= 2 && (userInfo.contact || "").trim().length >= 10;
         const isStepInvalid = !isBaseValid || !formData.price || !formData.agreed;
@@ -2949,14 +2894,13 @@ if (step === 6) {
                 <div className="flex gap-2">
                     <button onClick=${() => setStep(6)} className="flex-1 bg-slate-100 font-bold text-slate-500 rounded-xl py-4 text-xs">이전으로</button>
                     <button disabled=${isStepInvalid} onClick={submitRequest} className="flex-[3] gradient-blue text-white font-black py-4 rounded-xl text-sm shadow-md disabled:opacity-30">
-                        스승님께 실전 레슨 견적 제안하기
+                        스승님께 실전 레슨 개인화 견적 제안하기
                     </button>
                 </div>
             </div>
         `;
     }
 
-    // 분기 5: 최종 완료 피드백 결과창
     if (step === 7) {
         return html`
             <div className="text-center py-8 animate-slide-up">
@@ -2979,12 +2923,9 @@ if (step === 6) {
         `;
     }
 
-    // 🌟 [최종 종결 가드] 디폴트 챗봇 승이 메인 인터페이스 보드 (중괄호 탈출 차단 완벽 정렬)
     return html`
     <div className="animate-slide-up text-left">
-        <!-- 승이 대화창 영역 -->
         <div className="flex items-start gap-4 mb-8">
-            <!-- 캐릭터 (20x20 크기 유지) -->
             <div className="w-20 h-20 shrink-0 overflow-hidden flex items-center justify-center pt-1">
                 <img 
                     src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/seung.webp" 
@@ -2993,9 +2934,7 @@ if (step === 6) {
                 />
             </div>
 
-            <!-- 진짜 말풍선 형태 (뾰족한 꼬리 추가) -->
             <div className=${`relative p-4 rounded-2xl rounded-tl-none font-bold text-sm shadow-md leading-relaxed animate-fade ${isLocationMissing ? 'bg-amber-500 text-white animate-bounce' : 'bg-slate-900 text-white'}`}>
-                <!-- 뾰족한 꼬리 (CSS 삼각형) -->
                 <div className=${`absolute -left-2 top-0 w-0 h-0 border-t-[8px] border-t-transparent border-r-[12px] border-r-${isLocationMissing ? 'amber-500' : 'slate-900'} border-b-[8px] border-b-transparent`}></div>
                 
                 ${!isLocationMissing ? html`
@@ -3008,7 +2947,6 @@ if (step === 6) {
             </div>
         </div>
 
-        <!-- 퀵 키워드 섹션 (이하 동일) -->
         ${!isLocationMissing ? html`
             <div className="mb-6">
                 <p className="text-[10px] font-black text-slate-400 mb-3 ml-1 uppercase tracking-wider">🔥 가장 많이 찾는 고민 TOP 4</p>
@@ -3024,7 +2962,6 @@ if (step === 6) {
             </div>
         ` : null}
 
-        <!-- 입력창 (이하 동일) -->
         <div className="relative border-t border-slate-100 pt-4 flex gap-2">
             <input 
                 type="text" 
@@ -3035,7 +2972,7 @@ if (step === 6) {
                 onKeyDown=${(e) => e.key === 'Enter' && handleChatSubmit(null)}
             />
             <button onClick=${() => handleChatSubmit(null)} className=${`text-white px-5 rounded-2xl font-black text-sm active:scale-95 transition-all ${isLocationMissing ? 'bg-amber-500' : 'gradient-blue'}`}>
-                ${isLocationMissing ? "확인" : "전송"}
+                ${isLocationMissing ? "확정" : "전송"}
             </button>
         </div>
     </div>
@@ -3087,7 +3024,7 @@ if (step === 6) {
     <${TicketBanner} />
     <${EventSection} />
                
-                       <section className="py-24 px-6 bg-white border-t border-slate-100">
+                   <section className="py-24 px-6 bg-white border-t border-slate-100">
     <div className="max-w-md mx-auto">
         <h2 className="text-2xl font-black text-slate-800 mb-10 text-center">자주 묻는 질문 🙋‍♂️</h2>
         <div className="space-y-4 text-left">
@@ -3121,13 +3058,12 @@ if (step === 6) {
                 </p>
             </div>
             <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100">
-                <p className="text-sm font-black text-slate-800 mb-3">Q. 스승님과 직접 결제해도 되나요?</p>
+                <p className="text-sm font-black text-slate-800 mb-3">Q. 공식 채널을 통하지 않고 결제해도 되나요?</p>
                 <p className="text-[12px] text-slate-500 leading-relaxed font-medium">
-    안전한 결제를 위해 <span className="text-blue-600 font-bold underline">스승님을 통한 결제</span>를 권장합니다. 
-    스승님을 통해 결제 시 <span className="text-brand-blue font-black text-blue-600">회당 할인가 적용</span>은 물론, 
-    8회 이상 패키지 결제 시 <span className="text-orange-500 font-black">1회 추가 레슨</span> 혜택을 드립니다.<br /> 
-    추후 환불 혹은 분쟁 발생 시 앱 내 기록을 바탕으로 법무팀이 중재를 도와드릴 수 있으니, 
-    소중한 레슨권을 위해 가급적 스승님 안전 결제를 이용해 주세요😊
+    안전한 거래와 권리 보호를 위해 <span className="text-blue-600 font-bold underline">스승님 공식 정산 결제창</span> 계약 이용을 강력 권장합니다. 
+    공식 매칭 결제 시 <span className="text-brand-blue font-black text-blue-600">회당 정찰제 특별 특가</span>는 물론, 
+    8회 이상 패키지 등록 시 <span className="text-orange-500 font-black">1회 추가 보너스 레슨 제공</span> 등 단독 혜택이 적용됩니다.<br /> 
+    개인 송금 및 직접 정산 후 발생하는 레슨 노쇼, 정산 분쟁, 중도 해지 거부 등의 불이익에 대해서는 본사 법무팀의 중재와 안심 보장(환불) 정책 적용이 불가하오니 반드시 플랫폼 안전 결제를 이용해 주세요😊
 </p>
             </div>
         </div>
@@ -3145,7 +3081,7 @@ ${proFormOpen && html`
                 <div className="grid md:grid-cols-2 gap-16 border-b border-slate-800 pb-16 mb-16">
                     <div>
                         <div className="mb-8"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/ssnim.png" alt="스승님 로고" className="h-12 object-contain" /></div>
-                        <p className="text-slate-500 font-bold leading-relaxed text-lg max-w-sm">스승님은 골퍼와 스승님을 잇는 신뢰 기반 AI 매칭 플랫폼입니다. 우리는 검증하고 추천합니다. 소비자들에게 만족스러운 결과를 선물합니다.</p>
+                        <p className="text-slate-500 font-bold leading-relaxed text-lg max-w-sm">스승님은 골퍼와 스승님을 잇는 신뢰 기반 매칭 플랫폼입니다. 우리는 검증하고 추천합니다. 소비자들에게 만족스러운 결과를 선물합니다.</p>
                     </div>
                     <div className="text-sm font-bold text-slate-600 space-y-4 md:text-right text-left">
                         <p className="text-slate-400 font-black text-lg mb-4">Contact & Policy</p>
@@ -3168,6 +3104,7 @@ ${proFormOpen && html`
             <div className="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-[100] flex items-center justify-center p-5">
                 <div className="bg-white rounded-[3rem] max-w-lg w-full p-8 md:p-14 relative max-h-[95vh] overflow-y-auto shadow-[0_40px_100px_rgba(0,0,0,0.5)] border border-white/20">
                     <button onClick=${() => setFormOpen(false)} className="absolute top-8 right-8 text-slate-300 hover:text-slate-800 transition-colors text-right"><${X} size=${40} /></button>
+                    <input type="hidden" id="dummy-trigger" />
                     <${InteractiveFlow} setModalOpen=${setFormOpen} />
                 </div>
             </div>
@@ -3178,18 +3115,19 @@ ${proFormOpen && html`
 const rootEl = document.getElementById("root");
 createRoot(rootEl).render(html`<${App} />`);
 
-setTimeout(() => {
-    new Swiper(".mySwiper", {
-        loop: true,
-        autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-        },
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-    });
-}, 500);     
+// 💡 스크립트 순서 문제 완벽 차단용 즉시 검증 블록
+document.addEventListener("DOMContentLoaded", () => {
+    const initSwiper = () => {
+        if (typeof Swiper !== "undefined") {
+            new Swiper(".mySwiper", {
+                loop: true,
+                autoplay: { delay: 3000, disableOnInteraction: false },
+                pagination: { el: ".swiper-pagination", clickable: true },
+            });
+        } else {
+            setTimeout(initSwiper, 100);
+        }
+    };
+    initSwiper();
+});
 </script>
-</body>
