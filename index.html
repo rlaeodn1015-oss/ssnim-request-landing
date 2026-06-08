@@ -2717,7 +2717,9 @@ if (step === 6) {
     
     // 일반 패키지 플랜이 선택되었거나, 혹은 맞춤 체험이 활성화되고 유저 제안 가격이 찍혔을 때만 가드 해제
     const hasPlanOrTrialPrice = isTrialActive ? (formData.price && Number(formData.price) > 0) : formData.lessonPlan;
-    const isStep3Invalid = !(hasName && hasContact && hasDate && hasPlanOrTrialPrice);
+    
+    // 💡 [정밀 수정] 중복 제출 중(isSubmitting)일 때도 버튼을 비활성화(Invalid) 상태로 만듭니다.
+    const isStep3Invalid = !(hasName && hasContact && hasDate && hasPlanOrTrialPrice) || formData.isSubmitting;
 
     return html`
         <div className="animate-slide-up text-left space-y-4 max-h-[85vh] overflow-y-auto no-scrollbar pb-8 text-[13px]">
@@ -2727,6 +2729,7 @@ if (step === 6) {
             </div>
 
             <div onClick=${() => {
+                if (formData.isSubmitting) return; // 💡 제출 중일 땐 인터랙션 차단
                 const nextDiscountState = !formData.isDiscountClicked;
                 updateData('isDiscountClicked', nextDiscountState);
                 if (formData.lessonPlan && !isTrialActive) {
@@ -2746,12 +2749,12 @@ if (step === 6) {
                     const isBonusPlan = opt === '8회 패키지' || opt === '10회 패키지';
                     
                     return html`
-                        <button type="button" key=${opt} onClick=${() => { 
+                        <button type="button" key=${opt} disabled=${formData.isSubmitting} onClick=${() => { 
                             updateData('isTrialSelected', false);
                             updateData('lessonPlan', opt); 
                             updateData('price', options[opt].price); 
                         }}
-                            className=${`w-full p-3 rounded-2xl border-2 transition-all flex justify-between items-center relative ${isSelected ? 'border-brand-blue bg-blue-50/50 ring-2 ring-blue-500/20' : 'border-slate-100 bg-white'}`}>
+                            className=${`w-full p-3 rounded-2xl border-2 transition-all flex justify-between items-center relative ${isSelected ? 'border-brand-blue bg-blue-50/50 ring-2 ring-blue-500/20' : 'border-slate-100 bg-white'} ${formData.isSubmitting ? 'opacity-50 pointer-events-none' : ''}`}>
                             
                             ${isBonusPlan && html`
                                 <div className="absolute top-2 right-2 bg-red-500 text-white text-[8px] font-black px-1.5 py-0.5 rounded-md z-10 shadow-sm">
@@ -2773,6 +2776,7 @@ if (step === 6) {
             <div className="mb-8 border-t border-dashed border-slate-200 pt-4">
                 <button
                     type="button"
+                    disabled=${formData.isSubmitting}
                     onClick=${(e) => {
                         e.preventDefault();
                         const nextState = !isTrialActive;
@@ -2787,7 +2791,7 @@ if (step === 6) {
                     }} 
                     className=${`w-full p-3 rounded-[2rem] border-2 font-black text-[13px] text-center transition-all ${
                         isTrialActive ? 'border-brand-blue bg-blue-50 text-brand-blue shadow-md' : 'border-slate-200 bg-white text-slate-700 hover:border-slate-300'
-                    }`}
+                    } ${formData.isSubmitting ? 'opacity-50 pointer-events-none' : ''}`}
                 >
                     ${isTrialActive ? '✅ 1회 원포인트 체험 신청 적용 중' : '✨ 내가 원하는 금액으로 1회 체험 신청하기'}
                 </button>
@@ -2796,8 +2800,9 @@ if (step === 6) {
                     <div className="mt-3 relative animate-slide-up">
                         <input 
                             type="number" 
+                            disabled=${formData.isSubmitting}
                             placeholder="원하는 체험 비용 입력 (예: 50000)" 
-                            className="w-full p-3 rounded-2xl border-2 border-brand-blue font-black text-[14px] outline-none text-slate-800 bg-white"
+                            className="w-full p-3 rounded-2xl border-2 border-brand-blue font-black text-[14px] outline-none text-slate-800 bg-white disabled:opacity-50"
                             value=${formData.price || ''}
                             onInput=${(e) => {
                                 updateData('price', parseInt(e.target.value) || 0);
@@ -2813,15 +2818,16 @@ if (step === 6) {
                     <div>
                         <p className="text-[10px] font-black text-slate-400 mb-1">희망 시작 날짜 <span className="text-red-500">*</span></p>
                         <input type="date" 
+                            disabled=${formData.isSubmitting}
                             min=${new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split('T')[0]}
-                            className="w-full p-3 bg-slate-50 border rounded-xl font-bold text-[12px] outline-none focus:border-brand-blue" 
+                            className="w-full p-3 bg-slate-50 border rounded-xl font-bold text-[12px] outline-none focus:border-brand-blue disabled:opacity-50" 
                             value=${formData.lessonDate || ''} 
                             onInput=${(e) => updateData('lessonDate', e.target.value)} 
                         />
                     </div>
                     <div>
                         <p className="text-[10px] font-black text-slate-400 mb-1">선호 시간대</p>
-                        <select className="w-full p-3 bg-slate-50 border rounded-xl font-bold text-[12px] outline-none focus:border-brand-blue" 
+                        <select disabled=${formData.isSubmitting} className="w-full p-3 bg-slate-50 border rounded-xl font-bold text-[12px] outline-none focus:border-brand-blue disabled:opacity-50" 
                             value=${formData.schedule || '시간 무관'} 
                             onChange=${(e) => updateData('schedule', e.target.value)}
                         >
@@ -2836,27 +2842,37 @@ if (step === 6) {
                 <div className="grid grid-cols-2 gap-2">
                     <div>
                         <p className="text-[10px] font-black text-slate-400 mb-1">성함 (실명) <span className="text-red-500">*</span></p>
-                        <input placeholder="성함 입력" className="w-full p-3 bg-slate-50 border rounded-xl font-bold text-[12px] outline-none focus:border-brand-blue" value=${userInfo.name || ''} onInput=${(e) => setUserInfo(prev => ({...prev, name: e.target.value}))} />
+                        <input disabled=${formData.isSubmitting} placeholder="성함 입력" className="w-full p-3 bg-slate-50 border rounded-xl font-bold text-[12px] outline-none focus:border-brand-blue disabled:opacity-50" value=${userInfo.name || ''} onInput=${(e) => setUserInfo(prev => ({...prev, name: e.target.value}))} />
                     </div>
                     <div>
                         <p className="text-[10px] font-black text-slate-400 mb-1">연락처 <span className="text-red-500">*</span></p>
-                        <input type="tel" maxLength="11" placeholder="01012345678" className="w-full p-3 bg-slate-50 border rounded-xl font-bold text-[12px] outline-none focus:border-brand-blue" value=${userInfo.contact || ''} onInput=${(e) => setUserInfo(prev => ({...prev, contact: e.target.value.replace(/[^0-9]/g, '')}))} />
+                        <input disabled=${formData.isSubmitting} type="tel" maxLength="11" placeholder="01012345678" className="w-full p-3 bg-slate-50 border rounded-xl font-bold text-[12px] outline-none focus:border-brand-blue disabled:opacity-50" value=${userInfo.contact || ''} onInput=${(e) => setUserInfo(prev => ({...prev, contact: e.target.value.replace(/[^0-9]/g, '')}))} />
                     </div>
                 </div>
             </div>
 
             <div className="flex gap-2 pt-2">
-                <button type="button" onClick=${() => setStep(6)} className="flex-1 bg-slate-100 font-bold text-slate-500 rounded-xl py-3.5 text-[12px]">이전</button>
+                <button type="button" disabled=${formData.isSubmitting} onClick=${() => setStep(6)} className="flex-1 bg-slate-100 font-bold text-slate-500 rounded-xl py-3.5 text-[12px] disabled:opacity-50">이전</button>
                 <button 
                     disabled=${isStep3Invalid} 
                     onClick=${(e) => {
-                        e.preventDefault();
-                        if (!formData.schedule) { formData.schedule = "시간 무관"; }
-                        submitRequest();
-                    }} 
+    e.preventDefault();
+    if (formData.isSubmitting) return; // 💡 중복 클릭 차단
+    
+    // 💡 클릭 즉시 스토어 상태를 바꾸어 UI 전체를 잠가버림
+    updateData('isSubmitting', true); 
+    
+    // 💡 [안전망 추가] 전송 중 에러가 나거나 먹통이 되더라도 5초 뒤에는 유저가 다시 누를 수 있게 자동으로 락 해제
+    setTimeout(() => {
+        updateData('isSubmitting', false);
+    }, 5000); 
+    
+    if (!formData.schedule) { formData.schedule = "시간 무관"; }
+    submitRequest();
+}}
                     className="flex-[3] gradient-blue text-white font-black py-3.5 rounded-xl text-[13px] shadow-md disabled:opacity-30 disabled:pointer-events-none transition-all"
                 >
-                    ${isStep3Invalid ? "정보를 모두 입력해주세요" : "1:1 매칭 요청 확정하기 🚀"}
+                    ${formData.isSubmitting ? "확정 요청 중... ⏳" : (isStep3Invalid ? "정보를 모두 입력해주세요" : "1:1 매칭 요청 확정하기 🚀")}
                 </button>
             </div>
         </div>
