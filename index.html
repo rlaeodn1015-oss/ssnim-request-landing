@@ -937,9 +937,10 @@ const ReviewPhotoSlider = () => {
 const JoinBoard = ({ setFormOpen }) => {
     const joinData = [
         { 
-            id: 1, tag: "신규🌟", loc: "오이타퍼시픽블루cc", pro: "곽시랑 스승", title: "필드레슨", 
-            time: "9/19(토)~22(화)", price: 2090000, origin: "239만", members: "0/3",
-            include: "중식빼고 올 포함", type: "3인" 
+            id: 1, tag: "마감임박🔥", loc: "오이타 퍼시픽블루CC", pro: "소속프로 동행", title: "해외 캠프/필드레슨", 
+            time: "9/19(토)~22(화)", price: 2090000, origin: "239만", members: "선착순 모집",
+            include: "중식 빼고 항공·숙소·레슨 올 포함", type: "3인",
+            url: "https://rlaeodn1015-oss.github.io/camp/" // 캠프 사이트 주소 연동
         },
         { 
             id: 2, tag: "신규🌟", loc: "숏게임힐스", pro: "서수연 스승", title: "숏게임레슨", 
@@ -959,37 +960,37 @@ const JoinBoard = ({ setFormOpen }) => {
     ];
 
     const proPhoneMap = {
-    "곽시랑 스승": "01082243434",
-    "서수연 스승": "01094856241", 
-    "조이현 스승": "01056323190",
-    "석준형 스승": "01054263433",
-    "홍주연 스승": "01033969628", 
-    "양형철 스승": "01093996255",
-    "조동요 스승": "01026578395",
-    "공나연 스승": "01036012385", 
-    "이원영 스승": "01075397997",
-    "유민혁 스승": "01083924008",
-    "강도윤 스승": "01077587383", 
-    "김지영 스승": "01071595448",
-    "이상준 스승": "01041900478",
-    "권두욱 스승": "01040134484",
-    "이근협 스승": "01050278421",
-    "강소율 스승": "01099348472",
-    "권민규 스승": "01093377132",
-    "허민형 스승": "01020601838",
-    "강희진 스승": "01050622964",
-    "김숙정 스승": "01033559555",
-    "김혜연 스승": "01056993889",
-    "김도한 스승": "01040239665",
-    "박민성 스승": "01038672441",
-    "김형준 스승": "01046210766",
-    "정우진 스승": "01086668619",
-    "소민수 스승": "01080609497",
-    "김민성 스승": "01057380816",
-    "이준우 스승": "01086965977",
-    "강예빈 스승": "01083590533",
-    "안병현 스승": "01066421234"
-};
+        "곽시랑 스승": "01082243434",
+        "서수연 스승": "01094856241", 
+        "조이현 스승": "01056323190",
+        "석준형 스승": "01054263433",
+        "홍주연 스승": "01033969628", 
+        "양형철 스승": "01093996255",
+        "조동요 스승": "01026578395",
+        "공나연 스승": "01036012385", 
+        "이원영 스승": "01075397997",
+        "유민혁 스승": "01083924008",
+        "강도윤 스승": "01077587383", 
+        "김지영 스승": "01071595448",
+        "이상준 스승": "01041900478",
+        "권두욱 스승": "01040134484",
+        "이근협 스승": "01050278421",
+        "강소율 스승": "01099348472",
+        "권민규 스승": "01093377132",
+        "허민형 스승": "01020601838",
+        "강희진 스승": "01050622964",
+        "김숙정 스승": "01033559555",
+        "김혜연 스승": "01056993889",
+        "김도한 스승": "01040239665",
+        "박민성 스승": "01038672441",
+        "김형준 스승": "01046210766",
+        "정우진 스승": "01086668619",
+        "소민수 스승": "01080609497",
+        "김민성 스승": "01057380816",
+        "이준우 스승": "01086965977",
+        "강예빈 스승": "01083590533",
+        "안병현 스승": "01066421234"
+    };
 
     return html`
         <section className="px-0 py-8 max-w-screen-xl mx-auto bg-white text-left overflow-hidden">
@@ -1012,15 +1013,26 @@ const JoinBoard = ({ setFormOpen }) => {
                     const payUrl = `pay.html?price=${item.price}&type=${encodeURIComponent(item.title)}&requestId=${requestId}&LOCATION=${encodeURIComponent(item.loc)}&selectedPro=${encodeURIComponent(item.pro)}&proPhone=${proPhone}&schedule=${encodeURIComponent(item.time)}&personCount=${encodeURIComponent(item.type)}&include=${encodeURIComponent(item.include)}`;
 
                     const handleJoinClick = () => {
-                        if (typeof gtag === 'function') {
-                            gtag('event', 'click_join_pay', {
-                                'lesson_title': item.title,
-                                'pro_name': item.pro,
-                                'location': item.loc,
-                                'price': item.price
-                            });
+                        // 오이타 골프캠프(id: 1)의 경우 새 창으로 캠프 페이지 이동
+                        if (item.id === 1) {
+                            if (typeof gtag === 'function') {
+                                gtag('event', 'click_oita_camp_move', {
+                                    'lesson_title': item.title,
+                                    'price': item.price
+                                });
+                            }
+                            window.open(item.url, '_blank');
+                        } else {
+                            if (typeof gtag === 'function') {
+                                gtag('event', 'click_join_pay', {
+                                    'lesson_title': item.title,
+                                    'pro_name': item.pro,
+                                    'location': item.loc,
+                                    'price': item.price
+                                });
+                            }
+                            window.location.href = payUrl;
                         }
-                        window.location.href = payUrl;
                     };
                     
                     return html`
@@ -1028,7 +1040,9 @@ const JoinBoard = ({ setFormOpen }) => {
                             <div>
                                 <div className="flex justify-between items-center mb-2">
                                     <span className="bg-red-50 text-red-500 text-[9px] font-black px-2 py-0.5 rounded-full">${item.tag}</span>
-                                    <span className="text-brand-blue font-black text-[11px] underline underline-offset-2">${item.members}명</span>
+                                    <span className="text-brand-blue font-black text-[11px] underline underline-offset-2">
+                                        ${item.id === 1 ? item.members : item.members + '명'}
+                                    </span>
                                 </div>
                                 <div className="text-left">
                                     <div className="text-slate-400 text-[10px] font-bold mb-0.5">${item.loc} | ${item.time}</div>
@@ -1052,7 +1066,7 @@ const JoinBoard = ({ setFormOpen }) => {
                                         onClick=${handleJoinClick}
                                         className="w-full py-3.5 bg-slate-900 text-white rounded-2xl font-black text-[11px] text-center active:scale-95 transition-all shadow-sm"
                                     >
-                                        결제 후 참여하기
+                                        ${item.id === 1 ? "상세 일정 보고 신청하기 ✈️" : "결제 후 참여하기"}
                                     </button>
                                 </div>
                             </div>
@@ -1481,68 +1495,104 @@ const ProApplyFlow = ({ setModalOpen }) => {
     </section>
 `;
 
-   const BannerSlider = () => {
-            return html`
-                <section className="mb-8 px-5 w-full">
-                    <div className="swiper mySwiper rounded-xl shadow-sm border border-slate-100 bg-slate-900 overflow-hidden relative">
-                        <div className="swiper-wrapper">
-                            
-                            <div className="swiper-slide !h-auto">
-                                <a href="https://map.naver.com/p/entry/place/1755177298" target="_blank" className="relative block w-full leading-[0]">
-                                    <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/gela.png" className="w-full h-auto block" alt="젤라필라테스" loading="lazy" />
-                                    <div className="absolute bottom-2 right-2 bg-black/40 backdrop-blur-md px-1.5 py-0.5 rounded text-[8px] text-white/90 font-bold z-10">AD</div>
-                                </a>
-                            </div>
-
-                            <div className="swiper-slide !h-auto">
-                                <a href="https://ceo676.github.io/japan-golf-membership/" target="_blank" 
-                                   className="relative block w-full leading-[0]">
-                                    <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/tcm.png" className="w-full h-auto block" alt="미리 준비하는 여름골프" loading="lazy" />
-                                    <div className="absolute bottom-2 right-2 bg-black/40 backdrop-blur-md px-1.5 py-0.5 rounded text-[8px] text-white/90 font-bold z-10">AD</div>
-                                </a>
-                            </div>
-
-                            <div className="swiper-slide !h-auto">
-    <a 
-        href="https://pf.kakao.com/_kxawRn/chat" 
-        target="_blank" 
-        className="relative block w-full aspect-[640/130] bg-[#f9f9fb] rounded-lg border border-zinc-200 overflow-hidden group"
-    >
-        <div className="flex flex-col items-center justify-center h-full gap-1">
-            <div className="flex items-center gap-2">
-                <p className="text-[15px] font-black text-zinc-900 tracking-tight">
-                    배너 광고 문의주세요
-                </p>
-                <svg className="w-4 h-4 text-zinc-900 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="9 5l7 7-7 7" />
-                </svg>
-            </div>
-            <p className="text-[11px] text-zinc-500 font-semibold">
-                카카오톡 채널로 1:1 상담하기
-            </p>
-        </div>
-
-        <div className="absolute top-2 left-2 bg-zinc-200/80 px-1.5 py-0.5 rounded-[3px] text-[7px] text-zinc-500 font-bold tracking-tighter">
-            AD
-        </div>
-    </a>
-</div>
-
-                        </div>
-                        
-                        <div className="swiper-pagination !bottom-2 !left-auto !right-10 !w-auto"></div>
-                    </div>
-                    
-                    <style>
-                        .swiper { height: auto !important; }
-                        .swiper-wrapper { height: auto !important; }
-                        .swiper-slide { height: auto !important; }
-                        .swiper-pagination-bullet { width: 3px; height: 3px; background: #fff; opacity: 0.5; }
-                        .swiper-pagination-bullet-active { background: #0066FF !important; opacity: 1; }
-                    </style>
-                </section>
-            `;
+ const BannerSlider = () => {
+    // 화면에 배너가 그려진 직후 확실하게 Swiper를 초기화하는 로직을 내장합니다.
+    React.useEffect(() => {
+        let swiperInstance = null;
+        
+        const initSwiperLogic = () => {
+            if (typeof Swiper !== "undefined") {
+                // 이미 생성된 인스턴스가 있다면 파괴 후 재조립하여 꼬임 방지
+                if (document.querySelector(".mySwiper")?.swiper) {
+                    document.querySelector(".mySwiper").swiper.destroy(true, true);
+                }
+                
+                swiperInstance = new Swiper(".mySwiper", {
+                    loop: true,
+                    autoplay: { 
+                        delay: 3000, 
+                        disableOnInteraction: false 
+                    },
+                    pagination: { 
+                        el: ".swiper-pagination", 
+                        clickable: true 
+                    },
+                });
+            } else {
+                setTimeout(initSwiperLogic, 100);
+            }
         };
+
+        const timer = setTimeout(initSwiperLogic, 200);
+
+        return () => {
+            clearTimeout(timer);
+            if (swiperInstance) swiperInstance.destroy(true, true);
+        };
+    }, []);
+
+    return html`
+        <section className="mb-8 px-5 w-full">
+            <div className="swiper mySwiper rounded-xl shadow-sm border border-slate-100 bg-slate-900 overflow-hidden relative">
+                <div className="swiper-wrapper">
+                    
+                    <div className="swiper-slide !h-auto">
+                        <a href="https://map.naver.com/p/entry/place/1755177298" target="_blank" className="relative block w-full leading-[0]">
+                            <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/gela.png" className="w-full h-auto block" alt="젤라필라테스" loading="lazy" />
+                            <div className="absolute bottom-2 right-2 bg-black/40 backdrop-blur-md px-1.5 py-0.5 rounded text-[8px] text-white/90 font-bold z-10">AD</div>
+                        </a>
+                    </div>
+
+                    <div className="swiper-slide !h-auto">
+                        <a href="https://ceo676.github.io/japan-golf-membership/" target="_blank" 
+                           className="relative block w-full leading-[0]">
+                            <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/tcm.png" className="w-full h-auto block" alt="미리 준비하는 여름골프" loading="lazy" />
+                            <div className="absolute bottom-2 right-2 bg-black/40 backdrop-blur-md px-1.5 py-0.5 rounded text-[8px] text-white/90 font-bold z-10">AD</div>
+                        </a>
+                    </div>
+
+                    <div className="swiper-slide !h-auto">
+                        <a 
+                            href="https://rlaeodn1015-oss.github.io/camp/" 
+                            target="_blank" 
+                            className="relative block w-full aspect-[640/130] bg-gradient-to-r from-orange-500 to-amber-500 overflow-hidden group"
+                        >
+                            <div className="flex flex-col items-center justify-center h-full gap-0.5 px-4 text-center">
+                                <span className="bg-white/20 text-white text-[8px] font-black px-2 py-0.5 rounded-full mb-1 tracking-wider uppercase">
+                                    사전 모집 전용 특가 프로모션 진행 중 ✈️
+                                </span>
+                                <h4 className="text-[14px] md:text-[16px] font-black text-white tracking-tight leading-none flex items-center gap-1">
+                                    프로 동행 오이타 프리미엄 골프 캠프 
+                                    <svg className="w-3 h-3 text-white group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="9 5l7 7-7 7" />
+                                    </svg>
+                                </h4>
+                                <p className="text-[10px] md:text-[11px] text-white/90 font-bold mt-0.5">
+                                    세계 100대 코스 퍼시픽블루CC 54홀 밀착 필드레슨 (상세보기)
+                                </p>
+                            </div>
+
+                            <div className="absolute top-2 left-2 bg-red-600 px-1.5 py-0.5 rounded-[3px] text-[7px] text-white font-black tracking-tighter shadow-sm animate-pulse">
+                                HOT
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+                
+                <div className="swiper-pagination !bottom-2 !left-auto !right-10 !w-auto"></div>
+            </div>
+            
+            <style>
+                .swiper { height: auto !important; }
+                .swiper-wrapper { height: auto !important; }
+                .swiper-slide { height: auto !important; }
+                .swiper-pagination-bullet { width: 3px; height: 3px; background: #fff; opacity: 0.5; }
+                .swiper-pagination-bullet-active { background: #0066FF !important; opacity: 1; }
+            </style>
+        </section>
+    `;
+};
 
         const Header = ({ visitorCount }) => {
     const [todayCount, setTodayCount] = React.useState(366);
@@ -1613,15 +1663,18 @@ const ProApplyFlow = ({ setModalOpen }) => {
                     </div>
                 </div>
                 
-              <nav className="hidden lg:flex items-center gap-8 text-[13px] font-bold text-gray-500 mx-auto">
-                    <a href="https://rlaeodn1015-oss.github.io/lessonticket/" target="_blank" className="text-brand-blue flex items-center gap-1 hover:opacity-80 transition-all">
-                        레슨권 할인 구매 <span className="w-1 h-1 bg-red-500 rounded-full animate-pulse"></span>
-                    </a>
-                    <a href="#event" className="hover:text-brand-blue transition-colors">이벤트</a>
-                    <a href="#features" className="hover:text-brand-blue transition-colors">매칭 시스템</a>
-                    <a href="#trust" className="hover:text-brand-blue transition-colors">안심 정책</a>
-                    <a href="#cases" className="hover:text-brand-blue transition-colors">사용자 후기 </a>
-                </nav>
+             <nav className="hidden lg:flex items-center gap-8 text-[13px] font-bold text-gray-500 mx-auto">
+    <a href="https://rlaeodn1015-oss.github.io/camp/" target="_blank" className="text-orange-500 flex items-center gap-1 hover:opacity-80 transition-all font-black">
+        ✈️ 오이타 프리미엄 골프여행 (선착순 5명) <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></span>
+    </a>
+    <a href="https://rlaeodn1015-oss.github.io/lessonticket/" target="_blank" className="text-brand-blue flex items-center gap-1 hover:opacity-80 transition-all">
+        레슨권 할인 구매
+    </a>
+    <a href="#event" className="hover:text-brand-blue transition-colors">이벤트</a>
+    <a href="#features" className="hover:text-brand-blue transition-colors">매칭 시스템</a>
+    <a href="#trust" className="hover:text-brand-blue transition-colors">안심 정책</a>
+    <a href="#cases" className="hover:text-brand-blue transition-colors">사용자 후기 </a>
+</nav>
 
                 <div className="flex items-center gap-2 shrink-0">
                     <button onClick=${handleMainShare} className="w-8 h-8 md:w-9 md:h-9 flex items-center justify-center rounded-full bg-slate-50 text-slate-600 hover:bg-slate-100 transition-all">
