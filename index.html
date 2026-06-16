@@ -790,6 +790,44 @@
     reviewHighlight: "그린 주변 웨지 샷 및 퍼팅 실전 감각 개선",
     reasons: ["그린 주변 웨지 터치 정밀 수정을 통한 뒤땅 및 탑볼 교정", "퍼터 페이스 앵글 정렬 오류 조율 및 꼼꼼한 실전 피드백", "갑자기 터지는 고질적인 아이언 생크 현상 즉각 원인 해결"],
     tags: ["숏게임 레슨", "퍼팅 거리감", "생크 교정"] 
+},
+{ 
+    "id": 31, 
+    "name": "이형석 스승", 
+    "phone": "01086084619",
+    "lessonTypes": ["1:1 레슨", "숏게임 레슨", "파3 레슨", "18홀 필드레슨"], 
+    "activeLocations": ["강남", "서초", "분당", "판교"], 
+    "specialties": ["비거리", "슬라이스 교정", "아이언 샷"],
+    "price": 100000, 
+    "rating": 5.0, 
+    "review": 124, 
+    "img": "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/lhs.jpg", 
+    "intro": "체계적인 커리큐럼 레슨 (KPGA 투어프로 / 연세대 골프 CEO 과정 교수)", 
+    "career": "KPGA 투어프로, GTOUR 프로, 연세대학교 골프 CEO 과정 담당 교수, JTBC GOLF 골프마니아 시즌2 촬영, NAVER·YOUTUBE 1분 레슨 진행",
+    "lessonCount": 2100,
+    "priceRange": "10~11만원",
+    "reviewHighlight": "체계적인 커리큘럼을 통한 슬라이스 교정 및 비거리 증대",
+    "reasons": ["KPGA 투어프로의 데이터 기반 분석을 통한 고질적인 슬라이스 구질 완벽 교정", "일관성 없는 아이언 컨택 원인을 분석하여 정밀한 정타율 및 방향성 개선", "개인별 스윙 메커니즘 최적화를 통한 확실한 드라이버 비거리 증대 효과"],
+    "tags": ["비거리 증가", "슬라이스 교정", "투어프로 레슨"] 
+},
+{ 
+    "id": 32, 
+    "name": "이현우 스승", 
+    "phone": "01034754588",
+    "lessonTypes": ["1:1 레슨", "숏게임 레슨", "필드 레슨"], 
+    "activeLocations": ["김포", "인천", "영종도"], 
+    "specialties": ["드라이버 비거리", "골프 스윙", "숏게임 전문"],
+    "price": 100000, 
+    "rating": 5.0, 
+    "review": 94, 
+    "img": "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/lhw.jpg", 
+    "intro": "KPGA 정회원 투어 출신의 체계적이고 확실한 맞춤형 레슨", 
+    "career": "KPGA 정회원 (TP 1073), 2011년 KPGA 아카데미투어 준우승, 2011년 KPGA 2부투어 다수 입상, 2011~2013년 원아시아 투어 활동, 현 쇼골프 김포공항점 소속 프로",
+    "lessonCount": 1850,
+    "priceRange": "10~12만원",
+    "reviewHighlight": "KPGA 정회원의 체계적인 스윙 교정 및 실전 숏게임 마스터",
+    "reasons": ["KPGA 정회원 및 투어 출신의 검증된 메커니즘으로 개개인에 맞춘 체계적인 스윙 교정", "클럽72 숏게임 전문 레슨을 통한 그린 주변 어프로치 및 타수 줄이기 실전 노하우 전수", "쇼골프 김포공항점에서 진행되는 정밀 분석 기반의 확실한 드라이버 비거리 증대"], 
+    "tags": ["KPGA 정회원", "숏게임 전문", "비거리 증가"] 
 }
 ];
 
@@ -989,7 +1027,9 @@ const JoinBoard = ({ setFormOpen }) => {
         "김민성 스승": "01057380816",
         "이준우 스승": "01086965977",
         "강예빈 스승": "01083590533",
-        "안병현 스승": "01066421234"
+        "안병현 스승": "01066421234",
+        "이형석 스승": "01086084619",
+        "이현우 스승": "01034754588"
     };
 
     return html`
@@ -2387,6 +2427,9 @@ const EventSection = () => html`
             else if (inputText.includes("잠실") || inputText.includes("송파") || inputText.includes("문정")) finalLocation = "잠실·송파·문정";
             else if (inputText.includes("판교") || inputText.includes("정자") || inputText.includes("분당") || inputText.includes("야탑")) finalLocation = "판교·정자·분당";
             else if (inputText.includes("수지") || inputText.includes("죽전") || inputText.includes("기흥") || inputText.includes("용인")) finalLocation = "수지·죽전·기흥";
+            else if (inputText.includes("김포") || inputText.includes("고촌") || inputText.includes("풍무")) finalLocation = "김포·마곡·강서";
+            else if (inputText.includes("영종") || inputText.includes("클럽72") || inputText.includes("운서")) finalLocation = "영종도·공항";
+            else if (inputText.includes("인천") || inputText.includes("송도") || inputText.includes("청라") || inputText.includes("부평")) finalLocation = "인천·송도·청라";
 
             const cleanFinalData = analyzeTextAndBuildData(savedConcernText, finalLocation);
 
