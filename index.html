@@ -2543,12 +2543,10 @@ const EventSection = () => html`
         const telegramMessage = `🔥 [${isFixedPrice ? '패키지 정찰' : '실전 현장견적'}] 매칭 발생\n\n👤 이름: ${payload.name}\n📞 연락처: ${payload.contact}\n📍 지역: ${payload.location}\n⛳ 레슨: ${payload.type}\n🏌️ 클럽: ${payload.club}\n💥 문제: ${payload.concern}\n⏰ 시간: ${payload.schedule}\n🏆 선택 프로: ${payload.selectedPro}\n💰 가격: ${Number(payload.price || 0).toLocaleString()}원`;
 
         try {
-            // 1. 구글 앱스 스크립트 새 배포 주소 연동 동기화 완비
+            // 1. 구글 앱스 스크립트 (대표님 원본 규격인 mode: "no-cors" 복구 + 새로 배포한 주소 반영)
             await fetch("https://script.google.com/macros/s/AKfycbwsTEhL9LkmX0NV6Em_ktJ_Y9-M4hwdv7mBRVpb6q2bpx0lxWkmrxPA_AvzprLQGa4R/exec", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "text/plain;charset=utf-8"
-                },
+                method: "POST", 
+                mode: "no-cors", 
                 body: JSON.stringify(payload)
             });
             
@@ -2556,21 +2554,17 @@ const EventSection = () => html`
                 ? "https://hooks.zapier.com/hooks/catch/27197789/uj4iu7w/" 
                 : "https://hooks.zapier.com/hooks/catch/27197789/uj4t9ko/";
 
-            // 2. 자피어 Webhook 연동 안정화
+            // 2. 자피어 Webhook 연동 (원래 잘 가던 mode: "no-cors" 규격 100% 원상복구)
             await fetch(ZAPIER_WEBHOOK_URL, { 
                 method: "POST", 
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                mode: "no-cors", 
                 body: JSON.stringify(payload) 
             });
 
-            // 3. 텔레그램 API 연동
+            // 3. 텔레그램 API 연동 (기존 정상 규격)
             await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: "POST", 
-                headers: { 
-                    "Content-Type": "application/json" 
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ chat_id: CHAT_ID, text: telegramMessage })
             });
 
