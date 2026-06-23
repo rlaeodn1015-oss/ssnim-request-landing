@@ -219,8 +219,13 @@
             contact: phoneInput,
             type: params.get('type') || "조인레슨",
             location: params.get('LOCATION') || "",
-            club: "미지정(조인)",
-            concern: params.get('include') || "조인 레슨 신청",
+            
+            // 1. 하드코딩 걷어내고 주소창의 진짜 클럽 데이터 연동 (index에서formData.club으로 넘겨준 값)
+            club: params.get('club') || "미지정(조인)",
+            
+            // 2. index의 분기(concern)와 조인레슨의 분기(include)를 모두 수용하는 3중 방어선 매핑
+            concern: params.get('concern') || params.get('include') || "레슨 신청",
+            
             schedule: params.get('schedule') || "",
             selectedPro: params.get('selectedPro') || "",
             proPhone: globalProPhone,
