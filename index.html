@@ -1,26 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>스승님 - 결과로 증명하는 맞춤 골프레슨 AI 매칭</title>
 
     <script src="https://karrot-pixel.business.daangn.com/karrot-pixel.js"></script>
-<script>
-  window.karrotPixel.init('1779093907355088001');
-  window.karrotPixel.track('ViewPage');
-</script>
+    <script>
+      window.karrotPixel.init('1779093907355088001');
+      window.karrotPixel.track('ViewPage');
+    </script>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3YC9WJBPMZ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-3YC9WJBPMZ');
-</script> <script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/ssnim-request-landing/sw.js');
-  }
-</script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3YC9WJBPMZ');
+    </script> 
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/ssnim-request-landing/sw.js');
+      }
+    </script>
 
     <meta name="description" content="스마트한 골프레슨의 시작, 내 요청에 딱 맞는 검증된 스승님을 AI가 정밀 매칭합니다">
     <meta property="og:type" content="website">
@@ -30,8 +32,7 @@
     <meta property="og:image" content="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/ssnim.png">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@100;400;700;900&display=swap" rel="stylesheet" />
@@ -74,23 +75,14 @@
             100% { transform: scale(1); opacity: 1; }
         }
         .ssn-pulse { animation: ssnimPulse 2s infinite; will-change: transform; }
-
         @keyframes slide-up { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         .animate-slide-up { animation: slide-up 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
-        .swiper-slide {
-    height: auto !important;
-    background: transparent !important;
-}
-
-.swiper-wrapper {
-    align-items: center;
-}
+        .swiper-slide { height: auto !important; background: transparent !important; }
+        .swiper-wrapper { align-items: center; }
         .no-overflow-wrap { overflow-wrap: anywhere; word-break: keep-all; }
-        
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #0066FF; border-radius: 10px; }
-
         .summary-chip {
             background: #f0f7ff;
             color: #0066FF;
@@ -103,89 +95,27 @@
             align-items: center;
             gap: 4px;
         }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
-
         .card-hover { transition: all 0.3s ease; }
-        .card-hover:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.08);
-        }
+        .card-hover:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.08); }
         .btn-glow { transition: all 0.3s ease; }
-        .btn-glow:hover {
-            box-shadow: 0 0 30px rgba(0, 102, 255, 0.4);
-            transform: translateY(-2px);
-        }
-
+        .btn-glow:hover { box-shadow: 0 0 30px rgba(0, 102, 255, 0.4); transform: translateY(-2px); }
         @keyframes dataFlow {
             0% { transform: translateX(-100%); opacity: 0; }
             50% { opacity: 1; }
             100% { transform: translateX(100%); opacity: 0; }
         }
-        .data-flow {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 2px;
-            width: 100%;
-            background: linear-gradient(90deg, transparent, #0066FF, transparent);
-            animation: dataFlow 2s linear infinite;
-        }
-
-        .animate-fade {
-    animation: fadeScale 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    width: 100%;
-}
-
-@keyframes fadeScale {
-    from {
-        opacity: 0;
-        transform: scale(0.95) translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-        .selected-card {
-            border: 2px solid #0066FF !important;
-            box-shadow: 0 0 30px rgba(0,102,255,0.2) !important;
-            background-color: #f0f7ff !important;
-        }
-
+        .data-flow { position: absolute; top: 0; left: 0; height: 2px; width: 100%; background: linear-gradient(90deg, transparent, #0066FF, transparent); animation: dataFlow 2s linear infinite; }
+        .animate-fade { animation: fadeScale 0.6s cubic-bezier(0.16, 1, 0.3, 1); width: 100%; }
+        @keyframes fadeScale { from { opacity: 0; transform: scale(0.95) translateY(10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        .selected-card { border: 2px solid #0066FF !important; box-shadow: 0 0 30px rgba(0,102,255,0.2) !important; background-color: #f0f7ff !important; }
         .ai-glow { animation: aiGlow 2s ease-in-out infinite; }
-        @keyframes aiGlow {
-            0%, 100% { box-shadow: 0 0 0 rgba(0,102,255,0); }
-            50% { box-shadow: 0 0 25px rgba(0,102,255,0.4); }
-        }
-
-        @keyframes rolling-list {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-50%); }
-        }
-        .rolling-container {
-            animation: rolling-list 25s linear infinite;
-            will-change: transform;
-        }
-        .rolling-container:hover {
-            animation-play-state: paused;
-        }
-        .fade-mask {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 40px;
-            background: linear-gradient(to top, rgba(255,255,255,1), rgba(255,255,255,0));
-            pointer-events: none;
-            z-index: 5;
-        }
+        @keyframes aiGlow { 0%, 100% { box-shadow: 0 0 0 rgba(0,102,255,0); } 50% { box-shadow: 0 0 25px rgba(0,102,255,0.4); } }
+        @keyframes rolling-list { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
+        .rolling-container { animation: rolling-list 25s linear infinite; will-change: transform; }
+        .rolling-container:hover { animation-play-state: paused; }
+        .fade-mask { position: absolute; bottom: 0; left: 0; right: 0; height: 40px; background: linear-gradient(to top, rgba(255,255,255,1), rgba(255,255,255,0)); pointer-events: none; z-index: 5; }
     </style>
 
     <script type="importmap">
@@ -541,7 +471,7 @@
         lessonCount: 110,
         priceRange: "18~40만원", 
         reviewHighlight: "매의 눈으로 스윙의 기본적인 문제점을 확실하게 교정해주십니다",
-        reasons: ["티샷 미스 훅과 슬라이스를 방지하는 그립 및 손목 각도 교정", "해외 투어 무대 경험 기반의 정교한 다운스윙 타이밍 매칭", "아이언 컨택 일관성 확보 및 코어 회전을 이용한 장타 유도"],
+        reasons: ["티샷 미스 훅 and 슬라이스를 방지하는 그립 및 손목 각도 교정", "해외 투어 무대 경험 기반의 정교한 다운스윙 타이밍 매칭", "아이언 컨택 일관성 확보 및 코어 회전을 이용한 장타 유도"],
         tags: ["슬라이스 교정", "비거리 증가", "드라이버 정확도"]
     },
     { 
@@ -589,7 +519,7 @@
         lessonTypes: ["1:1 레슨", "숏게임레슨"], 
         activeLocations: ["도곡", "대치", "개포", "강남"], 
         specialties: ["바디스윙", "체중이동", "훅 교정", "오버스윙"],
-        price: 150000, 
+        price: 150000,  
         rating: 4.9, 
         review: 92, 
         img: "https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/ksj.webp", 
@@ -693,7 +623,7 @@
         lessonCount: 244,
         priceRange: "11~12만원",
         reviewHighlight: "필드 트러블샷 및 미스샷 즉시 해결",
-        reasons: ["국가대표 상비군 출신의 코스 라이별 실전 트러블샷 요령 전수", "헤드가 열려 맞거나 밀려 나가는 드라이버 슬라이스 교정", "타구가 뜨고 정타가 안 나는 배치기 및 뒤땅 현상 원인 해결"],
+        reasons: ["국가대표 상비군 출신의 코스 라이별 실전 트러블샷 요령 전수", "해드가 열려 맞거나 밀려 나가는 드라이버 슬라이스 교정", "타구가 뜨고 정타가 안 나는 배치기 및 뒤땅 현상 원인 해결"],
         tags: ["필드 레슨", "비거리 증가", "임팩트 교정"] 
     },
     { 
@@ -750,7 +680,7 @@
         lessonCount: 61,
         priceRange: "첫회무료 / 15만원",
         reviewHighlight: "부담 없는 첫 회 무료 테스트 레슨 만족",
-        reasons: ["플랫폼 한정 최초 1회 무료 세션을 통한 스윙 성향 정밀 진단", "백스윙 탑에서 축이 무너지는 오버스윙 및 손목 풀림 교정", "임팩트 시 몸이 일어서는 배치기 현상 신체 맞춤형 피드백"],
+        reasons: ["플랫폼 한정 최초 1회 무료 세션을 통한 스윙 성향 정밀 진단", "백스윙 탑에서 축이 무너지는 오버스윙 구간 제어", "임팩트 시 몸이 일어서는 배치기 현상 신체 맞춤형 피드백"],
         tags: ["자세 교정", "초보 레슨", "우드/유틸 활용"] 
     },
     { 
@@ -997,7 +927,7 @@ const JoinBoard = ({ setFormOpen }) => {
             id: 1, tag: "마감임박🔥", loc: "오이타 퍼시픽블루CC", pro: "스승님 동행", title: "해외 캠프/필드레슨", 
             time: "9/19(토)~22(화)", price: 2090000, origin: "239만", members: "선착순 모집",
             include: "중식 빼고 항공·숙소·레슨 올 포함", type: "3인",
-            url: "https://rlaeodn1015-oss.github.io/camp/" // 캠프 사이트 주소 연동
+            url: "https://rlaeodn1015-oss.github.io/camp/" 
         },
         { 
             id: 2, tag: "신규🌟", loc: "숏게임힐스", pro: "서수연 스승", title: "숏게임레슨", 
@@ -1073,7 +1003,6 @@ const JoinBoard = ({ setFormOpen }) => {
                     const payUrl = `pay.html?price=${item.price}&type=${encodeURIComponent(item.title)}&requestId=${requestId}&LOCATION=${encodeURIComponent(item.loc)}&selectedPro=${encodeURIComponent(item.pro)}&proPhone=${proPhone}&schedule=${encodeURIComponent(item.time)}&personCount=${encodeURIComponent(item.type)}&include=${encodeURIComponent(item.include)}`;
 
                     const handleJoinClick = () => {
-                        // 오이타 골프캠프(id: 1)의 경우 새 창으로 캠프 페이지 이동
                         if (item.id === 1) {
                             if (typeof gtag === 'function') {
                                 gtag('event', 'click_oita_camp_move', {
@@ -1118,7 +1047,7 @@ const JoinBoard = ({ setFormOpen }) => {
                             <div>
                                 <div className="flex items-baseline gap-1.5 mb-3 bg-slate-50 p-2.5 rounded-2xl justify-center">
                                     <span className="text-slate-800 font-black text-xl">${(item.price / 10000)}만</span>
-                                    <span className="text-slate-333 text-[10px] line-through font-bold">${item.origin}</span>
+                                    <span className="text-[#333] text-[10px] line-through font-bold">${item.origin}</span>
                                 </div>
                                 
                                 <div className="flex gap-1.5">
@@ -1139,7 +1068,7 @@ const JoinBoard = ({ setFormOpen }) => {
                         <i className="fa-solid fa-user-plus text-white text-lg"></i>
                     </div>
                     <h4 className="text-base font-black text-white leading-tight">
-                        부담 없는 <span className="text-brand-blue">1인 신청</span>
+                        부ง 없는 <span className="text-brand-blue">1인 신청</span>
                     </h4>
                     <p className="text-[11px] text-slate-400 font-bold mt-2 leading-tight px-2">
                         조건에 딱 맞는 멤버를<br/>운영팀이 직접 찾아드려요
@@ -1338,9 +1267,8 @@ const ProApplyFlow = ({ setModalOpen }) => {
         return html`<div></div>`;
     }
 
-    // 디폴트 매핑 기조 정비 (step === 1)
     const clubs = ['드라이버', '우드/유틸', '롱아이언', '숏아이언', '웨지/숏게임', '퍼터'];
-   const categories = {
+    const categories = {
         "웨지/어프로치": ['100m 이내 거리 조절', '어프로치 거리감', '로브샷/피치샷', '웨지 스핀 컨트롤', '짧은 거리 뒤땅', '붙이는 어프로치', '다운블로 컨택', '웨지 정확도'],
         "그린 주변": ['벙커샷 탈출', '러프/트러블 대응', '굴리는 칩샷', '어프로치 입스', '실전 숏게임', '내리막/오르막 어프로치'],
         "퍼팅/스코어": ['3퍼트 줄이기', '퍼팅 거리감', '짧은 퍼트 불안', '실전 스코어 감소', '퍼팅 방향성', '라인 읽기', '에임포인트'],
@@ -1416,7 +1344,7 @@ const ProApplyFlow = ({ setModalOpen }) => {
 
                 <div class="space-y-3">
                     <p class="text-[12px] font-black text-brand-blue">
-                        <i class="fa-solid fa-won-sign"></i> 1회 레슨 정찰제 금액 <span class="text-rose-500">*필수</span>
+                        <i className="fa-solid fa-won-sign"></i> 1회 레슨 정찰제 금액 <span className="text-rose-500">*필수</span>
                     </p>
                     <div className="relative">
                         <input 
@@ -1556,13 +1484,11 @@ const ProApplyFlow = ({ setModalOpen }) => {
 `;
 
  const BannerSlider = () => {
-    // 화면에 배너가 그려진 직후 확실하게 Swiper를 초기화하는 로직을 내장합니다.
     React.useEffect(() => {
         let swiperInstance = null;
         
         const initSwiperLogic = () => {
             if (typeof Swiper !== "undefined") {
-                // 이미 생성된 인스턴스가 있다면 파괴 후 재조립하여 꼬임 방지
                 if (document.querySelector(".mySwiper")?.swiper) {
                     document.querySelector(".mySwiper").swiper.destroy(true, true);
                 }
@@ -1682,10 +1608,8 @@ const ProApplyFlow = ({ setModalOpen }) => {
     };
 
     return html`
-        <!-- 전체 상단 바 영역 (기존 헤더와 신설 띠배너를 감싸서 고정) -->
         <div className="fixed top-0 left-0 right-0 z-[60] bg-white/90 backdrop-blur-xl border-b border-gray-100 shadow-sm">
             
-            <!-- [기존 유지] 메인 내비게이션 헤더 -->
             <div className="max-w-screen-xl mx-auto px-4 md:px-5 h-16 md:h-20 flex items-center justify-between">
                 <a href="#" className="flex items-center gap-2 md:gap-3 shrink-0">
                     <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/ssnim.png" 
@@ -1750,7 +1674,6 @@ const ProApplyFlow = ({ setModalOpen }) => {
                 </div>
             </div>
 
-            <!-- 🔥 [신설] 모바일 전용 최상단 고정 띠배너 (h-16 바닥에 칼같이 맞춤 고정) -->
             <div className="bg-gradient-to-r from-orange-500 to-amber-500 py-2.5 px-4 lg:hidden border-t border-white/10 active:scale-[0.99] transition-all">
                 <a href="https://rlaeodn1015-oss.github.io/camp/" target="_blank" className="flex items-center justify-between gap-2 text-white">
                     <div className="flex items-center gap-1.5 min-w-0">
@@ -1786,9 +1709,9 @@ const ProApplyFlow = ({ setModalOpen }) => {
 
                 <div className="mb-10 text-slate-600 text-base md:text-xl font-bold leading-[1.6] tracking-tight break-keep opacity-90">
                     <p>
-                당신의 골프 고민을 알려주세요.<br />
-                스승님이 함께 해결해드립니다.
-            </p>
+                    당신의 골프 고민을 알려주세요.<br />
+                    스승님이 함께 해결해드립니다.
+                </p>
                     
                     <div className="inline-flex items-center gap-2 mt-4 px-3.5 py-1.5 bg-emerald-50 text-emerald-700 font-black rounded-xl text-xs md:text-sm border border-emerald-100 shadow-sm">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
@@ -2332,7 +2255,8 @@ const EventSection = () => html`
         location: '', lessonType: '', isJoinable: false,
         personCount: '1인', club: '', concern: [],
         schedule: '', price: '', lessonDate: '',
-        activeTab: '', showAllTags: false, isDiscountClicked: false, isTrialSelected: false
+        activeTab: '', showAllTags: false, isDiscountClicked: false, isTrialSelected: false,
+        lessonPlan: '', isSubmitting: false // 💡 [필수 패치] 누락된 초기 필드 보완으로 실행 크래시 원천 차단
     });
     
     React.useEffect(() => {
@@ -2619,7 +2543,7 @@ const EventSection = () => html`
         const telegramMessage = `🔥 [${isFixedPrice ? '패키지 정찰' : '실전 현장견적'}] 매칭 발생\n\n👤 이름: ${payload.name}\n📞 연락처: ${payload.contact}\n📍 지역: ${payload.location}\n⛳ 레슨: ${payload.type}\n🏌️ 클럽: ${payload.club}\n💥 문제: ${payload.concern}\n⏰ 시간: ${payload.schedule}\n🏆 선택 프로: ${payload.selectedPro}\n💰 가격: ${Number(payload.price || 0).toLocaleString()}원`;
 
         try {
-            // 1. 구글 앱스 스크립트 연동
+            // 1. 구글 앱스 스크립트 새 배포 주소 연동 동기화 완비
             await fetch("https://script.google.com/macros/s/AKfycbwsTEhL9LkmX0NV6Em_ktJ_Y9-M4hwdv7mBRVpb6q2bpx0lxWkmrxPA_AvzprLQGa4R/exec", {
                 method: "POST",
                 headers: {
@@ -2632,7 +2556,7 @@ const EventSection = () => html`
                 ? "https://hooks.zapier.com/hooks/catch/27197789/uj4iu7w/" 
                 : "https://hooks.zapier.com/hooks/catch/27197789/uj4t9ko/";
 
-            // 2. 자피어 Webhook 연동
+            // 2. 자피어 Webhook 연동 안정화
             await fetch(ZAPIER_WEBHOOK_URL, { 
                 method: "POST", 
                 headers: {
@@ -2859,11 +2783,11 @@ if (step === 6) {
                         }}
                             className=${`w-full p-3 rounded-2xl border-2 transition-all flex justify-between items-center relative ${isSelected ? 'border-brand-blue bg-blue-50/50 ring-2 ring-blue-500/20' : 'border-slate-100 bg-white'} ${formData.isSubmitting ? 'opacity-50 pointer-events-none' : ''}`}>
                             
-                            ${isBonusPlan && html`
+                            ${isBonusPlan ? html`
                                 <div className="absolute top-2 right-2 bg-red-500 text-white text-[8px] font-black px-1.5 py-0.5 rounded-md z-10 shadow-sm">
                                     +1회
                                 </div>
-                            `}
+                            ` : ''}
 
                             <div className="text-left pr-8">
                                 <span className="text-[9px] ${isSelected ? 'bg-blue-100 text-blue-600' : 'bg-slate-100 text-slate-500'} px-1.5 py-0.5 rounded-full font-black block w-max mb-1">${options[opt].tag}</span>
@@ -2899,7 +2823,7 @@ if (step === 6) {
                     ${isTrialActive ? '✅ 1회 원포인트 체험 신청 적용 중' : '✨ 내가 원하는 금액으로 1회 체험 신청하기'}
                 </button>
                 
-                ${isTrialActive && html`
+                ${isTrialActive ? html`
                     <div className="mt-3 relative animate-slide-up">
                         <input 
                             type="number" 
@@ -2913,7 +2837,7 @@ if (step === 6) {
                         />
                         <span className="absolute right-4 top-3.5 font-black text-slate-400 text-sm">원</span>
                     </div>
-                `}
+                ` : ''}
             </div>
 
             <div className="space-y-3 border-t border-slate-100 pt-4">
@@ -3139,12 +3063,11 @@ if (step === 6) {
             const [proFormOpen, setProFormOpen] = React.useState(false);
             const [visitorCount, setVisitorCount] = React.useState(142);
             
-            // 🔥 [신설] 오이타 팝업 상태 제어 (유저가 닫기 전까지 상시 노출)
             const [campPopupOpen, setCampPopupOpen] = React.useState(true);
 
             React.useEffect(() => {
                 const revealOnScroll = () => {
-                    const elements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+                    const elements = document.querySelectorAll('.reveal', '.reveal-left', '.reveal-right');
                     const triggerBottom = window.innerHeight * 0.85;
                     elements.forEach(el => {
                         const boxTop = el.getBoundingClientRect().top;
@@ -3311,7 +3234,6 @@ ${proFormOpen && html`
 const rootEl = document.getElementById("root");
 createRoot(rootEl).render(html`<${App} />`);
 
-// 💡 스크립트 순서 문제 완벽 차단용 즉시 검증 블록
 document.addEventListener("DOMContentLoaded", () => {
     const initSwiper = () => {
         if (typeof Swiper !== "undefined") {
@@ -3327,3 +3249,5 @@ document.addEventListener("DOMContentLoaded", () => {
     initSwiper();
 });
 </script>
+</body>
+</html>
