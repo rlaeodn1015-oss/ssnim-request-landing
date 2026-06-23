@@ -76,7 +76,7 @@
     </div>
 
     <script>
-    let rawPrice = 0;
+   let rawPrice = 0;
     let finalPayPrice = 0;
     let personCount = 1;
     let requestId = "";
@@ -86,11 +86,9 @@
     window.onload = async () => {
         const params = new URLSearchParams(window.location.search);
 
-        // 💡 [핵심 수정] 부트페이가 결제 성공 후 리다이렉트할 때 주소창에 자동으로 'receipt_id'를 붙입니다.
-        // 이 receipt_id가 있을 때만 진짜 결제가 완료된 것으로 판정합니다. (창 그냥 닫으면 실행 안 됨)
+        // 💡 [결제 완료 후 부트페이 리다이렉트 대응 로직]
         if (params.get('receipt_id') || params.get('status') === 'done') {
             
-            // 만약 사용자가 결제를 취소해서 복귀한 거라면 완료 로직 차단 (부트페이 리다이렉트 취소 대응)
             if(params.get('bootpay_event') === 'cancel' || params.get('cancel') === 'true') {
                 alert("결제가 취소되었습니다. 다시 진행해주세요.");
                 location.replace(window.location.pathname + "?" + removeParam(window.location.search, ['receipt_id', 'status', 'bootpay_event']));
@@ -124,15 +122,17 @@
             };
 
             try {
-                // 1. 구글 시트 업데이트 전송
-                await fetch("https://script.google.com/macros/s/AKfycbz8xIWYf5_zWUkzVFKQAThMHEsmZY74A0k7N6u7Kz4P0N-sgxldbpcqKiHGKcUPBdW6/exec", { 
-                    method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" },
+                // 1. 구글 시트 업데이트 전송 (CORS 우회 및 에러 방지 헤더 세팅)
+                await fetch("https://script.google.com/macros/s/AKfycbwJ8jcshxR6HcNknmLkjRdeT0NMw8d4-o9Z1hAWxdryi8pzocXZveDp_pmF1PpnKkcF/exec", { 
+                    method: "POST", 
+                    headers: { "Content-Type": "text/plain;charset=utf-8" },
                     body: JSON.stringify({ action: "updatePayment", status: "paid", requestId: reqId, price: paidAmt, name: userName }) 
                 });
 
                 // 2. 메인 자피어 호출 (ujdmj18)
                 await fetch("https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/", {
-                    method: "POST", mode: "no-cors",
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(zapierData)
                 });
 
@@ -211,7 +211,7 @@
         if (phoneInput.length < 10) return alert("알림톡을 받을 정확한 핸드폰 번호를 입력해주세요.");
         if (finalPayPrice < 100) return alert("결제 금액이 너무 낮습니다.");
 
-        // 결제 수단 호출 직전, 실명 데이터 기반으로 "결제 대기" 데이터 선인입
+        // 결제 수단 호출 직전, "결제 대기" 데이터 선인입 (통신 안정성 헤더 패치)
         const initialPayload = {
             action: "createRequest", 
             requestId: requestId,
@@ -232,16 +232,13 @@
         try {
             await fetch("https://script.google.com/macros/s/AKfycbwJ8jcshxR6HcNknmLkjRdeT0NMw8d4-o9Z1hAWxdryi8pzocXZveDp_pmF1PpnKkcF/exec", {
                 method: "POST",
-                mode: "no-cors",
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
                 body: JSON.stringify(initialPayload)
             });
         } catch (err) {
             console.error("사전 장부 인입 에러 무시:", err);
         }
         
-        // 💡 [핵심 수정] 부트페이 결제창을 띄우기 전, 성공 후 복귀할 주소(redirect_url) 정의
-        // 복귀했을 때 자피어와 구글시트에 넘겨줄 유저 입력 정보들을 쿼리스트링에 안전하게 누적시킵니다.
-        // 결제가 '진짜 완료'되면 부트페이가 이 주소 뒤에 &receipt_id=... 를 붙여서 이동시킵니다.
         const baseRedirect = window.location.origin + window.location.pathname + 
         "?requestId=" + requestId + 
         "&price=" + finalPayPrice + 
@@ -254,7 +251,6 @@
         "&schedule=" + encodeURIComponent(params.get('schedule') || "") + 
         "&LOCATION=" + encodeURIComponent(params.get('LOCATION') || "");
             
-        // 원래 검증 완료되었던 부트페이 v5 엔진 규격 적용
         Bootpay.requestPayment({
             "application_id": "67ecd171d9af4e5c6d21736b",
             "price": finalPayPrice,
@@ -265,8 +261,8 @@
             "user": { "username": nameInput },
             "extra": { 
                 "open_type": "redirect", 
-                "display_success_result": true, // 단독 리다이렉트 시 성공 결과를 부트페이가 명시적으로 처리하도록 보장
-                "redirect_url": baseRedirect,   // 결제 승인 후 부트페이가 영수증 ID를 붙여서 이동할 진짜 복귀 주소
+                "display_success_result": true, 
+                "redirect_url": baseRedirect,   
                 "popup": false
             }
         });
@@ -291,7 +287,6 @@
         });
     }
 
-    // 쿼리 스트링 정리를 위한 헬퍼 함수
     function removeParam(queryString, paramsToRemove) {
         const urlParams = new URLSearchParams(queryString);
         paramsToRemove.forEach(p => urlParams.delete(p));
