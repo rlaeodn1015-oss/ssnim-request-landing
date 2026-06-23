@@ -204,31 +204,32 @@
             try {
                 // 1. 자피어 알림톡 전송 완료 대기
                 const ZAPIER_EXTERNAL = "https://hooks.zapier.com/hooks/catch/27197789/ujl6khu/";
-                const ZAPIER_1ON1 = "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/";
-                const webhookUrl = sendType.includes('1:1') ? ZAPIER_1ON1 : ZAPIER_EXTERNAL;
+    const ZAPIER_1ON1 = "https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/";
+    const webhookUrl = sendType.includes('1:1') ? ZAPIER_1ON1 : ZAPIER_EXTERNAL;
 
-                await fetch(webhookUrl, { 
-                    method: "POST", 
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload) 
-                });
+    await fetch(webhookUrl, { 
+        method: "POST", 
+        mode: "no-cors", 
+        body: JSON.stringify(payload) 
+    });
 
-                // 2. 구글 앱스 스크립트 시트 연동 완료 확실히 대기 (await 추가 및 헤더 수정)
-                await fetch("https://script.google.com/macros/s/AKfycbwsTEhL9LkmX0NV6Em_ktJ_Y9-M4hwdv7mBRVpb6q2bpx0lxWkmrxPA_AvzprLQGa4R/exec", {
-                    method: "POST", 
-                    headers: { "Content-Type": "text/plain;charset=utf-8" },
-                    body: JSON.stringify(payload)
-                });
-                           
-                alert("✅ 수락 완료 및 결제톡 발송!");
-                window.location.href = "https://pf.kakao.com/_kxawRn/chat";
-                
-            } catch (err) {
-                console.error(err);
-                alert("🚨 시스템 전송 에러가 발생했습니다. 운영팀에 문의해주세요.");
-                submitBtn.disabled = false;
-                submitBtn.innerText = "제안 수락 및 결제톡 발송";
-            }
+    // 2. 구글 앱스 스크립트 새 배포 주소 (원래 가던 mode: "no-cors" 구조로 복구)
+    await fetch("https://script.google.com/macros/s/AKfycbwsTEhL9LkmX0NV6Em_ktJ_Y9-M4hwdv7mBRVpb6q2bpx0lxWkmrxPA_AvzprLQGa4R/exec", {
+        method: "POST", 
+        mode: "no-cors", 
+        body: JSON.stringify(payload)
+    });
+               
+    setTimeout(() => {
+        alert("✅ 수락 완료 및 결제톡 발송!");
+        window.location.href = "https://pf.kakao.com/_kxawRn/chat";
+    }, 1000);
+    
+} catch (err) {
+    alert("🚨 에러 발생: " + err.message);
+    submitBtn.disabled = false;
+    submitBtn.innerText = "레슨 승인 및 카톡 발송";
+}
         }
     </script>
 </body>
