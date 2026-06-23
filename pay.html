@@ -121,20 +121,20 @@
                 location: params.get('LOCATION') || ""
             };
 
-            try {
-                // 1. 구글 시트 업데이트 전송 (CORS 우회 및 에러 방지 헤더 세팅)
-                await fetch("https://script.google.com/macros/s/AKfycbwsTEhL9LkmX0NV6Em_ktJ_Y9-M4hwdv7mBRVpb6q2bpx0lxWkmrxPA_AvzprLQGa4R/exec", { 
-                    method: "POST", 
-                    headers: { "Content-Type": "text/plain;charset=utf-8" },
-                    body: JSON.stringify({ action: "updatePayment", status: "paid", requestId: reqId, price: paidAmt, name: userName }) 
-                });
+           try {
+    // 1. 구글 시트 업데이트 전송 (원래 가던 mode: "no-cors" 구조로 복구 + 새 주소 매핑)
+    await fetch("https://script.google.com/macros/s/AKfycbwsTEhL9LkmX0NV6Em_ktJ_Y9-M4hwdv7mBRVpb6q2bpx0lxWkmrxPA_AvzprLQGa4R/exec", { 
+        method: "POST", 
+        mode: "no-cors", 
+        body: JSON.stringify({ action: "updatePayment", status: "paid", requestId: reqId, price: paidAmt, name: userName }) 
+    });
 
-                // 2. 메인 자피어 호출 (ujdmj18)
-                await fetch("https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(zapierData)
-                });
+    // 2. 메인 자피어 호출 (ujdmj18 - 원래 가던 mode: "no-cors" 구조로 복구)
+    await fetch("https://hooks.zapier.com/hooks/catch/27197789/ujdmj18/", {
+        method: "POST", 
+        mode: "no-cors",
+        body: JSON.stringify(zapierData)
+    });
 
                 // 3. 외부 레슨 조건부 즉시 발송 로직
                 const externalKeywords = ["조인", "파3", "숏게임", "9홀", "18홀", "캠프", "라운드", "필드"];
@@ -230,14 +230,15 @@
         };
 
         try {
-            await fetch("https://script.google.com/macros/s/AKfycbwsTEhL9LkmX0NV6Em_ktJ_Y9-M4hwdv7mBRVpb6q2bpx0lxWkmrxPA_AvzprLQGa4R/exec", {
-                method: "POST",
-                headers: { "Content-Type": "text/plain;charset=utf-8" },
-                body: JSON.stringify(initialPayload)
-            });
-        } catch (err) {
-            console.error("사전 장부 인입 에러 무시:", err);
-        }
+        // 원래 가던 mode: "no-cors" 구조로 복구 + 새 주소 매핑
+        await fetch("https://script.google.com/macros/s/AKfycbwsTEhL9LkmX0NV6Em_ktJ_Y9-M4hwdv7mBRVpb6q2bpx0lxWkmrxPA_AvzprLQGa4R/exec", {
+            method: "POST",
+            mode: "no-cors",
+            body: JSON.stringify(initialPayload)
+        });
+    } catch (err) {
+        console.error("사전 장부 인입 에러 무시:", err);
+    }
         
         const baseRedirect = window.location.origin + window.location.pathname + 
         "?requestId=" + requestId + 
