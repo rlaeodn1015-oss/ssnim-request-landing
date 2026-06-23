@@ -2619,18 +2619,34 @@ const EventSection = () => html`
         const telegramMessage = `🔥 [${isFixedPrice ? '패키지 정찰' : '실전 현장견적'}] 매칭 발생\n\n👤 이름: ${payload.name}\n📞 연락처: ${payload.contact}\n📍 지역: ${payload.location}\n⛳ 레슨: ${payload.type}\n🏌️ 클럽: ${payload.club}\n💥 문제: ${payload.concern}\n⏰ 시간: ${payload.schedule}\n🏆 선택 프로: ${payload.selectedPro}\n💰 가격: ${Number(payload.price || 0).toLocaleString()}원`;
 
         try {
+            // 1. 구글 앱스 스크립트 연동
             await fetch("https://script.google.com/macros/s/AKfycbwJ8jcshxR6HcNknmLkjRdeT0NMw8d4-o9Z1hAWxdryi8pzocXZveDp_pmF1PpnKkcF/exec", {
-                method: "POST", mode: "no-cors", body: JSON.stringify(payload)
+                method: "POST",
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8"
+                },
+                body: JSON.stringify(payload)
             });
             
             const ZAPIER_WEBHOOK_URL = isFixedPrice 
                 ? "https://hooks.zapier.com/hooks/catch/27197789/uj4iu7w/" 
                 : "https://hooks.zapier.com/hooks/catch/27197789/uj4t9ko/";
 
-            await fetch(ZAPIER_WEBHOOK_URL, { method: "POST", mode: "no-cors", body: JSON.stringify(payload) });
+            // 2. 자피어 Webhook 연동
+            await fetch(ZAPIER_WEBHOOK_URL, { 
+                method: "POST", 
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload) 
+            });
 
+            // 3. 텔레그램 API 연동
             await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method: "POST", headers: { "Content-Type": "application/json" },
+                method: "POST", 
+                headers: { 
+                    "Content-Type": "application/json" 
+                },
                 body: JSON.stringify({ chat_id: CHAT_ID, text: telegramMessage })
             });
 
@@ -2647,6 +2663,7 @@ const EventSection = () => html`
             
             setStep(7);
         } catch (err) {
+            console.error("매칭 데이터 전송 중 에러 발생:", err);
             setStep(7);
         }
     };
