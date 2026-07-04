@@ -153,18 +153,180 @@
     }
     .animate-infinite-scroll-review:hover { animation-play-state: paused; }
 
-    /* Mobile readability tuning */
     @media (max-width: 767px) {
-      .section { padding-top: 48px; padding-bottom: 48px; }
-      .hero-title { font-size: 36px !important; line-height: 1.1 !important; letter-spacing: -0.06em !important; }
-      h1, h2, h3 { word-break: keep-all; }
-      .mobile-title { font-size: 26px !important; line-height: 1.22 !important; letter-spacing: -0.055em !important; }
-      .mobile-subcopy { font-size: 14px !important; line-height: 1.65 !important; }
-      .card p, .card-soft p { line-height: 1.55; }
-      .footer-safe-space { padding-bottom: 120px; }
-    }
 
+  body {
+    font-family: "Pretendard", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 13px;
+    line-height: 1.55;
+    letter-spacing: -0.025em;
+  }
 
+  h1, h2, h3, p {
+    word-break: keep-all;
+  }
+
+  /* 섹션 간격은 기존 느낌 유지 */
+  .section {
+    padding-top: 42px !important;
+    padding-bottom: 42px !important;
+  }
+
+  .section-pad {
+    padding-top: 46px !important;
+    padding-bottom: 46px !important;
+  }
+
+  /* 최상단 메인 타이틀 */
+  .hero-title {
+    font-size: 31px !important;
+    line-height: 1.16 !important;
+    letter-spacing: -0.055em !important;
+    font-weight: 900 !important;
+  }
+
+  /* 일반 섹션 큰 제목 */
+  .section-title,
+  .mobile-title,
+  h2.mobile-title,
+  .section h2,
+  .center-section h2 {
+    font-size: 22px !important;
+    line-height: 1.28 !important;
+    letter-spacing: -0.045em !important;
+    font-weight: 900 !important;
+  }
+
+  /* 섹션 설명문 */
+  .mobile-subcopy,
+  .section p.mobile-subcopy,
+  .section .text-slate-500 {
+    font-size: 12.5px !important;
+    line-height: 1.6 !important;
+    letter-spacing: -0.02em !important;
+    font-weight: 700 !important;
+  }
+
+  /* 상단 작은 라벨 */
+  .eyebrow {
+    font-size: 9.5px !important;
+    line-height: 1 !important;
+    padding: 6px 10px !important;
+    font-weight: 900 !important;
+    letter-spacing: 0.01em !important;
+  }
+
+  /* 카드 안 제목 */
+  article h3,
+  .card h3,
+  .card-soft h3 {
+    font-size: 15px !important;
+    line-height: 1.34 !important;
+    letter-spacing: -0.035em !important;
+    font-weight: 900 !important;
+  }
+
+  /* 카드 안 본문 */
+  article p,
+  .card p,
+  .card-soft p {
+    font-size: 12px !important;
+    line-height: 1.54 !important;
+    letter-spacing: -0.018em !important;
+  }
+
+  /* 상품 카드 제목 */
+  .compact-product h3 {
+    font-size: 18px !important;
+    line-height: 1.28 !important;
+    letter-spacing: -0.045em !important;
+    font-weight: 900 !important;
+  }
+
+  .compact-product p {
+    font-size: 12px !important;
+    line-height: 1.52 !important;
+  }
+
+  /* 상품 카드 안 작은 태그 */
+  .chip {
+    font-size: 9.5px !important;
+    line-height: 1 !important;
+    font-weight: 900 !important;
+  }
+
+  /* TOP8 제목 */
+  #pro-store h2 {
+    font-size: 22px !important;
+    line-height: 1.28 !important;
+    letter-spacing: -0.045em !important;
+  }
+
+  /* TOP8 카드 */
+  .top8-card h3 {
+    font-size: 14px !important;
+    line-height: 1.3 !important;
+    letter-spacing: -0.03em !important;
+  }
+
+  .top8-card p {
+    font-size: 11px !important;
+    line-height: 1.45 !important;
+    letter-spacing: -0.015em !important;
+  }
+
+  .top8-card span {
+    font-size: 9.5px !important;
+  }
+
+  /* 버튼 글씨만 정리. 버튼 크기/폭/레이아웃은 건드리지 않음 */
+  button,
+  .center-section button {
+    font-size: 13px !important;
+    line-height: 1.2 !important;
+    font-weight: 900 !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  .hero-bg button {
+    font-size: 14px !important;
+  }
+
+  /* About 숫자 영역 */
+  #about .grid-cols-3 p:first-child {
+    font-size: 9.5px !important;
+    line-height: 1.35 !important;
+    font-weight: 900 !important;
+  }
+
+  #about .grid-cols-3 p:last-child {
+    font-size: 18px !important;
+    line-height: 1.2 !important;
+    font-weight: 900 !important;
+  }
+
+  /* How it works */
+  #how article h3 {
+    font-size: 15px !important;
+    line-height: 1.34 !important;
+  }
+
+  #how article p {
+    font-size: 12px !important;
+    line-height: 1.55 !important;
+  }
+
+  #how .text-\[11px\] {
+    font-size: 9.5px !important;
+  }
+
+  /* 후기 섹션 제목 */
+  .animate-infinite-scroll-review + *,
+  .center-section h2.text-\[20px\] {
+    font-size: 21px !important;
+    line-height: 1.28 !important;
+  }
+}
 
     /* Section alignment normalization */
     .section .section-head,
@@ -225,57 +387,6 @@
 
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-    /* Compact mobile typography + app-like sliders */
-    @media (max-width: 767px) {
-      body {
-        letter-spacing: -0.022em;
-        font-size: 14px;
-      }
-      .section {
-        padding-top: 42px !important;
-        padding-bottom: 42px !important;
-      }
-      .hero-title {
-        font-size: 33px !important;
-        line-height: 1.12 !important;
-        letter-spacing: -0.055em !important;
-      }
-      .mobile-title,
-      h2.mobile-title,
-      .section h2 {
-        font-size: 24px !important;
-        line-height: 1.25 !important;
-        letter-spacing: -0.045em !important;
-      }
-      .mobile-subcopy,
-      .section p.mobile-subcopy,
-      .section .text-slate-500 {
-        font-size: 13px !important;
-        line-height: 1.58 !important;
-      }
-      .eyebrow {
-        font-size: 10px !important;
-        padding: 7px 10px !important;
-      }
-      .card,
-      .card-soft {
-        border-radius: 22px !important;
-      }
-      .card h3,
-      .card-soft h3 {
-        font-size: 15px !important;
-        line-height: 1.32 !important;
-      }
-      .card p,
-      .card-soft p {
-        font-size: 12px !important;
-        line-height: 1.5 !important;
-      }
-      .section-head {
-        margin-bottom: 22px !important;
-      }
-    }
 
     .top8-slider {
       display: flex;
@@ -341,35 +452,94 @@
       lee_hs: "이형석 스승 요청"
     };
 
-    function trackEvent(name, label) {
-      if (typeof gtag === 'function') {
-        gtag('event', name, { event_category: 'final_integrated_landing', event_label: label || '' });
-      }
-    }
     function goService(source = 'cta') {
-      trackEvent('click_service_start', source);
-      window.location.href = SERVICE_URL + '?source=landing_' + encodeURIComponent(source);
-    }
-    function filterTopPros(type) {
-      const cards = document.querySelectorAll('[data-top-pro-card]');
-      const tabs = document.querySelectorAll('[data-top-pro-tab]');
+  trackEvent('click_service_start', source);
+  window.location.href = SERVICE_URL + '?source=landing_' + encodeURIComponent(source);
+}
 
-      tabs.forEach(tab => {
-        const active = tab.dataset.topProTab === type;
-        tab.classList.toggle('bg-slate-900', active);
-        tab.classList.toggle('text-white', active);
-        tab.classList.toggle('border-slate-900', active);
-        tab.classList.toggle('bg-white', !active);
-        tab.classList.toggle('text-slate-600', !active);
-        tab.classList.toggle('border-slate-200', !active);
-      });
+function showProsByLesson(type, source = '') {
+  trackEvent('click_lesson_filter', source || type);
 
-      cards.forEach(card => {
-        const lessons = (card.dataset.lessons || '').split(',');
-        const show = type === 'all' || lessons.includes(type);
-        card.classList.toggle('hidden', !show);
-      });
+  const proSection = document.getElementById('pro-store');
+  if (proSection) {
+    proSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  setTimeout(() => {
+    filterTopPros(type);
+  }, 250);
+}
+   function getTopProCta(type) {
+  const ctaMap = {
+    all: {
+      text: "스승님에게 요청하기",
+      source: "top8_all"
+    },
+    one: {
+      text: "1:1 레슨 요청하기",
+      source: "trial_lesson"
+    },
+    par3: {
+      text: "파3 레슨 요청하기",
+      source: "par3"
+    },
+    shortgame: {
+      text: "숏게임 레슨 요청하기",
+      source: "shortgame"
+    },
+    field: {
+      text: "필드레슨 요청하기",
+      source: "field9"
     }
+  };
+
+  return ctaMap[type] || ctaMap.all;
+}
+
+function getLessonAliases(type) {
+  const aliasMap = {
+    all: ["all"],
+    one: ["one"],
+    par3: ["par3"],
+    shortgame: ["shortgame"],
+    field: ["field", "field9", "field18"]
+  };
+
+  return aliasMap[type] || [type];
+}
+
+function filterTopPros(type) {
+  const cards = document.querySelectorAll('[data-top-pro-card]');
+  const tabs = document.querySelectorAll('[data-top-pro-tab]');
+  const cta = getTopProCta(type);
+  const aliases = getLessonAliases(type);
+
+  tabs.forEach(tab => {
+    const active = tab.dataset.topProTab === type;
+    tab.classList.toggle('bg-slate-900', active);
+    tab.classList.toggle('text-white', active);
+    tab.classList.toggle('border-slate-900', active);
+    tab.classList.toggle('bg-white', !active);
+    tab.classList.toggle('text-slate-600', !active);
+    tab.classList.toggle('border-slate-200', !active);
+  });
+
+  cards.forEach(card => {
+    const lessons = (card.dataset.lessons || '')
+      .split(',')
+      .map(item => item.trim())
+      .filter(Boolean);
+
+    const show = type === 'all' || aliases.some(alias => lessons.includes(alias));
+    card.classList.toggle('hidden', !show);
+
+    const button = card.querySelector('button');
+    if (button) {
+      button.innerText = cta.text;
+      button.onclick = () => goService(cta.source);
+    }
+  });
+}
 
     function goKakao(source = 'kakao') {
       trackEvent('click_kakao_chat', source);
@@ -408,8 +578,8 @@
         <a href="#about" class="hover:text-brand transition">회사소개</a>
         <a href="#service" class="hover:text-brand transition">서비스</a>
         <a href="#products" class="hover:text-brand transition">레슨상품</a>
-        <a href="#pros" class="hover:text-brand transition">스승님</a>
-        <a href="#trust" class="hover:text-brand transition">공식신청</a>
+        <a href="#pro-store" class="hover:text-brand transition">스승님</a>
+        <a href="#trust" class="hover:text-brand transition">스승님전환</a>
       </nav>
       <div class="flex items-center gap-2">
         <button onclick="goKakao('header')" class="hidden sm:block px-4 py-2.5 rounded-full bg-slate-100 text-slate-700 text-xs font-black active:scale-95 transition">문의</button>
@@ -443,12 +613,12 @@
 
           <div class="bg-white rounded-3xl p-3 border border-slate-100 shadow-soft text-center">
             <p class="text-lg font-black text-ink">레슨 확인</p>
-            <p class="text-[11px] font-bold text-slate-400">맞는 방향 추천</p>
+            <p class="text-[11px] font-bold text-slate-400">맞춤 스승님 추천</p>
           </div>
 
           <div class="bg-white rounded-3xl p-3 border border-slate-100 shadow-soft text-center">
-            <p class="text-lg font-black text-ink">신청 접수</p>
-            <p class="text-[11px] font-bold text-slate-400">일정 상담 진행</p>
+            <p class="text-lg font-black text-ink">신청 진행</p>
+            <p class="text-[11px] font-bold text-slate-400">카톡 예약 진행</p>
           </div>
         </div>
 
@@ -514,17 +684,49 @@
 
    <section id="about" class="center-section section-pad bg-white scroll-mt-20">
   <div class="container-wide">
+
     <div class="max-w-3xl mx-auto text-center mb-9 reveal">
-      <span class="eyebrow">About</span>
-      <h2 class="section-title mt-4 font-black text-ink">
-        스승님은 골프레슨을<br class="md:hidden" />
-        쉽게 찾는 서비스입니다.
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 text-brand rounded-full text-[11px] font-black uppercase tracking-wider mb-4">
+        ⛳ 스승님은 무슨 회사인가요?
+      </div>
+
+      <div class="text-slate-400 text-[10px] md:text-[11px] font-black tracking-widest uppercase mb-2">
+        OUR MISSION
+      </div>
+
+      <h2 class="section-title mt-3 font-black text-ink">
+        내가 필요한 골프레슨을<br class="md:hidden" />
+        가장 쉽게 찾는 방법
       </h2>
+
       <p class="mt-4 text-slate-500 font-bold leading-relaxed mobile-subcopy">
-        드라이버, 아이언, 숏게임, 파3, 필드레슨까지<br />
-        고민과 지역에 맞춰 필요한 스승님을 찾고,
-        신청부터 레슨 진행까지 도와드립니다.
+  골프 고민과 지역만 선택하면<br />
+  나에게 맞는 스승님을 찾고,<br class="md:hidden" />
+  신청부터 일정 확인까지<br />
+  스승님이 함께 도와드립니다.
+</p>
+
+      <p class="mt-3 text-xs md:text-sm text-slate-400 font-bold leading-relaxed">
+        드라이버, 아이언, 숏게임, 파3, 필드레슨까지<br class="md:hidden" />
+        필요한 레슨만 원하는 가격으로 요청하세요.
       </p>
+    </div>
+
+    <div class="grid grid-cols-3 gap-2 bg-slate-50 p-5 rounded-[2rem] text-center border border-slate-100 shadow-soft max-w-2xl mx-auto mb-8 reveal">
+      <div>
+        <p class="text-[10px] md:text-xs font-black text-slate-400 mb-1">서비스 이용 골퍼</p>
+        <p class="text-lg md:text-2xl font-black text-slate-800">2,600명+</p>
+      </div>
+
+      <div class="border-x border-slate-200">
+        <p class="text-[10px] md:text-xs font-black text-slate-400 mb-1">검증된 스승</p>
+        <p class="text-lg md:text-2xl font-black text-brand">80명+</p>
+      </div>
+
+      <div>
+        <p class="text-[10px] md:text-xs font-black text-slate-400 mb-1">불만족 시 환불</p>
+        <p class="text-lg md:text-2xl font-black text-emerald-600">100%</p>
+      </div>
     </div>
 
     <div class="grid md:grid-cols-4 gap-3 md:gap-4 max-w-5xl mx-auto">
@@ -532,7 +734,7 @@
         <p class="text-4xl mb-5">🧭</p>
         <h3 class="text-xl font-black mb-2">고민 선택</h3>
         <p class="text-sm leading-relaxed font-bold text-slate-500">
-          슬라이스, 생크, 비거리, 숏게임처럼 고치고 싶은 내용을 선택합니다.
+          슬라이스, 생크, 비거리, 숏게임처럼 지금 가장 고치고 싶은 문제를 선택합니다.
         </p>
       </article>
 
@@ -540,7 +742,7 @@
         <p class="text-4xl mb-5">📍</p>
         <h3 class="text-xl font-black mb-2">지역 선택</h3>
         <p class="text-sm leading-relaxed font-bold text-slate-500">
-          강남, 서초, 송파, 분당, 용인 등 원하는 지역을 기준으로 확인합니다.
+          강남, 서초, 송파, 분당, 용인 등 원하는 지역을 기준으로 가능한 스승님을 확인합니다.
         </p>
       </article>
 
@@ -548,7 +750,7 @@
         <p class="text-4xl mb-5">⛳</p>
         <h3 class="text-xl font-black mb-2">레슨 확인</h3>
         <p class="text-sm leading-relaxed font-bold text-slate-500">
-          연습장 레슨부터 파3, 숏게임, 필드레슨까지 필요한 레슨을 안내합니다.
+          1:1 레슨부터 파3, 숏게임, 필드레슨까지 내 목적에 맞는 레슨 유형을 확인합니다.
         </p>
       </article>
 
@@ -556,10 +758,11 @@
         <p class="text-4xl mb-5">🤝</p>
         <h3 class="text-xl font-black mb-2">신청 안내</h3>
         <p class="text-sm leading-relaxed font-bold text-slate-500">
-          신청 후 일정, 장소, 결제 안내까지 스승님 운영팀이 직접 서포트합니다.
+          요청 후 스승님 또는 운영팀이 일정, 장소, 결제 안내까지 순서대로 도와드립니다.
         </p>
       </article>
     </div>
+
   </div>
 </section>
 
@@ -679,9 +882,9 @@
             <li>장기 등록이 부담스러운 골퍼</li>
           </ul>
 
-          <button onclick="goService('trial_lesson')" class="w-full gradient-blue shine text-white py-4 rounded-2xl font-black active:scale-95 transition">
-            체험 레슨 확인하기
-          </button>
+          <button onclick="showProsByLesson('one', 'trial_lesson')" class="w-full gradient-blue shine text-white py-4 rounded-2xl font-black active:scale-95 transition">
+  1:1 가능한 스승님 보기
+</button>
         </div>
       </article>
 
@@ -709,9 +912,9 @@
             <li>티샷이 불안한 골퍼</li>
           </ul>
 
-          <button onclick="goService('driver_slice')" class="w-full gradient-blue shine text-white py-4 rounded-2xl font-black active:scale-95 transition">
-            슬라이스 레슨 확인하기
-          </button>
+          <button onclick="showProsByLesson('one', 'driver_slice')" class="w-full gradient-blue shine text-white py-4 rounded-2xl font-black active:scale-95 transition">
+  드라이버 전문 스승님 보기
+</button>
         </div>
       </article>
 
@@ -739,9 +942,9 @@
             <li>퍼팅 방향성이 불안한 골퍼</li>
           </ul>
 
-          <button onclick="goService('shortgame')" class="w-full gradient-blue shine text-white py-4 rounded-2xl font-black active:scale-95 transition">
-            숏게임 레슨 확인하기
-          </button>
+          <button onclick="showProsByLesson('shortgame', 'shortgame')" class="w-full gradient-blue shine text-white py-4 rounded-2xl font-black active:scale-95 transition">
+  숏게임 스승님 보기
+</button>
         </div>
       </article>
 
@@ -769,9 +972,9 @@
             <li>필드가 부담스러운 골퍼</li>
           </ul>
 
-          <button onclick="goService('par3')" class="w-full gradient-blue shine text-white py-4 rounded-2xl font-black active:scale-95 transition">
-            파3 레슨 확인하기
-          </button>
+          <button onclick="showProsByLesson('par3', 'par3')" class="w-full gradient-blue shine text-white py-4 rounded-2xl font-black active:scale-95 transition">
+  파3 가능한 스승님 보기
+</button>
         </div>
       </article>
 
@@ -799,9 +1002,9 @@
             <li>100타 깨기를 목표로 하는 골퍼</li>
           </ul>
 
-          <button onclick="goService('field9')" class="w-full gradient-blue shine text-white py-4 rounded-2xl font-black active:scale-95 transition">
-            필드레슨 확인하기
-          </button>
+          <button onclick="showProsByLesson('field9', 'field9')" class="w-full gradient-blue shine text-white py-4 rounded-2xl font-black active:scale-95 transition">
+  9홀 필드레슨 스승님 보기
+</button>
         </div>
       </article>
 
@@ -854,23 +1057,116 @@
   </div>
 </section>
 
-    <section id="how" class="center-section section-pad bg-white scroll-mt-20">
-      <div class="container-wide grid lg:grid-cols-[.82fr_1.18fr] gap-8 lg:gap-12 items-start">
-        <div class="reveal max-w-3xl mx-auto text-center mb-8">
-          <span class="eyebrow">How it works</span>
-          <h2 class="section-title mt-4 font-black text-ink">신청 후 바로<br />결제되지 않습니다.</h2>
-          <p class="mt-4 text-slate-500 font-bold leading-relaxed mobile-subcopy">스승님은 먼저 레슨 요청을 보내는 방식입니다.<br /> 선택한 스승님 또는 운영팀이 일정을 확인한 뒤, 가능 일정과 결제 안내를 받아볼 수 있습니다.</p>
-        </div>
-        <div class="grid sm:grid-cols-2 gap-3 md:gap-4">
-          <article class="reveal bg-slate-50 rounded-4xl p-5 border border-slate-100 flex gap-4"><span class="w-10 h-10 rounded-2xl gradient-blue text-white flex items-center justify-center font-black shrink-0">1</span><div><h3 class="text-lg font-black mb-1">고민과 지역 입력</h3><p class="text-sm font-bold text-slate-500 leading-relaxed">현재 문제와 레슨 가능 지역을 입력합니다.</p></div></article>
-          <article class="reveal bg-slate-50 rounded-4xl p-5 border border-slate-100 flex gap-4"><span class="w-10 h-10 rounded-2xl gradient-blue text-white flex items-center justify-center font-black shrink-0">2</span><div><h3 class="text-lg font-black mb-1">승이 추천 결과 확인</h3><p class="text-sm font-bold text-slate-500 leading-relaxed">필요한 레슨 유형과 후보를 확인합니다.</p></div></article>
-          <article class="reveal bg-slate-50 rounded-4xl p-5 border border-slate-100 flex gap-4"><span class="w-10 h-10 rounded-2xl gradient-blue text-white flex items-center justify-center font-black shrink-0">3</span><div><h3 class="text-lg font-black mb-1">스승님에게 요청</h3><p class="text-sm font-bold text-slate-500 leading-relaxed">희망 일정과 조건을 남깁니다.</p></div></article>
-          <article class="reveal bg-slate-50 rounded-4xl p-5 border border-slate-100 flex gap-4"><span class="w-10 h-10 rounded-2xl gradient-blue text-white flex items-center justify-center font-black shrink-0">4</span><div><h3 class="text-lg font-black mb-1">스승님 일정 확인</h3><p class="text-sm font-bold text-slate-500 leading-relaxed">프로 또는 운영팀이 가능 일정을 확인합니다.</p></div></article>
-          <article class="reveal bg-blue-50 rounded-4xl p-5 border border-blue-100 flex gap-4"><span class="w-10 h-10 rounded-2xl gradient-blue text-white flex items-center justify-center font-black shrink-0">5</span><div><h3 class="text-lg font-black mb-1 text-brand">공식 결제 안내</h3><p class="text-sm font-bold text-slate-600 leading-relaxed">확정 가능한 조건에 맞춰 결제 안내를 받습니다.</p></div></article>
-          <article class="reveal bg-blue-50 rounded-4xl p-5 border border-blue-100 flex gap-4"><span class="w-10 h-10 rounded-2xl gradient-blue text-white flex items-center justify-center font-black shrink-0">6</span><div><h3 class="text-lg font-black mb-1 text-brand">예약 확정</h3><p class="text-sm font-bold text-slate-600 leading-relaxed">예약 정보와 준비사항을 안내받습니다.</p></div></article>
-        </div>
+   <section id="how" class="center-section section-pad bg-white scroll-mt-20 overflow-hidden">
+  <div class="container-wide">
+
+    <div class="reveal max-w-3xl mx-auto text-center mb-8">
+      <span class="eyebrow">How it works</span>
+
+      <h2 class="section-title mt-4 font-black text-ink">
+        먼저 요청하고,<br class="md:hidden" />
+        마음에 들면 결제하세요
+      </h2>
+
+      <p class="mt-4 text-slate-500 font-bold leading-relaxed mobile-subcopy">
+        스승님은 요청을 한다고 결제되지 않아요<br />
+        요청을 보내면 일정, 장소, 금액 확인 후<br class="md:hidden" />
+        내용이 마음에 들면 직접 결제하세요.
+      </p>
+    </div>
+
+    <div class="max-w-3xl mx-auto">
+
+      <div class="relative">
+
+        <!-- 세로 연결선 -->
+        <div class="absolute left-[25px] top-8 bottom-8 w-[2px] bg-slate-100 md:left-1/2 md:-translate-x-1/2"></div>
+
+        <!-- STEP 1 -->
+        <article class="reveal relative flex gap-4 mb-4 md:mb-5">
+          <div class="relative z-10 w-13 shrink-0 flex justify-center">
+            <div class="w-12 h-12 rounded-2xl gradient-blue text-white flex items-center justify-center font-black shadow-blue">
+              1
+            </div>
+          </div>
+
+          <div class="flex-1 bg-slate-50 border border-slate-100 rounded-[1.6rem] p-5 shadow-soft text-left">
+            <p class="text-[11px] font-black text-brand mb-1">STEP 01</p>
+            <h3 class="text-lg font-black text-slate-900 mb-1">고민과 지역 입력</h3>
+            <p class="text-sm font-bold text-slate-500 leading-relaxed">
+              원하는 레슨 유형과 레슨 가능 지역을 선택합니다.
+            </p>
+          </div>
+        </article>
+
+        <!-- STEP 2 -->
+        <article class="reveal relative flex gap-4 mb-4 md:mb-5">
+          <div class="relative z-10 w-13 shrink-0 flex justify-center">
+            <div class="w-12 h-12 rounded-2xl gradient-blue text-white flex items-center justify-center font-black shadow-blue">
+              2
+            </div>
+          </div>
+
+          <div class="flex-1 bg-slate-50 border border-slate-100 rounded-[1.6rem] p-5 shadow-soft text-left">
+            <p class="text-[11px] font-black text-brand mb-1">STEP 02</p>
+            <h3 class="text-lg font-black text-slate-900 mb-1">스승님 확인</h3>
+            <p class="text-sm font-bold text-slate-500 leading-relaxed">
+              조건에 맞는 스승님과 레슨 내용을 확인합니다.
+            </p>
+          </div>
+        </article>
+
+        <!-- STEP 3 -->
+        <article class="reveal relative flex gap-4 mb-4 md:mb-5">
+          <div class="relative z-10 w-13 shrink-0 flex justify-center">
+            <div class="w-12 h-12 rounded-2xl gradient-blue text-white flex items-center justify-center font-black shadow-blue">
+              3
+            </div>
+          </div>
+
+          <div class="flex-1 bg-slate-50 border border-slate-100 rounded-[1.6rem] p-5 shadow-soft text-left">
+            <p class="text-[11px] font-black text-brand mb-1">STEP 03</p>
+            <h3 class="text-lg font-black text-slate-900 mb-1">레슨 요청</h3>
+            <p class="text-sm font-bold text-slate-500 leading-relaxed">
+              희망 내용과 연락처를 남기면 카톡이 전달됩니다.
+            </p>
+          </div>
+        </article>
+
+        <!-- STEP 4 -->
+        <article class="reveal relative flex gap-4">
+          <div class="relative z-10 w-13 shrink-0 flex justify-center">
+            <div class="w-12 h-12 rounded-2xl bg-slate-900 text-white flex items-center justify-center font-black shadow-soft">
+              4
+            </div>
+          </div>
+
+          <div class="flex-1 bg-blue-50 border border-blue-100 rounded-[1.6rem] p-5 shadow-soft text-left">
+            <p class="text-[11px] font-black text-brand mb-1">STEP 04</p>
+            <h3 class="text-lg font-black text-brand mb-1">일정 확인 후 결제</h3>
+            <p class="text-sm font-bold text-slate-600 leading-relaxed">
+              내용 확인 및 진행을 원하실 경우 결제 후 예약이 확정됩니다.
+            </p>
+          </div>
+        </article>
+
       </div>
-    </section>
+
+      <!-- 핵심 안내 박스 -->
+      <div class="reveal mt-6 bg-slate-900 text-white rounded-[1.8rem] px-5 py-5 text-center shadow-soft">
+        <p class="text-sm font-black leading-relaxed">
+          결제는 요청 직후 바로 진행되지 않습니다.
+        </p>
+        <p class="mt-2 text-xs font-bold text-slate-300 leading-relaxed">
+          선택한 스승님이 일정과 조건을 먼저 확인한 뒤<br />
+          가능한 경우에 알림톡 결제 안내를 드립니다.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
 
     
     <section class="center-section py-16 bg-white overflow-hidden relative">
@@ -913,7 +1209,7 @@
 
     
     
-    <section id="pro-store" class="center-section section bg-white overflow-hidden">
+    <section id="pro-store" class="center-section section bg-white overflow-hidden scroll-mt-20">
       <div class="container">
         <div class="section-head max-w-3xl mx-auto mb-7 reveal">
           <span class="eyebrow">TOP 8</span>
@@ -925,165 +1221,198 @@
           </p>
         </div>
 
-        <div class="flex justify-center mb-7 reveal">
-          <div class="flex gap-2 overflow-x-auto px-1 py-1 max-w-full no-scrollbar">
-            <button data-top-pro-tab="all" onclick="filterTopPros('all')" class="shrink-0 px-4 py-2.5 rounded-full border bg-slate-900 text-white border-slate-900 text-xs font-black active:scale-95 transition">전체</button>
-            <button data-top-pro-tab="one" onclick="filterTopPros('one')" class="shrink-0 px-4 py-2.5 rounded-full border bg-white text-slate-600 border-slate-200 text-xs font-black active:scale-95 transition">1:1</button>
-            <button data-top-pro-tab="shortgame" onclick="filterTopPros('shortgame')" class="shrink-0 px-4 py-2.5 rounded-full border bg-white text-slate-600 border-slate-200 text-xs font-black active:scale-95 transition">숏게임</button>
-            <button data-top-pro-tab="par3" onclick="filterTopPros('par3')" class="shrink-0 px-4 py-2.5 rounded-full border bg-white text-slate-600 border-slate-200 text-xs font-black active:scale-95 transition">파3</button>
-            <button data-top-pro-tab="field9" onclick="filterTopPros('field9')" class="shrink-0 px-4 py-2.5 rounded-full border bg-white text-slate-600 border-slate-200 text-xs font-black active:scale-95 transition">9홀</button>
-            <button data-top-pro-tab="field18" onclick="filterTopPros('field18')" class="shrink-0 px-4 py-2.5 rounded-full border bg-white text-slate-600 border-slate-200 text-xs font-black active:scale-95 transition">18홀</button>
-          </div>
-        </div>
+       <div class="flex justify-center mb-7 reveal">
+  <div class="flex gap-2 overflow-x-auto px-1 py-1 max-w-full no-scrollbar">
+    <button data-top-pro-tab="all" onclick="filterTopPros('all')" class="shrink-0 px-4 py-2.5 rounded-full border bg-slate-900 text-white border-slate-900 text-xs font-black active:scale-95 transition">전체</button>
+<button data-top-pro-tab="one" onclick="filterTopPros('one')" class="shrink-0 px-4 py-2.5 rounded-full border bg-white text-slate-600 border-slate-200 text-xs font-black active:scale-95 transition">1:1</button>
+<button data-top-pro-tab="par3" onclick="filterTopPros('par3')" class="shrink-0 px-4 py-2.5 rounded-full border bg-white text-slate-600 border-slate-200 text-xs font-black active:scale-95 transition">파3</button>
+<button data-top-pro-tab="shortgame" onclick="filterTopPros('shortgame')" class="shrink-0 px-4 py-2.5 rounded-full border bg-white text-slate-600 border-slate-200 text-xs font-black active:scale-95 transition">숏게임</button>
+<button data-top-pro-tab="field" onclick="filterTopPros('field')" class="shrink-0 px-4 py-2.5 rounded-full border bg-white text-slate-600 border-slate-200 text-xs font-black active:scale-95 transition">필드레슨</button>
+  </div>
+</div>
 
         <div class="top8-slider max-w-6xl mx-auto">
-          <article data-top-pro-card data-lessons="one,par3,field9,field18" class="top8-card card p-4 md:p-4 desktop-hover reveal">
-            <div class="flex items-center gap-3 mb-3">
-              <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KakaoTalk_20260327_165459882.png" class="w-14 h-14 rounded-2xl object-cover bg-slate-100 shrink-0" alt="곽시랑 스승" loading="lazy">
-              <div class="min-w-0">
-                <div class="flex items-center gap-2">
-                  <h3 class="font-black text-slate-900 truncate">곽시랑 스승</h3>
-                  <span class="text-[9px] bg-blue-50 text-blue-600 font-black px-2 py-0.5 rounded-full">TOP</span>
-                </div>
-                <p class="text-[11px] font-bold text-slate-400 mt-1">강남 · 서초 · 대치</p>
-              </div>
-            </div>
-            <p class="text-[12px] font-black text-slate-700 mb-2">추천 레슨</p>
-            <p class="text-sm font-black text-slate-900 leading-snug mb-3">드라이버 슬라이스 교정</p>
-            <div class="flex flex-wrap gap-1.5 mb-3">
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">1:1</span>
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">파3</span>
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">필드</span>
-            </div>
-            <button onclick="goService('driver_slice')" class="w-full bg-slate-900 text-white rounded-2xl py-3 text-xs font-black active:scale-95 transition">관련 레슨 확인하기</button>
-          </article>
 
-          <article data-top-pro-card data-lessons="one,shortgame,par3" class="top8-card card p-4 md:p-4 desktop-hover reveal">
-            <div class="flex items-center gap-3 mb-3">
-              <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KakaoTalk_20260309_200933587.jpg" class="w-14 h-14 rounded-2xl object-cover bg-slate-100 shrink-0" alt="서수연 스승" loading="lazy">
-              <div class="min-w-0">
-                <h3 class="font-black text-slate-900 truncate">서수연 스승</h3>
-                <p class="text-[11px] font-bold text-slate-400 mt-1">분당 · 강남 · 판교</p>
-              </div>
-            </div>
-            <p class="text-[12px] font-black text-slate-700 mb-2">추천 레슨</p>
-            <p class="text-sm font-black text-slate-900 leading-snug mb-3">숏게임 · 어프로치 · 퍼팅</p>
-            <div class="flex flex-wrap gap-1.5 mb-3">
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">숏게임</span>
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">파3</span>
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">1:1</span>
-            </div>
-            <button onclick="goService('shortgame')" class="w-full bg-slate-900 text-white rounded-2xl py-3 text-xs font-black active:scale-95 transition">관련 레슨 확인하기</button>
-          </article>
-
-          <article data-top-pro-card data-lessons="one,shortgame,par3" class="top8-card card p-4 md:p-4 desktop-hover reveal">
-            <div class="flex items-center gap-3 mb-3">
-              <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KDW.jpg" class="w-14 h-14 rounded-2xl object-cover bg-slate-100 shrink-0" alt="권두욱 스승" loading="lazy">
-              <div class="min-w-0">
-                <h3 class="font-black text-slate-900 truncate">권두욱 스승</h3>
-                <p class="text-[11px] font-bold text-slate-400 mt-1">강남 · 서초 · 양재</p>
-              </div>
-            </div>
-            <p class="text-[12px] font-black text-slate-700 mb-2">추천 레슨</p>
-            <p class="text-sm font-black text-slate-900 leading-snug mb-3">핀디렉터 숏게임 마스터</p>
-            <div class="flex flex-wrap gap-1.5 mb-3">
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">숏게임</span>
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">파3</span>
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">퍼팅</span>
-            </div>
-            <button onclick="goService('shortgame')" class="w-full bg-slate-900 text-white rounded-2xl py-3 text-xs font-black active:scale-95 transition">관련 레슨 확인하기</button>
-          </article>
-
-          <article data-top-pro-card data-lessons="shortgame,field9,field18" class="top8-card card p-4 md:p-4 desktop-hover reveal">
-            <div class="flex items-center gap-3 mb-3">
-              <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/YHC.png" class="w-14 h-14 rounded-2xl object-cover bg-slate-100 shrink-0" alt="양형철 스승" loading="lazy">
-              <div class="min-w-0">
-                <h3 class="font-black text-slate-900 truncate">양형철 스승</h3>
-                <p class="text-[11px] font-bold text-slate-400 mt-1">강남 · 서초 · 반포</p>
-              </div>
-            </div>
-            <p class="text-[12px] font-black text-slate-700 mb-2">추천 레슨</p>
-            <p class="text-sm font-black text-slate-900 leading-snug mb-3">9홀 코스매니지먼트</p>
-            <div class="flex flex-wrap gap-1.5 mb-3">
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">9홀</span>
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">18홀</span>
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">숏게임</span>
-            </div>
-            <button onclick="goService('field9')" class="w-full bg-slate-900 text-white rounded-2xl py-3 text-xs font-black active:scale-95 transition">관련 레슨 확인하기</button>
-          </article>
-
-          <article data-top-pro-card data-lessons="one,shortgame,field9" class="top8-card card p-4 md:p-4 desktop-hover reveal">
-            <div class="flex items-center gap-3 mb-3">
-              <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/hty.jpg" class="w-14 h-14 rounded-2xl object-cover bg-slate-100 shrink-0" alt="홍태양 스승" loading="lazy">
-              <div class="min-w-0">
-                <h3 class="font-black text-slate-900 truncate">홍태양 스승</h3>
-                <p class="text-[11px] font-bold text-slate-400 mt-1">강남 · 용산 · 여의도</p>
-              </div>
-            </div>
-            <p class="text-[12px] font-black text-slate-700 mb-2">추천 레슨</p>
-            <p class="text-sm font-black text-slate-900 leading-snug mb-3">체형별 맞춤스윙</p>
-            <div class="flex flex-wrap gap-1.5 mb-3">
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">1:1</span>
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">숏게임</span>
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">필드</span>
-            </div>
-            <button onclick="goService('trial_lesson')" class="w-full bg-slate-900 text-white rounded-2xl py-3 text-xs font-black active:scale-95 transition">관련 레슨 확인하기</button>
-          </article>
-
-          <article data-top-pro-card data-lessons="one" class="top8-card card p-4 md:p-4 desktop-hover reveal">
-            <div class="flex items-center gap-3 mb-3">
-              <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/JYH.jpg" class="w-14 h-14 rounded-2xl object-cover bg-slate-100 shrink-0" alt="조이현 스승" loading="lazy">
-              <div class="min-w-0">
-                <h3 class="font-black text-slate-900 truncate">조이현 스승</h3>
-                <p class="text-[11px] font-bold text-slate-400 mt-1">송파 · 강남 · 분당</p>
-              </div>
-            </div>
-            <p class="text-[12px] font-black text-slate-700 mb-2">추천 레슨</p>
-            <p class="text-sm font-black text-slate-900 leading-snug mb-3">비거리 · 롱아이언 점검</p>
-            <div class="flex flex-wrap gap-1.5 mb-3">
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">1:1</span>
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">비거리</span>
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">초보</span>
-            </div>
-            <button onclick="goService('trial_lesson')" class="w-full bg-slate-900 text-white rounded-2xl py-3 text-xs font-black active:scale-95 transition">관련 레슨 확인하기</button>
-          </article>
-
-          <article data-top-pro-card data-lessons="one" class="top8-card card p-4 md:p-4 desktop-hover reveal">
-            <div class="flex items-center gap-3 mb-3">
-              <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KNY.jpg" class="w-14 h-14 rounded-2xl object-cover bg-slate-100 shrink-0" alt="공나연 스승" loading="lazy">
-              <div class="min-w-0">
-                <h3 class="font-black text-slate-900 truncate">공나연 스승</h3>
-                <p class="text-[11px] font-bold text-slate-400 mt-1">송파 · 강남 · 잠실</p>
-              </div>
-            </div>
-            <p class="text-[12px] font-black text-slate-700 mb-2">추천 레슨</p>
-            <p class="text-sm font-black text-slate-900 leading-snug mb-3">아이언 정타율 레슨</p>
-            <div class="flex flex-wrap gap-1.5 mb-3">
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">1:1</span>
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">아이언</span>
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">방향성</span>
-            </div>
-            <button onclick="goService('trial_lesson')" class="w-full bg-slate-900 text-white rounded-2xl py-3 text-xs font-black active:scale-95 transition">관련 레슨 확인하기</button>
-          </article>
-
-          <article data-top-pro-card data-lessons="one" class="top8-card card p-4 md:p-4 desktop-hover reveal">
-            <div class="flex items-center gap-3 mb-3">
-              <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/lhs.jpg" class="w-14 h-14 rounded-2xl object-cover bg-slate-100 shrink-0" alt="이형석 스승" loading="lazy">
-              <div class="min-w-0">
-                <h3 class="font-black text-slate-900 truncate">이형석 스승</h3>
-                <p class="text-[11px] font-bold text-slate-400 mt-1">강남 · 서초 · 분당</p>
-              </div>
-            </div>
-            <p class="text-[12px] font-black text-slate-700 mb-2">추천 레슨</p>
-            <p class="text-sm font-black text-slate-900 leading-snug mb-3">슬라이스 · 비거리 레슨</p>
-            <div class="flex flex-wrap gap-1.5 mb-3">
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">1:1</span>
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">슬라이스</span>
-              <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">비거리</span>
-            </div>
-            <button onclick="goService('driver_slice')" class="w-full bg-slate-900 text-white rounded-2xl py-3 text-xs font-black active:scale-95 transition">관련 레슨 확인하기</button>
-          </article>
+  <article data-top-pro-card data-lessons="one,driver,shortgame,par3,field18" class="top8-card card p-4 md:p-4 desktop-hover reveal">
+    <div class="flex items-center gap-3 mb-3">
+      <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KakaoTalk_20260327_165459882.png" class="w-14 h-14 rounded-2xl object-cover bg-slate-100 shrink-0" alt="곽시랑 스승" loading="lazy">
+      <div class="min-w-0">
+        <div class="flex items-center gap-2">
+          <h3 class="font-black text-slate-900 truncate">곽시랑 스승</h3>
+          <span class="text-[9px] bg-blue-50 text-blue-600 font-black px-2 py-0.5 rounded-full">TOP</span>
         </div>
+        <p class="text-[11px] font-bold text-slate-400 mt-1">강남 · 서초 · 대치</p>
+      </div>
+    </div>
+    <p class="text-[12px] font-black text-slate-700 mb-2">추천 레슨</p>
+    <p class="text-sm font-black text-slate-900 leading-snug mb-2">드라이버 슬라이스 교정</p>
+    <p class="text-[11px] font-bold text-blue-600 mb-3">예상 레슨비 10~12만원</p>
+    <div class="flex flex-wrap gap-1.5 mb-3">
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">드라이버</span>
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">파3</span>
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">필드</span>
+    </div>
+    <button 
+  data-default-text="드라이버 레슨 요청하기"
+  data-default-source="driver_slice"
+  onclick="goService('driver_slice')" 
+  class="w-full bg-slate-900 text-white rounded-2xl py-3 text-xs font-black active:scale-95 transition">
+  드라이버 레슨 요청하기
+</button>
+  </article>
+
+  <article data-top-pro-card data-lessons="one,shortgame,par3" class="top8-card card p-4 md:p-4 desktop-hover reveal">
+    <div class="flex items-center gap-3 mb-3">
+      <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KakaoTalk_20260309_200933587.jpg" class="w-14 h-14 rounded-2xl object-cover bg-slate-100 shrink-0" alt="서수연 스승" loading="lazy">
+      <div class="min-w-0">
+        <h3 class="font-black text-slate-900 truncate">서수연 스승</h3>
+        <p class="text-[11px] font-bold text-slate-400 mt-1">분당 · 강남 · 판교</p>
+      </div>
+    </div>
+    <p class="text-[12px] font-black text-slate-700 mb-2">추천 레슨</p>
+    <p class="text-sm font-black text-slate-900 leading-snug mb-2">숏게임 · 어프로치 · 퍼팅</p>
+    <p class="text-[11px] font-bold text-blue-600 mb-3">예상 레슨비 12~14만원</p>
+    <div class="flex flex-wrap gap-1.5 mb-3">
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">숏게임</span>
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">파3</span>
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">퍼팅</span>
+    </div>
+    <button 
+  data-default-text="숏게임 레슨 요청하기"
+  data-default-source="shortgame"
+  onclick="goService('shortgame')" 
+  class="w-full bg-slate-900 text-white rounded-2xl py-3 text-xs font-black active:scale-95 transition">
+  숏게임 레슨 요청하기
+</button>
+  </article>
+
+  <article data-top-pro-card data-lessons="one,driver,shortgame,par3" class="top8-card card p-4 md:p-4 desktop-hover reveal">
+    <div class="flex items-center gap-3 mb-3">
+      <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/KDW.jpg" class="w-14 h-14 rounded-2xl object-cover bg-slate-100 shrink-0" alt="권두욱 스승" loading="lazy">
+      <div class="min-w-0">
+        <h3 class="font-black text-slate-900 truncate">권두욱 스승</h3>
+        <p class="text-[11px] font-bold text-slate-400 mt-1">강남 · 서초 · 양재</p>
+      </div>
+    </div>
+    <p class="text-[12px] font-black text-slate-700 mb-2">추천 레슨</p>
+    <p class="text-sm font-black text-slate-900 leading-snug mb-2">핀디렉터 숏게임 마스터</p>
+    <p class="text-[11px] font-bold text-blue-600 mb-3">예상 레슨비 8~20만원</p>
+    <div class="flex flex-wrap gap-1.5 mb-3">
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">숏게임</span>
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">파3</span>
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">퍼팅</span>
+    </div>
+    <button 
+  data-default-text="숏게임 레슨 요청하기"
+  data-default-source="shortgame"
+  onclick="goService('shortgame')" 
+  class="w-full bg-slate-900 text-white rounded-2xl py-3 text-xs font-black active:scale-95 transition">
+  숏게임 레슨 요청하기
+</button>
+  </article>
+
+  <article data-top-pro-card data-lessons="shortgame,field9,field18" class="top8-card card p-4 md:p-4 desktop-hover reveal">
+    <div class="flex items-center gap-3 mb-3">
+      <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/YHC.png" class="w-14 h-14 rounded-2xl object-cover bg-slate-100 shrink-0" alt="양형철 스승" loading="lazy">
+      <div class="min-w-0">
+        <h3 class="font-black text-slate-900 truncate">양형철 스승</h3>
+        <p class="text-[11px] font-bold text-slate-400 mt-1">강남 · 서초 · 반포</p>
+      </div>
+    </div>
+    <p class="text-[12px] font-black text-slate-700 mb-2">추천 레슨</p>
+    <p class="text-sm font-black text-slate-900 leading-snug mb-2">9홀 코스매니지먼트</p>
+    <p class="text-[11px] font-bold text-blue-600 mb-3">예상 레슨비 15~20만원</p>
+    <div class="flex flex-wrap gap-1.5 mb-3">
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">9홀</span>
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">18홀</span>
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">필드</span>
+    </div>
+   <button 
+  data-default-text="필드레슨 요청하기"
+  data-default-source="field9"
+  onclick="goService('field9')" 
+  class="w-full bg-slate-900 text-white rounded-2xl py-3 text-xs font-black active:scale-95 transition">
+  필드레슨 요청하기
+</button>
+  </article>
+
+  <article data-top-pro-card data-lessons="one,shortgame,par3,field9,field18" class="top8-card card p-4 md:p-4 desktop-hover reveal">
+    <div class="flex items-center gap-3 mb-3">
+      <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/hty.jpg" class="w-14 h-14 rounded-2xl object-cover bg-slate-100 shrink-0" alt="홍태양 스승" loading="lazy">
+      <div class="min-w-0">
+        <h3 class="font-black text-slate-900 truncate">홍태양 스승</h3>
+        <p class="text-[11px] font-bold text-slate-400 mt-1">강남 · 용산 · 여의도</p>
+      </div>
+    </div>
+    <p class="text-[12px] font-black text-slate-700 mb-2">추천 레슨</p>
+    <p class="text-sm font-black text-slate-900 leading-snug mb-2">체형별 맞춤스윙 · 숏게임</p>
+    <p class="text-[11px] font-bold text-blue-600 mb-3">예상 레슨비 11~18만원</p>
+    <div class="flex flex-wrap gap-1.5 mb-3">
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">1:1</span>
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">파3</span>
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">필드</span>
+    </div>
+    <button onclick="goService('trial_lesson')" class="w-full bg-slate-900 text-white rounded-2xl py-3 text-xs font-black active:scale-95 transition">맞춤스윙 요청하기</button>
+  </article>
+
+  <article data-top-pro-card data-lessons="one,driver,shortgame,field9" class="top8-card card p-4 md:p-4 desktop-hover reveal">
+    <div class="flex items-center gap-3 mb-3">
+      <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/JYH.jpg" class="w-14 h-14 rounded-2xl object-cover bg-slate-100 shrink-0" alt="조이현 스승" loading="lazy">
+      <div class="min-w-0">
+        <h3 class="font-black text-slate-900 truncate">조이현 스승</h3>
+        <p class="text-[11px] font-bold text-slate-400 mt-1">송파 · 강남 · 분당</p>
+      </div>
+    </div>
+    <p class="text-[12px] font-black text-slate-700 mb-2">추천 레슨</p>
+    <p class="text-sm font-black text-slate-900 leading-snug mb-2">비거리 · 롱아이언 점검</p>
+    <p class="text-[11px] font-bold text-blue-600 mb-3">예상 레슨비 13~15만원</p>
+    <div class="flex flex-wrap gap-1.5 mb-3">
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">1:1</span>
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">9홀</span>
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">비거리</span>
+    </div>
+    <button onclick="goService('trial_lesson')" class="w-full bg-slate-900 text-white rounded-2xl py-3 text-xs font-black active:scale-95 transition">비거리 레슨 요청하기</button>
+  </article>
+
+  <article data-top-pro-card data-lessons="one,driver,shortgame,par3,field18" class="top8-card card p-4 md:p-4 desktop-hover reveal">
+    <div class="flex items-center gap-3 mb-3">
+      <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/jwj.webp" class="w-14 h-14 rounded-2xl object-cover bg-slate-100 shrink-0" alt="정우진 스승" loading="lazy">
+      <div class="min-w-0">
+        <h3 class="font-black text-slate-900 truncate">정우진 스승</h3>
+        <p class="text-[11px] font-bold text-slate-400 mt-1">강남 · 서초 · 분당</p>
+      </div>
+    </div>
+    <p class="text-[12px] font-black text-slate-700 mb-2">추천 레슨</p>
+    <p class="text-sm font-black text-slate-900 leading-snug mb-2">실전 트러블샷 · 필드레슨</p>
+    <p class="text-[11px] font-bold text-blue-600 mb-3">예상 레슨비 11~12만원</p>
+    <div class="flex flex-wrap gap-1.5 mb-3">
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">파3</span>
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">18홀</span>
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">필드</span>
+    </div>
+    <button onclick="goService('field9')" class="w-full bg-slate-900 text-white rounded-2xl py-3 text-xs font-black active:scale-95 transition">실전 레슨 요청하기</button>
+  </article>
+
+  <article data-top-pro-card data-lessons="one,driver,shortgame,par3,field18" class="top8-card card p-4 md:p-4 desktop-hover reveal">
+    <div class="flex items-center gap-3 mb-3">
+      <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/lhs.jpg" class="w-14 h-14 rounded-2xl object-cover bg-slate-100 shrink-0" alt="이형석 스승" loading="lazy">
+      <div class="min-w-0">
+        <h3 class="font-black text-slate-900 truncate">이형석 스승</h3>
+        <p class="text-[11px] font-bold text-slate-400 mt-1">강남 · 서초 · 분당</p>
+      </div>
+    </div>
+    <p class="text-[12px] font-black text-slate-700 mb-2">추천 레슨</p>
+    <p class="text-sm font-black text-slate-900 leading-snug mb-2">슬라이스 · 비거리 · 필드</p>
+    <p class="text-[11px] font-bold text-blue-600 mb-3">예상 레슨비 10~11만원</p>
+    <div class="flex flex-wrap gap-1.5 mb-3">
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">드라이버</span>
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">파3</span>
+      <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">18홀</span>
+    </div>
+    <button onclick="goService('driver_slice')" class="w-full bg-slate-900 text-white rounded-2xl py-3 text-xs font-black active:scale-95 transition">슬라이스 레슨 요청하기</button>
+  </article>
+
+</div>
 
         <div class="mt-10 md:mt-12 mb-6 md:mb-8 px-4 reveal">
   <div class="max-w-xl mx-auto bg-white border border-slate-100 rounded-4xl px-5 py-6 md:px-7 md:py-7 text-center shadow-soft">
