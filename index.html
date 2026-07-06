@@ -520,9 +520,9 @@ function getLessonAliases(type) {
 function filterTopPros(type) {
   const cards = document.querySelectorAll('[data-top-pro-card]');
   const tabs = document.querySelectorAll('[data-top-pro-tab]');
-  const cta = getTopProCta(type);
   const aliases = getLessonAliases(type);
 
+  // 탭 스타일 전환
   tabs.forEach(tab => {
     const active = tab.dataset.topProTab === type;
     tab.classList.toggle('bg-slate-900', active);
@@ -533,6 +533,7 @@ function filterTopPros(type) {
     tab.classList.toggle('border-slate-200', !active);
   });
 
+  // 카드 필터링 (버튼의 onclick을 강제로 바꾸는 로직 제거)
   cards.forEach(card => {
     const lessons = (card.dataset.lessons || '')
       .split(',')
@@ -1361,7 +1362,7 @@ function filterTopPros(type) {
       <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">파3</span>
       <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">필드</span>
     </div>
-    <button onclick="goService('trial_lesson')" class="w-full bg-slate-900 text-white rounded-2xl py-3 text-xs font-black active:scale-95 transition">맞춤스윙 요청하기</button>
+    <button onclick="goService('hong_ty_body')" class="w-full bg-slate-900 text-white rounded-2xl py-3 text-xs font-black active:scale-95 transition">맞춤스윙 요청하기</button>
   </article>
 
   <article data-top-pro-card data-lessons="one,driver,shortgame,field9" class="top8-card card p-4 md:p-4 desktop-hover reveal">
@@ -1380,7 +1381,7 @@ function filterTopPros(type) {
       <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">9홀</span>
       <span class="px-2 py-1 bg-slate-50 rounded-full text-[10px] font-black text-slate-500">비거리</span>
     </div>
-    <button onclick="goService('trial_lesson')" class="w-full bg-slate-900 text-white rounded-2xl py-3 text-xs font-black active:scale-95 transition">비거리 레슨 요청하기</button>
+    <button onclick="goService('jo_yh_distance')" class="w-full bg-slate-900 text-white rounded-2xl py-3 text-xs font-black active:scale-95 transition">비거리 레슨 요청하기</button>
   </article>
 
   <article data-top-pro-card data-lessons="one,driver,shortgame,par3,field18" class="top8-card card p-4 md:p-4 desktop-hover reveal">
