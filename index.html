@@ -452,10 +452,19 @@
       lee_hs: "이형석 스승 요청"
     };
 
-    function goService(source = 'cta') {
-  trackEvent('click_service_start', source);
-  window.location.href = SERVICE_URL + '?source=landing_' + encodeURIComponent(source);
+    function trackEvent(name, label) {
+  if (typeof gtag === 'function') {
+    gtag('event', name, {
+      event_category: 'landing_conversion',
+      event_label: label || ''
+    });
+  }
 }
+
+  function goService(source = 'cta') {
+    trackEvent('click_service_start', source);
+    window.location.href = SERVICE_URL + '?source=landing_' + encodeURIComponent(source);
+  }
 
 function showProsByLesson(type, source = '') {
   trackEvent('click_lesson_filter', source || type);
@@ -1002,7 +1011,7 @@ function filterTopPros(type) {
             <li>100타 깨기를 목표로 하는 골퍼</li>
           </ul>
 
-          <button onclick="showProsByLesson('field9', 'field9')" class="w-full gradient-blue shine text-white py-4 rounded-2xl font-black active:scale-95 transition">
+          <button onclick="showProsByLesson('field', 'field9')" class="w-full gradient-blue shine text-white py-4 rounded-2xl font-black active:scale-95 transition">
   9홀 필드레슨 스승님 보기
 </button>
         </div>
