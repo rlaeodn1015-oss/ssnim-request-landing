@@ -427,6 +427,8 @@
   <script>
     const SERVICE_URL = "https://rlaeodn1015-oss.github.io/ssnim-service/";
     const KAKAO_CHAT_URL = "https://pf.kakao.com/_kxawRn/chat";
+    const SMARTSTORE_URL = "https://smartstore.naver.com/ssnim";
+    const GOLFTEE_IMAGE_URL = "https://raw.githubusercontent.com/ceo676/tcmgolf/main/images/12.png";
 
     const productMap = {
       trial: "1회 체험 레슨",
@@ -521,6 +523,7 @@ function filterTopPros(type) {
   const cards = document.querySelectorAll('[data-top-pro-card]');
   const tabs = document.querySelectorAll('[data-top-pro-tab]');
   const aliases = getLessonAliases(type);
+  const cta = getTopProCta(type);
 
   // 탭 스타일 전환
   tabs.forEach(tab => {
@@ -555,6 +558,12 @@ function filterTopPros(type) {
       trackEvent('click_kakao_chat', source);
       window.open(KAKAO_CHAT_URL, '_blank');
     }
+
+    function goSmartstore(source = 'smartstore') {
+      trackEvent('click_smartstore_golftee', source);
+      window.open(SMARTSTORE_URL, '_blank');
+    }
+
     function scrollToSection(id) {
       document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
@@ -588,11 +597,13 @@ function filterTopPros(type) {
         <a href="#about" class="hover:text-brand transition">회사소개</a>
         <a href="#service" class="hover:text-brand transition">서비스</a>
         <a href="#products" class="hover:text-brand transition">레슨상품</a>
+        <a href="#golftee-store" class="hover:text-brand transition">골프티</a>
         <a href="#pro-store" class="hover:text-brand transition">스승님</a>
         <a href="#trust" class="hover:text-brand transition">스승님전환</a>
       </nav>
       <div class="flex items-center gap-2">
         <button onclick="goKakao('header')" class="hidden sm:block px-4 py-2.5 rounded-full bg-slate-100 text-slate-700 text-xs font-black active:scale-95 transition">문의</button>
+        <button onclick="goSmartstore('header')" class="hidden sm:block px-4 py-2.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 text-xs font-black active:scale-95 transition">골프티</button>
         <button onclick="goService('header')" class="gradient-blue shine text-white px-4 md:px-5 py-2.5 rounded-full text-xs md:text-sm font-black shadow-blue active:scale-95 transition">서비스 이용</button>
       </div>
     </div>
@@ -641,6 +652,21 @@ function filterTopPros(type) {
             서비스 소개 보기
           </button>
         </div>
+
+        <button onclick="goSmartstore('hero_golftee_banner')" class="mt-4 w-full max-w-xl bg-white border border-emerald-100 shadow-soft rounded-3xl p-3.5 text-left active:scale-[0.99] transition">
+          <div class="flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <div class="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-slate-50 border border-slate-100 overflow-hidden shrink-0">
+                <img src="https://raw.githubusercontent.com/ceo676/tcmgolf/main/images/12.png" alt="스승님 시그니처 골프티" class="w-full h-full object-cover" loading="lazy" />
+              </div>
+              <div class="min-w-0">
+                <p class="text-[11px] font-black text-emerald-600 mb-1">스승님 골프티 판매중</p>
+                <p class="text-sm md:text-base font-black text-slate-900 leading-snug">83mm 대나무 롱티 · 화이트 & 딥블루</p>
+              </div>
+            </div>
+            <span class="shrink-0 bg-emerald-500 text-white px-3 py-2 rounded-2xl text-[11px] font-black">구매하기</span>
+          </div>
+        </button>
       </div>
 
       <div class="reveal relative">
@@ -1071,6 +1097,102 @@ function filterTopPros(type) {
       </button>
     </div>
 
+  </div>
+</section>
+
+<section id="golftee-store" class="center-section section-pad bg-white scroll-mt-20 overflow-hidden">
+  <div class="container-wide">
+    <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-6 lg:gap-10 items-center">
+
+      <div class="reveal text-center lg:text-left">
+        <span class="eyebrow">Ssnim Golf Tee</span>
+
+        <h2 class="section-title mt-4 font-black text-ink">
+          레슨 전 준비물도<br />
+          스승님에서 준비하세요.
+        </h2>
+
+        <p class="mt-4 text-slate-500 font-bold leading-relaxed mobile-subcopy">
+          드라이버 티샷용 83mm 롱티.<br />
+          천연 대나무 소재와 화이트 & 딥블루 컬러로 만든<br class="hidden md:block" />
+          스승님 시그니처 골프티입니다.
+        </p>
+
+        <div class="grid grid-cols-3 gap-2 mt-6 max-w-xl mx-auto lg:mx-0">
+          <div class="bg-slate-50 border border-slate-100 rounded-3xl p-4 text-center">
+            <p class="text-[10px] font-black text-slate-400 mb-1">길이</p>
+            <p class="text-lg font-black text-slate-900">83mm</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-100 rounded-3xl p-4 text-center">
+            <p class="text-[10px] font-black text-slate-400 mb-1">소재</p>
+            <p class="text-lg font-black text-slate-900">대나무</p>
+          </div>
+          <div class="bg-slate-50 border border-slate-100 rounded-3xl p-4 text-center">
+            <p class="text-[10px] font-black text-slate-400 mb-1">컬러</p>
+            <p class="text-lg font-black text-slate-900">2컬러</p>
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3 mt-7">
+          <button onclick="goSmartstore('golftee_section_primary')" class="gradient-blue shine w-full sm:w-auto text-white px-8 py-5 rounded-3xl font-black text-lg shadow-blue active:scale-95 transition">
+            스마트스토어에서 구매하기
+          </button>
+
+          <button onclick="goService('golftee_section_lesson')" class="bg-slate-100 w-full sm:w-auto text-slate-700 px-8 py-5 rounded-3xl font-black text-lg border border-slate-200 active:scale-95 transition">
+            레슨도 같이 찾기
+          </button>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <button onclick="goSmartstore('golftee_product_card')" class="w-full text-left bg-gradient-to-br from-slate-900 via-slate-900 to-blue-900 rounded-[2.25rem] p-5 md:p-8 shadow-soft overflow-hidden relative active:scale-[0.99] transition">
+          <div class="absolute -right-20 -top-20 w-64 h-64 bg-blue-500/25 blur-3xl rounded-full"></div>
+          <div class="absolute -left-16 -bottom-16 w-56 h-56 bg-emerald-400/15 blur-3xl rounded-full"></div>
+
+          <div class="relative z-10">
+            <div class="flex items-center justify-between gap-3 mb-7">
+              <div>
+                <p class="text-[11px] font-black text-blue-200 mb-1">스승님 시그니처 골프티</p>
+                <h3 class="text-2xl md:text-4xl font-black text-white leading-tight">
+                  잘 부러지지 않는<br />
+                  83mm 대나무 롱티
+                </h3>
+              </div>
+              <span class="shrink-0 bg-white text-slate-900 px-3 py-2 rounded-2xl text-[11px] font-black">판매중</span>
+            </div>
+
+            <div class="bg-white/10 border border-white/10 rounded-[2rem] p-3 md:p-4 mb-5 overflow-hidden">
+              <div class="relative h-56 md:h-72 rounded-[1.5rem] bg-white flex items-center justify-center overflow-hidden">
+                <img src="https://raw.githubusercontent.com/ceo676/tcmgolf/main/images/12.png" alt="스승님 시그니처 골프티 83mm 롱티" class="w-full h-full object-cover" loading="lazy" />
+                <div class="absolute left-4 top-4 bg-slate-900/80 backdrop-blur text-white px-3 py-1.5 rounded-full text-[10px] font-black">
+                  실제 제품 이미지
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 mb-5">
+              <div class="bg-white rounded-3xl p-4">
+                <p class="text-[10px] font-black text-slate-400 mb-1">메인 구성</p>
+                <p class="text-base font-black text-slate-900">50개입</p>
+              </div>
+              <div class="bg-white rounded-3xl p-4">
+                <p class="text-[10px] font-black text-slate-400 mb-1">추천 사용</p>
+                <p class="text-base font-black text-slate-900">드라이버 티샷</p>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between bg-white rounded-3xl px-5 py-4">
+              <div>
+                <p class="text-[11px] font-black text-emerald-600 mb-1">Naver Smart Store</p>
+                <p class="text-sm font-black text-slate-900">스마트스토어로 이동</p>
+              </div>
+              <span class="text-slate-900 font-black">→</span>
+            </div>
+          </div>
+        </button>
+      </div>
+
+    </div>
   </div>
 </section>
 
@@ -1638,6 +1760,7 @@ function filterTopPros(type) {
             <p class="text-blue-100 font-bold leading-relaxed mb-8">좋다는 프로를 찾기보다, 내 문제를 해결할 수 있는 레슨부터 확인하세요.</p>
             <div class="flex flex-col sm:flex-row gap-3 justify-center">
               <button onclick="goService('bottom_main')" class="bg-white text-brand px-9 py-5 rounded-3xl font-black text-lg active:scale-95 transition">스승님 찾기</button>
+              <button onclick="goSmartstore('bottom_golftee')" class="bg-white/10 border border-white/20 text-white px-9 py-5 rounded-3xl font-black text-lg active:scale-95 transition">골프티 구매</button>
               <button onclick="goKakao('bottom_kakao')" class="bg-white/10 border border-white/20 text-white px-9 py-5 rounded-3xl font-black text-lg active:scale-95 transition">카카오톡 상담</button>
             </div>
           </div>
@@ -1663,6 +1786,7 @@ function filterTopPros(type) {
           <p>상호명: 주식회사 스승님 (Suseungnim)</p>
           <p>법률 제휴: 법무법인 로투스 정식 파트너</p>
           <p>개인정보처리방침 | 이용약관</p>
+          <p><button onclick="goSmartstore('footer')" class="text-slate-400 hover:text-white transition font-black">스승님 골프티 스마트스토어 바로가기</button></p>
           <p class="pt-4">© 2026 Suseungnim Corp. All rights reserved.</p>
         </div>
       </div>
@@ -1672,7 +1796,8 @@ function filterTopPros(type) {
 
   <div class="fixed bottom-0 left-0 right-0 z-50 md:hidden glass border-t border-slate-100 safe-bottom px-4 pt-3">
     <div class="flex gap-2">
-      <button onclick="goKakao('mobile_sticky_kakao')" class="w-[34%] bg-white border border-slate-200 text-slate-700 py-4 rounded-2xl font-black text-sm active:scale-95 transition">문의</button>
+      <button onclick="goSmartstore('mobile_sticky_golftee')" class="w-[29%] bg-emerald-50 border border-emerald-100 text-emerald-700 py-4 rounded-2xl font-black text-sm active:scale-95 transition">골프티</button>
+      <button onclick="goKakao('mobile_sticky_kakao')" class="w-[27%] bg-white border border-slate-200 text-slate-700 py-4 rounded-2xl font-black text-sm active:scale-95 transition">문의</button>
       <button onclick="goService('mobile_sticky_service')" class="flex-1 gradient-blue shine text-white py-4 rounded-2xl font-black text-sm shadow-blue active:scale-95 transition">스승님 찾기</button>
     </div>
   </div>
