@@ -121,6 +121,8 @@
     #scroll-progress { position: fixed; left: 0; top: 0; height: 3px; width: 0%; z-index: 100; background: linear-gradient(90deg, #0066FF, #60A5FA, #10B981); }
     .mini-list li { display:flex; gap:8px; align-items:flex-start; }
     .mini-list li::before { content:""; width:6px; height:6px; margin-top:8px; border-radius:999px; background:#0066FF; flex:0 0 auto; }
+    .card, .card-soft { background:#fff; border:1px solid #E2E8F0; border-radius:1.5rem; box-shadow:0 12px 35px rgba(15,23,42,.06); }
+    .bg-white\/8 { background:rgba(255,255,255,.08); }
     @media (min-width: 768px) {
       .hero-title { font-size: 68px; line-height: 1.04; }
       .section-title { font-size: 50px; line-height: 1.08; }
@@ -428,31 +430,7 @@
     const SERVICE_URL = "https://rlaeodn1015-oss.github.io/ssnim-service/";
     const KAKAO_CHAT_URL = "https://pf.kakao.com/_kxawRn/chat";
     const SMARTSTORE_URL = "https://smartstore.naver.com/ssnim/products/13657183804?nl-query=%EC%8A%A4%EC%8A%B9%EB%8B%98%EA%B3%A8%ED%94%84&nl-au=ce40e3319fb84aee90d294d7eb2e1b13&NaPm=ci%3Dce40e3319fb84aee90d294d7eb2e1b13%7Cct%3Dmrdb4wwf%7Ctr%3Dnslsl%7Csn%3D12432400%7Chk%3Dc1824cdb4debef722eb863645e4841eb6e257a43";
-    const GOLFTEE_IMAGE_URL = "https://raw.githubusercontent.com/ceo676/tcmgolf/main/images/18.png";
-
-    const productMap = {
-      trial: "1회 체험 레슨",
-      driver_slice: "드라이버 슬라이스 교정",
-      shortgame: "숏게임 집중 레슨",
-      par3: "파3 실전 레슨",
-      field9: "9홀 실전 필드레슨",
-      golf_trip: "프로 동행 골프여행",
-      seo_sy_shortgame: "서수연 스승 숏게임레슨",
-      kwon_dw_pindirector: "권두욱 핀디렉터 숏게임 마스터 클래스",
-      kwaksi_driver: "곽시랑 스승 드라이버 방향성 레슨",
-      hong_ty_body: "홍태양 스승 체형별 맞춤스윙",
-      yang_hc_field9: "양형철 스승 9홀 코스매니지먼트",
-      jo_yh_distance: "조이현 스승 비거리·롱아이언 레슨",
-      all_pros: "전체 스승님 보기",
-      hong_ty: "홍태양 스승 요청",
-      kwaksi: "곽시랑 스승 요청",
-      seo_sy: "서수연 스승 요청",
-      jo_yh: "조이현 스승 요청",
-      kwon_dw: "권두욱 스승 요청",
-      yang_hc: "양형철 스승 요청",
-      gong_ny: "공나연 스승 요청",
-      lee_hs: "이형석 스승 요청"
-    };
+    const GOLFTEE_IMAGE_URL = "https://raw.githubusercontent.com/ceo676/tcmgolf/main/images/12.png";
 
     function trackEvent(name, label) {
   if (typeof gtag === 'function') {
@@ -569,6 +547,8 @@ function filterTopPros(type) {
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+      const golfteeMainImage = document.getElementById('golftee-main-image');
+      if (golfteeMainImage) golfteeMainImage.src = GOLFTEE_IMAGE_URL;
       const revealItems = document.querySelectorAll('.reveal');
       revealItems.forEach((el, idx) => el.style.setProperty('--delay', `${Math.min(idx % 3, 2) * 55}ms`));
       const io = new IntersectionObserver((entries) => {
@@ -603,7 +583,6 @@ function filterTopPros(type) {
       </nav>
       <div class="flex items-center gap-2">
         <button onclick="goKakao('header')" class="hidden sm:block px-4 py-2.5 rounded-full bg-slate-100 text-slate-700 text-xs font-black active:scale-95 transition">문의</button>
-        <button onclick="goSmartstore('header')" class="hidden sm:block px-4 py-2.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 text-xs font-black active:scale-95 transition">골프티</button>
         <button onclick="goService('header')" class="gradient-blue shine text-white px-4 md:px-5 py-2.5 rounded-full text-xs md:text-sm font-black shadow-blue active:scale-95 transition">서비스 이용</button>
       </div>
     </div>
@@ -653,20 +632,6 @@ function filterTopPros(type) {
           </button>
         </div>
 
-        <button onclick="goSmartstore('hero_golftee_banner')" class="mt-4 w-full max-w-xl bg-white border border-emerald-100 shadow-soft rounded-3xl p-3.5 text-left active:scale-[0.99] transition">
-          <div class="flex items-center justify-between gap-3">
-            <div class="flex items-center gap-3 min-w-0">
-              <div class="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-slate-50 border border-slate-100 overflow-hidden shrink-0">
-                <img src="https://raw.githubusercontent.com/ceo676/tcmgolf/main/images/12.png" alt="스승님 시그니처 골프티" class="w-full h-full object-cover" loading="lazy" />
-              </div>
-              <div class="min-w-0">
-                <p class="text-[11px] font-black text-emerald-600 mb-1">스승님 골프티 판매중</p>
-                <p class="text-sm md:text-base font-black text-slate-900 leading-snug">83mm 대나무 롱티 · 화이트 & 딥블루</p>
-              </div>
-            </div>
-            <span class="shrink-0 bg-emerald-500 text-white px-3 py-2 rounded-2xl text-[11px] font-black">구매하기</span>
-          </div>
-        </button>
       </div>
 
       <div class="reveal relative">
@@ -720,157 +685,73 @@ function filterTopPros(type) {
 
    <section id="about" class="center-section section-pad bg-white scroll-mt-20">
   <div class="container-wide">
-
-    <div class="max-w-3xl mx-auto text-center mb-9 reveal">
+    <div class="max-w-3xl mx-auto text-center reveal">
       <div class="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 text-brand rounded-full text-[11px] font-black uppercase tracking-wider mb-4">
         ⛳ 스승님은 무슨 회사인가요?
       </div>
-
-      <div class="text-slate-400 text-[10px] md:text-[11px] font-black tracking-widest uppercase mb-2">
-        OUR MISSION
-      </div>
-
+      <div class="text-slate-400 text-[10px] md:text-[11px] font-black tracking-widest uppercase mb-2">OUR MISSION</div>
       <h2 class="section-title mt-3 font-black text-ink">
-        내가 필요한 골프레슨을<br class="md:hidden" />
-        가장 쉽게 찾는 방법
+        골프 고민에 맞는 레슨을<br class="md:hidden" /> 더 쉽게 찾는 플랫폼
       </h2>
-
       <p class="mt-4 text-slate-500 font-bold leading-relaxed mobile-subcopy">
-  골프 고민과 지역만 선택하면<br />
-  나에게 맞는 스승님을 찾고,<br class="md:hidden" />
-  신청부터 일정 확인까지<br />
-  스승님이 함께 도와드립니다.
-</p>
-
-      <p class="mt-3 text-xs md:text-sm text-slate-400 font-bold leading-relaxed">
-        드라이버, 아이언, 숏게임, 파3, 필드레슨까지<br class="md:hidden" />
-        필요한 레슨만 원하는 가격으로 요청하세요.
+        원하는 고민과 지역을 입력하면 받을 수 있는 레슨과 스승님을 확인하고,<br class="hidden md:block" />
+        일정 확인 후 직접 결제할 수 있도록 운영팀이 연결합니다.
       </p>
     </div>
 
-    <div class="grid grid-cols-3 gap-2 bg-slate-50 p-5 rounded-[2rem] text-center border border-slate-100 shadow-soft max-w-2xl mx-auto mb-8 reveal">
-      <div>
-        <p class="text-[10px] md:text-xs font-black text-slate-400 mb-1">서비스 이용 골퍼</p>
-        <p class="text-lg md:text-2xl font-black text-slate-800">2,600명+</p>
-      </div>
-
-      <div class="border-x border-slate-200">
-        <p class="text-[10px] md:text-xs font-black text-slate-400 mb-1">검증된 스승</p>
-        <p class="text-lg md:text-2xl font-black text-brand">80명+</p>
-      </div>
-
-      <div>
-        <p class="text-[10px] md:text-xs font-black text-slate-400 mb-1">불만족 시 환불</p>
-        <p class="text-lg md:text-2xl font-black text-emerald-600">100%</p>
-      </div>
-    </div>
-
-    <div class="grid md:grid-cols-4 gap-3 md:gap-4 max-w-5xl mx-auto">
-      <article class="reveal bg-slate-50 rounded-4xl p-6 border border-slate-100 card-hover">
-        <p class="text-4xl mb-5">🧭</p>
-        <h3 class="text-xl font-black mb-2">고민 선택</h3>
-        <p class="text-sm leading-relaxed font-bold text-slate-500">
-          슬라이스, 생크, 비거리, 숏게임처럼 지금 가장 고치고 싶은 문제를 선택합니다.
-        </p>
+    <div class="grid md:grid-cols-3 gap-3 md:gap-4 max-w-4xl mx-auto mt-8">
+      <article class="reveal bg-slate-50 rounded-4xl p-6 border border-slate-100 text-center card-hover">
+        <p class="text-[11px] font-black text-brand mb-2">직접 요청</p>
+        <h3 class="text-lg font-black text-slate-900">원하는 조건으로 신청</h3>
+        <p class="mt-2 text-sm font-bold text-slate-500 leading-relaxed">고민, 지역, 일정과 희망 조건을 직접 입력합니다.</p>
       </article>
-
-      <article class="reveal bg-slate-50 rounded-4xl p-6 border border-slate-100 card-hover">
-        <p class="text-4xl mb-5">📍</p>
-        <h3 class="text-xl font-black mb-2">지역 선택</h3>
-        <p class="text-sm leading-relaxed font-bold text-slate-500">
-          강남, 서초, 송파, 분당, 용인 등 원하는 지역을 기준으로 가능한 스승님을 확인합니다.
-        </p>
+      <article class="reveal bg-slate-50 rounded-4xl p-6 border border-slate-100 text-center card-hover">
+        <p class="text-[11px] font-black text-brand mb-2">다양한 레슨</p>
+        <h3 class="text-lg font-black text-slate-900">1:1부터 필드까지</h3>
+        <p class="mt-2 text-sm font-bold text-slate-500 leading-relaxed">숏게임, 파3, 9홀·18홀 필드레슨까지 확인합니다.</p>
       </article>
-
-      <article class="reveal bg-slate-50 rounded-4xl p-6 border border-slate-100 card-hover">
-        <p class="text-4xl mb-5">⛳</p>
-        <h3 class="text-xl font-black mb-2">레슨 확인</h3>
-        <p class="text-sm leading-relaxed font-bold text-slate-500">
-          1:1 레슨부터 파3, 숏게임, 필드레슨까지 내 목적에 맞는 레슨 유형을 확인합니다.
-        </p>
-      </article>
-
-      <article class="reveal bg-slate-50 rounded-4xl p-6 border border-slate-100 card-hover">
-        <p class="text-4xl mb-5">🤝</p>
-        <h3 class="text-xl font-black mb-2">신청 안내</h3>
-        <p class="text-sm leading-relaxed font-bold text-slate-500">
-          요청 후 스승님 또는 운영팀이 일정, 장소, 결제 안내까지 순서대로 도와드립니다.
-        </p>
+      <article class="reveal bg-slate-50 rounded-4xl p-6 border border-slate-100 text-center card-hover">
+        <p class="text-[11px] font-black text-emerald-600 mb-2">안심 운영</p>
+        <h3 class="text-lg font-black text-slate-900">공식 결제 기준 관리</h3>
+        <p class="mt-2 text-sm font-bold text-slate-500 leading-relaxed">일정 확정 후 결제하며 예약·환불 기준을 안내합니다.</p>
       </article>
     </div>
-
   </div>
 </section>
 
-<section id="problem" class="center-section section-pad bg-slate-50 scroll-mt-20">
-  <div class="container-wide grid lg:grid-cols-[.78fr_1.22fr] gap-7 lg:gap-12 items-start">
-    
-    <div class="reveal max-w-3xl mx-auto text-center mb-8">
-      <span class="eyebrow">Problem</span>
-      <h2 class="section-title mt-4 font-black text-ink">
-        레슨은 많은데,<br />
-        어디서 받아야 할지 모르겠다면
-      </h2>
+
+
+    <section id="service" class="center-section section-pad bg-slate-50 scroll-mt-20">
+  <div class="container-wide">
+    <div class="text-center max-w-3xl mx-auto mb-9 reveal">
+      <span class="eyebrow">Service</span>
+      <h2 class="section-title mt-4 font-black text-ink">필요한 레슨을 찾고<br class="md:hidden" /> 예약까지 연결합니다</h2>
       <p class="mt-4 text-slate-500 font-bold leading-relaxed mobile-subcopy">
-        지인 추천이나 광고만 보고 고르기에는 어렵습니다.<br />
-        내 고민, 지역, 원하는 레슨 방식에 맞는 선택이 필요합니다.
+        스승님은 레슨 광고를 나열하는 대신, 골퍼의 고민을 기준으로 선택 과정을 줄입니다.
       </p>
     </div>
-
-    <div class="grid sm:grid-cols-2 gap-3 md:gap-4 max-w-4xl mx-auto">
-      <article class="reveal bg-white rounded-4xl p-6 border border-slate-100 shadow-soft card-hover">
-        <p class="text-3xl mb-4">🤔</p>
-        <h3 class="font-black text-lg mb-2">누구에게 받아야 할지 모름</h3>
-        <p class="text-sm font-bold text-slate-500 leading-relaxed">
-          프로는 많지만 내 고민을 잘 봐줄 수 있는지 판단하기 어렵습니다.
-        </p>
+    <div class="grid lg:grid-cols-3 gap-3 md:gap-4 max-w-5xl mx-auto">
+      <article class="reveal gradient-dark text-white rounded-4xl p-7 md:p-8 overflow-hidden relative">
+        <div class="absolute -right-16 -top-16 w-48 h-48 bg-brand/25 blur-3xl rounded-full"></div>
+        <div class="relative z-10">
+          <span class="inline-flex px-3 py-1 rounded-full bg-white/10 text-blue-200 text-[10px] font-black tracking-widest uppercase mb-5">01</span>
+          <h3 class="text-2xl font-black mb-3">AI 맞춤 추천</h3>
+          <p class="text-slate-300 font-bold leading-relaxed">지역, 고민, 목표를 바탕으로 맞는 레슨과 스승님을 확인합니다.</p>
+        </div>
       </article>
-
-      <article class="reveal bg-white rounded-4xl p-6 border border-slate-100 shadow-soft card-hover">
-        <p class="text-3xl mb-4">💸</p>
-        <h3 class="font-black text-lg mb-2">정기 레슨 등록 부담</h3>
-        <p class="text-sm font-bold text-slate-500 leading-relaxed">
-          나와 맞는지 모르는 상태에서 장기 레슨을 시작하기는 부담스럽습니다.
-        </p>
+      <article class="reveal bg-white rounded-4xl p-7 md:p-8 border border-slate-100 card-hover">
+        <span class="inline-flex px-3 py-1 rounded-full bg-blue-50 text-brand text-[10px] font-black tracking-widest uppercase mb-5">02</span>
+        <h3 class="text-2xl font-black mb-3 text-ink">목적별 레슨</h3>
+        <p class="text-sm font-bold text-slate-500 leading-relaxed">1:1, 숏게임, 파3, 필드레슨과 골프여행까지 목적에 따라 선택합니다.</p>
       </article>
-
-      <article class="reveal bg-white rounded-4xl p-6 border border-slate-100 shadow-soft card-hover">
-        <p class="text-3xl mb-4">🏞️</p>
-        <h3 class="font-black text-lg mb-2">연습장과 필드는 다름</h3>
-        <p class="text-sm font-bold text-slate-500 leading-relaxed">
-          연습장에서는 괜찮아도 코스에서는 방향, 거리, 상황 판단이 달라집니다.
-        </p>
-      </article>
-
-      <article class="reveal bg-white rounded-4xl p-6 border border-slate-100 shadow-soft card-hover">
-        <p class="text-3xl mb-4">📅</p>
-        <h3 class="font-black text-lg mb-2">일정과 가격 확인이 번거로움</h3>
-        <p class="text-sm font-bold text-slate-500 leading-relaxed">
-          장소, 시간, 금액을 하나씩 문의하다 보면 신청 전부터 피로해집니다.
-        </p>
+      <article class="reveal bg-white rounded-4xl p-7 md:p-8 border border-slate-100 card-hover">
+        <span class="inline-flex px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 text-[10px] font-black tracking-widest uppercase mb-5">03</span>
+        <h3 class="text-2xl font-black mb-3 text-ink">예약 운영</h3>
+        <p class="text-sm font-bold text-slate-500 leading-relaxed">요청 접수 후 가능 일정과 장소를 확인하고 공식 결제를 안내합니다.</p>
       </article>
     </div>
-
   </div>
 </section>
-
-    <section id="service" class="center-section section-pad bg-white scroll-mt-20">
-      <div class="container-wide">
-        <div class="text-center max-w-3xl mx-auto mb-9 reveal">
-          <span class="eyebrow">Service</span>
-          <h2 class="section-title mt-4 font-black text-ink">스승님이 제공하는 서비스</h2>
-          <p class="mt-4 text-slate-500 font-bold leading-relaxed mobile-subcopy">레슨을 무작정 고르는 것이 아니라, 내 문제를 먼저 정리하고 필요한 레슨 형태로 연결합니다.</p>
-        </div>
-        <div class="grid lg:grid-cols-3 gap-3 md:gap-4">
-          <article class="reveal gradient-dark text-white rounded-4xl p-7 md:p-8 overflow-hidden relative">
-            <div class="absolute -right-16 -top-16 w-48 h-48 bg-brand/25 blur-3xl rounded-full"></div>
-            <div class="relative z-10"><span class="inline-flex px-3 py-1 rounded-full bg-white/10 text-blue-200 text-[10px] font-black tracking-widest uppercase mb-5">01</span><h3 class="text-2xl font-black mb-3">AI 맞춤 레슨 추천</h3><p class="text-slate-300 font-bold leading-relaxed">골퍼의 지역, 클럽, 고민, 목표를 바탕으로 필요한 레슨 방향을 정리합니다.</p></div>
-          </article>
-          <article class="reveal bg-slate-50 rounded-4xl p-7 md:p-8 border border-slate-100 card-hover"><span class="inline-flex px-3 py-1 rounded-full bg-white text-brand text-[10px] font-black tracking-widest uppercase mb-5">02</span><h3 class="text-2xl font-black mb-3 text-ink">레슨 유형 선택</h3><p class="text-sm font-bold text-slate-500 leading-relaxed">1:1 레슨, 숏게임, 파3, 9홀·18홀 필드레슨, 골프캠프까지 목적별로 선택할 수 있습니다.</p></article>
-          <article class="reveal bg-slate-50 rounded-4xl p-7 md:p-8 border border-slate-100 card-hover"><span class="inline-flex px-3 py-1 rounded-full bg-white text-brand text-[10px] font-black tracking-widest uppercase mb-5">03</span><h3 class="text-2xl font-black mb-3 text-ink">요청·일정·결제 안내</h3><p class="text-sm font-bold text-slate-500 leading-relaxed">스승님 또는 운영팀이 가능 일정과 장소를 확인한 뒤 공식 결제 안내를 제공합니다.</p></article>
-        </div>
-      </div>
-    </section>
 
    <section id="products" class="center-section section-pad bg-slate-50 scroll-mt-20 overflow-hidden">
   <div class="container-wide">
@@ -1100,101 +981,7 @@ function filterTopPros(type) {
   </div>
 </section>
 
-<section id="golftee-store" class="center-section section-pad bg-white scroll-mt-20 overflow-hidden">
-  <div class="container-wide">
-    <div class="grid lg:grid-cols-[0.95fr_1.05fr] gap-6 lg:gap-10 items-center">
 
-      <div class="reveal text-center lg:text-left">
-        <span class="eyebrow">Ssnim Golf Tee</span>
-
-        <h2 class="section-title mt-4 font-black text-ink">
-          레슨 전 준비물도<br />
-          스승님에서 준비하세요.
-        </h2>
-
-        <p class="mt-4 text-slate-500 font-bold leading-relaxed mobile-subcopy">
-          드라이버 티샷용 83mm 롱티.<br />
-          천연 대나무 소재와 화이트 & 딥블루 컬러로 만든<br class="hidden md:block" />
-          스승님 시그니처 골프티입니다.
-        </p>
-
-        <div class="grid grid-cols-3 gap-2 mt-6 max-w-xl mx-auto lg:mx-0">
-          <div class="bg-slate-50 border border-slate-100 rounded-3xl p-4 text-center">
-            <p class="text-[10px] font-black text-slate-400 mb-1">길이</p>
-            <p class="text-lg font-black text-slate-900">83mm</p>
-          </div>
-          <div class="bg-slate-50 border border-slate-100 rounded-3xl p-4 text-center">
-            <p class="text-[10px] font-black text-slate-400 mb-1">소재</p>
-            <p class="text-lg font-black text-slate-900">대나무</p>
-          </div>
-          <div class="bg-slate-50 border border-slate-100 rounded-3xl p-4 text-center">
-            <p class="text-[10px] font-black text-slate-400 mb-1">컬러</p>
-            <p class="text-lg font-black text-slate-900">2컬러</p>
-          </div>
-        </div>
-
-        <div class="flex flex-col sm:flex-row gap-3 mt-7">
-          <button onclick="goSmartstore('golftee_section_primary')" class="gradient-blue shine w-full sm:w-auto text-white px-8 py-5 rounded-3xl font-black text-lg shadow-blue active:scale-95 transition">
-            스마트스토어에서 구매하기
-          </button>
-
-          <button onclick="goService('golftee_section_lesson')" class="bg-slate-100 w-full sm:w-auto text-slate-700 px-8 py-5 rounded-3xl font-black text-lg border border-slate-200 active:scale-95 transition">
-            레슨도 같이 찾기
-          </button>
-        </div>
-      </div>
-
-      <div class="reveal">
-        <button onclick="goSmartstore('golftee_product_card')" class="w-full text-left bg-gradient-to-br from-slate-900 via-slate-900 to-blue-900 rounded-[2.25rem] p-5 md:p-8 shadow-soft overflow-hidden relative active:scale-[0.99] transition">
-          <div class="absolute -right-20 -top-20 w-64 h-64 bg-blue-500/25 blur-3xl rounded-full"></div>
-          <div class="absolute -left-16 -bottom-16 w-56 h-56 bg-emerald-400/15 blur-3xl rounded-full"></div>
-
-          <div class="relative z-10">
-            <div class="flex items-center justify-between gap-3 mb-7">
-              <div>
-                <p class="text-[11px] font-black text-blue-200 mb-1">스승님 시그니처 골프티</p>
-                <h3 class="text-2xl md:text-4xl font-black text-white leading-tight">
-                  잘 부러지지 않는<br />
-                  83mm 대나무 롱티
-                </h3>
-              </div>
-              <span class="shrink-0 bg-white text-slate-900 px-3 py-2 rounded-2xl text-[11px] font-black">판매중</span>
-            </div>
-
-            <div class="bg-white/10 border border-white/10 rounded-[2rem] p-3 md:p-4 mb-5 overflow-hidden">
-              <div class="relative h-56 md:h-72 rounded-[1.5rem] bg-white flex items-center justify-center overflow-hidden">
-                <img src="https://raw.githubusercontent.com/ceo676/tcmgolf/main/images/12.png" alt="스승님 시그니처 골프티 83mm 롱티" class="w-full h-full object-cover" loading="lazy" />
-                <div class="absolute left-4 top-4 bg-slate-900/80 backdrop-blur text-white px-3 py-1.5 rounded-full text-[10px] font-black">
-                  실제 제품 이미지
-                </div>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-3 mb-5">
-              <div class="bg-white rounded-3xl p-4">
-                <p class="text-[10px] font-black text-slate-400 mb-1">메인 구성</p>
-                <p class="text-base font-black text-slate-900">50개입</p>
-              </div>
-              <div class="bg-white rounded-3xl p-4">
-                <p class="text-[10px] font-black text-slate-400 mb-1">추천 사용</p>
-                <p class="text-base font-black text-slate-900">드라이버 티샷</p>
-              </div>
-            </div>
-
-            <div class="flex items-center justify-between bg-white rounded-3xl px-5 py-4">
-              <div>
-                <p class="text-[11px] font-black text-emerald-600 mb-1">Naver Smart Store</p>
-                <p class="text-sm font-black text-slate-900">스마트스토어로 이동</p>
-              </div>
-              <span class="text-slate-900 font-black">→</span>
-            </div>
-          </div>
-        </button>
-      </div>
-
-    </div>
-  </div>
-</section>
 
    <section id="how" class="center-section section-pad bg-white scroll-mt-20 overflow-hidden">
   <div class="container-wide">
@@ -1308,117 +1095,59 @@ function filterTopPros(type) {
 </section>
 
     
-    <section class="center-section py-16 bg-white overflow-hidden relative">
-      <div class="max-w-screen-xl mx-auto px-5 mb-10 text-center reveal">
-        <span class="inline-block px-3 py-1 bg-blue-50 text-brand font-black rounded-full text-[10px] mb-3 tracking-widest uppercase">Real Reviews</span>
-        <h2 class="text-[20px] md:text-4xl font-black text-slate-900 tracking-tight leading-snug mb-2">
-          이미 많은 골퍼들이 승이와 함께<br/>
-          맞춤 골프레슨을 해결하고 있어요
-        </h2>
-        <p class="text-[12px] md:text-sm font-bold text-slate-400">실제 레슨 후기와 신청 사례를 확인해보세요.</p>
-      </div>
-
-      <div class="flex items-center">
-        <div class="flex animate-infinite-scroll-review space-x-4 md:space-x-6">
-          <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review2.png" class="w-full h-full object-cover" loading="lazy" alt="스승님 레슨 후기 1" /></div></div>
-          <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review3.png" class="w-full h-full object-cover" loading="lazy" alt="스승님 레슨 후기 2" /></div></div>
-          <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review4.png" class="w-full h-full object-cover" loading="lazy" alt="스승님 레슨 후기 3" /></div></div>
-          <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review5.png" class="w-full h-full object-cover" loading="lazy" alt="스승님 레슨 후기 4" /></div></div>
-          <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review6.png" class="w-full h-full object-cover" loading="lazy" alt="스승님 레슨 후기 5" /></div></div>
-          <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review7.png" class="w-full h-full object-cover" loading="lazy" alt="스승님 레슨 후기 6" /></div></div>
-          <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review8.png" class="w-full h-full object-cover" loading="lazy" alt="스승님 레슨 후기 7" /></div></div>
-
-          <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review2.png" class="w-full h-full object-cover" loading="lazy" alt="스승님 레슨 후기 1 반복" /></div></div>
-          <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review3.png" class="w-full h-full object-cover" loading="lazy" alt="스승님 레슨 후기 2 반복" /></div></div>
-          <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review4.png" class="w-full h-full object-cover" loading="lazy" alt="스승님 레슨 후기 3 반복" /></div></div>
-          <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review5.png" class="w-full h-full object-cover" loading="lazy" alt="스승님 레슨 후기 4 반복" /></div></div>
-          <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review6.png" class="w-full h-full object-cover" loading="lazy" alt="스승님 레슨 후기 5 반복" /></div></div>
-          <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review7.png" class="w-full h-full object-cover" loading="lazy" alt="스승님 레슨 후기 6 반복" /></div></div>
-          <div class="flex-none w-64 md:w-80"><div class="relative aspect-[3/4.5] rounded-[2.5rem] overflow-hidden shadow-xl border border-slate-100 bg-slate-50"><img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review8.png" class="w-full h-full object-cover" loading="lazy" alt="스승님 레슨 후기 7 반복" /></div></div>
-        </div>
-      </div>
-
-      <div class="text-center mt-12 mb-8 reveal">
-        <p class="text-slate-300 font-bold text-[10px] uppercase tracking-[0.4em] opacity-80">
-          Trusted by Passionate Golfers
-        </p>
-      </div>
-    </section>
+    
 
 <!-- 텍스트 후기 섹션 -->
-<section id="text-reviews" class="center-section section-pad bg-slate-50 overflow-hidden">
+<section id="reviews" class="center-section section-pad bg-white overflow-hidden scroll-mt-20">
   <div class="container-wide">
-
-    <div class="max-w-3xl mx-auto text-center mb-10 reveal">
-      <span class="eyebrow">Review</span>
-
-      <h2 class="section-title mt-4 font-black text-ink">
-        혼자 고민하던 시간이<br />
-        나에게 맞는 레슨 선택으로 바뀌었습니다
-      </h2>
-
+    <div class="max-w-3xl mx-auto text-center mb-9 reveal">
+      <span class="eyebrow">Reviews</span>
+      <h2 class="section-title mt-4 font-black text-ink">레슨 후기와<br class="md:hidden" /> 실제 이용 사례</h2>
       <p class="mt-4 text-slate-500 font-bold leading-relaxed mobile-subcopy">
-        스승님은 골퍼의 고민, 지역, 레슨 목적에 맞춰<br class="md:hidden" />
-        필요한 스승님과 레슨 방향을 함께 찾아드립니다.
-      </p>
-
-      <p class="mt-3 text-xs md:text-sm text-slate-400 font-bold leading-relaxed">
-        실제 서비스 흐름을 바탕으로 정리한 이용 사례입니다.
+        레슨을 선택하고 신청하는 과정이 어떻게 달라졌는지 확인해보세요.
       </p>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-4 md:gap-5 max-w-6xl mx-auto">
-
-      <!-- 후기 1 -->
-      <article class="reveal bg-white rounded-[2rem] md:rounded-[2.5rem] p-7 md:p-8 border border-slate-100 shadow-soft card-hover">
-        <div class="text-blue-100 text-6xl font-black leading-none mb-4">“</div>
-
-        <p class="text-[15px] md:text-base font-bold text-slate-700 leading-relaxed">
-          혼자 유튜브 보면서 고칠 때는 뭐가 문제인지 몰랐는데,
-          제 고민을 기준으로 레슨을 고를 수 있어서 훨씬 쉬웠습니다.
-          처음부터 장기 등록하지 않아도 돼서 부담도 적었습니다.
-        </p>
-
-        <div class="border-t border-slate-100 mt-6 pt-5">
-          <p class="text-base font-black text-slate-900">전○재 님</p>
-          <p class="text-sm font-black text-brand mt-1">강남 직장인 골퍼</p>
+    <div class="flex gap-4 overflow-x-auto hide-scrollbar scroll-snap pb-3 mb-7 md:grid md:grid-cols-4 md:overflow-visible max-w-6xl mx-auto">
+      <div class="reveal flex-none w-[72%] sm:w-[44%] md:w-auto scroll-snap-align-start">
+        <div class="aspect-[3/4.5] rounded-[2rem] overflow-hidden shadow-soft border border-slate-100 bg-slate-50">
+          <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review2.png" alt="스승님 레슨 후기 이미지 1" class="w-full h-full object-cover" loading="lazy" />
         </div>
-      </article>
-
-      <!-- 후기 2 -->
-      <article class="reveal bg-white rounded-[2rem] md:rounded-[2.5rem] p-7 md:p-8 border border-slate-100 shadow-soft card-hover">
-        <div class="text-blue-100 text-6xl font-black leading-none mb-4">“</div>
-
-        <p class="text-[15px] md:text-base font-bold text-slate-700 leading-relaxed">
-          드라이버 슬라이스 때문에 필드만 나가면 무너졌는데,
-          슬라이스 교정에 강한 스승님을 바로 확인할 수 있었습니다.
-          제 고민과 레슨 방향이 연결되는 느낌이 좋았습니다.
-        </p>
-
-        <div class="border-t border-slate-100 mt-6 pt-5">
-          <p class="text-base font-black text-slate-900">김○민 님</p>
-          <p class="text-sm font-black text-brand mt-1">100타 탈출 목표</p>
+      </div>
+      <div class="reveal flex-none w-[72%] sm:w-[44%] md:w-auto">
+        <div class="aspect-[3/4.5] rounded-[2rem] overflow-hidden shadow-soft border border-slate-100 bg-slate-50">
+          <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review3.png" alt="스승님 레슨 후기 이미지 2" class="w-full h-full object-cover" loading="lazy" />
         </div>
-      </article>
-
-      <!-- 후기 3 -->
-      <article class="reveal bg-white rounded-[2rem] md:rounded-[2.5rem] p-7 md:p-8 border border-slate-100 shadow-soft card-hover">
-        <div class="text-blue-100 text-6xl font-black leading-none mb-4">“</div>
-
-        <p class="text-[15px] md:text-base font-bold text-slate-700 leading-relaxed">
-          숏게임이 약한 건 알았지만 어떤 레슨을 받아야 할지 몰랐습니다.
-          파3, 숏게임, 필드레슨을 구분해서 볼 수 있어서
-          저한테 필요한 레슨을 선택하기 쉬웠습니다.
-        </p>
-
-        <div class="border-t border-slate-100 mt-6 pt-5">
-          <p class="text-base font-black text-slate-900">정○지 님</p>
-          <p class="text-sm font-black text-brand mt-1">첫 필드레슨 신청</p>
+      </div>
+      <div class="reveal flex-none w-[72%] sm:w-[44%] md:w-auto">
+        <div class="aspect-[3/4.5] rounded-[2rem] overflow-hidden shadow-soft border border-slate-100 bg-slate-50">
+          <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review4.png" alt="스승님 레슨 후기 이미지 3" class="w-full h-full object-cover" loading="lazy" />
         </div>
-      </article>
-
+      </div>
+      <div class="reveal flex-none w-[72%] sm:w-[44%] md:w-auto">
+        <div class="aspect-[3/4.5] rounded-[2rem] overflow-hidden shadow-soft border border-slate-100 bg-slate-50">
+          <img src="https://rlaeodn1015-oss.github.io/ssnim-request-landing/images/review5.png" alt="스승님 레슨 후기 이미지 4" class="w-full h-full object-cover" loading="lazy" />
+        </div>
+      </div>
     </div>
 
+    <div class="grid md:grid-cols-3 gap-4 max-w-6xl mx-auto">
+      <article class="reveal bg-slate-50 rounded-4xl p-6 border border-slate-100 card-hover text-left">
+        <p class="text-[10px] font-black text-brand mb-3">이용 사례 · 1회 체험</p>
+        <p class="text-sm md:text-base font-bold text-slate-700 leading-relaxed">장기 등록부터 하지 않고, 제 고민에 맞는 레슨을 먼저 확인할 수 있어서 부담이 적었습니다.</p>
+        <p class="mt-4 text-xs font-black text-slate-400">강남 직장인 골퍼</p>
+      </article>
+      <article class="reveal bg-slate-50 rounded-4xl p-6 border border-slate-100 card-hover text-left">
+        <p class="text-[10px] font-black text-brand mb-3">이용 사례 · 드라이버</p>
+        <p class="text-sm md:text-base font-bold text-slate-700 leading-relaxed">슬라이스 교정에 맞는 스승님을 바로 확인해, 레슨 방향을 정하기 쉬웠습니다.</p>
+        <p class="mt-4 text-xs font-black text-slate-400">100타 탈출 목표 골퍼</p>
+      </article>
+      <article class="reveal bg-slate-50 rounded-4xl p-6 border border-slate-100 card-hover text-left">
+        <p class="text-[10px] font-black text-brand mb-3">이용 사례 · 숏게임</p>
+        <p class="text-sm md:text-base font-bold text-slate-700 leading-relaxed">파3와 숏게임, 필드레슨 차이를 비교해 제게 필요한 레슨을 선택했습니다.</p>
+        <p class="mt-4 text-xs font-black text-slate-400">첫 필드레슨 신청 골퍼</p>
+      </article>
+    </div>
   </div>
 </section>
     
@@ -1643,21 +1372,24 @@ function filterTopPros(type) {
     </section>
 
     <section id="trust" class="center-section section-pad bg-slate-950 text-white scroll-mt-20">
-      <div class="container-wide grid lg:grid-cols-[.78fr_1.22fr] gap-8 lg:gap-12 items-center">
-        <div class="reveal max-w-3xl mx-auto text-center mb-8">
-          <span class="inline-flex px-3 py-2 rounded-full bg-blue-500/10 text-blue-200 text-[11px] font-black tracking-wide">Trust & Operation</span>
-          <h2 class="section-title mt-4 font-black leading-tight">스승님 운영팀이<br />필요한 이유</h2>
-          <p class="mt-4 text-slate-400 font-bold leading-relaxed">스승님은 신청 이후 레슨까지 함께 합니다.</br> 단순 광고가 아니라 요청, 일정, 결제, 레슨 당일, 환불까지 골퍼들의 최상의 만족을 지향합니다.</p>
-        </div>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
-          <article class="reveal rounded-4xl bg-white/5 p-6 border border-white/10 card-hover"><p class="text-3xl mb-4">✅</p><h3 class="text-lg font-black mb-2">검증된 프로 정보</h3><p class="text-sm font-bold text-slate-400 leading-relaxed">자격, 경력, 활동 지역, 전문 분야를 구분해 프로필을 구성합니다.</p></article>
-          <article class="reveal rounded-4xl bg-white/5 p-6 border border-white/10 card-hover"><p class="text-3xl mb-4">📝</p><h3 class="text-lg font-black mb-2">요청서 기반 매칭</h3><p class="text-sm font-bold text-slate-400 leading-relaxed">스승님들의 정보가 골퍼의 고민과 목적에 맞는지를 우선합니다.</p></article>
-          <article class="reveal rounded-4xl bg-white/5 p-6 border border-white/10 card-hover"><p class="text-3xl mb-4">📅</p><h3 class="text-lg font-black mb-2">운영팀 일정 확인</h3><p class="text-sm font-bold text-slate-400 leading-relaxed">레슨 요청부터 레슨 당일까지 스승님 운영팀이 함께 합니다.</p></article>
-          <article class="reveal rounded-4xl bg-white/5 p-6 border border-white/10 card-hover"><p class="text-3xl mb-4">💳</p><h3 class="text-lg font-black mb-2">공식 결제 안내</h3><p class="text-sm font-bold text-slate-400 leading-relaxed">확정 레슨을 확인한 뒤 공식 채널로 직접 안내합니다.</p></article>
-          <article class="reveal rounded-4xl bg-white/10 p-6 border border-blue-400/20 card-hover sm:col-span-2"><p class="text-3xl mb-4">🔁</p><h3 class="text-lg font-black mb-2 text-blue-200">환불 기준 안내</h3><p class="text-sm font-bold text-slate-300 leading-relaxed">공식 결제 건에 한해 예약 관리, 환불 기준 안내, 운영팀 중재가 적용됩니다.</p></article>
-        </div>
-      </div>
-    </section>
+  <div class="container-wide grid lg:grid-cols-[.78fr_1.22fr] gap-8 lg:gap-12 items-center">
+    <div class="reveal max-w-3xl mx-auto text-center mb-8">
+      <span class="inline-flex px-3 py-2 rounded-full bg-blue-500/10 text-blue-200 text-[11px] font-black tracking-wide">Trust & Operation</span>
+      <h2 class="section-title mt-4 font-black leading-tight">신청 이후에도<br />운영팀이 함께합니다</h2>
+      <p class="mt-4 text-slate-400 font-bold leading-relaxed">
+        요청 접수부터 일정 확인, 공식 결제, 예약 관리와 환불 기준 안내까지<br class="hidden md:block" />
+        레슨이 원활하게 진행되도록 운영합니다.
+      </p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+      <article class="reveal rounded-4xl bg-white/5 p-6 border border-white/10 card-hover"><p class="text-3xl mb-4">✅</p><h3 class="text-lg font-black mb-2">프로 정보 확인</h3><p class="text-sm font-bold text-slate-400 leading-relaxed">자격, 경력, 활동 지역과 전문 분야를 구분해 안내합니다.</p></article>
+      <article class="reveal rounded-4xl bg-white/5 p-6 border border-white/10 card-hover"><p class="text-3xl mb-4">📝</p><h3 class="text-lg font-black mb-2">요청서 기반 연결</h3><p class="text-sm font-bold text-slate-400 leading-relaxed">골퍼가 입력한 고민과 목적을 기준으로 레슨을 연결합니다.</p></article>
+      <article class="reveal rounded-4xl bg-white/5 p-6 border border-white/10 card-hover"><p class="text-3xl mb-4">📅</p><h3 class="text-lg font-black mb-2">일정 확인</h3><p class="text-sm font-bold text-slate-400 leading-relaxed">가능 일정과 장소를 확인한 뒤 예약 절차를 안내합니다.</p></article>
+      <article class="reveal rounded-4xl bg-white/5 p-6 border border-white/10 card-hover"><p class="text-3xl mb-4">💳</p><h3 class="text-lg font-black mb-2">공식 결제 안내</h3><p class="text-sm font-bold text-slate-400 leading-relaxed">레슨 조건을 확인한 뒤 공식 채널로 결제를 진행합니다.</p></article>
+      <article class="reveal rounded-4xl bg-white/10 p-6 border border-blue-400/20 card-hover sm:col-span-2"><p class="text-3xl mb-4">🔁</p><h3 class="text-lg font-black mb-2 text-blue-200">환불 기준 운영</h3><p class="text-sm font-bold text-slate-300 leading-relaxed">공식 결제 건은 고지된 예약·취소·환불 기준에 따라 운영팀이 안내하고 중재합니다.</p></article>
+    </div>
+  </div>
+</section>
 
     <section id="pro-partner" class="center-section section-pad bg-white scroll-mt-20">
       <div class="container-wide grid lg:grid-cols-[.9fr_1.1fr] gap-8 lg:gap-12 items-center">
@@ -1675,6 +1407,80 @@ function filterTopPros(type) {
       </div>
     </section>
 
+
+
+
+<section id="golftee-store" class="center-section section-pad bg-slate-50 scroll-mt-20 overflow-hidden">
+  <div class="container-wide">
+    <div class="max-w-3xl mx-auto text-center mb-9 reveal">
+      <span class="eyebrow">SSNIM FIELD GOODS 01</span>
+      <p class="mt-4 text-[11px] md:text-xs font-black tracking-[0.18em] text-slate-400 uppercase">스승님이 만든 첫 번째 필드용품</p>
+      <h2 class="section-title mt-3 font-black text-ink">
+        정타에는 오래가고,<br />
+        <span class="text-brand">미스샷에는 솔직하게 반응하는 티</span>
+      </h2>
+      <p class="mt-4 text-slate-500 font-bold leading-relaxed mobile-subcopy">
+        대나무의 세로 섬유 구조를 활용한 드라이버 티샷용 83mm 롱티입니다.<br class="hidden md:block" />
+        화이트와 딥블루 컬러에 스승님 로고를 담았습니다.
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-[1.02fr_.98fr] gap-6 lg:gap-10 items-stretch max-w-6xl mx-auto">
+      <button onclick="goSmartstore('golftee_product_visual')" class="reveal group w-full text-left bg-white rounded-[2.25rem] p-4 md:p-6 border border-slate-100 shadow-soft overflow-hidden active:scale-[0.99] transition">
+        <div class="relative h-[340px] md:h-[540px] rounded-[1.75rem] overflow-hidden bg-white">
+          <img id="golftee-main-image" src="https://raw.githubusercontent.com/ceo676/tcmgolf/main/images/12.png" alt="스승님 시그니처 골프티 83mm 대나무 롱티" class="w-full h-full object-cover group-hover:scale-[1.015] transition duration-500" loading="lazy" />
+          <div class="absolute inset-x-4 top-4 flex items-center justify-between gap-3">
+            <span class="bg-slate-900/85 backdrop-blur text-white px-3 py-2 rounded-full text-[10px] font-black">SSNIM SIGNATURE</span>
+            <span class="bg-white/90 backdrop-blur text-slate-900 px-3 py-2 rounded-full text-[10px] font-black border border-white">83mm LONG TEE</span>
+          </div>
+        </div>
+      </button>
+
+      <div class="reveal gradient-dark rounded-[2.25rem] p-6 md:p-8 text-white flex flex-col shadow-soft text-left">
+        <div>
+          <p class="text-[11px] font-black text-blue-200 mb-2">SSNIM IMPACT FEEDBACK STRUCTURE</p>
+          <h3 class="text-2xl md:text-4xl font-black leading-tight">티샷 이후 남는<br />임팩트의 흔적</h3>
+          <p class="mt-4 text-sm md:text-base font-bold text-slate-300 leading-relaxed">
+            정타에서는 충격을 분산해 탄탄하게 버티고,<br />
+            강한 직접 충격에는 굽힘이나 파손으로 반응합니다.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3 mt-6">
+          <div class="bg-white/10 border border-white/10 rounded-3xl p-4"><p class="text-[10px] font-black text-slate-400 mb-1">사용</p><p class="text-base font-black">드라이버용 83mm</p></div>
+          <div class="bg-white/10 border border-white/10 rounded-3xl p-4"><p class="text-[10px] font-black text-slate-400 mb-1">소재</p><p class="text-base font-black">천연 대나무</p></div>
+          <div class="bg-white/10 border border-white/10 rounded-3xl p-4"><p class="text-[10px] font-black text-slate-400 mb-1">컬러</p><p class="text-base font-black">화이트·딥블루 믹스</p></div>
+          <div class="bg-white/10 border border-white/10 rounded-3xl p-4"><p class="text-[10px] font-black text-slate-400 mb-1">메인 구성</p><p class="text-base font-black">50개입</p></div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-3 mt-5">
+          <div class="bg-white rounded-3xl p-5 text-slate-950">
+            <p class="text-[11px] font-black text-slate-400 mb-1">50개 메인팩</p>
+            <p class="text-2xl font-black">9,900원</p>
+            <p class="mt-1 text-xs font-bold text-slate-500">배송비 3,000원</p>
+          </div>
+          <div class="bg-blue-600 rounded-3xl p-5 text-white border border-blue-400/30">
+            <p class="text-[11px] font-black text-blue-100 mb-1">100개 실속팩</p>
+            <p class="text-2xl font-black">19,900원</p>
+            <p class="mt-1 text-xs font-black text-blue-100">무료배송</p>
+          </div>
+        </div>
+
+        <div class="mt-4 bg-emerald-400/10 border border-emerald-300/20 rounded-3xl p-4">
+          <p class="text-[11px] font-black text-emerald-300 mb-1">구매 혜택</p>
+          <p class="text-sm md:text-base font-black">7월 31일까지 100개 실속팩 이상 구매 시 1,000원 쿠폰</p>
+          <p class="mt-1 text-[11px] font-bold text-slate-400">쿠폰 적용 여부와 최종 결제금액은 스마트스토어에서 확인할 수 있습니다.</p>
+        </div>
+
+        <div class="mt-auto pt-6">
+          <button onclick="goSmartstore('golftee_section_primary')" class="w-full bg-white text-slate-950 px-7 py-5 rounded-3xl font-black text-base md:text-lg active:scale-95 transition flex items-center justify-between">
+            <span>스마트스토어에서 구매하기</span><span class="text-xl">→</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 
     <section id="faq" class="center-section section bg-white">
@@ -1760,7 +1566,6 @@ function filterTopPros(type) {
             <p class="text-blue-100 font-bold leading-relaxed mb-8">좋다는 프로를 찾기보다, 내 문제를 해결할 수 있는 레슨부터 확인하세요.</p>
             <div class="flex flex-col sm:flex-row gap-3 justify-center">
               <button onclick="goService('bottom_main')" class="bg-white text-brand px-9 py-5 rounded-3xl font-black text-lg active:scale-95 transition">스승님 찾기</button>
-              <button onclick="goSmartstore('bottom_golftee')" class="bg-white/10 border border-white/20 text-white px-9 py-5 rounded-3xl font-black text-lg active:scale-95 transition">골프티 구매</button>
               <button onclick="goKakao('bottom_kakao')" class="bg-white/10 border border-white/20 text-white px-9 py-5 rounded-3xl font-black text-lg active:scale-95 transition">카카오톡 상담</button>
             </div>
           </div>
@@ -1796,9 +1601,8 @@ function filterTopPros(type) {
 
   <div class="fixed bottom-0 left-0 right-0 z-50 md:hidden glass border-t border-slate-100 safe-bottom px-4 pt-3">
     <div class="flex gap-2">
-      <button onclick="goSmartstore('mobile_sticky_golftee')" class="w-[29%] bg-emerald-50 border border-emerald-100 text-emerald-700 py-4 rounded-2xl font-black text-sm active:scale-95 transition">골프티</button>
-      <button onclick="goKakao('mobile_sticky_kakao')" class="w-[27%] bg-white border border-slate-200 text-slate-700 py-4 rounded-2xl font-black text-sm active:scale-95 transition">문의</button>
-      <button onclick="goService('mobile_sticky_service')" class="flex-1 gradient-blue shine text-white py-4 rounded-2xl font-black text-sm shadow-blue active:scale-95 transition">스승님 찾기</button>
+      <button onclick="goKakao('mobile_sticky_kakao')" class="w-[34%] bg-white border border-slate-200 text-slate-700 py-4 rounded-2xl font-black text-sm active:scale-95 transition">문의하기</button>
+      <button onclick="goService('mobile_sticky_service')" class="flex-1 gradient-blue shine text-white py-4 rounded-2xl font-black text-sm shadow-blue active:scale-95 transition">내게 맞는 스승님 찾기</button>
     </div>
   </div>
 </body>
